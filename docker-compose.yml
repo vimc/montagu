@@ -8,6 +8,8 @@ services:
       - db
   db:
     image: montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+    ports:
+      - "5432:5432"
   contrib:
     image: montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
     ports:
