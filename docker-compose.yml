@@ -1,0 +1,16 @@
+version: '2'
+services:
+  api:
+    image: montagu.dide.ic.ac.uk:5000/montagu-api:${MONTAGU_API_VERSION}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+  contrib:
+    image: montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
