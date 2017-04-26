@@ -1,7 +1,7 @@
 # Montagu
 ## Prerequisites
-* Docker (including Docker Compose)
-* A way of running Bash scripts (e.g. on Windows install Cygwin, Git Bash, or similar)
+* [Docker Community Edition](https://docs.docker.com/engine/installation/) (including Docker Compose)
+* A way of running Bash scripts (e.g. on Windows install [Cygwin](https://www.cygwin.com/), Git Bash, or similar)
 
 ## Deploy
 To deploy Montagu run `./run.sh`
