@@ -7,7 +7,7 @@
 
 ## Deploy
 1. `./run.sh`. This will deploy the database, the API, and the Modelling groups Contribution Portal.
-2. `./insert-test-data.sh`. The password is "changeme".
+2. `./insert-test-data.sh`. The password is "changeme". (On Windows, you can run `./insert-test-data.ps1` instead.)
 3. Add a user account for yourself: `./cli.sh add`
 4. Give yourself permission to log in to the contrubution portal:
   * `./cli.sh addRole USERNAME user`
@@ -17,9 +17,3 @@ Open `http://localhost:8081` in a browser to view the portal.
 
 ## Stop
 To stop Montagu, pressing Ctrl+C may be enough, but if not: run `docker-compose down`
-
-## Demo
-
-For demonstration purposes, you can then run (in another terminal) `./insert-test-data.sh` to put a couple of fake touchstones with some fake responsibilities in. 
-
-On Windows, you can run `./insert-test-data.ps1` instead.
