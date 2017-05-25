@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./set-image-versions.sh
+source ./set-image-versions.sh
 
 docker-compose pull
 
