@@ -8,12 +8,17 @@
 ## Deploy
 1. `./run.sh`. This will deploy the database, the API, and the Modelling groups Contribution Portal.
 2. `./insert-test-data.sh`. The password is "changeme". (On Windows, you can run `./insert-test-data.ps1` instead.)
-3. Add a user account for yourself: `./cli.sh add`
-4. Give yourself permission to log in to the contrubution portal:
-  * `./cli.sh addRole USERNAME user`
-  * `./cli.sh addRole USERNAME member modelling-group IC-Garske`
 
-Open `http://localhost:8081` in a browser to view the portal.
+Open `http://localhost:8081` in a browser to view the portal. The default 
+credentials are "test.user@imperial.ac.uk" with password "password". See below
+for creating new users.
 
 ## Stop
 To stop Montagu, pressing Ctrl+C may be enough, but if not: run `docker-compose down`
+
+## Creating new users
+1. Add a user account for yourself: `./cli.sh add`
+1. Give yourself permission to log in to the contrubution portal:
+  * `./cli.sh addRole USERNAME user`
+  * `./cli.sh addRole USERNAME member modelling-group IC-Garske`
+
