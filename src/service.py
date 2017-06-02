@@ -2,10 +2,11 @@ import docker
 import compose
 
 api_name = "montagu_api_1"
+db_name = "montagu_db_1"
 
 service_names = {
     api_name,
-    "montagu_db_1",
+    db_name,
     "montagu_contrib_1"
 }
 
@@ -28,12 +29,19 @@ class MontaguService:
         elif not any(services.values()):
             return False
         else:
-            raise Exception("Montagu service is in a indeterminate state - only some containers are up."
-                            "Manual intervention is required. Status: {}".format(services))
+            raise Exception("Montagu service is in a indeterminate state - only some containers are up. "
+                            "Manual intervention is required.\nStatus: {}".format(services))
 
     @property
     def api(self):
-        return next((x for x in self.client.containers.list() if x.name == api_name), None)
+        return self._get(api_name)
+
+    @property
+    def db(self):
+        return self._get(db_name)
+
+    def _get(self, name):
+        return next((x for x in self.client.containers.list() if x.name == name), None)
 
     def stop(self):
         print("Stopping Montagu...", flush=True)

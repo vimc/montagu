@@ -1,17 +1,16 @@
 import webbrowser
+
+import data_import
 from api_setup import configure_api
 from service import get_service
 from settings import get_settings
+
 
 def backup():
     pass
 
 
 def setup_new_data_volume():
-    pass
-
-
-def import_data():
     pass
 
 
@@ -59,8 +58,8 @@ def deploy():
     set_passwords_for_db_users(passwords)
 
     migrate_schema(passwords['schema_migrator'])
-    if is_first_time:
-        import_data()
+    if is_first_time or not settings["persist_data"]:
+        data_import.do(settings)
 
     configure_api("self-signed", passwords['api'], passwords["keystore_password"])
 
