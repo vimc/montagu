@@ -53,12 +53,13 @@ Here's what the deployment process will do:
 3. Backup "things"
 4. Set up a new persistent data volume if this is a new installation and the 
    `persist_data` setting is `true`.
-5. Generate new database passwords and set them for the database users.
-6. Run any database schema migrations.
-7. Pull latest images and start new constellation with docker-compose. 
-8. If this is a new installation, import data
-9. Push new database password to the API container
-10. Generate/obtain certificate and copy it into the API container
+5. Pull latest images and start new constellation with docker-compose. 
+6. Generate new database passwords and set them for the database users 
+   (affecting the postgres container)
+7. Run any database schema migrations. [container]
+8. If this is a new installation, import data 
+9. Push new database password to the API container 
+10. Generate/obtain certificate and copy it into the API container [container]
 
 ## Generate new database passwords
 We should enable password-less login for the root user to the database on local
