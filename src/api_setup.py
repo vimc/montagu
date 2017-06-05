@@ -32,8 +32,6 @@ def configure_api(certificate_type: str, db_password: str, keystore_password: st
     print("- Obtaining SSL certificate")
     client = docker.from_env()
     keystore_bytes = get_keystore(client, certificate_type, keystore_password)
-    with open('test', 'wb') as f:
-        f.write(keystore_bytes)
 
     print("- Adding certificate to API container")
     api = service.api

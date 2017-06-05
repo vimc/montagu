@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import webbrowser
 
 import data_import
