@@ -40,6 +40,6 @@ def import_dump(dump_path):
 
 def get_artifact(build_type, remote_path, local_name=None, commit_hash=None):
     local_name = local_name or remote_path
-    print("- Downloading {remote_path} from TeamCity (build type ID: {build_type} and saving as {local_name}".format(
+    print("- Downloading {remote_path} from TeamCity (build type ID: {build_type}) and saving as {local_name}".format(
         remote_path=remote_path, build_type=build_type, local_name=local_name))
     return save_artifact(build_type, remote_path, local_name, commit_hash)
