@@ -1,2 +1,2 @@
-pyyaml==3.12
 docker==2.3.0
+requests==2.17.3

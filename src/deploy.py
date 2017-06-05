@@ -61,8 +61,8 @@ def deploy():
     configure_api("self-signed", passwords['api'], passwords["keystore_password"])
 
     print("Finished deploying Montagu")
-    # webbrowser.open("https://localhost:8080/")
-    # webbrowser.open("http://localhost:8081/")
+    webbrowser.open("https://localhost:8080/")
+    webbrowser.open("http://localhost:8081/")
 
 if __name__ == "__main__":
     deploy()
