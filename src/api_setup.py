@@ -4,7 +4,7 @@ import io
 from subprocess import run, PIPE
 
 import versions
-from service import get_service
+from service import service
 
 
 def get_keystore(client: docker.DockerClient, certificate_type: str, keystore_password: str):
@@ -19,7 +19,7 @@ def get_keystore(client: docker.DockerClient, certificate_type: str, keystore_pa
         ], stdout=PIPE)
         keystore_bytes = p.stdout
         # client.containers.run(name, keystore_password, remove=True)
-        print("Generated self-signed certificate")
+        print("- Generated self-signed certificate")
         return keystore_bytes
     else:
         raise Exception("Unsupported certificate type: " + certificate_type)
@@ -28,14 +28,15 @@ def get_keystore(client: docker.DockerClient, certificate_type: str, keystore_pa
 def configure_api(certificate_type: str, db_password: str, keystore_password: str):
     # do something with the database password
 
-    print("Obtaining SSL certificate")
+    print("Configuring SSL")
+    print("- Obtaining SSL certificate")
     client = docker.from_env()
     keystore_bytes = get_keystore(client, certificate_type, keystore_password)
     with open('test', 'wb') as f:
         f.write(keystore_bytes)
 
-    print("Adding certificate to API container")
-    api = get_service().api
+    print("- Adding certificate to API container")
+    api = service.api
     api.exec_run("mkdir -p /etc/montagu/api")
     with io.BytesIO() as out:
         archive = tarfile.open(mode='w', fileobj=out)

@@ -16,21 +16,23 @@ class MontaguService:
         self.client = docker.from_env()
 
     @property
-    def is_running(self):
-        running = set(c.name for c in self.client.containers.list())
-        services = dict((name, name in running) for name in service_names)
-
-        unexpected = list(x for x in running - service_names if "montagu" in x.lower())
+    def status(self):
+        actual = dict((c.name, c) for c in self.client.containers.list(all=True))
+        unexpected = list(x for x in actual.keys() - service_names if "montagu" in x.lower())
         if any(unexpected):
             raise Exception("There are unexpected Montagu-related containers running: {}".format(unexpected))
 
-        if all(services.values()):
-            return True
-        elif not any(services.values()):
-            return False
+        services = list(c for c in actual.values() if c.name in service_names)
+        statuses = set(c.status for c in services)
+
+        if len(statuses) == 1:
+            return statuses.pop()
+        elif len(statuses) == 0:
+            return None
         else:
-            raise Exception("Montagu service is in a indeterminate state - only some containers are up. "
-                            "Manual intervention is required.\nStatus: {}".format(services))
+            status_map = dict((c, c.status) for c in services)
+            raise Exception("Montagu service is in a indeterminate state. "
+                            "Manual intervention is required.\nStatus: {}".format(status_map))
 
     @property
     def api(self):
@@ -52,5 +54,4 @@ class MontaguService:
         compose.start()
 
 
-def get_service():
-    return MontaguService()
+service = MontaguService()

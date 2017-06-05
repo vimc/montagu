@@ -1,6 +1,6 @@
 from subprocess import check_output
 
-from service import get_service
+from service import service
 
 
 def do(settings):
@@ -17,8 +17,7 @@ def do(settings):
 
 
 def import_dump(sql_path):
-    print("Copying {} to DB container and importing into database".format(sql_path))
-    service = get_service()
+    print("- Copying {} to DB container and importing into database".format(sql_path))
     target_path = "/tmp/import.sql"
     full_target = "{container}:{path}".format(container=service.db.name, path=target_path)
     check_output(["docker", "cp", sql_path, full_target])
