@@ -12,9 +12,11 @@ def do(settings):
     elif source == "minimal":
         import_sql("../initial_data/minimal.sql")
     elif source == "test_data":
-        import_sql("../initial_data/test.sql")
+        local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql")
+        import_sql(local_path)
     elif source == "legacy":
-        import_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
+        local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
+        import_dump(local_path)
     else:
         raise Exception("Unknown mode '{}'".format(source))
 
@@ -35,8 +37,8 @@ def import_dump(dump_path):
     check_output(["docker", "exec", service.db.name, "/montagu-bin/restore-dump.sh", target_path])
 
 
-def import_artifact(build_type, remote_path, local_name):
+def get_artifact(build_type, remote_path, local_name=None):
+    local_name = local_name or remote_path
     print("- Downloading {remote_path} from TeamCity (build type ID: {build_type} and saving as {local_name}".format(
         remote_path=remote_path, build_type=build_type, local_name=local_name))
-    local_path = save_artifact(build_type, remote_path, local_name)
-    import_dump(local_path)
+    return save_artifact(build_type, remote_path, local_name)
