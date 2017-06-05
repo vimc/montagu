@@ -1,5 +1,6 @@
 from subprocess import check_output
 
+import versions
 from service import service
 from teamcity import save_artifact
 
@@ -12,7 +13,7 @@ def do(settings):
     elif source == "minimal":
         import_sql("../initial_data/minimal.sql")
     elif source == "test_data":
-        local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql")
+        local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql", commit_hash=versions.api)
         import_sql(local_path)
     elif source == "legacy":
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
@@ -37,8 +38,8 @@ def import_dump(dump_path):
     check_output(["docker", "exec", service.db.name, "/montagu-bin/restore-dump.sh", target_path])
 
 
-def get_artifact(build_type, remote_path, local_name=None):
+def get_artifact(build_type, remote_path, local_name=None, commit_hash=None):
     local_name = local_name or remote_path
     print("- Downloading {remote_path} from TeamCity (build type ID: {build_type} and saving as {local_name}".format(
         remote_path=remote_path, build_type=build_type, local_name=local_name))
-    return save_artifact(build_type, remote_path, local_name)
+    return save_artifact(build_type, remote_path, local_name, commit_hash)
