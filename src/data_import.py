@@ -11,7 +11,8 @@ def do(settings):
     if source == "none":
         print("- Nothing to do")
     elif source == "minimal":
-        import_sql("../initial_data/minimal.sql")
+        local_path = get_artifact("MontaguDb_Build", "minimal.dump", commit_hash=versions.db)
+        import_sql(local_path)
     elif source == "test_data":
         local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql", commit_hash=versions.api)
         import_sql(local_path)

@@ -16,8 +16,8 @@ definitions = [
                           "What data should be imported initially?",
                           [
                               ("none", "Empty database"),
-                              # ("minimal",
-                              #  "Minimum required for Montagu to work (this includes enum tables and permissions)"),
+                              ("minimal", "Minimum required for Montagu to work (this includes enum tables and "
+                                          "permissions)"),
                               ("test_data", "Fake data, useful for testing"),
                               ("legacy", "Imported data from SDF versions 6, 7, 8 and 12"),
                               # ("restore", "Restore from backup")
