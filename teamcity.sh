@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
-cp teamcity-settings.json src/montagu-deploy.json
-cd src
-pip3 install -r requirements.txt
-./deploy.py
+
+mkdir -p scratch
+docker build --tag montagu-deploy .
+docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $pwd/scratch:/app/scratch \
+    --network=host \
+    montagu-deploy
