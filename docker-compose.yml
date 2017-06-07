@@ -13,6 +13,6 @@ services:
   contrib:
     image: montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
     ports:
-      - "8081:80"
+      - "8081:443"
     depends_on:
       - api

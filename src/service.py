@@ -1,13 +1,15 @@
 import docker
+
 import compose
 
 api_name = "montagu_api_1"
 db_name = "montagu_db_1"
+contrib_name = "montagu_contrib_1"
 
 service_names = {
     api_name,
     db_name,
-    "montagu_contrib_1"
+    contrib_name
 }
 
 
@@ -41,6 +43,10 @@ class MontaguService:
     @property
     def db(self):
         return self._get(db_name)
+
+    @property
+    def contrib(self):
+        return self._get(contrib_name)
 
     def _get(self, name):
         return next((x for x in self.client.containers.list() if x.name == name), None)

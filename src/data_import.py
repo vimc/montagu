@@ -1,6 +1,7 @@
 from subprocess import check_output
 
 import versions
+from docker_helpers import docker_cp
 from service import service
 from teamcity import save_artifact
 
@@ -26,16 +27,14 @@ def do(settings):
 def import_sql(sql_path):
     print("- Copying {} to DB container and importing into database".format(sql_path))
     target_path = "/tmp/import.sql"
-    full_target = "{container}:{path}".format(container=service.db.name, path=target_path)
-    check_output(["docker", "cp", sql_path, full_target])
+    docker_cp(sql_path, service.db.name, target_path)
     check_output(["docker", "exec", service.db.name, "psql", "-U", "vimc", "-d", "montagu", "-f", target_path])
 
 
 def import_dump(dump_path):
     print("- Copying {} to DB container and importing into database".format(dump_path))
     target_path = "/tmp/import.dump"
-    full_target = "{container}:{path}".format(container=service.db.name, path=target_path)
-    check_output(["docker", "cp", dump_path, full_target])
+    docker_cp(dump_path, service.db.name, target_path)
     check_output(["docker", "exec", service.db.name, "/montagu-bin/restore-dump.sh", target_path])
 
 

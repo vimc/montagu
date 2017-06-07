@@ -4,7 +4,7 @@ import sys
 from subprocess import run
 
 import versions
-from images import get_image_name
+from docker_helpers import get_image_name
 
 command = [
     "docker", "run",

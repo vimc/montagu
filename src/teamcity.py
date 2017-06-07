@@ -1,9 +1,12 @@
 from getpass import getpass
 from os import makedirs
+from os.path import join
 from xml.etree import ElementTree
 
 import requests
 from requests.auth import HTTPBasicAuth
+
+import paths
 
 
 class AuthProvider:
@@ -32,8 +35,8 @@ def get_safely(url, as_text=True):
 
 
 def save_artifact(build_type: str, artifact_path: str, name: str, commit_hash=None):
-    makedirs('../artifacts', exist_ok=True)
-    local_path = '../artifacts/' + name
+    makedirs(paths.artifacts, exist_ok=True)
+    local_path = join(paths.artifacts, name)
     with open(local_path, 'wb') as f:
         if commit_hash:
             data = get_artifact(build_type, artifact_path, commit_hash)
