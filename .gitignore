@@ -1,0 +1,4 @@
+*.pyc
+artifacts/*
+src/\.idea/*
+src/montagu-deploy.json
