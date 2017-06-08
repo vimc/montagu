@@ -11,5 +11,11 @@ announcements.
 |pac4j    |**pac4j-announce** and **pac4j-security** mailing lists|The main security library used by the API for authentication, authorization, and JSON web tokens|
 |OpenJDK  | ??                                                    |Java - should upgrade minor versions. Should attempt to update major versions if not disruptive|
 |Docker CE| ??                                                    |Docker|
+
+# General
+|Track updates to|Via|Description|
+|----------------|---|-----------|
+|Ubuntu          |?? |Or whatever base operating system we use|
+|nginx           |?? |Web server/reverse proxy|
                                                                  
  
