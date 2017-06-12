@@ -1,0 +1,26 @@
+digraph {
+	graph [ ranksep="1.5", nodesep=1,  ];
+	node [ 
+        shape="box", 
+        fillcolor="#73DCFF", 
+        style="filled", 
+        fontname="Century Gothic", 
+        width="5", 
+        height="0.7", 
+        fontsize=25, 
+        penwidth="1.5" 
+    ];
+    edge [ fontname="Century Gothic", fontsize=20, penwidth="1.5", arrowsize="1.5" ];
+
+	get_template [ label="Get template spreadsheet" ];
+    run_model [ label="Run model" ];
+    into_template [ label="Copy results into template" ];
+    email [ label="Email spreadsheet to GAVI" ];
+    complete [ label="Complete" ];
+
+    get_template -> run_model;
+    run_model -> into_template [ constraint=false ];
+    into_template -> email;
+    email -> run_model [ label=" Problems", weight=0.1, constraint=false ];
+    email -> complete [ label=" Approved" ];
+}

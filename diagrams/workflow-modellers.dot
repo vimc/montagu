@@ -1,0 +1,27 @@
+digraph {
+	graph [ ranksep="1.5", nodesep=1,  ];
+	node [ shape="box", fillcolor="#73DCFF", style="filled", fontname="Century Gothic", width="5", height="0.7", fontsize=25, penwidth="1.5" ];
+    edge [ fontname="Century Gothic", fontsize=20, penwidth="1.5", arrowsize="1.5" ];
+
+	subgraph {
+		responsibilities [ label="Get responsibilities" ];
+		coverage [ label="Get input data" ];
+		responsibilities -> coverage [ xlabel="For each scenario..." ];
+		responsibilities -> coverage;
+		responsibilities -> coverage;
+	}
+	coverage -> run [ constraint=false ];
+	subgraph {
+		run [ label="Run your model" ];
+		upload [ label="Upload the dataset" ];
+		run -> upload [ weight=2 ];
+		upload -> run [ label=" Problems" ];
+	}
+	upload -> validated [ constraint=true, label=" Automatically validated", weight=2, color="#808080" ];
+	validated -> run [ constraint=true, label="Problems", weight=0.5, color="#808080" ];
+	subgraph { 
+		validated [ label="Ready for manual checks" ];
+		checked [ label="Ready to publish" ];
+		validated -> checked [ label=" Checked", color="#808080"  ];
+	}
+}

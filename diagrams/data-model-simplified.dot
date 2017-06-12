@@ -1,0 +1,20 @@
+digraph {
+	graph [ ranksep="3" ];
+	node [ shape="box", fillcolor="#73DCFF", style="filled", fontname="Century Gothic", width="7", height="1.4", fontsize=50, penwidth="3" ];
+	edge [ fontname="Century Gothic", fontsize=30, penwidth="3" ];
+	
+	touchstone [ label="Touchstone" ];
+	scenario [ label="Scenario" ];
+	coverage [ label="Coverage" ];
+	modelling_group [ label="Modelling group" ];
+	responsibility [ label="Responsibility" ];
+	model [ label="Model" ];
+	impact_estimate [ label="Impact estimate" ];
+
+	touchstone -> scenario [ taillabel="1 ", headlabel="many  " ];
+	scenario -> coverage [ taillabel="1  ", headlabel="many " ];
+	modelling_group -> responsibility [ taillabel="1    ", headlabel="many" ];
+	scenario -> responsibility [ taillabel="1", headlabel="many     " ];
+	modelling_group -> model [ taillabel="1", headlabel="many  " ];
+	responsibility -> impact_estimate [ taillabel="1 ", headlabel="many  " ];
+}

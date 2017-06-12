@@ -1,0 +1,27 @@
+digraph {
+	graph [ ranksep="1.5", nodesep=1,  ];
+	node [ shape="box", fillcolor="#73DCFF", style="filled", fontname="Century Gothic", width="5", height="0.7", fontsize=25, penwidth="1.5" ];
+    edge [ fontname="Century Gothic", fontsize=20, penwidth="1.5", arrowsize="1.5" ];
+
+	subgraph {
+		responsibilities [ label="Get responsibilities" ];
+		configure [ label="Specify parameters" ];
+		responsibilities -> configure [ xlabel="For each scenario..." ];
+		responsibilities -> configure;
+		responsibilities -> configure;
+	}
+	configure -> run [ constraint=false, color="#808080" ];
+	upload -> configure [ constraint=false, label=" Problems", color="#808080" ];
+	subgraph {
+		run [ label="Model is run by system" ];
+		upload [ label="Dataset is imported" ];
+		run -> upload [ weight=2, color="#808080" ];
+	}
+	upload -> validated [ constraint=true, label=" Automatically validated", weight=2, color="#808080" ];
+	validated -> configure [ constraint=false, label="Problems", weight=0.5, color="#808080" ];
+	subgraph { 
+		validated [ label="Ready for manual checks" ];
+		checked [ label="Ready to publish" ];
+		validated -> checked [ label=" Checked", color="#808080"  ];
+	}
+}

@@ -1,0 +1,27 @@
+graph {
+	graph [ rankdir="LR", splines="ortho", fontname="Century Gothic" ];
+	node [ shape="box", fillcolor="#73DCFF", style="filled", fontname="Century Gothic" ];
+
+	db [ shape="circle", label="SQL database", width=1, fillcolor="#FF9673" ];
+	api [ label="REST API" ];
+
+	api -- db;
+
+	subgraph portals {
+		node [ fillcolor="#A7FC8B", width=2.5 ];
+		graph [ rankdir="TB" ];
+		modellers_portal [ label="Modelling group portal" ];
+		reporting_portal [ label="Reporting portal" ];
+		consortium_portal [ label="Consortium portal" ];
+		modellers_portal -- api;
+		reporting_portal -- api;
+		consortium_portal -- api;
+	}
+	subgraph clients {		
+		node [ fillcolor="#C390D4", width=2.5 ];
+		rclient [ label="R client" ];
+		custom_code [ label="Custom code", style="dashed" ];
+		rclient -- api;
+		custom_code -- api [ style="dashed" ];
+	}
+}
