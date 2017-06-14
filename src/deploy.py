@@ -72,6 +72,7 @@ def _deploy():
     if settings["open_browser"]:
         webbrowser.open("https://localhost:8080/")
         webbrowser.open("https://localhost:8081/")
+        webbrowser.open("https://localhost:8082/")
 
 
 def delete_safely(path):

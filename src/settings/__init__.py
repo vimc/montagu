@@ -25,7 +25,7 @@ definitions = [
                           ),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
-                             "If you answer yes, the API and the Contribution portal will be opened after deployment",
+                             "If you answer yes, the API and portals will be opened after deployment",
                              default_value=True)
 ]
 

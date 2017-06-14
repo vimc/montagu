@@ -5,11 +5,13 @@ import compose
 api_name = "montagu_api_1"
 db_name = "montagu_db_1"
 contrib_name = "montagu_contrib_1"
+admin_name = "montagu_admin_1"
 
 service_names = {
     api_name,
     db_name,
-    contrib_name
+    contrib_name,
+    admin_name
 }
 
 
@@ -47,6 +49,10 @@ class MontaguService:
     @property
     def contrib(self):
         return self._get(contrib_name)
+
+    @property
+    def admin(self):
+        return self._get(admin_name)
 
     def _get(self, name):
         return next((x for x in self.client.containers.list() if x.name == name), None)

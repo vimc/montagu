@@ -6,16 +6,20 @@ from service import service
 
 
 def configure_webapps(keystore_password):
-    print("Configuring contribution portal")
+    print("Configuring portals")
     cert_paths = extract_certificates(keystore_password)
     try:
         print("- Adding certificate to contrib container")
-        contrib = service.contrib
-        contrib.exec_run("mkdir -p /etc/montagu/webapps")
-        docker_cp(cert_paths['certificate'], contrib.name, "/etc/montagu/webapps/certificate.pem")
-        docker_cp(cert_paths['key'], contrib.name, "/etc/montagu/webapps/ssl_key.pem")
+        add_certificate(service.contrib, cert_paths)
+
+        print("- Adding certificate to admin container")
+        add_certificate(service.admin, cert_paths)
     finally:
         print("- Deleting unencrypted certificates")
         shutil.rmtree(cert_dir)
 
 
+def add_certificate(container, cert_paths):
+    container.exec_run("mkdir -p /etc/montagu/webapps")
+    docker_cp(cert_paths['certificate'], container.name, "/etc/montagu/webapps/certificate.pem")
+    docker_cp(cert_paths['key'], container.name, "/etc/montagu/webapps/ssl_key.pem")
