@@ -6,9 +6,9 @@ domain = 'localdomain'
 box = "bento/ubuntu-16.04"
 ram = '3072'
 permanent = [
-  { :hostname => 'uat',     :ip => '192.168.81.1', :ram => ram,
+  { :hostname => 'uat',     :ip => '192.168.81.11', :ram => ram,
     :port_offset => 10000 },
-  { :hostname => 'science', :ip => '192.168.81.2', :ram => ram,
+  { :hostname => 'science', :ip => '192.168.81.12', :ram => ram,
     :port_offset => 11000 }
 ]
 
