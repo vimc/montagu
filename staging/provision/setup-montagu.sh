@@ -12,6 +12,7 @@ else
    stable"
     sudo apt-get update
     sudo apt-get install -y docker-ce
+    sudo usermod -aG docker vagrant
 fi
 
 if which -a docker-compose > /dev/null; then
