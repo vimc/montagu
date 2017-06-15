@@ -16,7 +16,13 @@ Vagrant.configure(2) do |config|
   config.vm.box = box
   config.vm.synced_folder 'shared', '/vagrant'
   config.vm.provision :shell do |shell|
-    shell.path = 'provision/setup-montagu.sh'
+    shell.path = 'provision/setup-docker.sh'
+  end
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/setup-docker-registry.sh'
+  end
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/setup-pip.sh'
   end
 
   permanent.each do |machine|
