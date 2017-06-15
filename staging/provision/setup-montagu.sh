@@ -33,5 +33,6 @@ if which -a pip3 > /dev/null; then
 else
     echo "installing pip (for Python 3)"
     sudo apt-get update
-    sudo apt-get install python3-pip
+    sudo apt-get install -y python3-pip
+    sudo pip3 install --upgrade pip
 fi
