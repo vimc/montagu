@@ -6,6 +6,7 @@ import shutil
 import data_import
 import paths
 from api_setup import configure_api
+from ascii_art import print_ascii_art
 from certificates import get_keystore
 from service import service
 from settings import get_settings
@@ -37,6 +38,7 @@ def set_passwords_for_db_users(passwords):
 
 
 def _deploy():
+    print_ascii_art()
     print("Beginning Montagu deploy")
     status = service.status
     is_first_time = status is None
