@@ -1,6 +1,6 @@
 from subprocess import check_output
 
-registry_url = "montagu.dide.ic.ac.uk:5000"
+registry_url = "docker.montagu.dide.ic.ac.uk:5000"
 
 
 def get_image_name(name, version):

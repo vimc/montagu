@@ -1,23 +1,23 @@
 version: '2'
 services:
   api:
-    image: montagu.dide.ic.ac.uk:5000/montagu-api:${MONTAGU_API_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-api:${MONTAGU_API_VERSION}
     ports:
       - "8080:8080"
     depends_on:
       - db
   db:
-    image: montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
     ports:
       - "5432:5432"
   contrib:
-    image: montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
     ports:
       - "8081:443"
     depends_on:
       - api
   admin:
-    image: montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_VERSION}
     ports:
       - "8082:443"
     depends_on:
