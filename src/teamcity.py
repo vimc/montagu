@@ -82,6 +82,6 @@ def find_url_of_matching_build(xml_text, commit_hash):
     return None
 
 
-teamcity_url = "http://montagu.dide.ic.ac.uk:8111"
+teamcity_url = "http://teamcity.montagu.dide.ic.ac.uk:8111"
 teamcity_api_url = teamcity_url + "/app/rest"
 auth = AuthProvider()
