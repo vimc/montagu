@@ -1,5 +1,5 @@
 api = "5efe829"
 db = "aed8b0d"
-contrib = "ae78681"
-admin = "ae78681"
+contrib = "11c430a"
+admin = "11c430a"
 cert_tool = "59657b2"
