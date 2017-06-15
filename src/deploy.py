@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-import webbrowser
-
 import shutil
+import webbrowser
+from time import sleep
 
+import compose
 import data_import
 import paths
-from api_setup import configure_api
 from ascii_art import print_ascii_art
 from certificates import get_keystore
 from service import service
+from service_config import configure_api, add_certificate_to_nginx_containers
 from settings import get_settings
-from webapp_config import configure_webapps
 
 
 def backup():
@@ -37,6 +37,15 @@ def set_passwords_for_db_users(passwords):
     pass
 
 
+def start():
+    print("Starting Montagu...")
+    compose.start()
+    print("- Checking Montagu has started successfully")
+    sleep(2)
+    if service.status != "running":
+        raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
+
+
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -55,7 +64,7 @@ def _deploy():
     if settings["persist_data"] and is_first_time:
         setup_new_data_volume()
 
-    service.start()
+    start()
     passwords = generate_passwords()
     set_passwords_for_db_users(passwords)
 
@@ -68,7 +77,7 @@ def _deploy():
     keystore_password = passwords["keystore_password"]
     keystore_path = get_keystore("self-signed", keystore_password)
     configure_api(passwords['api'], keystore_path, keystore_password)
-    configure_webapps(keystore_password)
+    add_certificate_to_nginx_containers(keystore_password)
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:

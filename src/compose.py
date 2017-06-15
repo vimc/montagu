@@ -1,4 +1,4 @@
-from subprocess import run, Popen, check_output
+from subprocess import Popen, check_output
 
 import versions
 
