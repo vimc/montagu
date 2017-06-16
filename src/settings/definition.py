@@ -1,5 +1,5 @@
 class SettingDefinition:
-    def __init__(self, name: str, question: str, guidance: str, default_value=None, first_time_only=False):
+    def __init__(self, name: str, question: str, guidance: str=None, default_value=None, first_time_only=False):
         self.name = name
         self.question = question
         self.guidance = guidance
@@ -21,7 +21,8 @@ class SettingDefinition:
         return answer
 
     def print_guidance(self):
-        print(self.guidance)
+        if self.guidance:
+            print(self.guidance)
 
     def parse(self, value):
         return value.strip()

@@ -1,3 +1,5 @@
+from time import sleep
+
 import docker
 
 import compose
@@ -6,12 +8,14 @@ api_name = "montagu_api_1"
 db_name = "montagu_db_1"
 contrib_name = "montagu_contrib_1"
 admin_name = "montagu_admin_1"
+proxy_name = "montagu_proxy_1"
 
 service_names = {
     api_name,
     db_name,
     contrib_name,
-    admin_name
+    admin_name,
+    proxy_name
 }
 
 
@@ -34,7 +38,7 @@ class MontaguService:
         elif len(statuses) == 0:
             return None
         else:
-            status_map = dict((c, c.status) for c in services)
+            status_map = dict((c.name, c.status) for c in services)
             raise Exception("Montagu service is in a indeterminate state. "
                             "Manual intervention is required.\nStatus: {}".format(status_map))
 
@@ -54,16 +58,24 @@ class MontaguService:
     def admin(self):
         return self._get(admin_name)
 
+    @property
+    def proxy(self):
+        return self._get(proxy_name)
+
     def _get(self, name):
         return next((x for x in self.client.containers.list() if x.name == name), None)
 
-    def stop(self):
+    def stop(self, port):
         print("Stopping Montagu...", flush=True)
-        compose.stop()
+        compose.stop(port)
 
-    def start(self):
+    def start(self, port):
         print("Starting Montagu...", flush=True)
-        compose.start()
+        compose.start(port)
+        print("- Checking Montagu has started successfully")
+        sleep(2)
+        if service.status != "running":
+            raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
 
 
 service = MontaguService()

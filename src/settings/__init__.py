@@ -25,8 +25,11 @@ definitions = [
                           ),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
-                             "If you answer yes, the API and portals will be opened after deployment",
-                             default_value=True)
+                             "If you answer yes, Montagu will be opened after deployment",
+                             default_value=True),
+    SettingDefinition("port",
+                      "What port should Montagu listen on?",
+                      default_value=443)
 ]
 
 

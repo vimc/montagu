@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-import webbrowser
-
 import shutil
+import webbrowser
+from typing import Dict
 
 import data_import
 import paths
-from api_setup import configure_api
 from ascii_art import print_ascii_art
-from certificates import get_keystore
+from certificates import get_ssl_certificate
 from service import service
+from service_config import configure_api, configure_proxy
 from settings import get_settings
-from webapp_config import configure_webapps
 
 
 def backup():
@@ -25,11 +24,10 @@ def migrate_schema(db_password):
     pass
 
 
-def generate_passwords():
+def generate_passwords() -> Dict[str, str]:
     return {
-        "api": None,
-        "schema_migrator": None,
-        "keystore_password": "password"
+        "api": "",
+        "schema_migrator": ""
     }
 
 
@@ -49,13 +47,13 @@ def _deploy():
 
     settings = get_settings(is_first_time)
     if not is_first_time:
-        service.stop()
+        service.stop(settings["port"])
         backup()
 
     if settings["persist_data"] and is_first_time:
         setup_new_data_volume()
 
-    service.start()
+    service.start(settings["port"])
     passwords = generate_passwords()
     set_passwords_for_db_users(passwords)
 
@@ -65,16 +63,13 @@ def _deploy():
     else:
         data_import.do(settings)
 
-    keystore_password = passwords["keystore_password"]
-    keystore_path = get_keystore("self-signed", keystore_password)
-    configure_api(passwords['api'], keystore_path, keystore_password)
-    configure_webapps(keystore_password)
+    configure_api(passwords['api'])
+    cert_paths = get_ssl_certificate("self-signed")
+    configure_proxy(cert_paths)
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
-        webbrowser.open("https://localhost:8080/")
-        webbrowser.open("https://localhost:8081/")
-        webbrowser.open("https://localhost:8082/")
+        webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
 def delete_safely(path):
