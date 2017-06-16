@@ -81,9 +81,7 @@ def _deploy():
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
-        webbrowser.open("https://localhost:8080/")
-        webbrowser.open("https://localhost:8081/")
-        webbrowser.open("https://localhost:8082/")
+        webbrowser.open("https://localhost/")
 
 
 def delete_safely(path):

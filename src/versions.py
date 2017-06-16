@@ -1,5 +1,6 @@
 api = "834d394"
 db = "aed8b0d"
-contrib = "11c430a"
-admin = "11c430a"
+contrib = "6e9b92d"
+admin = "6e9b92d"
 cert_tool = "59657b2"
+proxy = "d2b5e84"
