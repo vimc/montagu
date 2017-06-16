@@ -1,7 +1,7 @@
 from service_config.api_config import configure_api
-from service_config.distribute_cert import add_certificate_to_nginx_containers
+from service_config.proxy_config import configure_proxy
 
 __all__ = [
     configure_api,
-    add_certificate_to_nginx_containers
+    configure_proxy
 ]

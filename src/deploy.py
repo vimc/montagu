@@ -2,14 +2,15 @@
 import shutil
 import webbrowser
 from time import sleep
+from typing import Dict
 
 import compose
 import data_import
 import paths
 from ascii_art import print_ascii_art
-from certificates import get_keystore
+from certificates import get_ssl_certificate
 from service import service
-from service_config import configure_api, add_certificate_to_nginx_containers
+from service_config import configure_api, configure_proxy
 from settings import get_settings
 
 
@@ -25,11 +26,10 @@ def migrate_schema(db_password):
     pass
 
 
-def generate_passwords():
+def generate_passwords() -> Dict[str, str]:
     return {
-        "api": None,
-        "schema_migrator": None,
-        "keystore_password": "password"
+        "api": "",
+        "schema_migrator": ""
     }
 
 
@@ -74,10 +74,9 @@ def _deploy():
     else:
         data_import.do(settings)
 
-    keystore_password = passwords["keystore_password"]
-    keystore_path = get_keystore("self-signed", keystore_password)
-    configure_api(passwords['api'], keystore_path, keystore_password)
-    add_certificate_to_nginx_containers(keystore_password)
+    configure_api(passwords['api'])
+    cert_paths = get_ssl_certificate("self-signed")
+    configure_proxy(cert_paths)
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
