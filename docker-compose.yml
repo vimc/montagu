@@ -19,9 +19,10 @@ services:
   proxy:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     ports:
-      - "443:443"
+      - "${MONTAGU_PORT}:${MONTAGU_PORT}"
     depends_on:
       - api
       - admin
       - contrib
+    command: ${MONTAGU_PORT}
 

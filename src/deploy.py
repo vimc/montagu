@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 import shutil
 import webbrowser
-from time import sleep
 from typing import Dict
 
-import compose
 import data_import
 import paths
 from ascii_art import print_ascii_art
@@ -37,15 +35,6 @@ def set_passwords_for_db_users(passwords):
     pass
 
 
-def start():
-    print("Starting Montagu...")
-    compose.start()
-    print("- Checking Montagu has started successfully")
-    sleep(2)
-    if service.status != "running":
-        raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
-
-
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -58,13 +47,13 @@ def _deploy():
 
     settings = get_settings(is_first_time)
     if not is_first_time:
-        service.stop()
+        service.stop(settings["port"])
         backup()
 
     if settings["persist_data"] and is_first_time:
         setup_new_data_volume()
 
-    start()
+    service.start(settings["port"])
     passwords = generate_passwords()
     set_passwords_for_db_users(passwords)
 
@@ -80,7 +69,7 @@ def _deploy():
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
-        webbrowser.open("https://localhost/")
+        webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
 def delete_safely(path):

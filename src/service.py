@@ -1,3 +1,5 @@
+from time import sleep
+
 import docker
 
 import compose
@@ -63,13 +65,17 @@ class MontaguService:
     def _get(self, name):
         return next((x for x in self.client.containers.list() if x.name == name), None)
 
-    def stop(self):
+    def stop(self, port):
         print("Stopping Montagu...", flush=True)
-        compose.stop()
+        compose.stop(port)
 
-    def start(self):
+    def start(self, port):
         print("Starting Montagu...", flush=True)
-        compose.start()
+        compose.start(port)
+        print("- Checking Montagu has started successfully")
+        sleep(2)
+        if service.status != "running":
+            raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
 
 
 service = MontaguService()
