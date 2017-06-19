@@ -1,5 +1,6 @@
 {
     "open_browser": false,
     "initial_data_source": "none",
-    "persist_data": false
+    "persist_data": false,
+    "port": 8443
 }
