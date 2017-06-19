@@ -21,7 +21,7 @@ def run(args, port):
 
 def get_env(port):
     return {
-        'MONTAGU_PORT': port,
+        'MONTAGU_PORT': str(port),
         'MONTAGU_API_VERSION': versions.api,
         'MONTAGU_DB_VERSION': versions.db,
         'MONTAGU_CONTRIB_VERSION': versions.contrib,

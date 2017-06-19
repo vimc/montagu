@@ -15,7 +15,7 @@ class SettingDefinition:
 
         while answer is None:
             answer = self.parse(input(prompt))
-            if (answer is None) and self.default_value:
+            if (not answer) and self.default_value:
                 answer = self.default_value
 
         return answer
