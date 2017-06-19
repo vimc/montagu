@@ -29,6 +29,9 @@ definitions = [
                              default_value=True),
     SettingDefinition("port",
                       "What port should Montagu listen on?",
+                      "Note that this port must be the one that users browsers will be connecting to. In other words,"
+                      "if there is another layer wrapping around Montagu (e.g. if it is being deployed to a VM) the "
+                      "real port exposed on the physical machine must agree with the port here",
                       default_value=443)
 ]
 
