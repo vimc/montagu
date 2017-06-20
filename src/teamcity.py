@@ -9,6 +9,10 @@ from requests.auth import HTTPBasicAuth
 import paths
 
 
+class TeamCityCredentialsException(Exception):
+    pass
+
+
 class AuthProvider:
     def __init__(self):
         self.auth = None
@@ -21,9 +25,16 @@ class AuthProvider:
             self.auth = HTTPBasicAuth(username, password)
         return self.auth
 
+    def clear(self):
+        self.auth = None
+
 
 def get_safely(url, as_text=True):
     r = requests.get(url, auth=auth.get())
+    if r.status_code == 401:
+        print("- Bad credentials")
+        auth.clear()
+        return get_safely(url, as_text=as_text)
     if r.status_code != 200:
         raise Exception("Failed to retrieve artifact from TeamCity using url {url}\n".format(url=url) +
                         "Returned status code {code}.\n".format(code=r.status_code) +
