@@ -1,4 +1,5 @@
 import json
+from os.path import abspath
 
 from settings.boolean import BooleanSettingDefinition
 from settings.enum import EnumSettingDefinition
@@ -61,7 +62,7 @@ def get_settings(do_first_time_setup: bool):
 
     if any(missing):
         print("I'm going to ask you some questions to determine how Montagu should be deployed.\n"
-              "Your answers will be stored in {}.".format(path))
+              "Your answers will be stored in {}.".format(abspath(path)))
 
         for d in missing:
             key = d.name
