@@ -64,7 +64,7 @@ def _deploy():
         data_import.do(settings)
 
     configure_api(passwords['api'])
-    cert_paths = get_ssl_certificate("self-signed")
+    cert_paths = get_ssl_certificate(settings["certificate"])
     configure_proxy(cert_paths)
 
     print("Finished deploying Montagu")

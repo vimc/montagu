@@ -34,7 +34,15 @@ definitions = [
                       "Note that this port must be the one that users browsers will be connecting to. In other words, "
                       "if there is another layer wrapping around Montagu (e.g. if it is being deployed to a VM) the "
                       "real port exposed on the physical machine must agree with the port you choose now.",
-                      default_value=443)
+                      default_value=443),
+    EnumSettingDefinition("certificate",
+                          "What SSL certificate should Montagu use?",
+                          [
+                              ("self_signed", "Use the non-secure self-signed certificate in the repository"),
+                              ("self_signed_fresh", "Generate a new, non-secure self-signed certificate every deploy"),
+                              # ("trusted", "The real McCoy")
+                          ]
+                          )
 ]
 
 
