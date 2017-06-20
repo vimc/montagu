@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 from os.path import abspath
 
 from settings.boolean import BooleanSettingDefinition
@@ -70,6 +71,10 @@ def get_settings(do_first_time_setup: bool):
             settings[key] = value
 
     save_settings(settings)
+    print("Using these settings:")
+    for k, v in settings.items():
+        print("- {}: {}".format(k, v))
+
     return settings
 
 
