@@ -79,7 +79,7 @@ def get_settings(do_first_time_setup: bool):
             settings[key] = value
 
     save_settings(settings)
-    print("Using these settings:")
+    print("Using these settings from {}:".format(abspath(path)))
     for k, v in settings.items():
         print("- {}: {}".format(k, v))
 

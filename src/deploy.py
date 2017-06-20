@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import shutil
 import webbrowser
+from os import chdir
+from os.path import abspath, dirname
 from typing import Dict
 
 import data_import
@@ -87,4 +89,6 @@ def deploy():
         delete_safely(paths.ssl)
 
 if __name__ == "__main__":
+    abspath = abspath(__file__)
+    chdir(dirname(abspath))
     deploy()
