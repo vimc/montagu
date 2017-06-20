@@ -58,7 +58,7 @@ def _deploy():
     set_passwords_for_db_users(passwords)
 
     migrate_schema(passwords['schema_migrator'])
-    if not is_first_time and settings["persist_data"]:
+    if not is_first_time and settings["persist_data"] is True:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         data_import.do(settings)
