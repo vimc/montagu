@@ -3,5 +3,5 @@
     "initial_data_source": "none",
     "persist_data": false,
     "port": "8443",
-    "certificate": "self-signed"
+    "certificate": "self_signed"
 }
