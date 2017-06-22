@@ -2,5 +2,6 @@
     "open_browser": false,
     "initial_data_source": "none",
     "persist_data": false,
-    "port": "8443"
+    "port": "8443",
+    "certificate": "self-signed"
 }
