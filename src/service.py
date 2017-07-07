@@ -10,6 +10,8 @@ contrib_name = "montagu_contrib_1"
 admin_name = "montagu_admin_1"
 proxy_name = "montagu_proxy_1"
 
+volume_name = "montagu_db_volume"
+
 service_names = {
     api_name,
     db_name,
@@ -62,12 +64,16 @@ class MontaguService:
     def proxy(self):
         return self._get(proxy_name)
 
+    @property
+    def volume_present(self):
+        return volume_name in [v.name for v in self.client.volumes.list()]
+
     def _get(self, name):
         return next((x for x in self.client.containers.list() if x.name == name), None)
 
-    def stop(self, port):
+    def stop(self, port, persist_volumes):
         print("Stopping Montagu...", flush=True)
-        compose.stop(port)
+        compose.stop(port, persist_volumes)
 
     def start(self, port):
         print("Starting Montagu...", flush=True)

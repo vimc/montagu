@@ -7,8 +7,11 @@ def start(port):
     run("up -d", port)
 
 
-def stop(port):
-    run("down", port)
+def stop(port, persist_volumes):
+    if persist_volumes:
+        run("down", port)
+    else:
+        run("down --volumes", port)  # Also deletes volumes
 
 
 def run(args, port):
