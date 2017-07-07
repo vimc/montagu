@@ -1,10 +1,9 @@
 import json
-from pprint import pprint
 from os.path import abspath
 
 from settings.boolean import BooleanSettingDefinition
-from settings.enum import EnumSettingDefinition
 from settings.definition import SettingDefinition
+from settings.enum import EnumSettingDefinition
 
 path = 'montagu-deploy.json'
 

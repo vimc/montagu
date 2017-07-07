@@ -2,7 +2,7 @@
 import shutil
 import webbrowser
 from os import chdir
-from os.path import abspath, dirname
+from os.path import abspath, dirname, isdir
 from typing import Dict
 
 import data_import
@@ -15,10 +15,6 @@ from settings import get_settings
 
 
 def backup():
-    pass
-
-
-def setup_new_data_volume():
     pass
 
 
@@ -41,19 +37,17 @@ def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
     status = service.status
-    is_first_time = status is None
+    volume_present = service.volume_present
+    is_first_time = (status is None) and (not volume_present)
     if is_first_time:
         print("Montagu not detected: Beginning new deployment")
     else:
-        print("Montagu status: {}".format(status))
+        print("Montagu status: {}. Data volume present: {}".format(status, volume_present))
 
     settings = get_settings(is_first_time)
     if not is_first_time:
-        service.stop(settings["port"])
+        service.stop(settings["port"], persist_volumes=settings["persist_data"])
         backup()
-
-    if settings["persist_data"] and is_first_time:
-        setup_new_data_volume()
 
     service.start(settings["port"])
     passwords = generate_passwords()
@@ -85,7 +79,6 @@ def deploy():
     try:
         _deploy()
     finally:
-        delete_safely(paths.artifacts)
         delete_safely(paths.ssl)
 
 if __name__ == "__main__":

@@ -8,6 +8,8 @@ services:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
     ports:
       - "5432:5432"
+    volumes:
+      - db_volume:/pgdata
   contrib:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
     depends_on:
@@ -26,3 +28,5 @@ services:
       - contrib
     command: ${MONTAGU_PORT}
 
+volumes:
+  db_volume:
