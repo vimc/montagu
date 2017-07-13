@@ -11,6 +11,7 @@ from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
 from service import service
 from service_config import configure_api, configure_proxy
+from service_config.api_config import get_token_keypair
 from settings import get_settings
 
 
@@ -59,8 +60,10 @@ def _deploy():
     else:
         data_import.do(settings)
 
-    configure_api(passwords['api'])
     cert_paths = get_ssl_certificate(settings["certificate"])
+    token_keypair_paths = get_token_keypair()
+
+    configure_api(passwords['api'], token_keypair_paths)
     configure_proxy(cert_paths)
 
     print("Finished deploying Montagu")

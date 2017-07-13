@@ -1,5 +1,6 @@
 *.pyc
+\.idea/*
 artifacts/*
 src/\.idea/*
-\.idea/*
 src/montagu-deploy.json
+token_keypair/
