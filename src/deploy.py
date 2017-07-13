@@ -83,6 +83,7 @@ def deploy():
         _deploy()
     finally:
         delete_safely(paths.ssl)
+        delete_safely(paths.token_keypair)
 
 if __name__ == "__main__":
     abspath = abspath(__file__)
