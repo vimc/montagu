@@ -1,5 +1,6 @@
 *.pyc
-artifacts/*
-src/\.idea/*
 \.idea/*
+artifacts/*
+backup/\.idea/
+src/\.idea/*
 src/montagu-deploy.json
