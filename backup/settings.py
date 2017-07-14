@@ -1,4 +1,5 @@
 import json
+import os
 from os.path import join
 
 from subprocess import check_output
@@ -54,5 +55,8 @@ def save_secrets():
         "aws_access_key_id": get_secret("aws_access_key_id"),
         "aws_secret_access_key": get_secret("aws_secret_access_key"),
     }
+    with open(secrets_path, 'a'):  # Create file if does not exist
+        pass
+    os.chmod(secrets_path, 0o600)
     with open(secrets_path, 'w') as f:
         json.dump(secrets, f)
