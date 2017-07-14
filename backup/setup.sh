@@ -8,7 +8,7 @@ gdebi --non-interactive duplicati_2.0.1.61-1_all.deb
 apt-get install python3-pip
 pip3 install -r requirements.txt
 
-echo -n Please provide your GitHub personal access token for the vault:
+echo -n "Please provide your GitHub personal access token for the vault: "
 read -s token
 echo ""
 

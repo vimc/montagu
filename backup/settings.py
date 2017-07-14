@@ -31,7 +31,8 @@ def shared_args(settings):
     secrets = settings.secrets
     args = [
         "--aws_access_key_id={aws_access_key_id}".format(**secrets),
-        "--aws_secret_access_key={aws_secret_access_key}".format(**secrets)
+        "--aws_secret_access_key={aws_secret_access_key}".format(**secrets),
+        "--use-ssl"
     ]
     if settings.encrypted:
         args += ["--passphrase={passphrase}".format(**secrets)]
