@@ -50,12 +50,14 @@ def get_secret(name):
     return check_output(["vault", "read", "-field=value", path]).decode('utf-8')
 
 
-def save_secrets():
+def save_secrets(get_passphrase):
     secrets = {
-        "passphrase": get_secret("passphrase"),
         "aws_access_key_id": get_secret("aws_access_key_id"),
         "aws_secret_access_key": get_secret("aws_secret_access_key"),
     }
+    if get_passphrase:
+        secrets["passphrase"] = get_secret("passphrase")
+
     with open(secrets_path, 'a'):  # Create file if does not exist
         pass
     os.chmod(secrets_path, 0o600)

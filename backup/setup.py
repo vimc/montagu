@@ -30,7 +30,8 @@ if __name__ == "__main__":
         exit(-1)
 
     print("Obtaining secrets from the vault. If you are not authenticated with the vault, this will fail.")
-    settings.save_secrets()
+    s = settings.load_settings()
+    settings.save_secrets(s.encrypted)
 
     print("Scheduling backup task")
     backup_script = join(here, "backup.py")
