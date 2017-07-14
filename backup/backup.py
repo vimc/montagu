@@ -22,39 +22,30 @@ def with_logging(do):
     try:
         do()
     except Exception as e:
-        logging.error(e)
+        logging.error("An error occurred:", exc_info=e)
 
 
-def read_lines_from_reader(reader):
-    line = ""
-    for char in reader:
-        if char != '\n':
-            line += char
-        else:
-            yield line.strip()
-            line = ""
-    yield line.strip()
-
-
-def run_duplicati(remote_url, paths, secrets):
-    cmd = ["duplicati-cli", "backup", remote_url] + paths + shared_args(secrets)
+def run_duplicati(settings):
+    cmd = ["duplicati-cli", "backup", settings.remote_url]
+    cmd += settings.paths
+    cmd += shared_args(settings)
     with Popen(cmd, stdout=PIPE, stderr=PIPE, bufsize=1, universal_newlines=True) as p:
-        for line in read_lines_from_reader(p.stdout):
-            logging.info(line)
-        for line in read_lines_from_reader(p.stderr):
-            logging.error(line)
+        for line in p.stdout.readlines():
+            logging.info(line.strip())
+        for line in p.stderr.readlines():
+            logging.error(line.strip())
 
     if p.returncode not in [0, 1]:
-        raise CalledProcessError(p.returncode, p.args)
+        raise Exception("Duplicati backup process returned error code {}".format(p.returncode))
 
 
 def run():
     settings = load_settings()
-    logging.info("Backing up the following files to {remote_url}: ".format(**settings))
-    for path in settings["paths"]:
+    logging.info("Backing up the following files to {}: ".format(settings.remote_url))
+    for path in settings.paths:
         logging.info("- " + path)
 
-    run_duplicati(settings["remote_url"], settings["paths"], settings["secrets"])
+    run_duplicati(settings)
 
 if __name__ == "__main__":
     print("Running backup. Output will be logged to " + log_dir)

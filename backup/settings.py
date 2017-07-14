@@ -11,27 +11,36 @@ secrets_path = join(root_path, "secrets.json")
 log_dir = '/var/log/duplicati'
 
 
-def shared_args(secrets):
-    return [
+class Settings:
+    def __init__(self):
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        with open(secrets_path, 'r') as f:
+            secrets = json.load(f)
+        with open(list_path, 'r') as f:
+            paths = [path.strip() for path in f.readlines() if path]
+
+        self.remote_url = "s3://{bucket}".format(bucket=config["s3_bucket"])
+        self.encrypted = config["encrypted"]
+        self.secrets = secrets
+        self.paths = paths
+
+
+def shared_args(settings):
+    secrets = settings.secrets
+    args = [
         "--aws_access_key_id={aws_access_key_id}".format(**secrets),
-        "--aws_secret_access_key={aws_secret_access_key}".format(**secrets),
-        "--passphrase={passphrase}".format(**secrets)
+        "--aws_secret_access_key={aws_secret_access_key}".format(**secrets)
     ]
+    if settings.encrypted:
+        args += ["--passphrase={passphrase}".format(**secrets)]
+    else:
+        args += ["--no-encryption=true"]
+    return args
 
 
 def load_settings():
-    with open(config_path, 'r') as f:
-        config = json.load(f)
-    with open(secrets_path, 'r') as f:
-        secrets = json.load(f)
-    with open(list_path, 'r') as f:
-        paths = [path.strip() for path in f.readlines() if path]
-
-    return {
-        "remote_url": "s3://{bucket}".format(bucket=config["s3_bucket"]),
-        "secrets": secrets,
-        "paths": paths,
-    }
+    return Settings()
 
 
 def get_secret(name):

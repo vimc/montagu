@@ -1,3 +1,4 @@
 {
-    "s3_bucket": "montagu-support"
+    "s3_bucket": "montagu-support",
+    "encrypted": false
 }
