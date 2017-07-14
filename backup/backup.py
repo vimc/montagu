@@ -30,9 +30,9 @@ def run_duplicati(settings):
     cmd += settings.paths
     cmd += shared_args(settings)
     with Popen(cmd, stdout=PIPE, stderr=PIPE, bufsize=1, universal_newlines=True) as p:
-        for line in p.stdout.readlines():
+        for line in p.stdout:
             logging.info(line.strip())
-        for line in p.stderr.readlines():
+        for line in p.stderr:
             logging.error(line.strip())
 
     if p.returncode not in [0, 1]:
