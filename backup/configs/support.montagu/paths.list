@@ -1,1 +1,2 @@
 /montagu/vault/storage
+/var/lib/docker/volumes/registry_data/_data
