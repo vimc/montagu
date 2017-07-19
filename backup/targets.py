@@ -45,7 +45,7 @@ class NamedVolumeTarget:
         return run(
             ["docker", "volume", "inspect", self.name, "-f", "{{ .Mountpoint }}"],
             stdout=PIPE, universal_newlines=True
-        ).stdout
+        ).stdout.strip()
 
     def _volume_exists(self):
         text = run(
