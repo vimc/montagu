@@ -5,6 +5,7 @@ from subprocess import run, PIPE
 
 import paths
 import versions
+from cert_tool import run_cert_tool
 from docker_helpers import get_image_name
 
 
@@ -13,7 +14,7 @@ def get_ssl_certificate(certificate_type: str):
     makedirs(paths.ssl, exist_ok=True)
 
     if certificate_type == "self_signed_fresh":
-        run_tool("gen-self-signed", args=["/working"])
+        run_cert_tool("gen-self-signed", paths.ssl, args=["/working"])
         print("- Generated self-signed certificate")
     elif certificate_type == "self_signed":
         print("- Using self-signed certificate from repository")
@@ -29,10 +30,3 @@ def get_ssl_certificate(certificate_type: str):
     if (not isfile(result['certificate'])) or (not isfile(result['key'])):
         raise Exception("Obtaining certificate failed: Missing file(s) in " + paths.ssl)
     return result
-
-
-def run_tool(mode, args=[], stdout=PIPE):
-    image = get_image_name("montagu-cert-tool", versions.cert_tool)
-    volume = "{}:{}".format(abspath(paths.ssl), "/working")
-    command = ["docker", "run", "--rm", "-v", volume, image, mode]
-    run(command + args, stdout=stdout, stderr=PIPE)
