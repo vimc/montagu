@@ -51,7 +51,7 @@ def run():
     logging.info("Backing up to {}: ".format(settings.remote_url))
     logging.info("Doing pre-backup step")
     for target in settings.targets:
-        print("- " + target.id)
+        logging.info("- " + target.id)
         target.before_backup()
 
     logging.info("The following paths will be backed up:")

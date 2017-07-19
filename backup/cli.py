@@ -7,7 +7,9 @@ from settings import load_settings, shared_args
 
 if __name__ == "__main__":
     settings = load_settings()
-    cmd = ["duplicati-cli", "list", settings.remote_url]
-    cmd += sys.argv[1:]
+    cmd = ["duplicati-cli"]
+    cmd += [sys.argv[1], settings.remote_url]
+    if len(sys.argv) > 2:
+        cmd += sys.argv[2:]
     cmd += shared_args(settings)
     run(cmd)
