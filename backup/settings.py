@@ -4,9 +4,10 @@ from os.path import join, isfile
 
 from subprocess import check_output
 
+from targets import DirectoryTarget, NamedVolumeTarget
+
 root_path = "/etc/montagu/backup"
 config_path = join(root_path, "config.json")
-list_path = join(root_path, "paths.list")
 secrets_path = join(root_path, "secrets.json")
 
 log_dir = '/var/log/duplicati'
@@ -21,13 +22,21 @@ class Settings:
                 secrets = json.load(f)
         else:
             secrets = {}
-        with open(list_path, 'r') as f:
-            paths = [path.strip() for path in f.readlines() if path]
 
         self.remote_url = "s3://{bucket}".format(bucket=config["s3_bucket"])
         self.encrypted = config["encrypted"]
         self.secrets = secrets
-        self.paths = paths
+        self.targets = list(Settings.parse_target(t) for t in config["targets"])
+
+    @classmethod
+    def parse_target(cls, data):
+        t = data["type"]
+        if t == "directory":
+            return DirectoryTarget(data["path"])
+        elif t == "named_volume":
+            return NamedVolumeTarget(data["name"])
+        else:
+            raise Exception("Unsupported target type: " + t)
 
 
 def shared_args(settings):

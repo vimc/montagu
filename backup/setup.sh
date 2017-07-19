@@ -5,7 +5,7 @@ apt-get install gdebi -y
 wget https://updates.duplicati.com/experimental/duplicati_2.0.1.61-1_all.deb -O duplicati_2.0.1.61-1_all.deb
 gdebi --non-interactive duplicati_2.0.1.61-1_all.deb
 
-apt-get install python3-pip
+apt-get install python3-pip -y
 pip3 install -r requirements.txt
 
 echo -n "Please provide your GitHub personal access token for the vault: "
@@ -17,3 +17,6 @@ export VAULT_AUTH_GITHUB_TOKEN=${token}
 vault auth -method=github
 
 ./setup.py
+
+echo "Setup complete. To schedule backups, run ./schedule.py"
+echo "To perform a restore, run ./restore.py"

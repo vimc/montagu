@@ -1,4 +1,14 @@
 {
     "s3_bucket": "montagu-support",
-    "encrypted": false
+    "encrypted": false,
+    "targets": [
+        {
+            "type": "directory",
+            "path": "/montagu/vault/storage"
+        },
+        {
+            "type": "named_volume",
+            "name": "registry_data"
+        }
+    ]
 }
