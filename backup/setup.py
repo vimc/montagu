@@ -16,8 +16,9 @@ def clear_existing():
 
 def schedule():
     job = cron.new(command=backup_script, comment="Duplicati backup", user="root")
-    job.hour.on(2)
     job.day.every(1)
+    job.hour.on(2)
+    job.minute.on(0)
     print("Running scheduled job now as a test. Output will be logged to " + settings.log_dir)
     job.run()
 
@@ -36,7 +37,7 @@ if __name__ == "__main__":
     print("Scheduling backup task")
     backup_script = join(here, "backup.py")
     if isfile(tab_path):
-        cron = CronTab(tabfile=tab_path)
+        cron = CronTab(tabfile=tab_path, user=False)
     else:
         cron = CronTab()
     clear_existing()

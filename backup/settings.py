@@ -16,8 +16,11 @@ class Settings:
     def __init__(self):
         with open(config_path, 'r') as f:
             config = json.load(f)
-        with open(secrets_path, 'r') as f:
-            secrets = json.load(f)
+        if isfile(secrets_path):
+            with open(secrets_path, 'r') as f:
+                secrets = json.load(f)
+        else:
+            secrets = {}
         with open(list_path, 'r') as f:
             paths = [path.strip() for path in f.readlines() if path]
 
