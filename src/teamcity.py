@@ -57,15 +57,19 @@ def save_artifact(build_type: str, artifact_path: str, name: str, commit_hash=No
     return local_path
 
 
+def get_locator(build_type):
+    return "buildType:(id:{build_type}),status:SUCCESS,branch:default:any".format(build_type=build_type)
+
+
 def get_latest_artifact(build_type, artifact_path):
-    template = "{root_url}/builds/buildType:(id:{build_type}),status:SUCCESS"
-    build_url = template.format(root_url=teamcity_api_url, build_type=build_type)
+    template = "{root_url}/builds/?locator={locator}"
+    build_url = template.format(root_url=teamcity_api_url, locator=get_locator(build_type))
     return download_artifact(build_url, artifact_path)
 
 
 def get_artifact(build_type, artifact_path, commit_hash):
     fields = "build(id,href,revisions(revision))"
-    locator = "buildType:(id:{build_type}),status:SUCCESS".format(build_type=build_type)
+    locator = get_locator(build_type)
     template = "{root_url}/builds/?locator={locator}&fields={fields}"
     url = template.format(root_url=teamcity_api_url, locator=locator, fields=fields)
     xml = get_safely(url)
@@ -83,14 +87,19 @@ def download_artifact(build_url, artifact_path):
     return get_safely(url, as_text=False)
 
 
-def find_url_of_matching_build(xml_text, commit_hash):
+def find_url_of_matching_build(xml_text, branch_or_hash):
     xml = ElementTree.fromstring(xml_text)
     for build in xml.findall('build'):
         revisions = build.find('revisions').findall('revision')
-        hashes = set(r.get('version') for r in revisions)
-        if any(h for h in hashes if h.startswith(commit_hash)):
+        if any(x for x in revisions if revision_matches(x, branch_or_hash)):
             return build.get("href")
     return None
+
+
+def revision_matches(revision, branch_or_hash):
+    commit_hash = revision.get('version')
+    branch = revision.get('vcsBranchName')
+    return commit_hash.startswith(branch_or_hash) or branch == "refs/heads/" + branch_or_hash
 
 
 teamcity_url = "http://teamcity.montagu.dide.ic.ac.uk:8111"
