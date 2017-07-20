@@ -1,4 +1,6 @@
-from settings import BooleanSettingDefinition, EnumSettingDefinition, SettingDefinition
+from setting_definitions.boolean import BooleanSettingDefinition
+from setting_definitions.definition import SettingDefinition
+from setting_definitions.enum import EnumSettingDefinition
 
 definitions = [
     BooleanSettingDefinition("persist_data",
@@ -18,9 +20,9 @@ definitions = [
                                           "permissions)"),
                               ("test_data", "Fake data, useful for testing"),
                               ("legacy", "Imported data from SDF versions 6, 7, 8 and 12"),
-                              # ("restore", "Restore from backup")
-                          ]
-                          ),
+                              ("restore", "Restore from backup")
+                          ],
+                          default_value="restore"),
     SettingDefinition("backup_bucket",
                       "Which S3 bucket should be used for backup?",
                       "This is where data will be restored from, if you specified that a restore should happen for the"

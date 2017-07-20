@@ -4,10 +4,7 @@ from getpass import getpass
 from os.path import abspath
 from subprocess import check_output
 
-from settings.boolean import BooleanSettingDefinition
-from settings.definition import SettingDefinition
-from settings.definitions import definitions
-from settings.enum import EnumSettingDefinition
+from setting_definitions import definitions
 
 path = 'montagu-deploy.json'
 

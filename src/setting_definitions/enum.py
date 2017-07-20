@@ -1,5 +1,6 @@
-from settings.definition import SettingDefinition
 from typing import List, Tuple
+
+from .definition import SettingDefinition
 
 
 class EnumSettingDefinition(SettingDefinition):

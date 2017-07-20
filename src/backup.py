@@ -1,8 +1,10 @@
-from subprocess import run, check_output
+from subprocess import run
 
 import pystache as pystache
 
 import service
+
+finished_setup = False
 
 
 def configure(settings):
@@ -16,14 +18,28 @@ def configure(settings):
         f.write(config)
 
 
+def setup(settings):
+    global finished_setup
+    if not finished_setup:
+        print("- Configuring and installing backup service")
+        configure(settings)
+        run("../backup/setup.sh", check=True)
+        finished_setup = True
+
+
 def backup(settings):
     print("Performing backup")
-    configure(settings)
-    run("../backup/setup.sh", check=True)
+    setup(settings)
     run("../backup/backup.py", check=True)
 
 
 def schedule(settings):
     print("Scheduling backup")
-    configure(settings)
+    setup(settings)
     run(["../backup/schedule.py", "--no-immediate-backup"], check=True)
+
+
+def restore(settings):
+    print("Restoring from remote backup")
+    setup(settings)
+    run(["../backup/restore.py"], check=True)

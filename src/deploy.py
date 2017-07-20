@@ -31,6 +31,10 @@ def set_passwords_for_db_users(passwords):
     pass
 
 
+def stop(settings):
+    service.stop(settings["port"], persist_volumes=settings["persist_data"])
+
+
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -45,12 +49,12 @@ def _deploy():
     settings = get_settings(is_first_time)
 
     # If Montagu is running, back it up before tampering with it
-    if (status is not None) and settings["backup"]:
+    if (status == "running") and settings["backup"]:
         backup.backup(settings)
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
-        service.stop(settings["port"], persist_volumes=settings["persist_data"])
+        stop(settings)
 
     # Schedule backups
     if settings["backup"]:
@@ -58,15 +62,28 @@ def _deploy():
 
     # Start Montagu again
     service.start(settings["port"])
+    try:
+        configure_montagu(is_first_time, settings)
+    except:
+        print("An error occurred before deployment could be completed. Stopping Montagu")
+        stop(settings)
+        raise
+
+    print("Finished deploying Montagu")
+    if settings["open_browser"]:
+        webbrowser.open("https://localhost:{}/".format(settings["port"]))
+
+
+def configure_montagu(is_first_time, settings):
     passwords = generate_passwords()
     set_passwords_for_db_users(passwords)
 
     # Do things to the database
-    migrate_schema(passwords['schema_migrator'])
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         data_import.do(settings)
+    # migrate_schema(passwords['schema_migrator'])
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])
@@ -74,10 +91,6 @@ def _deploy():
 
     configure_api(passwords['api'], token_keypair_paths)
     configure_proxy(cert_paths)
-
-    print("Finished deploying Montagu")
-    if settings["open_browser"]:
-        webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
 def delete_safely(path):
