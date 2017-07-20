@@ -1,6 +1,8 @@
+*.deb
 *.pyc
 \.idea/*
 artifacts/*
+backup/\.idea/
 src/\.idea/*
 src/montagu-deploy.json
 token_keypair/
