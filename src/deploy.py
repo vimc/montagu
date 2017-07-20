@@ -2,21 +2,18 @@
 import shutil
 import webbrowser
 from os import chdir
-from os.path import abspath, dirname, isdir
+from os.path import abspath, dirname
 from typing import Dict
 
 import data_import
 import paths
 from ascii_art import print_ascii_art
+import backup
 from certificates import get_ssl_certificate
 from service import service
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair
 from settings import get_settings
-
-
-def backup():
-    pass
 
 
 def migrate_schema(db_password):
@@ -46,20 +43,32 @@ def _deploy():
         print("Montagu status: {}. Data volume present: {}".format(status, volume_present))
 
     settings = get_settings(is_first_time)
+
+    # If Montagu is running, back it up before tampering with it
+    if (status is not None) and settings["backup"]:
+        backup.backup(settings)
+
+    # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
         service.stop(settings["port"], persist_volumes=settings["persist_data"])
-        backup()
 
+    # Schedule backups
+    if settings["backup"]:
+        backup.schedule(settings)
+
+    # Start Montagu again
     service.start(settings["port"])
     passwords = generate_passwords()
     set_passwords_for_db_users(passwords)
 
+    # Do things to the database
     migrate_schema(passwords['schema_migrator'])
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         data_import.do(settings)
 
+    # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
