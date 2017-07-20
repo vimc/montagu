@@ -1,5 +1,9 @@
 import json
+import os
+from getpass import getpass
 from os.path import abspath
+
+from subprocess import check_output
 
 from settings.boolean import BooleanSettingDefinition
 from settings.definition import SettingDefinition
@@ -50,7 +54,12 @@ definitions = [
                               ("self_signed_fresh", "Generate a new, non-secure self-signed certificate every deploy"),
                               # ("trusted", "The real McCoy")
                           ]
-                          )
+                          ),
+    SettingDefinition("vault_address",
+                      "What is the address of the vault?",
+                      "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
+                      "Otherwise, just use the default",
+                      default_value="https://support.montagu.dide.ic.ac.uk:8200")
 ]
 
 
@@ -69,6 +78,13 @@ def load_settings():
             settings[key] = data[key]
 
     return settings
+
+
+def prepare_for_vault_access(address):
+    os.environ["VAULT_ADDR"] = address
+    if "VAULT_AUTH_GITHUB_TOKEN" not in os.environ:
+        token = getpass("Please enter your Vault GitHub personal access token: ")
+        os.environ["VAULT_AUTH_GITHUB_TOKEN"] = token
 
 
 def get_settings(do_first_time_setup: bool):
@@ -91,9 +107,16 @@ def get_settings(do_first_time_setup: bool):
     for k, v in settings.items():
         print("- {}: {}".format(k, v))
 
+    prepare_for_vault_access(settings["vault_address"])
+
     return settings
 
 
 def save_settings(settings):
     with open(path, 'w') as f:
         json.dump(settings, f, indent=4)
+
+
+def get_secret(secret_path, field="value"):
+    secret_path = "secret/{}".format(secret_path)
+    return check_output(["vault", "read", "-field=" + field, secret_path]).decode('utf-8')
