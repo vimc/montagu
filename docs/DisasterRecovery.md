@@ -10,7 +10,7 @@ And several internally hosted services:
 * Docker registry (built images, ready for deployment)
 * TeamCity (continuous integration, builds images from source code)
 
-See [the architecture diagram](diagrams/VIMC Architecture.png) for more 
+See [the architecture diagram](diagrams/VIMC%20Architecture.png) for more 
 details.
 
 This guide assumes that both the support and production machines have been
