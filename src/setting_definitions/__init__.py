@@ -1,17 +1,20 @@
-import json
-from os.path import abspath
+from setting_definitions.boolean import BooleanSettingDefinition
+from setting_definitions.definition import SettingDefinition
+from setting_definitions.enum import EnumSettingDefinition
 
-from settings.boolean import BooleanSettingDefinition
-from settings.definition import SettingDefinition
-from settings.enum import EnumSettingDefinition
 
-path = 'montagu-deploy.json'
+def vault_required(settings):
+    return settings["initial_data_source"] != "none" or settings["backup"] is True
 
 definitions = [
     BooleanSettingDefinition("persist_data",
                              "Should data in the database be persisted?",
                              "If you answer no all data will be deleted from the database when Montagu is stopped. Data"
                              " should be persisted for live systems, and not persisted for testing systems.",
+                             default_value=True),
+    BooleanSettingDefinition("backup",
+                             "Should data be backed up remotely?",
+                             "This should be enabled for the production environment.",
                              default_value=True),
     EnumSettingDefinition("initial_data_source",
                           "What data should be imported initially?",
@@ -21,9 +24,15 @@ definitions = [
                                           "permissions)"),
                               ("test_data", "Fake data, useful for testing"),
                               ("legacy", "Imported data from SDF versions 6, 7, 8 and 12"),
-                              # ("restore", "Restore from backup")
-                          ]
-                          ),
+                              ("restore", "Restore from backup")
+                          ],
+                          default_value="restore"),
+    SettingDefinition("backup_bucket",
+                      "Which S3 bucket should be used for backup?",
+                      "This is where data will be restored from, if you specified that a restore should happen for the"
+                      "initial data import, and it's where data will be backed up to if you enabled backups.",
+                      default_value="montagu-production",
+                      is_required=lambda x: x["backup"] is True or x["initial_data_source"] == "restore"),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
                              "If you answer yes, Montagu will be opened after deployment",
@@ -41,50 +50,11 @@ definitions = [
                               ("self_signed_fresh", "Generate a new, non-secure self-signed certificate every deploy"),
                               # ("trusted", "The real McCoy")
                           ]
-                          )
+                          ),
+    SettingDefinition("vault_address",
+                      "What is the address of the vault?",
+                      "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
+                      "Otherwise, just use the default",
+                      default_value="https://support.montagu.dide.ic.ac.uk:8200",
+                      is_required=vault_required)
 ]
-
-
-def load_settings():
-    settings = {}
-
-    try:
-        with open(path, 'r') as f:
-            data = json.load(f) or {}
-    except FileNotFoundError:
-        data = {}
-
-    for d in definitions:
-        key = d.name
-        if key in data:
-            settings[key] = data[key]
-
-    return settings
-
-
-def get_settings(do_first_time_setup: bool):
-    settings = load_settings()
-    missing = list(d for d in definitions if d.name not in settings)
-    if not do_first_time_setup:
-        missing = list(d for d in missing if not d.first_time_only)
-
-    if any(missing):
-        print("I'm going to ask you some questions to determine how Montagu should be deployed.\n"
-              "Your answers will be stored in {}.".format(abspath(path)))
-
-        for d in missing:
-            key = d.name
-            value = d.ask()
-            settings[key] = value
-
-    save_settings(settings)
-    print("Using these settings from {}:".format(abspath(path)))
-    for k, v in settings.items():
-        print("- {}: {}".format(k, v))
-
-    return settings
-
-
-def save_settings(settings):
-    with open(path, 'w') as f:
-        json.dump(settings, f, indent=4)

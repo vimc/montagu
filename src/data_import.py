@@ -1,5 +1,6 @@
 from subprocess import check_output
 
+import backup
 import versions
 from docker_helpers import docker_cp
 from service import service
@@ -20,6 +21,8 @@ def do(settings):
     elif source == "legacy":
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
         import_dump(local_path)
+    elif source == "restore":
+        backup.restore(settings)
     else:
         raise Exception("Unknown mode '{}'".format(source))
 

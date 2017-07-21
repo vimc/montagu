@@ -1,4 +1,4 @@
-from settings.definition import SettingDefinition
+from .definition import SettingDefinition
 
 
 class BooleanSettingDefinition(SettingDefinition):

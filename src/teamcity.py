@@ -7,6 +7,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 import paths
+from settings import get_secret
 
 
 class TeamCityCredentialsException(Exception):
@@ -19,10 +20,8 @@ class AuthProvider:
 
     def get(self):
         if self.auth is None:
-            print("- Please enter your TeamCity credentials:")
-            username = input("  - Username: ")
-            password = getpass("  - Password: ")
-            self.auth = HTTPBasicAuth(username, password)
+            password = get_secret("teamcity/deploy", field="password")
+            self.auth = HTTPBasicAuth("deploy", password)
         return self.auth
 
     def clear(self):
