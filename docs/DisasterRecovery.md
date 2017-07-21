@@ -19,6 +19,8 @@ services are unaffected. If only some internal services are broken, you can
 skip some steps.
 
 ## What do you need
+* Two blank Ubuntu servers (16.04 LTS), with DNS mapping one as 
+  `support.montagu.dide.ic.ac.uk`.
 * A GitHub account that is a member of the "development" team on the VIMC 
   organization. You need a personal access associated with this account. To 
   generate a personal access token, go to GitHub > Settings > Personal Access 
