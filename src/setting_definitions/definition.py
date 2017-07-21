@@ -1,10 +1,19 @@
 class SettingDefinition:
-    def __init__(self, name: str, question: str, guidance: str=None, default_value=None, first_time_only=False):
+    def __init__(self, name: str,
+                 question: str,
+                 guidance: str = None,
+                 default_value=None,
+                 first_time_only=False,
+                 is_required=None):
+        """If is_required is not specified, the question will always be asked. Alternatively,
+        it can be a function that takes a dictionary of settings gathered so far and returns
+        True (meaning this question needs to be asked) or False (meaning, skip this question)"""
         self.name = name
         self.question = question
         self.guidance = guidance
         self.default_value = default_value
         self.first_time_only = first_time_only
+        self._is_required = is_required
 
     def ask(self):
         print("")
@@ -32,3 +41,9 @@ class SettingDefinition:
             return "?"
         else:
             return "[{}] ?".format(self.default_value)
+
+    def is_required(self, settings_so_far):
+        if self._is_required:
+            return self.is_required(settings_so_far)
+        else:
+            return True
