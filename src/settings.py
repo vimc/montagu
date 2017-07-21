@@ -4,7 +4,7 @@ from getpass import getpass
 from os.path import abspath
 from subprocess import check_output
 
-from setting_definitions import definitions
+from setting_definitions import definitions, vault_required
 
 path = 'montagu-deploy.json'
 
@@ -44,16 +44,18 @@ def get_settings(do_first_time_setup: bool):
               "Your answers will be stored in {}.".format(abspath(path)))
 
         for d in missing:
-            key = d.name
-            value = d.ask()
-            settings[key] = value
+            if d.is_required(settings):
+                key = d.name
+                value = d.ask()
+                settings[key] = value
 
     save_settings(settings)
     print("Using these settings from {}:".format(abspath(path)))
     for k, v in settings.items():
         print("- {}: {}".format(k, v))
 
-    prepare_for_vault_access(settings["vault_address"])
+    if vault_required(settings):
+        prepare_for_vault_access(settings["vault_address"])
 
     return settings
 

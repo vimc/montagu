@@ -44,6 +44,6 @@ class SettingDefinition:
 
     def is_required(self, settings_so_far):
         if self._is_required:
-            return self.is_required(settings_so_far)
+            return self._is_required(settings_so_far)
         else:
             return True
