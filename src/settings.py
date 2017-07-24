@@ -28,7 +28,9 @@ def load_settings():
 
 def prepare_for_vault_access(address):
     os.environ["VAULT_ADDR"] = address
-    if "VAULT_AUTH_GITHUB_TOKEN" not in os.environ:
+    if "VAULT_AUTH_GITHUB_TOKEN" in os.environ:
+        print("Already authenticated with Vault")
+    else:
         token = getpass("Please enter your Vault GitHub personal access token: ")
         os.environ["VAULT_AUTH_GITHUB_TOKEN"] = token
 
@@ -68,3 +70,9 @@ def save_settings(settings):
 def get_secret(secret_path, field="value"):
     secret_path = "secret/{}".format(secret_path)
     return check_output(["vault", "read", "-field=" + field, secret_path]).decode('utf-8')
+
+
+def save_secret(secret_path, output, field="value"):
+    secret = get_secret(secret_path, field)
+    with open(output, 'w') as f:
+        f.write(secret)

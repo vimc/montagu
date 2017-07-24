@@ -4,7 +4,9 @@ from setting_definitions.enum import EnumSettingDefinition
 
 
 def vault_required(settings):
-    return settings["initial_data_source"] != "none" or settings["backup"] is True
+    return settings["initial_data_source"] != "none" \
+           or settings["backup"] is True \
+           or settings["certificate"] == "production"
 
 definitions = [
     BooleanSettingDefinition("persist_data",
@@ -48,7 +50,7 @@ definitions = [
                           [
                               ("self_signed", "Use the non-secure self-signed certificate in the repository"),
                               ("self_signed_fresh", "Generate a new, non-secure self-signed certificate every deploy"),
-                              # ("trusted", "The real McCoy")
+                              ("production", "Certificate for montagu.vaccineimpact.org")
                           ]
                           ),
     SettingDefinition("vault_address",
