@@ -17,7 +17,9 @@ def configure_api(db_password: str, keypair_paths):
     docker_cp(keypair_paths['private'], api_name, join(config_path, "token_key/private_key.der"))
     docker_cp(keypair_paths['public'], api_name, join(config_path, "token_key/public_key.der"))
 
-    # do something with the database password
+    print("- Injecting db password into container")
+    config_file_path = generate_config_file(db_password)
+    docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -33,3 +35,10 @@ def get_token_keypair():
     if (not isfile(result['private'])) or (not isfile(result['public'])):
         raise Exception("Obtaining token keypair failed: Missing file(s) in " + paths.token_keypair)
     return result
+
+
+def generate_config_file(db_password: str):
+    config_file_path = "{}/config.properties".format(config_path)
+    service.api.exec_run("touch {}".format(config_file_path))
+    service.api.exec_run('echo "db.password={}" >> {}'.format(db_password, config_file_path))
+    return config_file_path

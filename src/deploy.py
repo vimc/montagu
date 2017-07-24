@@ -7,6 +7,8 @@ from typing import Dict
 
 import data_import
 import paths
+import string
+import random
 from ascii_art import print_ascii_art
 import backup
 from certificates import get_ssl_certificate
@@ -22,7 +24,7 @@ def migrate_schema(db_password):
 
 def generate_passwords() -> Dict[str, str]:
     return {
-        "api": "",
+        "api": ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10)),
         # "schema_migrator": ""
     }
 
