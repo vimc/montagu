@@ -30,6 +30,7 @@ def generate_passwords() -> Dict[str, str]:
 
 
 def set_passwords_for_db_users(passwords):
+    # create api user with pw in postgres
     pass
 
 
