@@ -34,6 +34,9 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell do |shell|
     shell.path = 'provision/setup-pip.sh'
   end
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/setup-vault.sh'
+  end
 
   permanent.each do |machine|
     config.vm.define machine[:hostname] do |machine_config|
