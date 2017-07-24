@@ -61,7 +61,7 @@ def get_locator(build_type):
 
 
 def get_latest_artifact(build_type, artifact_path):
-    template = "{root_url}/builds/?locator={locator}"
+    template = "{root_url}/builds/{locator}"
     build_url = template.format(root_url=teamcity_api_url, locator=get_locator(build_type))
     return download_artifact(build_url, artifact_path)
 
