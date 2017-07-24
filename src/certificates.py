@@ -16,6 +16,8 @@ def get_ssl_certificate(certificate_type: str):
 
     if certificate_type == "production":
         result = production()
+    elif certificate_type == "support":
+        result = support()
     elif certificate_type == "self_signed_fresh":
         result = self_signed_fresh()
     elif certificate_type == "self_signed":
@@ -53,14 +55,21 @@ def self_signed():
 
 def production():
     print("- Using production certificate (montagu.vaccineimpact.org)")
+    return real_certificate("production", "montagu.vaccineimpact.org.crt", "ssl/production")
 
-    cert_name = "montagu.vaccineimpact.org.crt"
-    copy(cert_path("production", cert_name), paths.ssl)
+
+def support():
+    print("- Using support certificate (support.montagu.dide.ic.ac.uk)")
+    return real_certificate("support", "support.montagu.crt", "ssl/support")
+
+
+def real_certificate(local_folder, local_name, vault_path):
+    copy(cert_path(local_folder, local_name), paths.ssl)
 
     key_path = join(paths.ssl, "ssl.key")
-    save_secret("ssl/production", field="key", output=key_path)
+    save_secret(vault_path, field="key", output=key_path)
 
     return {
-        "certificate": join(paths.ssl, cert_name),
+        "certificate": join(paths.ssl, local_name),
         "key": key_path
     }
