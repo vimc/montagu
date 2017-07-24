@@ -23,7 +23,7 @@ def migrate_schema(db_password):
 def generate_passwords() -> Dict[str, str]:
     return {
         "api": "",
-        "schema_migrator": ""
+        # "schema_migrator": ""
     }
 
 

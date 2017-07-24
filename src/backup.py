@@ -28,6 +28,9 @@ def setup(settings):
 
 
 def backup(settings):
+    # Note, it is safe to run the backup on a running system, as pg_dump uses TRANSACTION ISOLATION LEVEL SERIALIZABLE
+    # i.e. The backup will only see transactions that were committed before the isolation level was set.
+    # So we will get a consistent backup, even if changes are being made.
     print("Performing backup")
     setup(settings)
     run("../backup/backup.py", check=True)
