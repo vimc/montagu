@@ -2,7 +2,7 @@ import json
 import os
 from getpass import getpass
 from os.path import abspath
-from subprocess import check_output
+from subprocess import check_output, run
 
 from setting_definitions import definitions, vault_required
 
@@ -33,6 +33,7 @@ def prepare_for_vault_access(address):
     else:
         token = getpass("Please enter your Vault GitHub personal access token: ")
         os.environ["VAULT_AUTH_GITHUB_TOKEN"] = token
+        run(["vault", "auth", "-method=github"], check=True)
 
 
 def get_settings(do_first_time_setup: bool):
