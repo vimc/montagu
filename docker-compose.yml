@@ -27,7 +27,7 @@ services:
       - api
       - admin
       - contrib
-    command: ${MONTAGU_PORT}
+    command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
 
 volumes:
   db_volume:
