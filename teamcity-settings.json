@@ -3,6 +3,7 @@
     "initial_data_source": "none",
     "persist_data": false,
     "port": "8443",
+    "hostname": "localhost",
     "certificate": "self_signed",
     "backup": false
 }

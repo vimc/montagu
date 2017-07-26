@@ -32,7 +32,7 @@ def set_passwords_for_db_users(passwords):
 
 
 def stop(settings):
-    service.stop(settings["port"], persist_volumes=settings["persist_data"])
+    service.stop(settings["port"], settings["hostname"], persist_volumes=settings["persist_data"])
 
 
 def _deploy():
@@ -61,7 +61,7 @@ def _deploy():
         backup.schedule(settings)
 
     # Start Montagu again
-    service.start(settings["port"])
+    service.start(settings["port"], settings["hostname"])
     try:
         configure_montagu(is_first_time, settings)
     except:

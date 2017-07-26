@@ -22,11 +22,12 @@ services:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     ports:
       - "${MONTAGU_PORT}:${MONTAGU_PORT}"
+      - 80:80
     depends_on:
       - api
       - admin
       - contrib
-    command: ${MONTAGU_PORT}
+    command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
 
 volumes:
   db_volume:
