@@ -5,18 +5,23 @@ import docker
 import compose
 
 api_name = "montagu_api_1"
+reporting_api_name = "montagu_reporting_api_1"
 db_name = "montagu_db_1"
 contrib_name = "montagu_contrib_1"
 admin_name = "montagu_admin_1"
+report_name = "montagu_report_1"
 proxy_name = "montagu_proxy_1"
 
 volume_name = "montagu_db_volume"
+orderly_volume_name = "montagu_orderly_volume"
 
 service_names = {
     api_name,
+    reporting_api_name,
     db_name,
     contrib_name,
     admin_name,
+    report_name,
     proxy_name
 }
 
@@ -47,6 +52,10 @@ class MontaguService:
     @property
     def api(self):
         return self._get(api_name)
+
+    @property
+    def reporting_api(self):
+        return self._get(reporting_api_name)
 
     @property
     def db(self):
