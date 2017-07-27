@@ -24,15 +24,25 @@ def configure_api(db_password: str, keypair_paths):
 
 def configure_reporting_api(keypair_paths):
     config_path = "/etc/montagu/reports_api/"
+    container = service.reporting_api
     print("Configuring reporting API")
-    service.reporting_api.exec_run("mkdir -p " + config_path)
+    container.exec_run("mkdir -p " + config_path)
+
+    print("- Setting Orderly volume location")
+    add_property(container, config_path, "orderly.root", "/orderly/")
 
     print("- Injecting public key for token verification into container")
-    service.reporting_api.exec_run("mkdir -p " + join(config_path, "token_key"))
+    container.exec_run("mkdir -p " + join(config_path, "token_key"))
     docker_cp(keypair_paths['public'], reporting_api_name, join(config_path, "token_key/public_key.der"))
 
     print("- Sending go signal to reporting API")
-    service.reporting_api.exec_run("touch {}/go_signal".format(config_path))
+    container.exec_run("touch {}/go_signal".format(config_path))
+
+
+def add_property(container, config_path, key, value):
+    path = "{}/config.properties".format(config_path)
+    container.exec_run("touch {}".format(path))
+    container.exec_run('echo "{key}={value}" >> {path}'.format(key=key, value=value, path=path))
 
 
 def get_token_keypair():
