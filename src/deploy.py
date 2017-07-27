@@ -6,6 +6,7 @@ from os.path import abspath, dirname
 from typing import Dict
 
 import data_import
+import orderly
 import paths
 from ascii_art import print_ascii_art
 import backup
@@ -31,10 +32,6 @@ def set_passwords_for_db_users(passwords):
     pass
 
 
-def stop(settings):
-    service.stop(settings["port"], settings["hostname"], persist_volumes=settings["persist_data"])
-
-
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -54,7 +51,7 @@ def _deploy():
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
-        stop(settings)
+        service.stop(settings)
 
     # Schedule backups
     if settings["backup"]:
@@ -66,7 +63,7 @@ def _deploy():
         configure_montagu(is_first_time, settings)
     except:
         print("An error occurred before deployment could be completed. Stopping Montagu")
-        stop(settings)
+        service.stop(settings)
         raise
 
     print("Finished deploying Montagu")
@@ -82,6 +79,7 @@ def configure_montagu(is_first_time, settings):
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
+        orderly.create_empty_store()
         data_import.do(settings)
     # migrate_schema(passwords['schema_migrator'])
 

@@ -15,15 +15,15 @@ services:
     volumes:
       - db_volume:/pgdata
   contrib:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     depends_on:
       - api
   admin:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     depends_on:
       - api
   report:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-report-portal:${MONTAGU_REPORT_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-report-portal:${MONTAGU_REPORT_PORTAL_VERSION}
     depends_on:
       - api
       - reporting_api

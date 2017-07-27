@@ -8,9 +8,9 @@ api_name = "montagu_api_1"
 reporting_api_name = "montagu_reporting_api_1"
 db_name = "montagu_db_1"
 contrib_name = "montagu_contrib_1"
-admin_name = "montagu_admin_1"
-report_name = "montagu_report_1"
-proxy_name = "montagu_proxy_1"
+admin_portal_name = "montagu_admin_1"
+report_portal_name = "montagu_report_1"
+proxy_portal_name = "montagu_proxy_1"
 
 volume_name = "montagu_db_volume"
 orderly_volume_name = "montagu_orderly_volume"
@@ -20,9 +20,9 @@ service_names = {
     reporting_api_name,
     db_name,
     contrib_name,
-    admin_name,
-    report_name,
-    proxy_name
+    admin_portal_name,
+    report_portal_name,
+    proxy_portal_name
 }
 
 
@@ -62,16 +62,16 @@ class MontaguService:
         return self._get(db_name)
 
     @property
-    def contrib(self):
+    def contrib_portal(self):
         return self._get(contrib_name)
 
     @property
-    def admin(self):
-        return self._get(admin_name)
+    def admin_portal(self):
+        return self._get(admin_portal_name)
 
     @property
     def proxy(self):
-        return self._get(proxy_name)
+        return self._get(proxy_portal_name)
 
     @property
     def volume_present(self):
@@ -80,9 +80,9 @@ class MontaguService:
     def _get(self, name):
         return next((x for x in self.client.containers.list() if x.name == name), None)
 
-    def stop(self, port, hostname, persist_volumes):
+    def stop(self, settings):
         print("Stopping Montagu...", flush=True)
-        compose.stop(port, hostname, persist_volumes)
+        compose.stop(settings["port"], settings["hostname"], persist_volumes=settings["persist_data"])
 
     def start(self, port, hostname):
         print("Starting Montagu...", flush=True)
