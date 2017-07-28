@@ -3,6 +3,7 @@ import shutil
 import webbrowser
 from os import chdir
 from os.path import abspath, dirname
+from time import sleep
 from typing import Dict
 
 import data_import
@@ -12,7 +13,7 @@ import backup
 from certificates import get_ssl_certificate
 from service import service
 from service_config import configure_api, configure_proxy
-from service_config.api_config import get_token_keypair
+from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 
 
@@ -71,6 +72,7 @@ def _deploy():
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
+        sleep(1)
         webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
@@ -90,6 +92,7 @@ def configure_montagu(is_first_time, settings):
     token_keypair_paths = get_token_keypair()
 
     configure_api(passwords['api'], token_keypair_paths)
+    configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
 
 
