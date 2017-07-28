@@ -14,6 +14,10 @@ def stop(port, hostname, persist_volumes):
         run("down --volumes", port, hostname)  # Also deletes volumes
 
 
+def pull(port, hostname):
+    run("pull", port, hostname)
+
+
 def run(args, port, hostname):
     args = "docker-compose --project-name montagu " + args
     p = Popen(args, env=get_env(port, hostname), shell=True)

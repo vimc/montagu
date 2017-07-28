@@ -77,6 +77,7 @@ class MontaguService:
 
     def start(self, port, hostname):
         print("Starting Montagu...", flush=True)
+        compose.pull(port, hostname)
         compose.start(port, hostname)
         print("- Checking Montagu has started successfully")
         sleep(2)

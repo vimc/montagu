@@ -1,6 +1,6 @@
 api = "cb7500a"
 db = "ceb5e8c"
-contrib = "dfcb9e4"
-admin = "dfcb9e4"
+contrib = "52edccf"
+admin = "52edccf"
 cert_tool = "6a7e736"
 proxy = "fd1fa52"
