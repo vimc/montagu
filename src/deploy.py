@@ -3,6 +3,7 @@ import shutil
 import webbrowser
 from os import chdir
 from os.path import abspath, dirname
+from time import sleep
 from typing import Dict
 
 import data_import
@@ -68,6 +69,7 @@ def _deploy():
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
+        sleep(1)
         webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
