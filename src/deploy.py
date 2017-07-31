@@ -34,7 +34,7 @@ def set_passwords_for_db_users(passwords):
     conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='changeme'"
     conn = psycopg2.connect(conn_string)
     cur = conn.cursor()
-    cur.execute("ALTER USER vimc WTH PASSWORD '{}'".format(passwords["api"]))
+    cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
     conn.commit()
     cur.close()
     conn.close()
