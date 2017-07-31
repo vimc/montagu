@@ -3,12 +3,11 @@ from os.path import join, isfile
 import paths
 from cert_tool import run_cert_tool
 from docker_helpers import docker_cp
-from service import service, api_name
-
-config_path = "/etc/montagu/api/"
+from service import service, api_name, reporting_api_name
 
 
 def configure_api(db_password: str, keypair_paths):
+    config_path = "/etc/montagu/api/"
     print("Configuring API")
     service.api.exec_run("mkdir -p " + config_path)
 
@@ -21,6 +20,29 @@ def configure_api(db_password: str, keypair_paths):
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
+
+
+def configure_reporting_api(keypair_paths):
+    config_path = "/etc/montagu/reports_api/"
+    container = service.reporting_api
+    print("Configuring reporting API")
+    container.exec_run("mkdir -p " + config_path)
+
+    print("- Setting Orderly volume location")
+    add_property(container, config_path, "orderly.root", "/orderly/")
+
+    print("- Injecting public key for token verification into container")
+    container.exec_run("mkdir -p " + join(config_path, "token_key"))
+    docker_cp(keypair_paths['public'], reporting_api_name, join(config_path, "token_key/public_key.der"))
+
+    print("- Sending go signal to reporting API")
+    container.exec_run("touch {}/go_signal".format(config_path))
+
+
+def add_property(container, config_path, key, value):
+    path = "{}/config.properties".format(config_path)
+    container.exec_run("touch {}".format(path))
+    container.exec_run('echo "{key}={value}" >> {path}'.format(key=key, value=value, path=path))
 
 
 def get_token_keypair():
