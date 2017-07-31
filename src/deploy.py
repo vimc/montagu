@@ -4,6 +4,7 @@ import webbrowser
 from os import chdir
 from os.path import abspath, dirname
 from typing import Dict
+import psycopg2
 
 import data_import
 import paths
@@ -24,14 +25,19 @@ def migrate_schema(db_password):
 
 def generate_passwords() -> Dict[str, str]:
     return {
-        "api": ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10)),
+        "api": ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(50)),
         # "schema_migrator": ""
     }
 
 
 def set_passwords_for_db_users(passwords):
-    # create api user with pw in postgres
-    pass
+    conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='changeme'"
+    conn = psycopg2.connect(conn_string)
+    cur = conn.cursor()
+    cur.execute("ALTER USER vimc WTH PASSWORD '{}'".format(passwords["api"]))
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 def stop(settings):
