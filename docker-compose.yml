@@ -4,6 +4,10 @@ services:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-api:${MONTAGU_API_VERSION}
     depends_on:
       - db
+  reporting_api:
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-reporting-api:${MONTAGU_REPORTING_API_VERSION}
+    volumes:
+      - orderly_volume:/orderly
   db:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
     ports:
@@ -11,22 +15,31 @@ services:
     volumes:
       - db_volume:/pgdata
   contrib:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     depends_on:
       - api
   admin:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_VERSION}
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     depends_on:
       - api
+  report:
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-report-portal:${MONTAGU_REPORT_PORTAL_VERSION}
+    depends_on:
+      - api
+      - reporting_api
   proxy:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     ports:
       - "${MONTAGU_PORT}:${MONTAGU_PORT}"
+      - 80:80
     depends_on:
       - api
+      - reporting_api
       - admin
       - contrib
-    command: ${MONTAGU_PORT}
+      - report
+    command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
 
 volumes:
   db_volume:
+  orderly_volume:

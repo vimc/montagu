@@ -46,6 +46,13 @@ definitions = [
                       "if there is another layer wrapping around Montagu (e.g. if it is being deployed to a VM) the "
                       "real port exposed on the physical machine must agree with the port you choose now.",
                       default_value=443),
+    SettingDefinition("hostname",
+                      "What hostname is Montagu being accessed as?",
+                      "This hostname should match the SSL certificate. Likely values:"
+                      "\n- localhost (for local dev)"
+                      "\n- support.montagu.dide.ic.ac.uk (for stage)"
+                      "\n- montagu.vaccineimpact.org (for production)"
+                      ),
     EnumSettingDefinition("certificate",
                           "What SSL certificate should Montagu use?",
                           [

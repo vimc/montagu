@@ -10,10 +10,10 @@ def configure_webapps(keystore_password):
     cert_paths = extract_certificates(keystore_password)
     try:
         print("- Adding certificate to contrib container")
-        add_certificate(service.contrib, cert_paths)
+        add_certificate(service.contrib_portal, cert_paths)
 
         print("- Adding certificate to admin container")
-        add_certificate(service.admin, cert_paths)
+        add_certificate(service.admin_portal, cert_paths)
     finally:
         print("- Deleting unencrypted certificates")
         shutil.rmtree(cert_dir)

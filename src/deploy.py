@@ -3,10 +3,12 @@ import shutil
 import webbrowser
 from os import chdir
 from os.path import abspath, dirname
+from time import sleep
 from typing import Dict
 import psycopg2
 
 import data_import
+import orderly
 import paths
 import string
 import random
@@ -15,7 +17,7 @@ import backup
 from certificates import get_ssl_certificate
 from service import service
 from service_config import configure_api, configure_proxy
-from service_config.api_config import get_token_keypair
+from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 
 
@@ -40,10 +42,6 @@ def set_passwords_for_db_users(passwords):
     conn.close()
 
 
-def stop(settings):
-    service.stop(settings["port"], persist_volumes=settings["persist_data"])
-
-
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -63,23 +61,24 @@ def _deploy():
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
-        stop(settings)
+        service.stop(settings)
 
     # Schedule backups
     if settings["backup"]:
         backup.schedule(settings)
 
     # Start Montagu again
-    service.start(settings["port"])
+    service.start(settings["port"], settings["hostname"])
     try:
         configure_montagu(is_first_time, settings)
     except:
         print("An error occurred before deployment could be completed. Stopping Montagu")
-        stop(settings)
+        service.stop(settings)
         raise
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
+        sleep(1)
         webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
@@ -91,6 +90,7 @@ def configure_montagu(is_first_time, settings):
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
+        orderly.create_empty_store()
         data_import.do(settings)
     # migrate_schema(passwords['schema_migrator'])
 
@@ -99,6 +99,7 @@ def configure_montagu(is_first_time, settings):
     token_keypair_paths = get_token_keypair()
 
     configure_api(passwords['api'], token_keypair_paths)
+    configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
 
 
