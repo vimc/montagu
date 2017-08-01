@@ -37,6 +37,8 @@ def get_token_keypair():
 
 
 def generate_config_file(db_password: str):
-    config_file_path = "{}/config.properties".format(config_path)
-    service.api.exec_run("touch {}".format(config_file_path))
-    service.api.exec_run('echo "db.password={}" >> {}'.format(db_password, config_file_path))
+    config_file_path = join(paths.config, "config.properties")
+    file = open(config_file_path, "w")
+    file.write("db.password={}".format(db_password))
+    file.close()
+    docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
