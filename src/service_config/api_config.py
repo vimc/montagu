@@ -17,7 +17,7 @@ def configure_api(db_password: str, keypair_paths):
     docker_cp(keypair_paths['public'], api_name, join(config_path, "token_key/public_key.der"))
 
     print("- Injecting db password into container")
-    generate_config_file(db_password)
+    generate_config_file(config_path, db_password)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -58,7 +58,7 @@ def get_token_keypair():
     return result
 
 
-def generate_config_file(db_password: str):
+def generate_config_file(config_path, db_password: str):
     config_file_path = join(paths.config, "config.properties")
     file = open(config_file_path, "w")
     file.write("db.password={}".format(db_password))
