@@ -1,3 +1,4 @@
+from os import mkdir
 from os.path import join, isfile
 
 import paths
@@ -59,6 +60,7 @@ def get_token_keypair():
 
 
 def generate_config_file(config_path, db_password: str):
+    mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     with open(config_file_path, "w") as file:
         file.write("db.password={}".format(db_password))
