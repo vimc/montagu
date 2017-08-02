@@ -36,10 +36,12 @@ def set_passwords_for_db_users(passwords):
     conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='changeme'"
     with psycopg2.connect(conn_string) as conn:
         with conn.cursor() as cur:
-            cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
-            conn.commit()
-    # unlike file objects or other resources, exiting the connection’s with block doesn’t close the connection
-    conn.close()
+            try:
+                cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
+                conn.commit()
+            finally:
+                # exiting the connection’s with block doesn’t close the connection
+                conn.close()
 
 
 def _deploy():
