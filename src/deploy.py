@@ -5,10 +5,13 @@ from os import chdir
 from os.path import abspath, dirname
 from time import sleep
 from typing import Dict
+import psycopg2
 
 import data_import
 import orderly
 import paths
+import string
+import random
 from ascii_art import print_ascii_art
 import backup
 from certificates import get_ssl_certificate
@@ -24,13 +27,17 @@ def migrate_schema(db_password):
 
 def generate_passwords() -> Dict[str, str]:
     return {
-        "api": "",
+        "api": ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(50)),
         # "schema_migrator": ""
     }
 
 
 def set_passwords_for_db_users(passwords):
-    pass
+    conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='changeme'"
+    with psycopg2.connect(conn_string) as conn:
+        with conn.cursor() as cur:
+            cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
+            conn.commit()
 
 
 def _deploy():
@@ -107,6 +114,7 @@ def deploy():
     finally:
         delete_safely(paths.ssl)
         delete_safely(paths.token_keypair)
+        delete_safely(paths.config)
 
 if __name__ == "__main__":
     abspath = abspath(__file__)
