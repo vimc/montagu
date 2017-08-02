@@ -5,3 +5,4 @@ artifacts/*
 src/\.idea/*
 src/montagu-deploy.json
 token_keypair/
+config/

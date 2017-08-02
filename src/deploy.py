@@ -34,11 +34,11 @@ def generate_passwords() -> Dict[str, str]:
 
 def set_passwords_for_db_users(passwords):
     conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='changeme'"
-    conn = psycopg2.connect(conn_string)
-    cur = conn.cursor()
-    cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
-    conn.commit()
-    cur.close()
+    with psycopg2.connect(conn_string) as conn:
+        with conn.cursor() as cur:
+            cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
+            conn.commit()
+    # unlike file objects or other resources, exiting the connection’s with block doesn’t close the connection
     conn.close()
 
 
@@ -116,6 +116,7 @@ def deploy():
     finally:
         delete_safely(paths.ssl)
         delete_safely(paths.token_keypair)
+        delete_safely(paths.config)
 
 if __name__ == "__main__":
     abspath = abspath(__file__)

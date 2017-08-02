@@ -60,7 +60,6 @@ def get_token_keypair():
 
 def generate_config_file(config_path, db_password: str):
     config_file_path = join(paths.config, "config.properties")
-    file = open(config_file_path, "w")
-    file.write("db.password={}".format(db_password))
-    file.close()
+    with open(config_file_path, "w") as file:
+        file.write("db.password={}".format(db_password))
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
