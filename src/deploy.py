@@ -18,7 +18,7 @@ from certificates import get_ssl_certificate
 from service import service
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
-from settings import get_settings
+from settings import get_settings, get_secret
 
 
 def migrate_schema(db_password):
@@ -28,15 +28,25 @@ def migrate_schema(db_password):
 def generate_passwords() -> Dict[str, str]:
     return {
         "api": ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(50)),
+        "import": get_secret("database/users/import", field="password")
         # "schema_migrator": ""
     }
 
 
 def set_passwords_for_db_users(passwords):
-    conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='changeme'"
+    rootpw = passwords["api"]
+    query = "ALTER USER vimc WITH PASSWORD '{}'".format(rootpw)
+    service.db.exec_run('psql -U vimc -d postgres -c "{query}"'.format(query=query))
+
+    conn_string = "host='localhost' port='5432' dbname='montagu' user='vimc' password='{}'".format(rootpw)
     with psycopg2.connect(conn_string) as conn:
         with conn.cursor() as cur:
-            cur.execute("ALTER USER vimc WITH PASSWORD '{}'".format(passwords["api"]))
+            cur.execute("DROP OWNED BY import CASCADE")
+            cur.execute("DROP USER IF EXISTS import")
+            cur.execute("CREATE USER import WITH PASSWORD '{}'".format(passwords["import"]))
+            cur.execute("GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO import;")
+            cur.execute("GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO import;")
+            cur.execute("GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO import;")
             conn.commit()
 
 
@@ -69,8 +79,9 @@ def _deploy():
     service.start(settings["port"], settings["hostname"])
     try:
         configure_montagu(is_first_time, settings)
-    except:
+    except Exception as e:
         print("An error occurred before deployment could be completed. Stopping Montagu")
+        print(e)
         service.stop(settings)
         raise
 

@@ -9,7 +9,7 @@
 ## Deploy
 As root:
 
-1. `pip3 -r install --user requirements.txt`
+1. `(cd src && pip3 install --user -r requirements.txt)`
 1. `./src/deploy.py`
 
 If you user the 'test_data' data set then it comes with a default username 
@@ -17,3 +17,9 @@ If you user the 'test_data' data set then it comes with a default username
 
 ## Disaster recovery
 See [here](docs/DisasterRecovery.md)
+
+## Passwords
+
+```
+vault write secret/database/users/import password=$(pwgen -n1 80)
+```
