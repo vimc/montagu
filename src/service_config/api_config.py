@@ -64,7 +64,7 @@ def get_token_keypair():
 def generate_api_config_file(config_path, db_password: str, hostname: str):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
-    public_url = "{}://api".format(hostname)
+    public_url = "https://{}/api".format(hostname)
     print(" - Public URL: " + public_url)
 
     with open(config_file_path, "w") as file:
