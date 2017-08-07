@@ -131,7 +131,7 @@ def setup(use_real_passwords):
         if use_real_passwords:
             user.get_password()
         else:
-            user.password = 'changeme'
+            user.password = user.name
         passwords[user.name] = user.password
 
     print("- Updating database users")

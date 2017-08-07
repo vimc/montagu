@@ -65,6 +65,6 @@ def generate_api_config_file(config_path, db_password: str):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     with open(config_file_path, "w") as file:
-        print("db.user={}".format(api_db_user), file=file)
+        print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))

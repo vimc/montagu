@@ -65,8 +65,9 @@ definitions = [
                           ),
     BooleanSettingDefinition("use_real_passwords",
                              "Should database users be given secure passwords?",
-                             "In testing environments you can answer 'no' and all users will have the password "
-                             "'changeme'",
+                             "In testing environments you can answer 'no'. This will mean that the root db user has the"
+                             " default password 'changeme' and that others users will have the same password as their "
+                             "username.",
                              default_value=True),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
