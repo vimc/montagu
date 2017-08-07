@@ -16,8 +16,7 @@ def configure(settings):
         "s3_bucket": settings["backup_bucket"],
         "db_container": service.db_name
     })
-    if not isdir("/etc/montagu/backup"):
-        makedirs("/etc/montagu/backup")
+    makedirs("/etc/montagu/backup", exist_ok=True)
     with open("/etc/montagu/backup/config.json", 'w') as f:
         f.write(config)
 
