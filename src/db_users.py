@@ -121,7 +121,8 @@ def setup(use_real_passwords):
     # Later, read these from a yml file?
     users = [
         UserConfig(api_db_user, 'all', GeneratePassword()),
-        UserConfig('import', 'all', VaultPassword("database/users/import"))
+        UserConfig('import', 'all', VaultPassword("database/users/import")),
+        UserConfig('orderly', 'all', VaultPassword("database/users/orderly")),
     ]
 
     print("- Getting user passwords")
