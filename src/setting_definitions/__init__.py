@@ -7,7 +7,8 @@ def vault_required(settings):
     return settings["initial_data_source"] != "none" \
            or settings["backup"] is True \
            or settings["certificate"] == "production" \
-           or settings["certificate"] == "support"
+           or settings["certificate"] == "support" \
+           or settings["use_real_passwords"] is True
 
 definitions = [
     BooleanSettingDefinition("persist_data",
@@ -62,6 +63,11 @@ definitions = [
                               ("support", "Certificate for support.montagu.dide.ic.ac.uk")
                           ]
                           ),
+    BooleanSettingDefinition("use_real_passwords",
+                             "Should database users be given secure passwords?",
+                             "In testing environments you can answer 'no' and all users will have the password "
+                             "'changeme'",
+                             default_value=True),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"

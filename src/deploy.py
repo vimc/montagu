@@ -64,7 +64,7 @@ def _deploy():
 
 
 def configure_montagu(is_first_time, settings):
-    passwords = db_users.setup()
+    passwords = db_users.setup(settings["use_real_passwords"])
 
     # Do things to the database
     if (not is_first_time) and settings["persist_data"]:

@@ -4,6 +4,7 @@ import string
 import psycopg2
 
 from service import service
+from service_config import api_db_user
 from settings import get_secret
 
 root_user = "vimc"
@@ -107,16 +108,19 @@ def setup_user(db, user):
     set_permissions(db, user)
 
 
-def setup():
+def setup(use_real_passwords):
     print("Setting up database users")
     print("- Scrambling root password")
-    root_password = GeneratePassword().get()
-    set_root_password(root_password)
+    if use_real_passwords:
+        root_password = GeneratePassword().get()
+        set_root_password(root_password)
+    else:
+        root_password = 'changeme'
 
     print("- Getting user configurations")
     # Later, read these from a yml file?
     users = [
-        UserConfig('api', 'all', GeneratePassword()),
+        UserConfig(api_db_user, 'all', GeneratePassword()),
         UserConfig('import', 'all', VaultPassword("database/users/import"))
     ]
 
@@ -124,7 +128,10 @@ def setup():
     passwords = {}
     for user in users:
         print(" - {name}: {source}".format(name=user.name, source=user.password_source))
-        user.get_password()
+        if use_real_passwords:
+            user.get_password()
+        else:
+            user.password = 'changeme'
         passwords[user.name] = user.password
 
     print("- Updating database users")
