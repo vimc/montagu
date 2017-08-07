@@ -1,6 +1,8 @@
+from os import makedirs
 from subprocess import run
 
 import pystache as pystache
+from os.path import isdir
 
 import service
 
@@ -14,6 +16,8 @@ def configure(settings):
         "s3_bucket": settings["backup_bucket"],
         "db_container": service.db_name
     })
+    if not isdir("/etc/montagu/backup"):
+        makedirs("/etc/montagu/backup")
     with open("/etc/montagu/backup/config.json", 'w') as f:
         f.write(config)
 
