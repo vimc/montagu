@@ -9,7 +9,7 @@ from service import service, api_name, reporting_api_name
 api_db_user = "api"
 
 
-def configure_api(db_password: str, keypair_paths):
+def configure_api(db_password: str, keypair_paths, hostname):
     config_path = "/etc/montagu/api/"
     print("Configuring API")
     service.api.exec_run("mkdir -p " + config_path)
@@ -19,8 +19,8 @@ def configure_api(db_password: str, keypair_paths):
     docker_cp(keypair_paths['private'], api_name, join(config_path, "token_key/private_key.der"))
     docker_cp(keypair_paths['public'], api_name, join(config_path, "token_key/public_key.der"))
 
-    print("- Injecting db password into container")
-    generate_api_config_file(config_path, db_password)
+    print("- Injecting settings into container")
+    generate_api_config_file(config_path, db_password, hostname)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -61,10 +61,14 @@ def get_token_keypair():
     return result
 
 
-def generate_api_config_file(config_path, db_password: str):
+def generate_api_config_file(config_path, db_password: str, hostname: str):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
+    public_url = "{}://api".format(hostname)
+    print(" - Public URL: " + public_url)
+
     with open(config_file_path, "w") as file:
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
+        print("app.url={}".format(public_url), file=file)
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
