@@ -64,14 +64,14 @@ def _deploy():
 
 
 def configure_montagu(is_first_time, settings):
-    passwords = db_users.setup(settings["use_real_passwords"])
-
     # Do things to the database
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         orderly.create_empty_store()
         data_import.do(settings)
+
+    passwords = db_users.setup(settings["use_real_passwords"])
     # migrate_schema(passwords['schema_migrator'])
 
     # Push secrets into containers
