@@ -6,3 +6,4 @@ src/\.idea/*
 src/montagu-deploy.json
 token_keypair/
 config/
+setup/vimc_robot_ssh_key
