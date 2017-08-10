@@ -22,4 +22,5 @@ See [here](docs/DisasterRecovery.md)
 
 ```
 vault write secret/database/users/import password=$(pwgen -n1 80)
+vault write secret/vimc-robot/password password=$(pwgen -n1 72)
 ```
