@@ -26,39 +26,44 @@ def load_settings():
     return settings
 
 
-def prepare_for_vault_access(address):
+def prepare_for_vault_access(address, quiet=False):
     os.environ["VAULT_ADDR"] = address
     if "VAULT_AUTH_GITHUB_TOKEN" in os.environ:
-        print("Already authenticated with Vault")
+        if not quiet:
+            print("Already authenticated with Vault")
     else:
         token = getpass("Please enter your Vault GitHub personal access token: ")
         os.environ["VAULT_AUTH_GITHUB_TOKEN"] = token
         run(["vault", "auth", "-method=github"], check=True)
 
 
-def get_settings(do_first_time_setup: bool):
+def get_settings(do_first_time_setup: bool, quiet=False):
     settings = load_settings()
     missing = list(d for d in definitions if d.name not in settings)
     if not do_first_time_setup:
         missing = list(d for d in missing if not d.first_time_only)
 
+    showed_prompt = False
     if any(missing):
-        print("I'm going to ask you some questions to determine how Montagu should be deployed.\n"
-              "Your answers will be stored in {}.".format(abspath(path)))
-
         for d in missing:
             if d.is_required(settings):
+                if not showed_prompt:
+                    showed_prompt = True
+                    print("I'm going to ask you some questions to determine how Montagu should be deployed.\n"
+                          "Your answers will be stored in {}.".format(abspath(path)))
+
                 key = d.name
                 value = d.ask()
                 settings[key] = value
 
     save_settings(settings)
-    print("Using these settings from {}:".format(abspath(path)))
-    for k, v in settings.items():
-        print("- {}: {}".format(k, v))
+    if not quiet:
+        print("Using these settings from {}:".format(abspath(path)))
+        for k, v in settings.items():
+            print("- {}: {}".format(k, v))
 
     if vault_required(settings):
-        prepare_for_vault_access(settings["vault_address"])
+        prepare_for_vault_access(settings["vault_address"], quiet=quiet)
 
     return settings
 
