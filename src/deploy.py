@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import shutil
 import webbrowser
 from os import chdir
 from os.path import abspath, dirname
@@ -83,20 +82,13 @@ def configure_montagu(is_first_time, settings):
     configure_proxy(cert_paths)
 
 
-def delete_safely(path):
-    try:
-        shutil.rmtree(path)
-    except:
-        pass
-
-
 def deploy():
     try:
         _deploy()
     finally:
-        delete_safely(paths.ssl)
-        delete_safely(paths.token_keypair)
-        delete_safely(paths.config)
+        paths.delete_safely(paths.ssl)
+        paths.delete_safely(paths.token_keypair)
+        paths.delete_safely(paths.config)
 
 if __name__ == "__main__":
     abspath = abspath(__file__)
