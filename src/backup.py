@@ -14,7 +14,8 @@ def configure(settings):
         template = f.read()
     config = pystache.render(template, {
         "s3_bucket": settings["backup_bucket"],
-        "db_container": service.db_name
+        "db_container": service.db_name,
+        "orderly_volume": service.orderly_volume_name
     })
     makedirs("/etc/montagu/backup", exist_ok=True)
     with open("/etc/montagu/backup/config.json", 'w') as f:
