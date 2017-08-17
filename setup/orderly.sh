@@ -37,12 +37,12 @@ ssh-keyscan github.com > $DEST/.ssh/known_hosts
 # think I had this working with bash before, but this does not seem to
 # work today and I don't understand why it did apparently work).  We
 # need to close this down at the end of the script.
-docker pull docker.montagu.dide.ic.ac.uk:5000/montagu-reports:master
+docker pull docker.montagu.dide.ic.ac.uk:5000/montagu-orderly:master
 docker run --rm -d \
        --entrypoint sleep \
        --name orderly_setup \
        -v montagu_orderly_volume:/orderly \
-       docker.montagu.dide.ic.ac.uk:5000/montagu-reports:master \
+       docker.montagu.dide.ic.ac.uk:5000/montagu-orderly:master \
        3600
 
 # This command is useful to clear outp the orderly store entirely, so
