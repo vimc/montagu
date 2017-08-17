@@ -28,7 +28,8 @@ EOF
 
 # In order to be able to use git without prompting we need to check
 # the known hosts.  Ideally this would be verified to avoid a MITM
-# attack.
+# attack.  One option would be to store this in valut since we're
+# putting a bunch of stuff in there already.
 ssh-keyscan github.com > $DEST/.ssh/known_hosts
 
 # In order to write to the orderly volume we need a new container.
@@ -44,8 +45,9 @@ docker run --rm -d \
        docker.montagu.dide.ic.ac.uk:5000/montagu-reports:master \
        3600
 
-# This command is useful to clear outp the orderly store entirely, but
-# be careful
+# This command is useful to clear outp the orderly store entirely, so
+# be careful!  This is totally inappropriate for use once we have any
+# data that we care about at all.
 docker exec orderly_setup sh -c 'rm -rf /orderly/.??* /orderly/*'
 
 # Copy the required files into the persistent data volume part of th
