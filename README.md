@@ -19,8 +19,11 @@ If you user the 'test_data' data set then it comes with a default username
 See [here](docs/DisasterRecovery.md)
 
 ## Passwords
+To generate a password for a database user with username USERNAME and store it
+in the Vault:
 
 ```
+sudo apt-get install pwgen
 vault write secret/database/users/import password=$(pwgen -n1 80)
 vault write secret/vimc-robot/password password=$(pwgen -n1 72)
 ```

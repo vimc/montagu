@@ -10,6 +10,15 @@ from settings import get_secret
 root_user = "vimc"
 
 
+def user_configs():
+    # Later, read these from a yml file?
+    return [
+        UserConfig(api_db_user, 'all', VaultPassword(api_db_user)),
+        UserConfig('import', 'all', VaultPassword('import')),
+        UserConfig('orderly', 'all', VaultPassword('orderly')),
+    ]
+
+
 class GeneratePassword:
     def get(self):
         return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(50))
@@ -19,11 +28,15 @@ class GeneratePassword:
 
 
 class VaultPassword:
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, username):
+        self.username = username
 
     def get(self):
         return get_secret(self.path, field="password")
+
+    @property
+    def path(self):
+        return "database/users/" + self.username
 
     def __str__(self):
         return "From vault at " + self.path
@@ -118,12 +131,7 @@ def setup(use_real_passwords):
         root_password = 'changeme'
 
     print("- Getting user configurations")
-    # Later, read these from a yml file?
-    users = [
-        UserConfig(api_db_user, 'all', GeneratePassword()),
-        UserConfig('import', 'all', VaultPassword("database/users/import")),
-        UserConfig('orderly', 'all', VaultPassword("database/users/orderly")),
-    ]
+    users = user_configs()
 
     print("- Getting user passwords")
     passwords = {}
