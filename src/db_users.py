@@ -16,6 +16,7 @@ def user_configs():
         UserConfig(api_db_user, 'all', VaultPassword(api_db_user)),
         UserConfig('import', 'all', VaultPassword('import')),
         UserConfig('orderly', 'all', VaultPassword('orderly')),
+        UserConfig('readonly', 'readonly', VaultPassword('readonly')),
     ]
 
 
@@ -104,11 +105,16 @@ def grant_all(db, user):
     grant_all_on("sequences")
     grant_all_on("functions")
 
+def grant_readonly(db, user):
+    print("  - Granting readonly permissions to {name}".format(name=user.name))
+    db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
 def set_permissions(db, user):
     revoke_all(db, user)
     if user.permissions == 'all':
         grant_all(db, user)
+    elif user.permissions == 'readonly':
+        grant_readonly(db, user)
     else:
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
