@@ -7,7 +7,8 @@
   ["Configuring docker clients to use the registry"](https://github.com/vimc/montagu-ci#configuring-docker-clients-to-use-the-registry)
 
 ## Deploy
-As root:
+
+As root, in `/montagu/deploy`
 
 1. `(cd src && pip3 install --user -r requirements.txt)`
 1. `./src/deploy.py`
