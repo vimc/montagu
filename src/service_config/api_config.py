@@ -5,11 +5,12 @@ import paths
 from cert_tool import run_cert_tool
 from docker_helpers import docker_cp
 from service import service, api_name, reporting_api_name
+from settings import get_secret
 
 api_db_user = "api"
 
 
-def configure_api(db_password: str, keypair_paths, hostname):
+def configure_api(db_password: str, keypair_paths, hostname, use_real_passwords: bool):
     config_path = "/etc/montagu/api/"
     print("Configuring API")
     service.api.exec_run("mkdir -p " + config_path)
@@ -20,7 +21,7 @@ def configure_api(db_password: str, keypair_paths, hostname):
     docker_cp(keypair_paths['public'], api_name, join(config_path, "token_key/public_key.der"))
 
     print("- Injecting settings into container")
-    generate_api_config_file(config_path, db_password, hostname)
+    generate_api_config_file(config_path, db_password, hostname, use_real_passwords)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -61,7 +62,7 @@ def get_token_keypair():
     return result
 
 
-def generate_api_config_file(config_path, db_password: str, hostname: str):
+def generate_api_config_file(config_path, db_password: str, hostname: str, use_real_passwords: bool):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
@@ -71,4 +72,14 @@ def generate_api_config_file(config_path, db_password: str, hostname: str):
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
         print("app.url={}".format(public_url), file=file)
+        configure_email(file, use_real_passwords)
+
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
+
+
+def configure_email(file, use_real_passwords: bool):
+    if use_real_passwords:
+        password = get_secret("email/password")
+        print("email.mode=real", file=file)
+        print("email.password=" + password, file=file)
+
