@@ -64,10 +64,12 @@ definitions = [
                           ]
                           ),
     BooleanSettingDefinition("use_real_passwords",
-                             "Should database users be given secure passwords?",
-                             "In testing environments you can answer 'no'. This will mean that the root db user has the"
-                             " default password 'changeme' and that others users will have the same password as their "
-                             "username.",
+                             "Should real, secure passwords be used?",
+                             "This affects database user accounts, and is also necessary for Montagu to be able to "
+                             "send emails. In testing environments you can answer 'no'. This will mean that:"
+                             "\n- The root db user has the default password 'changeme' "
+                             "\n- Other db users will have the same password as their username."
+                             "\n- Emails will be written to disk (/tmp/montagu_emails) instead of being sent",
                              default_value=True),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",

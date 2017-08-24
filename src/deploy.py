@@ -77,7 +77,7 @@ def configure_montagu(is_first_time, settings):
     cert_paths = get_ssl_certificate(settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
-    configure_api(passwords['api'], token_keypair_paths, settings["hostname"])
+    configure_api(passwords['api'], token_keypair_paths, settings["hostname"], settings["use_real_passwords"])
     configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
 
