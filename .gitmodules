@@ -1,3 +1,6 @@
 [submodule "backup"]
 	path = backup
 	url = https://github.com/vimc/montagu-backup
+[submodule "database"]
+	path = database
+	url = git@github.com:vimc/montagu-db
