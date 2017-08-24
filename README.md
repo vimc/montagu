@@ -3,6 +3,7 @@
 * [Docker Community Edition](https://docs.docker.com/engine/installation/) 
   (including Docker Compose)
 * Python 3 and pip (Python 3 is included with Ubunti. For pip, use `apt install python3-pip`)
+* [Vault](https://www.vaultproject.io/downloads.html) available on the command line as `vault`
 * Your machine needs to trust our Docker Registry. See 
   ["Configuring docker clients to use the registry"](https://github.com/vimc/montagu-ci#configuring-docker-clients-to-use-the-registry)
 
