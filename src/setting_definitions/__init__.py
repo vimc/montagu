@@ -35,7 +35,7 @@ definitions = [
                       "Which S3 bucket should be used for backup?",
                       "This is where data will be restored from, if you specified that a restore should happen for the"
                       "initial data import, and it's where data will be backed up to if you enabled backups.",
-                      default_value="montagu-production",
+                      default_value="montagu-live",
                       is_required=lambda x: x["backup"] is True or x["initial_data_source"] == "restore"),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
