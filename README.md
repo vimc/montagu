@@ -27,3 +27,7 @@ in the Vault:
 sudo apt-get install pwgen
 vault write secret/database/users/USERNAME password=$(pwgen -n1 80)
 ```
+
+## Development
+To update `src/versions.py` to the latest master of each sub repo, use 
+`src/update_versions_to_latest_master.py`.
