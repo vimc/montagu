@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [[ ! $1 == "--force" ]]; then
     echo "Warning: This will stop and remove all Docker containers running on "
     echo -n "this machine. If you are sure you want to this type 'stop-montagu': "
