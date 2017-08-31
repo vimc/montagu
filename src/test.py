@@ -19,7 +19,9 @@ def api_blackbox_tests():
     def work():
         image = get_image_name("montagu-api-blackbox-tests", versions.api)
         run([
-            "docker", "run", "--network", "montagu_default",
+            "docker", "run",
+            "--rm",
+            "--network", "montagu_default",
             "-v", "montagu_emails:/tmp/montagu_emails",
             image
         ], check=True)
