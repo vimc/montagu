@@ -67,8 +67,8 @@ def configure_montagu(is_first_time, settings):
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
-        orderly.create_empty_store()
         data_import.do(settings)
+        orderly.create_orderly_store(settings)
 
     passwords = db_users.setup(settings["use_real_passwords"])
     # migrate_schema(passwords['schema_migrator'])
