@@ -66,7 +66,6 @@ def configure_orderly_store(settings):
             docker_cp(ssh, container, "/orderly")
             docker_cp(envir, container, "/orderly")
     finally:
-        paths.delete_safely(paths.orderly)
         run(["docker", "stop", "-t0", container])
 
 def orderly_prepare_ssh(clone_reports):
