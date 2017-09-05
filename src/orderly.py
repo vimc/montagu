@@ -11,12 +11,6 @@ from service import orderly_volume_name
 from settings import get_secret, save_secret
 from service import orderly_volume_name
 
-# TODO: I don't know how this behaves when doing non-persistent
-# volumes for orderly.  Is that even actually posible?  Currently all
-# the code is written assuming that there _is_ a persistent volume
-# because that's kind of needed (unlike other containers there is no
-# persistent process).
-
 orderly_ssh_keypath = ""
 
 def create_orderly_store(settings):
@@ -26,7 +20,7 @@ def create_orderly_store(settings):
     if settings["initial_data_source"] == "restore":
         restore_orderly_store()
     else:
-        configure_orderly_store(True)
+        configure_orderly_store(settings)
 
 def restore_orderly_store():
     print("Restoring orderly permissions")
@@ -38,9 +32,12 @@ def restore_orderly_store():
             "600", "/orderly/.ssh/id_rsa"]
     run(args)
 
-def configure_orderly_store(clone):
-    ssh = orderly_prepare_ssh()
-    envir = orderly_prepare_envir()
+def configure_orderly_store(settings):
+    clone = settings['clone_reports']
+    use_real_passwords = settings['use_real_passwords']
+
+    ssh = orderly_prepare_ssh(clone)
+    envir = orderly_prepare_envir(use_real_passwords)
 
     container = "orderly_setup"
     args = ["docker", "run", "--rm", "-d",
@@ -52,44 +49,54 @@ def configure_orderly_store(clone):
     run(args, check = True)
 
     try:
-        docker_cp(ssh, container, "/orderly")
-        docker_cp(envir, container, "/orderly")
         if clone:
             print("creating orderly store by cloning montagu-reports")
-            script = "montagu-reports-clone"
+            # NOTE: Do this _before_ clone, or we can't do the clone
+            # as credentials are not found
+            docker_cp(ssh, container, "/orderly")
+            docker_cp(envir, container, "/orderly")
+            run(["docker", "exec", container, "montagu-reports-clone"],
+                check = True)
         else:
             print("creating empty orderly store")
-            script = "/usr/bin/orderly_init"
-        # import pdb; pdb.set_trace()
-        args = ["docker", "exec", container, script]
-        run(args, check = True)
-
+            run(["docker", "exec", container, "/usr/bin/orderly_init", "/orderly"],
+                check = True)
+            # NOTE: Do this _after_ init, or we can't do the
+            # initialisation as directory not empty
+            docker_cp(ssh, container, "/orderly")
+            docker_cp(envir, container, "/orderly")
     finally:
         paths.delete_safely(paths.orderly)
         run(["docker", "stop", "-t0", container])
 
-def orderly_prepare_ssh():
+def orderly_prepare_ssh(clone_reports):
     ssh = paths.orderly + "/.ssh"
     if not os.path.exists(ssh):
         print("preparing orderly ssh")
         os.makedirs(ssh)
-        save_secret("vimc-robot/id_rsa.pub", ssh + "/id_rsa.pub")
-        save_secret("vimc-robot/id_rsa", ssh + "/id_rsa")
-        os.chmod(ssh + "/id_rsa", 0o600)
-        with open(ssh + "/known_hosts", 'w') as output:
-            run(["ssh-keyscan", "github.com"], stdout = output, check = True)
+        if clone_reports:
+            save_secret("vimc-robot/id_rsa.pub", ssh + "/id_rsa.pub")
+            save_secret("vimc-robot/id_rsa", ssh + "/id_rsa")
+            os.chmod(ssh + "/id_rsa", 0o600)
+            with open(ssh + "/known_hosts", 'w') as output:
+                run(["ssh-keyscan", "github.com"], stdout = output, check = True)
     return ssh
 
-def orderly_prepare_envir():
+def orderly_prepare_envir(use_real_passwords):
     print("preparing orderly configuration")
     dest = paths.orderly + "/orderly_envir.yml"
-    password = get_secret("database/users/orderly", "password")
+    # TODO: perhaps user_configs can be used to get these?
+    if use_real_passwords:
+        user = "orderly"
+        password = get_secret("database/users/orderly", "password")
+    else:
+        user = "vimc"
+        password = "changeme"
     envir = [
         "MONTAGU_PASSWORD: {password}".format(password = password),
         "MONTAGU_HOST: support.montagu.dide.ic.ac.uk",
         "MONTAGU_PORT: 5432",
-        "MONTAGU_USER: orderly",
-        "VAULTR_AUTH_METHOD: github"]
+        "MONTAGU_USER: {user}".format(user = user)]
     with open(dest, 'w') as output:
         for e in envir:
             output.write(e + '\n')
