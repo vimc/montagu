@@ -6,5 +6,6 @@
     "hostname": "localhost",
     "certificate": "self_signed",
     "backup": false,
-    "use_real_passwords": false
+    "use_real_passwords": false,
+    "clone_reports": false
 }

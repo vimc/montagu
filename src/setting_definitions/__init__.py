@@ -8,7 +8,8 @@ def vault_required(settings):
            or settings["backup"] is True \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
-           or settings["use_real_passwords"] is True
+           or settings["use_real_passwords"] \
+           or settings["clone_reports"] is True
 
 definitions = [
     BooleanSettingDefinition("persist_data",
@@ -76,5 +77,11 @@ definitions = [
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
                       "Otherwise, just use the default",
                       default_value="https://support.montagu.dide.ic.ac.uk:8200",
-                      is_required=vault_required)
+                      is_required=vault_required),
+    BooleanSettingDefinition("clone_reports",
+                             "Should montagu-reports be cloned?",
+                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot"
+                             "If you answer no, then we set up only an empty orderly repository, and you will not be"
+                             "able to clone the reports repository",
+                             default_value=True)
 ]
