@@ -39,17 +39,13 @@ def configure_orderly_store(settings):
     ssh = orderly_prepare_ssh(clone)
     envir = orderly_prepare_envir(use_real_passwords)
 
-    ## NOTE: the time here (3600s) is just to ensure that the
-    ## container is up long enough.  Realistically a few seconds is
-    ## enough, but as we explicitly kill the container it should not
-    ## matter
     container = "orderly_setup"
     args = ["docker", "run", "--rm", "-d",
             "--entrypoint", "sleep",
             "--name", container,
             "-v", orderly_volume_name + ":/orderly",
             get_image_name("montagu-orderly", versions.reports),
-            "3600"]
+            "infinity"]
     run(args, check = True)
 
     try:
