@@ -20,9 +20,13 @@ from subprocess import run, PIPE
 def git_check(settings):
     strict = settings["backup"]
 
-    is_clean = git_is_clean()
     sha = git_sha()
-    tag = git_get_tag(sha)
+    if not sha:
+        # This happens on teamcity
+        report("running outside of git tree")
+        return
+
+    is_clean = git_is_clean()
 
     def report(msg):
         if strict:
@@ -32,6 +36,8 @@ def git_check(settings):
 
     if not is_clean:
         report("git status reports directory is unclean")
+
+    tag = git_get_tag(sha)
     if not tag:
         report("HEAD is not tagged")
         tag = "<<UNTAGGED>>"
@@ -53,5 +59,11 @@ def git_get_tag(ref):
 
 def git_sha():
     args = ["git", "rev-parse", "HEAD"]
-    p = run(args, stdout = PIPE, stderr = PIPE, check = True)
-    return p.stdout.decode("utf-8").strip()
+    p = run(args, stdout = PIPE, stderr = PIPE)
+    code = p.returncode
+    if code == 128:
+        return None
+    elif code == 0:
+        return p.stdout.decode("utf-8").strip()
+    else:
+        raise Exception(p.stderr.decode("utf-8").strip())
