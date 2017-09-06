@@ -19,6 +19,11 @@ from subprocess import run, PIPE
 # machine, so it would be good if that did not happen.
 def git_check(settings):
     strict = settings["backup"]
+    def report(msg):
+        if strict:
+            raise Exception(msg)
+        else:
+            print("NOTE: " + msg)
 
     sha = git_sha()
     if not sha:
@@ -28,11 +33,6 @@ def git_check(settings):
 
     is_clean = git_is_clean()
 
-    def report(msg):
-        if strict:
-            raise Exception(msg)
-        else:
-            print("NOTE: " + msg)
 
     if not is_clean:
         report("git status reports directory is unclean")
