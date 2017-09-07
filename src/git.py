@@ -18,7 +18,7 @@ from subprocess import run, PIPE
 # This is only an issue if people are tagging on the production
 # machine, so it would be good if that did not happen.
 def git_check(settings):
-    strict = settings["backup"]
+    strict = settings["require_clean_git"]
     def report(msg):
         if strict:
             raise Exception(msg)
