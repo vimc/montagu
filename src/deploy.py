@@ -2,23 +2,32 @@
 import webbrowser
 from os import chdir
 from os.path import abspath, dirname
+from subprocess import run
 from time import sleep
 
 import backup
 import data_import
 import db_users
+import docker_helpers
 import orderly
 import paths
+import versions
 from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
-from service import service
+from service import service, network_name
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from git import git_check
 
+
 def migrate_schema(db_password):
-    pass
+    image = docker_helpers.get_image_name("montagu-migrate", versions.db)
+    run([
+        "docker", "run",
+        "--network=" + network_name,
+        image, "migrate"
+    ], check=True)
 
 
 def _deploy():
@@ -74,7 +83,7 @@ def configure_montagu(is_first_time, settings):
         orderly.create_orderly_store(settings)
 
     passwords = db_users.setup(settings["use_real_passwords"])
-    # migrate_schema(passwords['schema_migrator'])
+    migrate_schema(passwords['schema_migrator'])
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])

@@ -17,6 +17,7 @@ def user_configs():
         UserConfig('import', 'all', VaultPassword('import')),
         UserConfig('orderly', 'all', VaultPassword('orderly')),
         UserConfig('readonly', 'readonly', VaultPassword('readonly')),
+        UserConfig('schema_migrator', 'all', VaultPassword('schema_migrator')),
     ]
 
 

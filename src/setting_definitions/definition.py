@@ -24,7 +24,7 @@ class SettingDefinition:
 
         while answer is None:
             answer = self.parse(input(prompt))
-            if (answer is None or str(answer).strip() == "") and self.default_value:
+            if (answer is None or str(answer).strip() == "") and (self.default_value is not None):
                 answer = self.default_value
 
         return answer

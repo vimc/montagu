@@ -24,7 +24,6 @@ definitions = [
     EnumSettingDefinition("initial_data_source",
                           "What data should be imported initially?",
                           [
-                              ("none", "Empty database"),
                               ("minimal", "Minimum required for Montagu to work (this includes enum tables and "
                                           "permissions)"),
                               ("test_data", "Fake data, useful for testing"),
