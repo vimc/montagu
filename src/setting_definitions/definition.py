@@ -23,7 +23,11 @@ class SettingDefinition:
         prompt = self.get_prompt() + " "
 
         while answer is None:
-            answer = self.parse(input(prompt))
+            try:
+                answer = self.parse(input(prompt))
+            except Exception as e:
+                print("Unable to get value for {}".format(self.name))
+                raise
             if (answer is None or str(answer).strip() == "") and (self.default_value is not None):
                 answer = self.default_value
 
