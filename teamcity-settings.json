@@ -1,6 +1,6 @@
 {
     "open_browser": false,
-    "initial_data_source": "none",
+    "initial_data_source": "minimal",
     "persist_data": false,
     "port": "8443",
     "hostname": "localhost",
