@@ -62,6 +62,11 @@ def git_sha():
     args = ["git", "rev-parse", "HEAD"]
     p = run(args, stdout = PIPE, stderr = PIPE)
     code = p.returncode
+    # Emprically, on teamcity, when this is run out of the git tree
+    # git returns error code 128.  Unfortunately this seems to be a
+    # bit of a catchall error and I can't find any documentation as to
+    # whether we can rely on it.  For all general use we expect
+    # deployment to happen from the git tree though.
     if code == 128:
         return None
     elif code == 0:
