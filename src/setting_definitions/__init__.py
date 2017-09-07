@@ -4,7 +4,7 @@ from setting_definitions.enum import EnumSettingDefinition
 
 
 def vault_required(settings):
-    return settings["initial_data_source"] != "none" \
+    return settings["initial_data_source"] != "minimal" \
            or settings["backup"] is True \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
