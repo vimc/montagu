@@ -15,7 +15,7 @@ from service import service
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
-
+from git import git_check
 
 def migrate_schema(db_password):
     pass
@@ -33,6 +33,9 @@ def _deploy():
         print("Montagu status: {}. Data volume present: {}".format(status, volume_present))
 
     settings = get_settings(is_first_time)
+
+    # Check that the deployment environment is clean enough
+    git_check(settings)
 
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:

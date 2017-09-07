@@ -80,8 +80,14 @@ definitions = [
                       is_required=vault_required),
     BooleanSettingDefinition("clone_reports",
                              "Should montagu-reports be cloned?",
-                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot"
-                             "If you answer no, then we set up only an empty orderly repository, and you will not be"
+                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
+                             "If you answer no, then we set up only an empty orderly repository, and you will not be "
                              "able to clone the reports repository",
-                             default_value=True)
+                             default_value=True),
+    BooleanSettingDefinition("require_clean_git",
+                             "Should we require a clean git state?",
+                             "If you answer yes, then we require that git is 'clean' (no untracked or modified files) "
+                             "and tagged before deploying.  This is the desired setting on production machines, but "
+                             "will be annoying for development",
+                             default_value=False)
 ]

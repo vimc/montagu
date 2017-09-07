@@ -7,5 +7,6 @@
     "certificate": "self_signed",
     "backup": false,
     "use_real_passwords": false,
-    "clone_reports": false
+    "clone_reports": false,
+    "require_clean_git": false
 }
