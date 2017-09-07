@@ -45,7 +45,8 @@ def git_check(settings):
     print("This is montagu {tag} ({sha})".format(tag = tag, sha = sha))
 
 def git_is_clean():
-    p = run(["git", "status", "-s"], stdout = PIPE, stderr = PIPE)
+    p = run(["git", "status", "-s"], stdout = PIPE, stderr = PIPE,
+            check = True)
     return len(p.stdout) == 0
 
 def git_get_tag(ref):
