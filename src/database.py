@@ -1,9 +1,12 @@
 import random
 import string
+from subprocess import run
 
 import psycopg2
 
-from service import service
+import versions
+from docker_helpers import get_image_name
+from service import service, network_name
 from service_config import api_db_user
 from settings import get_secret
 
@@ -106,9 +109,11 @@ def grant_all(db, user):
     grant_all_on("sequences")
     grant_all_on("functions")
 
+
 def grant_readonly(db, user):
     print("  - Granting readonly permissions to {name}".format(name=user.name))
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
+
 
 def set_permissions(db, user):
     revoke_all(db, user)
@@ -121,11 +126,30 @@ def set_permissions(db, user):
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
 
+def migrate_schema(db_password):
+    image = get_image_name("montagu-migrate", versions.db)
+    run([
+        "docker", "run",
+        "--network=" + network_name,
+        image, "migrate"
+    ], check=True)
+
+
 def setup_user(db, user):
     print(" - " + user.name)
     create_user(db, user)
     set_password(db, user)
     set_permissions(db, user)
+
+
+def for_each_user(root_password, users, operation):
+    """Operation is a callback (function) that takes the connection cursor
+    and a UserConfig object"""
+    with connect(root_user, root_password) as conn:
+        with conn.cursor() as cur:
+            for user in users:
+                operation(cur, user)
+        conn.commit()
 
 
 def setup(use_real_passwords):
@@ -151,10 +175,14 @@ def setup(use_real_passwords):
         passwords[user.name] = user.password
 
     print("- Updating database users")
-    with connect(root_user, root_password) as conn:
-        with conn.cursor() as cur:
-            for user in users:
-                setup_user(cur, user)
-        conn.commit()
+    for_each_user(root_password, users, setup_user)
+
+    print("- Migrating database schema")
+    migrate_schema(passwords['schema_migrator'])
+
+    print("- Refreshing permissions")
+    # The migrations may have added new tables, so we should set the permissions
+    # again, in case users need to have permissions on these new tables
+    for_each_user(root_password, users, set_permissions)
 
     return passwords
