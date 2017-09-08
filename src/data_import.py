@@ -10,11 +10,8 @@ from teamcity import save_artifact
 def do(settings):
     source = settings["initial_data_source"]
     print("Running initial data import with mode: {}".format(source))
-    if source == "none":
-        print("- Nothing to do")
-    elif source == "minimal":
-        local_path = get_artifact("MontaguDb_Build", "minimal.dump", commit_hash=versions.db)
-        import_sql(local_path)
+    if source == "minimal":
+        print("- Nothing to do (migrations will insert minimal data)")
     elif source == "test_data":
         local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql", commit_hash=versions.api)
         import_sql(local_path)

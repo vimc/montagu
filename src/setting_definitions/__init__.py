@@ -4,7 +4,7 @@ from setting_definitions.enum import EnumSettingDefinition
 
 
 def vault_required(settings):
-    return settings["initial_data_source"] != "none" \
+    return settings["initial_data_source"] != "minimal" \
            or settings["backup"] is True \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
@@ -24,7 +24,6 @@ definitions = [
     EnumSettingDefinition("initial_data_source",
                           "What data should be imported initially?",
                           [
-                              ("none", "Empty database"),
                               ("minimal", "Minimum required for Montagu to work (this includes enum tables and "
                                           "permissions)"),
                               ("test_data", "Fake data, useful for testing"),

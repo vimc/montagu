@@ -6,19 +6,16 @@ from time import sleep
 
 import backup
 import data_import
-import db_users
+import database
 import orderly
 import paths
 from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
+from git import git_check
 from service import service
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
-from git import git_check
-
-def migrate_schema(db_password):
-    pass
 
 
 def _deploy():
@@ -73,8 +70,7 @@ def configure_montagu(is_first_time, settings):
         data_import.do(settings)
         orderly.create_orderly_store(settings)
 
-    passwords = db_users.setup(settings["use_real_passwords"])
-    # migrate_schema(passwords['schema_migrator'])
+    passwords = database.setup(settings["use_real_passwords"])
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])

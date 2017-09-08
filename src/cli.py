@@ -7,7 +7,7 @@ from os.path import abspath, dirname, join
 
 import paths
 import versions
-from db_users import user_configs
+from database import user_configs
 from docker_helpers import get_image_name
 from settings import get_settings
 

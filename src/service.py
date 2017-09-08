@@ -14,6 +14,7 @@ proxy_portal_name = "montagu_proxy_1"
 
 volume_name = "montagu_db_volume"
 orderly_volume_name = "montagu_orderly_volume"
+network_name = "montagu_default"
 
 service_names = {
     api_name,
