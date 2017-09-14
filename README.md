@@ -20,6 +20,19 @@ If you user the 'test_data' data set then it comes with a default username
 See [here](docs/DisasterRecovery.md)
 
 ## Passwords
+### Retrieve
+To get a database password for use with postgres, there is a helper script that
+can be used like so:
+
+```
+export PGPASSWORD=$(./scripts/get_db_password.sh readonly)
+psql -h support.montagu.dide.ic.ac.uk -U readonly -d montagu
+```
+
+This gets the password for the `readonly` user. To see all users, use
+`vault list secret/database/users`
+
+### Generate
 To generate a password for a database user with username USERNAME and store it 
 in the Vault:
 
