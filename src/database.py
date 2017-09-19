@@ -20,7 +20,6 @@ def user_configs():
         UserConfig('import', 'all', VaultPassword('import')),
         UserConfig('orderly', 'all', VaultPassword('orderly')),
         UserConfig('readonly', 'readonly', VaultPassword('readonly')),
-        UserConfig('schema_migrator', 'all', VaultPassword('schema_migrator')),
     ]
 
 
@@ -128,11 +127,12 @@ def set_permissions(db, user):
 
 def migrate_schema(db_password):
     image = get_image_name("montagu-migrate", versions.db)
+    run(["docker", "pull", image], check=True)
     run([
         "docker", "run",
         "--network=" + network_name,
         image,
-        "migrate", "-user=schema_migrator", "-password=" + db_password
+        "migrate", "-user=" + root_user, "-password=" + db_password
     ], check=True)
 
 
@@ -179,7 +179,7 @@ def setup(use_real_passwords):
     for_each_user(root_password, users, setup_user)
 
     print("- Migrating database schema")
-    migrate_schema(passwords['schema_migrator'])
+    migrate_schema(root_password)
 
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
