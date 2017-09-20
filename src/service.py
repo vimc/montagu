@@ -11,6 +11,7 @@ contrib_name = "montagu_contrib_1"
 admin_portal_name = "montagu_admin_1"
 report_portal_name = "montagu_report_1"
 proxy_portal_name = "montagu_proxy_1"
+orderly_name = "montagu_orderly_1"
 
 volume_name = "montagu_db_volume"
 orderly_volume_name = "montagu_orderly_volume"
@@ -23,7 +24,8 @@ service_names = {
     contrib_name,
     admin_portal_name,
     report_portal_name,
-    proxy_portal_name
+    proxy_portal_name,
+    orderly_name
 }
 
 

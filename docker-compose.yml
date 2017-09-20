@@ -43,6 +43,13 @@ services:
       - contrib
       - report
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
+  orderly:
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
+    volumes:
+      - orderly_volume:/orderly
+    command: --port 8321 /orderly
+    ports:
+      - "8321:8321"
 
 volumes:
   db_volume:
