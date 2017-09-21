@@ -21,6 +21,9 @@ def create_orderly_store(settings):
         restore_orderly_store()
     else:
         configure_orderly_store(settings)
+    print("Sending orderly go signal")
+    args = ["docker", "exec", orderly_name, "touch", ".orderly_go"]
+    run(args)
 
 def restore_orderly_store():
     print("Restoring orderly permissions")
