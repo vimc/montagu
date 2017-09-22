@@ -130,6 +130,7 @@ def migrate_schema(db_password):
     run(["docker", "pull", image], check=True)
     run([
         "docker", "run",
+        "--rm",
         "--network=" + network_name,
         image,
         "migrate", "-user=" + root_user, "-password=" + db_password

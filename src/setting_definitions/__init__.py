@@ -88,5 +88,9 @@ definitions = [
                              "If you answer yes, then we require that git is 'clean' (no untracked or modified files) "
                              "and tagged before deploying.  This is the desired setting on production machines, but "
                              "will be annoying for development",
+                             default_value=False),
+    BooleanSettingDefinition("add_test_user",
+                             "Should we add a test user with access to all modelling groups?",
+                             "This must set to False on production!",
                              default_value=False)
 ]
