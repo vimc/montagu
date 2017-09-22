@@ -43,6 +43,27 @@ def cli():
 
     run(command + [name] + args)
 
+
+def add_test_user():
+    command = [
+        "docker", "run",
+        "-it",
+        "--network", "montagu_default"
+    ]
+
+    name = get_image_name("montagu-cli", versions.api)
+    args = ["add", "Test User", "test.user", "test@example.com", "password"]
+
+    run(command + [name] + args)
+
+    args = ["addRole", "test.user", "user"]
+
+    run(command + [name] + args)
+
+    args = ["addUserToGroup", "test.user", "ALL"]
+
+    run(command + [name] + args)
+
 if __name__ == "__main__":
     try:
         absolute_path = abspath(__file__)
