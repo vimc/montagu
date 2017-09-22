@@ -53,16 +53,20 @@ def add_test_user():
 
     name = get_image_name("montagu-cli", versions.api)
     args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
-
     run(command + [name] + args)
 
     args = ["addRole", "test.user", "user"]
 
     run(command + [name] + args)
 
+    args = ["addRole", "test.user", "reports-reviewer"]
+
+    run(command + [name] + args)
+
     args = ["addUserToGroup", "test.user", "ALL"]
 
     run(command + [name] + args)
+
 
 if __name__ == "__main__":
     try:
