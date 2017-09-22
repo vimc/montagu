@@ -90,7 +90,7 @@ definitions = [
                              "will be annoying for development",
                              default_value=False),
     BooleanSettingDefinition("add_test_user",
-                             "Should we add a test 'super user'?",
+                             "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
                              default_value=False)
 ]
