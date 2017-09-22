@@ -17,7 +17,7 @@ from service import service
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
-
+from last_deploy import last_deploy_update
 
 def _deploy():
     print_ascii_art()
@@ -59,6 +59,8 @@ def _deploy():
 
     if settings["add_test_user"] is True:
         add_test_user()
+
+    last_deploy_update()
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
