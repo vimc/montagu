@@ -52,7 +52,7 @@ def add_test_user():
     ]
 
     name = get_image_name("montagu-cli", versions.api)
-    args = ["add", "Test User", "test.user", "test@example.com", "password"]
+    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
 
     run(command + [name] + args)
 
