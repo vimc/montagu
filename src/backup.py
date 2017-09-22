@@ -6,6 +6,8 @@ from os.path import isdir
 
 import service
 
+from last_deploy import last_restore_update
+
 finished_setup = False
 
 
@@ -50,3 +52,4 @@ def restore(settings):
     print("Restoring from remote backup")
     setup(settings)
     run(["../backup/restore.py"], check=True)
+    last_restore_update()
