@@ -11,6 +11,7 @@ import orderly
 import paths
 from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
+from cli import add_test_user
 from git import git_check
 from service import service
 from service_config import configure_api, configure_proxy
@@ -55,6 +56,9 @@ def _deploy():
         print(e)
         service.stop(settings)
         raise
+
+    if settings["add_test_user"] is True:
+        add_test_user()
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
