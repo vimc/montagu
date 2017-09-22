@@ -57,9 +57,10 @@ def _deploy():
         service.stop(settings)
         raise
 
-    last_deploy_update()
     if settings["add_test_user"] is True:
         add_test_user()
+
+    last_deploy_update()
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
