@@ -1,7 +1,7 @@
 api = "4b0e2f9"
 reporting_api = "4264fea"
 db = "f988668"
-contrib_portal = "0e151b3"
+contrib_portal = "07e5918"
 admin_portal = "0e151b3"
 report_portal = "0e151b3"
 cert_tool = "ae10ceb"
