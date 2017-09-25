@@ -11,10 +11,12 @@
 As root:
 
 1. `(cd src && pip3 install --user -r requirements.txt)`
-1. `./src/deploy.py`
+2. `./src/deploy.py`
 
 If you user the 'test_data' data set then it comes with a default username 
 ("test.user@imperial.ac.uk") and password ("password")
+
+When deploying to the live server, make sure to become the root user by running `sudo su`. This is neccessary to have the correct environment variables for the backup to run.
 
 ## Disaster recovery
 See [here](docs/DisasterRecovery.md)
