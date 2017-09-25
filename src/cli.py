@@ -45,11 +45,16 @@ def cli():
 
 
 def add_test_user():
+    settings = get_settings(do_first_time_setup=False, quiet=True)
+
     command = [
         "docker", "run",
         "-it",
         "--network", "montagu_default"
     ]
+
+    if settings["use_real_passwords"] is True:
+        command += add_secure_config()
 
     name = get_image_name("montagu-cli", versions.api)
     args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
