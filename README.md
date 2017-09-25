@@ -13,10 +13,12 @@ As root:
 1. `(cd src && pip3 install --user -r requirements.txt)`
 2. `./src/deploy.py`
 
-If you user the 'test_data' data set then it comes with a default username 
+If you use the 'test_data' data set then it comes with a default username 
 ("test.user@imperial.ac.uk") and password ("password")
 
-When deploying to the live server, make sure to become the root user by running `sudo su`. This is neccessary to have the correct environment variables for the backup to run.
+When deploying to a testing environment using real data restored from live, setting the `add_test_user` option to true adds the above user with permissions to all modelling groups and reports.
+
+When deploying to the live server, make sure to first become the root user by running `sudo su`. This is neccessary to have the correct environment variables for the backup to run.
 
 ## Disaster recovery
 See [here](docs/DisasterRecovery.md)
