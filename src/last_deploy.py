@@ -37,7 +37,7 @@ def last_deploy_update(montagu_version):
         'versions': dict_from_module(versions),
         'settings': our_settings,
         'last_restore': last_restore,
-        'montagu': montagu_version}
+        'montagu': montagu_version
     }
     with open(path_last_deploy, 'w') as f:
         json.dump(dat, f, indent = 4)
