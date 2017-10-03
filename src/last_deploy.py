@@ -27,7 +27,7 @@ def last_restore_update():
     with open(path_last_restore, 'w') as f:
         f.write(timestring() + '\n')
 
-def last_deploy_update():
+def last_deploy_update(montagu_version):
     our_settings = settings.load_settings()
     last_restore = None
     if our_settings['initial_data_source'] == 'restore':
@@ -36,7 +36,8 @@ def last_deploy_update():
         'time': str(datetime.datetime.now()),
         'versions': dict_from_module(versions),
         'settings': our_settings,
-        'last_restore': last_restore
+        'last_restore': last_restore,
+        'montagu': montagu_version}
     }
     with open(path_last_deploy, 'w') as f:
         json.dump(dat, f, indent = 4)

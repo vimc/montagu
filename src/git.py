@@ -43,6 +43,7 @@ def git_check(settings):
         tag = "<<UNTAGGED>>"
 
     print("This is montagu {tag} ({sha})".format(tag = tag, sha = sha))
+    return {'sha': sha, 'tag': tag, 'clean': is_clean}
 
 def git_is_clean():
     p = run(["git", "status", "-s"], stdout = PIPE, stderr = PIPE,
