@@ -40,9 +40,11 @@ def git_check(settings):
     tag = git_get_tag(sha)
     if not tag:
         report("HEAD is not tagged")
-        tag = "<<UNTAGGED>>"
+        tag_str = "<<UNTAGGED>>"
+    else:
+        tag_str = tag
 
-    print("This is montagu {tag} ({sha})".format(tag = tag, sha = sha))
+    print("This is montagu {tag} ({sha})".format(tag = tag_str, sha = sha))
     return {'sha': sha, 'tag': tag, 'clean': is_clean}
 
 def git_is_clean():
