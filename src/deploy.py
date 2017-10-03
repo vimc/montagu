@@ -33,7 +33,7 @@ def _deploy():
     settings = get_settings(is_first_time)
 
     # Check that the deployment environment is clean enough
-    git_check(settings)
+    version = git_check(settings)
 
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:
@@ -60,7 +60,7 @@ def _deploy():
     if settings["add_test_user"] is True:
         add_test_user()
 
-    last_deploy_update()
+    last_deploy_update(version)
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
