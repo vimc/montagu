@@ -1,15 +1,21 @@
+import backup
 from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
 
+teamcity_sources = ["test_data", "legacy"]
+
 
 def vault_required(settings):
-    return settings["initial_data_source"] != "minimal" \
-           or settings["backup"] is True \
+    data_source = settings["initial_data_source"]
+    uses_duplicati = settings["backup"] is True or data_source == "restore"
+    return data_source in teamcity_sources \
+           or (uses_duplicati and backup.needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or settings["use_real_passwords"] \
            or settings["clone_reports"] is True
+
 
 definitions = [
     BooleanSettingDefinition("persist_data",
