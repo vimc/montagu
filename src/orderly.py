@@ -13,6 +13,10 @@ from service import orderly_volume_name
 
 orderly_ssh_keypath = ""
 
+def configure_orderly_ssh(settings):
+    ssh = orderly_prepare_ssh(settings['clone_reports'])
+    docker_cp(ssh, orderly_name, "/ssh")
+
 def create_orderly_store(settings):
     print("Creating orderly store")
     image = get_image_name("montagu-orderly", versions.orderly)
@@ -32,28 +36,16 @@ def restore_orderly_store():
     run(args)
 
 def configure_orderly_store(settings):
-    clone = settings['clone_reports']
-    use_real_passwords = settings['use_real_passwords']
-
-    ssh = orderly_prepare_ssh(clone)
-    envir = orderly_prepare_envir(use_real_passwords)
-
-    if clone:
+    envir = orderly_prepare_envir(settings['use_real_passwords'])
+    if settings['clone_reports']:
         print("creating orderly store by cloning montagu-reports")
-        # NOTE: Do this _before_ clone, or we can't do the clone
-        # as credentials are not found
-        docker_cp(ssh, orderly_name, "/orderly")
-        docker_cp(envir, orderly_name, "/orderly")
-        run(["docker", "exec", orderly_name, "montagu-reports-clone"],
-            check = True)
+        cmd = ["git", "-C", "/orderly", "clone",
+                "git@github.com:vimc/montagu-reports.git"]
     else:
         print("creating empty orderly store")
-        run(["docker", "exec", orderly_name, "/usr/bin/orderly_init", "/orderly"],
-            check = True)
-        # NOTE: Do this _after_ init, or we can't do the
-        # initialisation as directory not empty
-        docker_cp(ssh, orderly_name, "/orderly")
-        docker_cp(envir, orderly_name, "/orderly")
+        cmd = ["/usr/bin/orderly_init", "/orderly"]
+    run(["docker", "exec", orderly_name] + cmd, check = True)
+    docker_cp(envir, orderly_name, "/orderly")
 
 def orderly_prepare_ssh(clone_reports):
     ssh = paths.orderly + "/.ssh"

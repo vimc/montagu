@@ -26,7 +26,7 @@ if __name__ == "__main__":
         ("report_portal", "montagu-webapps"),
         ("cert_tool", "montagu-cert-tool"),
         ("proxy", "montagu-proxy"),
-        ("reports", "montagu-orderly")
+        ("orderly", "montagu-orderly")
     ]
 
     with open('versions.py', 'w') as f:
