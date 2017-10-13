@@ -43,6 +43,36 @@ def cli():
 
     run(command + [name] + args)
 
+
+def add_test_user():
+    settings = get_settings(do_first_time_setup=False, quiet=True)
+
+    command = [
+        "docker", "run",
+        "-it",
+        "--network", "montagu_default"
+    ]
+
+    if settings["use_real_passwords"] is True:
+        command += add_secure_config()
+
+    name = get_image_name("montagu-cli", versions.api)
+    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
+    run(command + [name] + args)
+
+    args = ["addRole", "test.user", "user"]
+
+    run(command + [name] + args)
+
+    args = ["addRole", "test.user", "reports-reviewer"]
+
+    run(command + [name] + args)
+
+    args = ["addUserToGroup", "test.user", "ALL"]
+
+    run(command + [name] + args)
+
+
 if __name__ == "__main__":
     try:
         absolute_path = abspath(__file__)

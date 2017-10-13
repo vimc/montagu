@@ -1,10 +1,12 @@
 from os import makedirs
-from subprocess import run
+from subprocess import run, DEVNULL
 
 import pystache as pystache
 from os.path import isdir
 
 import service
+
+from last_deploy import last_restore_update
 
 finished_setup = False
 
@@ -22,13 +24,15 @@ def configure(settings):
         f.write(config)
 
 
+def needs_setup():
+    return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
+
+
 def setup(settings):
-    global finished_setup
-    if not finished_setup:
+    if needs_setup():
         print("- Configuring and installing backup service")
         configure(settings)
         run("../backup/setup.sh", check=True)
-        finished_setup = True
 
 
 def backup(settings):
@@ -50,3 +54,4 @@ def restore(settings):
     print("Restoring from remote backup")
     setup(settings)
     run(["../backup/restore.py"], check=True)
+    last_restore_update()

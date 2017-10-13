@@ -1,15 +1,21 @@
+import backup
 from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
 
+teamcity_sources = ["test_data", "legacy"]
+
 
 def vault_required(settings):
-    return settings["initial_data_source"] != "minimal" \
-           or settings["backup"] is True \
+    data_source = settings["initial_data_source"]
+    uses_duplicati = settings["backup"] is True or data_source == "restore"
+    return data_source in teamcity_sources \
+           or (uses_duplicati and backup.needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or settings["use_real_passwords"] \
            or settings["clone_reports"] is True
+
 
 definitions = [
     BooleanSettingDefinition("persist_data",
@@ -88,5 +94,9 @@ definitions = [
                              "If you answer yes, then we require that git is 'clean' (no untracked or modified files) "
                              "and tagged before deploying.  This is the desired setting on production machines, but "
                              "will be annoying for development",
+                             default_value=False),
+    BooleanSettingDefinition("add_test_user",
+                             "Should we add a test user with access to all modelling groups?",
+                             "This must set to False on production!",
                              default_value=False)
 ]
