@@ -15,7 +15,7 @@ orderly_ssh_keypath = ""
 
 def configure_orderly_ssh(settings):
     ssh = orderly_prepare_ssh(settings['clone_reports'])
-    docker_cp(ssh, orderly_name, "/ssh")
+    docker_cp(ssh, orderly_name, "/root/.ssh")
 
 def create_orderly_store(settings):
     print("Creating orderly store")
