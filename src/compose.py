@@ -39,5 +39,7 @@ def get_env(port, hostname):
         'MONTAGU_ADMIN_PORTAL_VERSION': versions.admin_portal,
         'MONTAGU_REPORT_PORTAL_VERSION': versions.report_portal,
 
-        'MONTAGU_PROXY_VERSION': versions.proxy
+        'MONTAGU_PROXY_VERSION': versions.proxy,
+
+        'MONTAGU_ORDERLY_VERSION': versions.orderly
     }
