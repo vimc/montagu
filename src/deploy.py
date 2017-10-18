@@ -76,6 +76,7 @@ def configure_montagu(is_first_time, settings):
     else:
         data_import.do(settings)
         orderly.create_orderly_store(settings)
+    orderly.configure_orderly_envir(settings)
 
     passwords = database.setup(settings["use_real_passwords"])
 

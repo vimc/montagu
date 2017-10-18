@@ -31,8 +31,11 @@ def restore_orderly_store():
             "chmod", "600", "/orderly/.ssh/id_rsa"]
     run(args)
 
-def configure_orderly_store(settings):
+def configure_orderly_envir(settings):
     envir = orderly_prepare_envir(settings['use_real_passwords'])
+    docker_cp(envir, orderly_name, "/orderly")
+
+def configure_orderly_store(settings):
     if settings['clone_reports']:
         print("creating orderly store by cloning montagu-reports")
         cmd = ["git", "-C", "/orderly", "clone",
@@ -41,7 +44,6 @@ def configure_orderly_store(settings):
         print("creating empty orderly store")
         cmd = ["/usr/bin/orderly_init", "/orderly"]
     run(["docker", "exec", orderly_name] + cmd, check = True)
-    docker_cp(envir, orderly_name, "/orderly")
 
 def configure_orderly_ssh(settings):
     needs_ssh = settings['clone_reports'] or \
