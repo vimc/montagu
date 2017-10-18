@@ -13,10 +13,6 @@ from service import orderly_volume_name
 
 orderly_ssh_keypath = ""
 
-def configure_orderly_ssh(settings):
-    ssh = orderly_prepare_ssh(settings['clone_reports'])
-    docker_cp(ssh, orderly_name, "/root/.ssh")
-
 def create_orderly_store(settings):
     print("Creating orderly store")
     image = get_image_name("montagu-orderly", versions.orderly)
@@ -47,18 +43,21 @@ def configure_orderly_store(settings):
     run(["docker", "exec", orderly_name] + cmd, check = True)
     docker_cp(envir, orderly_name, "/orderly")
 
-def orderly_prepare_ssh(clone_reports):
+def configure_orderly_ssh(settings):
+    needs_ssh = settings['clone_reports'] or \
+                settings['initial_data_source'] == 'restore'
+    if not needs_ssh:
+        return
     ssh = paths.orderly + "/.ssh"
     if not os.path.exists(ssh):
         print("preparing orderly ssh")
         os.makedirs(ssh)
-        if clone_reports:
-            save_secret("vimc-robot/id_rsa.pub", ssh + "/id_rsa.pub")
-            save_secret("vimc-robot/id_rsa", ssh + "/id_rsa")
-            os.chmod(ssh + "/id_rsa", 0o600)
-            with open(ssh + "/known_hosts", 'w') as output:
-                run(["ssh-keyscan", "github.com"], stdout = output, check = True)
-    return ssh
+        save_secret("vimc-robot/id_rsa.pub", ssh + "/id_rsa.pub")
+        save_secret("vimc-robot/id_rsa", ssh + "/id_rsa")
+        os.chmod(ssh + "/id_rsa", 0o600)
+        with open(ssh + "/known_hosts", 'w') as output:
+            run(["ssh-keyscan", "github.com"], stdout = output, check = True)
+    docker_cp(ssh, orderly_name, "/root/.ssh")
 
 def orderly_prepare_envir(use_real_passwords):
     print("preparing orderly configuration")
