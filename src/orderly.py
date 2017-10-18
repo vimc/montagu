@@ -74,6 +74,8 @@ def orderly_prepare_envir(use_real_passwords):
         "MONTAGU_HOST: support.montagu.dide.ic.ac.uk",
         "MONTAGU_PORT: 5432",
         "MONTAGU_USER: {user}".format(user = user)]
+    if not os.path.exists(paths.orderly):
+        os.makedirs(paths.orderly)
     with open(dest, 'w') as output:
         for e in envir:
             output.write(e + '\n')
