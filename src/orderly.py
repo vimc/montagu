@@ -5,7 +5,7 @@ import os.path
 import paths
 
 import versions
-from docker_helpers import get_image_name, docker_cp
+from docker_helpers import docker_cp
 from service import orderly_name, orderly_volume_name
 
 from settings import get_secret, save_secret
@@ -15,8 +15,6 @@ orderly_ssh_keypath = ""
 
 def create_orderly_store(settings):
     print("Creating orderly store")
-    image = get_image_name("montagu-orderly", versions.orderly)
-    run(["docker", "pull", image], check=True)
     if settings["initial_data_source"] == "restore":
         restore_orderly_store()
     else:
