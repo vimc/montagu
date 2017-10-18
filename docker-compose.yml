@@ -49,7 +49,7 @@ services:
     image: docker.montagu.dide.ic.ac.uk:5000/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
     volumes:
       - orderly_volume:/orderly
-    command: --port 8321 --go-signal .orderly_go /orderly
+    command: --port 8321 --go-signal /orderly_go /orderly
 
 volumes:
   db_volume:

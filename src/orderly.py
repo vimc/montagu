@@ -13,27 +13,26 @@ from service import orderly_volume_name
 
 orderly_ssh_keypath = ""
 
-def create_orderly_store(settings):
-    print("Creating orderly store")
-    if settings["initial_data_source"] == "restore":
-        restore_orderly_store()
-    else:
-        configure_orderly_store(settings)
+def configure_orderly(settings):
+    ## Run this one first because we might need to use the ssh keys to
+    ## clone:
+    configure_orderly_ssh(settings)
+    ## Then this requires an empty directory:
+    if settings["initial_data_source"] != "restore":
+        print("Setting up orderly store")
+        initialise_orderly_store(settings)
+    ## Then set up some passwords
+    configure_orderly_envir(settings)
+    ## And we're off
     print("Sending orderly go signal")
-    args = ["docker", "exec", orderly_name, "touch", ".orderly_go"]
-    run(args)
-
-def restore_orderly_store():
-    print("Restoring orderly permissions")
-    args = ["docker", "exec", orderly_name,
-            "chmod", "600", "/orderly/.ssh/id_rsa"]
+    args = ["docker", "exec", orderly_name, "touch", "/orderly_go"]
     run(args)
 
 def configure_orderly_envir(settings):
     envir = orderly_prepare_envir(settings['use_real_passwords'])
     docker_cp(envir, orderly_name, "/orderly")
 
-def configure_orderly_store(settings):
+def initialise_orderly_store(settings):
     if settings['clone_reports']:
         print("creating orderly store by cloning montagu-reports")
         cmd = ["git", "-C", "/orderly", "clone",

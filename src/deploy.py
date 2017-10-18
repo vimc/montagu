@@ -70,13 +70,11 @@ def _deploy():
 
 def configure_montagu(is_first_time, settings):
     # Do things to the database
-    orderly.configure_orderly_ssh(settings)
     if (not is_first_time) and settings["persist_data"]:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         data_import.do(settings)
-        orderly.create_orderly_store(settings)
-    orderly.configure_orderly_envir(settings)
+    orderly.configure_orderly(settings)
 
     passwords = database.setup(settings["use_real_passwords"])
 
