@@ -70,7 +70,7 @@ def orderly_prepare_envir(use_real_passwords):
         password = "changeme"
     envir = [
         "MONTAGU_PASSWORD: {password}".format(password = password),
-        "MONTAGU_HOST: support.montagu.dide.ic.ac.uk",
+        "MONTAGU_HOST: db",
         "MONTAGU_PORT: 5432",
         "MONTAGU_USER: {user}".format(user = user)]
     if not os.path.exists(paths.orderly):
