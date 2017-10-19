@@ -64,7 +64,8 @@ Make sure you use the named volume (`registry_data`) created by the restore
 process.
 
 ### 5. ~~(Less urgent) Restore TeamCity~~
-_No backup implemented yet_
+
+Backups will be restored by duplicati and can be restored following instructions [here](https://github.com/vimc/montagu-ci#backups)
 
 ## Production machine
 First, as root:
