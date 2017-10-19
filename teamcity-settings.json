@@ -9,5 +9,5 @@
     "use_real_passwords": false,
     "clone_reports": false,
     "require_clean_git": false,
-    "add_test_user": true
+    "add_test_user": false
 }
