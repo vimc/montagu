@@ -4,7 +4,7 @@ from subprocess import run
 import sys
 
 import versions
-from docker_helpers import get_image_name
+from docker_helpers import get_image_name, pull
 
 
 def run_in_teamcity_block(name, work):
@@ -18,6 +18,7 @@ def run_in_teamcity_block(name, work):
 def api_blackbox_tests():
     def work():
         image = get_image_name("montagu-api-blackbox-tests", versions.api)
+        pull(image)
         run([
             "docker", "run",
             "--rm",
@@ -30,15 +31,21 @@ def api_blackbox_tests():
 
 
 def webapp_integration_tests():
-    def work():
-        image = get_image_name("montagu-portal-integration-tests", "i633")
+    def run_suite(portal, version):
+        image = get_image_name("montagu-portal-integration-tests", version)
+        pull(image)
         run([
             "docker", "run",
             "--rm",
             "--network", "montagu_default",
             "-v", "/var/run/docker.sock:/var/run/docker.sock",
-            image
+            image,
+            portal.title()  # Tests expect capitalized first letter, e.g. "Admin"
         ], check=True)
+
+    def work():
+        run_suite("admin", versions.admin_portal)
+        run_suite("contrib", versions.contrib_portal)        
 
     run_in_teamcity_block("webapp_integration_tests", work)
 
