@@ -31,7 +31,7 @@ def api_blackbox_tests():
 
 def webapp_integration_tests():
     def work():
-        image = get_image_name("montagu-portal-integration-tests", "local")
+        image = get_image_name("montagu-portal-integration-tests", "i633")
         run([
             "docker", "run",
             "--rm",
