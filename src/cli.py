@@ -57,7 +57,7 @@ def add_test_user():
         command += add_secure_config()
 
     name = get_image_name("montagu-cli", versions.api)
-    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
+    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"]
     run(command + [name] + args)
 
     args = ["addRole", "test.user", "user"]
