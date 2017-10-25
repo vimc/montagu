@@ -5,7 +5,7 @@ from subprocess import run
 import psycopg2
 
 import versions
-from docker_helpers import get_image_name
+from docker_helpers import get_image_name, pull
 from service import service, network_name
 from service_config import api_db_user
 from settings import get_secret
@@ -127,7 +127,7 @@ def set_permissions(db, user):
 
 def migrate_schema(db_password):
     image = get_image_name("montagu-migrate", versions.db)
-    run(["docker", "pull", image], check=True)
+    pull(image)
     run([
         "docker", "run",
         "--rm",
