@@ -1,4 +1,4 @@
-from subprocess import check_output
+from subprocess import check_output, run
 
 registry_url = "docker.montagu.dide.ic.ac.uk:5000"
 
@@ -10,3 +10,7 @@ def get_image_name(name, version):
 def docker_cp(src, container, target_path):
     full_target = "{container}:{path}".format(container=container, path=target_path)
     check_output(["docker", "cp", src, full_target])
+
+
+def pull(image):
+    run(["docker", "pull", image], check=True)
