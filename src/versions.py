@@ -1,6 +1,6 @@
-api = "ae42a1f"
+api = "i847"
 reporting_api = "d8452af"
-db = "db24596"
+db = "i847"
 contrib_portal = "6d1bdff"
 admin_portal = "6d1bdff"
 report_portal = "0acaca6"
