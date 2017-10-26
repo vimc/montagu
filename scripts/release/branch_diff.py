@@ -40,16 +40,16 @@ e.g. branch-diff v0.4.0""")
         return sys.argv[1]
 
 
-def get_branch_diff(here, compare_to):
+def get_branch_diff(compare_to):
+    here = run("git rev-parse --short HEAD")
     branches_here = get_branches_at(here)
     branches_there = get_branches_at(compare_to)
     return (branches_here - branches_there) - set(["master"])
 
 
 if __name__ == "__main__":
-    here = run("git rev-parse --short HEAD")
     compare_to = get_args()
-    diff = get_branch_diff(here, compare_to)
+    diff = get_branch_diff(compare_to)
 
     print("Branches merged into the current commit ({here}) but not into {compare_to}:".format(compare_to=compare_to, here=here))
     for branch in sorted(diff):
