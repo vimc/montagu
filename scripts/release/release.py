@@ -20,7 +20,7 @@ def git_is_clean():
 
 def tag(tag_name, branch_diff):
     message = "Release {tag}, incorporating these branches: {branches}".format(tag=tag_name, branches=branch_diff)
-    run("git tag -a {tag} -m {msg}".format(tag=tag_name, msg=message))
+    run("git tag -a {tag} -m \"{msg}\"".format(tag=tag_name, msg=message))
 
 
 def push():
