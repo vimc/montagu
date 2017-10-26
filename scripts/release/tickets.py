@@ -92,7 +92,7 @@ def check_tickets(latest_tag):
 
     if problems:
         answer = input("Are you sure you want to proceed? (y/N) ")
-    if answer != "y":
-        exit(-1)
+        if answer != "y":
+            exit(-1)
 
     return pairs

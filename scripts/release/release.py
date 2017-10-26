@@ -68,12 +68,24 @@ def write_release_log(message):
         f.write("\n")
 
 
+def commit_tag_and_push():
+    run("git add RELEASE_LOG.md")
+    run("git commit -m \"{msg}\"".format(msg=release_message))
+    print("Tagging and pushing...")
+    tag(new_tag, release_message)
+    push()
+
+
+def fetch():
+    print("Fetching from remote...")
+    run("git fetch --tags --all")
+
+
 if __name__ == "__main__":
     if not (git_is_clean() or dry_run):
         print("Git status reports as not clean; aborting release")
     else:
-        print("Fetching from remote...")
-        run("git fetch --tags --all")
+        fetch()
         latest_tag = get_latest_release_tag()
         print("The latest release was " + latest_tag)
 
@@ -83,8 +95,6 @@ if __name__ == "__main__":
         print("Writing release log...")
         release_message = make_release_message(new_tag, branches_and_tickets)
         write_release_log(release_message)
-        print("Tagging and pushing...")
-        tag(new_tag, release_message)
-        push()
+        commit_tag_and_push()
 
         print("Done!")
