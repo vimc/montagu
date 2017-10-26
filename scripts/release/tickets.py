@@ -71,7 +71,7 @@ class YouTrackHelper:
 
 
 def check_tickets(latest_tag):
-    diff = get_branch_diff(latest_tag) | {"i633", "i121_test"}
+    diff = get_branch_diff(latest_tag)
     print("Since then, the following branches have been merged in:")
     print(" ".join(diff))
     print("")
