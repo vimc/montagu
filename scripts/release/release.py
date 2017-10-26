@@ -19,7 +19,8 @@ def git_is_clean():
 
 
 def tag(tag_name, branch_diff):
-    message = "Release {tag}, incorporating these branches: {branches}".format(tag=tag_name, branches=branch_diff)
+    message = "Release {tag}, incorporating these branches: {branches}".format(
+        tag=tag_name, branches=branch_diff)
     run("git tag -a {tag} -m \"{msg}\"".format(tag=tag_name, msg=message))
 
 
@@ -32,6 +33,8 @@ if __name__ == "__main__":
     if False:  # not git_is_clean():
         print("Git status reports as not clean; aborting release")
     else:
+        print("Fetching from remote...")
+        run("git fetch --tags --all")
         latest_tag = get_latest_release_tag()
         print("The latest release was " + latest_tag)
 
@@ -41,8 +44,9 @@ if __name__ == "__main__":
         print("")
 
         new_tag = "v" + input("What should the new release tag be? v")
+        if new_tag < latest_tag:
+            template = "{new_tag} is not after {latest_tag}"
+            print(template.format(new_tag=new_tag, latest_tag=latest_tag))
         print("Tagging and pushing...")
         tag(new_tag, diff)
         push()
-
-

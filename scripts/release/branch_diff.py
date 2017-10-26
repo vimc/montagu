@@ -51,6 +51,8 @@ if __name__ == "__main__":
     compare_to = get_args()
     diff = get_branch_diff(compare_to)
 
-    print("Branches merged into the current commit ({here}) but not into {compare_to}:".format(compare_to=compare_to, here=here))
+    template = "Branches merged into the current commit ({here}) but not " \
+               "into {compare_to}:"
+    print(template.format(compare_to=compare_to, here=here))
     for branch in sorted(diff):
         print(branch)
