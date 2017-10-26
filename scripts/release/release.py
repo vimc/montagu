@@ -98,3 +98,6 @@ if __name__ == "__main__":
         commit_tag_and_push()
 
         print("Done!")
+        print("""The released tickets should now be moved into the 'Deployed'
+state and the release version set. In a future version of this script this will
+be handled automatically""")
