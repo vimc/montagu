@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import re
 
+from io import StringIO
+
 from helpers import run
-from branch_diff import get_branch_diff
+from tickets import check_tickets
 
 release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
 dry_run = True
@@ -41,8 +43,33 @@ def get_new_tag():
     return new_tag
 
 
+def make_release_message(tag, branches_and_tickets):
+    print(branches_and_tickets)
+    with StringIO() as msg:
+        print("# " + tag, file=msg)
+        print("## Tickets", file=msg)
+        for branch, ticket in branches_and_tickets:
+            if ticket:
+                summary = ticket.get("summary")
+                line = "* {branch}: {summary}".format(branch=branch,
+                                                      summary=summary)
+                print(line, file=msg)
+
+        print("\n## Other branches merged in this release", file=msg)
+        for branch, ticket in branches_and_tickets:
+            if not ticket:
+                print("* " + branch, file=msg)
+        return msg.getvalue()
+
+
+def write_release_log(message):
+    with open('RELEASE_LOG.md', 'a') as f:
+        f.write(message)
+        f.write("\n")
+
+
 if __name__ == "__main__":
-    if False:  # not git_is_clean():
+    if not (git_is_clean() or dry_run):
         print("Git status reports as not clean; aborting release")
     else:
         print("Fetching from remote...")
@@ -50,13 +77,14 @@ if __name__ == "__main__":
         latest_tag = get_latest_release_tag()
         print("The latest release was " + latest_tag)
 
-        diff = get_branch_diff(latest_tag)
-        print("Since then, the following branches have been merged in:")
-        print(" ".join(diff))
-        print("")
-
+        branches_and_tickets = check_tickets(latest_tag)
         new_tag = get_new_tag()
 
+        print("Writing release log...")
+        release_message = make_release_message(new_tag, branches_and_tickets)
+        write_release_log(release_message)
         print("Tagging and pushing...")
-        tag(new_tag, diff)
+        tag(new_tag, release_message)
         push()
+
+        print("Done!")
