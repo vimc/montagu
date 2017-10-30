@@ -74,7 +74,7 @@ def configure_montagu(is_first_time, settings):
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         data_import.do(settings)
-    orderly.configure_orderly(settings)
+    orderly.configure_orderly(is_first_time, settings)
 
     passwords = database.setup(settings["use_real_passwords"])
 

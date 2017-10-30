@@ -13,12 +13,12 @@ from service import orderly_volume_name
 
 orderly_ssh_keypath = ""
 
-def configure_orderly(settings):
+def configure_orderly(is_first_time, settings):
     ## Run this one first because we might need to use the ssh keys to
     ## clone:
     configure_orderly_ssh(settings)
     ## Then this requires an empty directory:
-    if settings["initial_data_source"] != "restore":
+    if is_first_time and settings["initial_data_source"] != "restore":
         print("Setting up orderly store")
         initialise_orderly_store(settings)
     ## Then set up some passwords
