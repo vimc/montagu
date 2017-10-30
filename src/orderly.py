@@ -35,8 +35,8 @@ def configure_orderly_envir(settings):
 def initialise_orderly_store(settings):
     if settings['clone_reports']:
         print("creating orderly store by cloning montagu-reports")
-        cmd = ["git", "-C", "/orderly", "clone",
-                "git@github.com:vimc/montagu-reports.git"]
+        cmd = ["git", "clone", "git@github.com:vimc/montagu-reports.git",
+               "/orderly"]
     else:
         print("creating empty orderly store")
         cmd = ["/usr/bin/orderly_init", "/orderly"]
