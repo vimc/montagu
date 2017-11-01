@@ -13,12 +13,12 @@ from service import orderly_volume_name
 
 orderly_ssh_keypath = ""
 
-def configure_orderly(settings):
+def configure_orderly(is_first_time, settings):
     ## Run this one first because we might need to use the ssh keys to
     ## clone:
     configure_orderly_ssh(settings)
     ## Then this requires an empty directory:
-    if settings["initial_data_source"] != "restore":
+    if is_first_time and settings["initial_data_source"] != "restore":
         print("Setting up orderly store")
         initialise_orderly_store(settings)
     ## Then set up some passwords
@@ -35,8 +35,8 @@ def configure_orderly_envir(settings):
 def initialise_orderly_store(settings):
     if settings['clone_reports']:
         print("creating orderly store by cloning montagu-reports")
-        cmd = ["git", "-C", "/orderly", "clone",
-                "git@github.com:vimc/montagu-reports.git"]
+        cmd = ["git", "clone", "git@github.com:vimc/montagu-reports.git",
+               "/orderly"]
     else:
         print("creating empty orderly store")
         cmd = ["/usr/bin/orderly_init", "/orderly"]
