@@ -70,11 +70,12 @@ def _deploy():
 
 def configure_montagu(is_first_time, settings):
     # Do things to the database
-    if (not is_first_time) and settings["persist_data"]:
+    data_exists = (not is_first_time) and settings["persist_data"]
+    if data_exists:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
         data_import.do(settings)
-    orderly.configure_orderly(is_first_time, settings)
+    orderly.configure_orderly(not data_exists, settings)
 
     passwords = database.setup(settings["use_real_passwords"])
 
