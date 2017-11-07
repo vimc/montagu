@@ -76,13 +76,13 @@ def configure_montagu(is_first_time, settings):
         data_import.do(settings)
     orderly.configure_orderly(is_first_time, settings)
 
-    passwords = database.setup(settings["use_real_passwords"])
+    passwords = database.setup(settings["password_group"])
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
-    configure_api(passwords['api'], token_keypair_paths, settings["hostname"], settings["use_real_passwords"])
+    configure_api(passwords['api'], token_keypair_paths, settings["hostname"], settings["password_group"] == 'production')
     configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
 

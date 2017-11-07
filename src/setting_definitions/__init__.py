@@ -13,7 +13,7 @@ def vault_required(settings):
            or (uses_duplicati and backup.needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
-           or settings["use_real_passwords"] \
+           or settings["password_group"] != 'fake' \
            or settings["clone_reports"] is True
 
 
@@ -69,14 +69,14 @@ definitions = [
                               ("support", "Certificate for support.montagu.dide.ic.ac.uk")
                           ]
                           ),
-    BooleanSettingDefinition("use_real_passwords",
-                             "Should real, secure passwords be used?",
-                             "This affects database user accounts, and is also necessary for Montagu to be able to "
-                             "send emails. In testing environments you can answer 'no'. This will mean that:"
-                             "\n- The root db user has the default password 'changeme' "
-                             "\n- Other db users will have the same password as their username."
-                             "\n- Emails will be written to disk (/tmp/montagu_emails) instead of being sent",
-                             default_value=True),
+    EnumSettingDefinition("password_group",
+                          "Which password group should montagu use to retrieve database passwords from the vault?"
+                          [
+                              ("production", "Passwords for production")
+                              ("science",    "Passwords for science")
+                              ("fake",       "Do not use passwords from the vault")
+                          ]
+                          ),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"

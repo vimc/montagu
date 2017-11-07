@@ -2,11 +2,11 @@
 set -e
 
 USERS="api import orderly readonly schema_migrator"
-MACHINES="production science"
+PASSWORD_GROUPS="production science"
 
-for M in $MACHINES; do
+for G in $PASSWORD_GROUPS; do
     for U in $USERS; do
-        KEY="secret/database/$M/users/$U"
+        KEY="secret/database/$G/users/$U"
         # When closing out VIMC-587, uncomment the next line, delete
         # the following, and rerun the script
         # PW=$(pwgen -s -y 80 1)

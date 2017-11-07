@@ -11,6 +11,8 @@ from service import orderly_name, orderly_volume_name
 from settings import get_secret, save_secret
 from service import orderly_volume_name
 
+from database import VaultConfig
+
 orderly_ssh_keypath = ""
 
 def configure_orderly(is_first_time, settings):
@@ -29,7 +31,7 @@ def configure_orderly(is_first_time, settings):
     run(args)
 
 def configure_orderly_envir(settings):
-    envir = orderly_prepare_envir(settings['use_real_passwords'])
+    envir = orderly_prepare_envir(settings['password_group'])
     docker_cp(envir, orderly_name, "/orderly")
 
 def initialise_orderly_store(settings):
@@ -58,16 +60,11 @@ def configure_orderly_ssh(settings):
             run(["ssh-keyscan", "github.com"], stdout = output, check = True)
     docker_cp(ssh, orderly_name, "/root/.ssh")
 
-def orderly_prepare_envir(use_real_passwords):
+def orderly_prepare_envir(password_group):
     print("preparing orderly configuration")
     dest = paths.orderly + "/orderly_envir.yml"
-    # TODO: perhaps user_configs can be used to get these?
-    if use_real_passwords:
-        user = "orderly"
-        password = get_secret("database/users/orderly", "password")
-    else:
-        user = "vimc"
-        password = "changeme"
+    user = "orderly"
+    password = VaultPassword(password_group, user).get()
     envir = [
         "MONTAGU_PASSWORD: {password}".format(password = password),
         "MONTAGU_HOST: db",

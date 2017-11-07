@@ -23,6 +23,11 @@ def load_settings():
         if key in data:
             settings[key] = data[key]
 
+    # This is a special value within the enum group, but it would be
+    # nicer to refer to it as None
+    if d['password_group'] == 'fake':
+        d['password_group'] = None
+
     return settings
 
 
