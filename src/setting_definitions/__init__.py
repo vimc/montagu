@@ -9,11 +9,13 @@ teamcity_sources = ["test_data", "legacy"]
 def vault_required(settings):
     data_source = settings["initial_data_source"]
     uses_duplicati = settings["backup"] is True or data_source == "restore"
+    uses_vault_passwords = settings["password_group"] is not None and \
+                           settings['password_group'] != "fake"
     return data_source in teamcity_sources \
            or (uses_duplicati and backup.needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
-           or settings["password_group"] is not None \
+           or uses_vault_passwords \
            or settings["clone_reports"] is True
 
 
