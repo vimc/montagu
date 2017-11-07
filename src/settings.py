@@ -23,13 +23,7 @@ def load_settings():
         if key in data:
             settings[key] = data[key]
 
-    # This is a special value within the enum group, but it would be
-    # nicer to refer to it as None
-    if settings['password_group'] == 'fake':
-        settings['password_group'] = None
-
     return settings
-
 
 def prepare_for_vault_access(address, quiet=False):
     os.environ["VAULT_ADDR"] = address
@@ -66,6 +60,11 @@ def get_settings(do_first_time_setup: bool, quiet=False):
         print("Using these settings from {}:".format(abspath(path)))
         for k, v in settings.items():
             print("- {}: {}".format(k, v))
+
+    # This is a special value within the enum group, but it would be
+    # nicer to refer to it as None
+    if settings['password_group'] == 'fake':
+        settings['password_group'] = None
 
     if vault_required(settings):
         prepare_for_vault_access(settings["vault_address"], quiet=quiet)
