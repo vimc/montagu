@@ -46,7 +46,7 @@ class VaultPassword:
         if self.password_group is None:
             raise Exception("_path() is not defined without a password group")
         return "database/{password_group}/users/{username}".format(
-            password_group = password_group, username = username)
+            password_group = self.password_group, username = self.username)
 
     def __str__(self):
         if self.password_group is None:
