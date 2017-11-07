@@ -49,6 +49,26 @@ the deploy tool, backup configuration will be skipped (using
 want to force a rerun, delete the existing configuration 
 (`sudo rm -r /etc/montagu/backup`).
 
+### Database restore
+
+The database can be restored without redeploying all of montagu.
+
+```
+sudo -E ./src/restore_db.py
+```
+
+(The `sudo` is required because the backup scripts require it, and the `-E` allows the `sudo` shell to read your vault credentials.)
+
+This can be setup as a cron job to run every night (as is on `science`) by adding a file containing
+
+```
+0 6 * * * root /home/vagrant/montagu/restore_db.py
+```
+
+as `/etc/cron.d/montagu-restore-db`.
+
+However, care should be taken here because if the schema has been migrated in the production database the montagu api may not be able to talk to the database.  In practice this is probably not that much of a problem as we can just redeploy (and often will have deployed on science before deploying on production).
+
 ## Disaster recovery
 See [here](docs/DisasterRecovery.md)
 
