@@ -154,7 +154,7 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(use_real_passwords, migrate = True):
+def setup(use_real_passwords):
     print("Setting up database users")
     print("- Scrambling root password")
     if use_real_passwords:
@@ -179,13 +179,12 @@ def setup(use_real_passwords, migrate = True):
     print("- Updating database users")
     for_each_user(root_password, users, setup_user)
 
-    if migrate:
-        print("- Migrating database schema")
-        migrate_schema(root_password)
+    print("- Migrating database schema")
+    migrate_schema(root_password)
 
-        print("- Refreshing permissions")
-        # The migrations may have added new tables, so we should set the permissions
-        # again, in case users need to have permissions on these new tables
-        for_each_user(root_password, users, set_permissions)
+    print("- Refreshing permissions")
+    # The migrations may have added new tables, so we should set the permissions
+    # again, in case users need to have permissions on these new tables
+    for_each_user(root_password, users, set_permissions)
 
     return passwords
