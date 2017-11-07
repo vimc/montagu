@@ -182,7 +182,7 @@ def setup(password_group):
     passwords = {}
     for user in users:
         print(" - {name}: {source}".format(name=user.name, source=user.password_source))
-        passwords[user.name] = user.get_password()
+        passwords[user.name] = user.password
 
     print("- Updating database users")
     for_each_user(root_password, users, setup_user)

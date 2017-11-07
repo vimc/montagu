@@ -11,7 +11,7 @@ from service import orderly_name, orderly_volume_name
 from settings import get_secret, save_secret
 from service import orderly_volume_name
 
-from database import VaultConfig
+from database import VaultPassword
 
 orderly_ssh_keypath = ""
 

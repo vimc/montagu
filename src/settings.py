@@ -25,8 +25,8 @@ def load_settings():
 
     # This is a special value within the enum group, but it would be
     # nicer to refer to it as None
-    if d['password_group'] == 'fake':
-        d['password_group'] = None
+    if settings['password_group'] == 'fake':
+        settings['password_group'] = None
 
     return settings
 

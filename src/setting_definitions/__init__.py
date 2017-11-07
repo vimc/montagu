@@ -13,7 +13,7 @@ def vault_required(settings):
            or (uses_duplicati and backup.needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
-           or settings["password_group"] != 'fake' \
+           or settings["password_group"] is not None \
            or settings["clone_reports"] is True
 
 
@@ -70,10 +70,10 @@ definitions = [
                           ]
                           ),
     EnumSettingDefinition("password_group",
-                          "Which password group should montagu use to retrieve database passwords from the vault?"
+                          "Which password group should montagu use to retrieve database passwords from the vault?",
                           [
-                              ("production", "Passwords for production")
-                              ("science",    "Passwords for science")
+                              ("production", "Passwords for production"),
+                              ("science",    "Passwords for science"),
                               ("fake",       "Do not use passwords from the vault")
                           ]
                           ),

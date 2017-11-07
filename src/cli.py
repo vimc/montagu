@@ -20,7 +20,6 @@ def add_secure_config(password_group):
     user = next(u for u in user_configs(password_group) if u.name == api_db_user)
 
     print("(Connecting to database as db user '{}')".format(user.name))
-    user.get_password()
     with open(path, 'w') as f:
         print("db.username=" + user.name, file=f)
         print("db.password=" + user.password, file=f)
