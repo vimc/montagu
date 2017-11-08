@@ -88,6 +88,13 @@ class MontaguService:
         return next((x for x in self.client.containers.list() if x.name == name), None)
 
     def stop(self, settings):
+        # As documented in VIMC-805, the orderly container will
+        # respond quickly to an interrupt, but not to whatever docker
+        # stop (via docker-compose stop) is sending. This is
+        # (presumably) a limitation of httpuv and not something I can
+        # see how to work around at the R level. So instead we send an
+        # interrupt signal (SIGINT) just before the stop, and that
+        # seems to bring things down much more quicky.
         print("Stopping Montagu...", flush=True)
         if self.orderly:
             self.orderly.kill("SIGINT")
