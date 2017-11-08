@@ -15,12 +15,12 @@ from database import VaultPassword
 
 orderly_ssh_keypath = ""
 
-def configure_orderly(is_first_time, settings):
+def configure_orderly(initialise_volume, settings):
     ## Run this one first because we might need to use the ssh keys to
     ## clone:
     configure_orderly_ssh(settings)
     ## Then this requires an empty directory:
-    if is_first_time and settings["initial_data_source"] != "restore":
+    if initialise_volume and settings["initial_data_source"] != "restore":
         print("Setting up orderly store")
         initialise_orderly_store(settings)
     ## Then set up some passwords
