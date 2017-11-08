@@ -77,6 +77,10 @@ class MontaguService:
         return self._get(proxy_portal_name)
 
     @property
+    def orderly(self):
+        return self._get(orderly_name)
+
+    @property
     def volume_present(self):
         return volume_name in [v.name for v in self.client.volumes.list()]
 
@@ -85,6 +89,8 @@ class MontaguService:
 
     def stop(self, settings):
         print("Stopping Montagu...", flush=True)
+        if self.orderly:
+            self.orderly.kill("SIGINT")
         compose.stop(settings["port"], settings["hostname"], persist_volumes=settings["persist_data"])
 
     def start(self, port, hostname):
