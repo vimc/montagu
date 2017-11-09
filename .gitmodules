@@ -4,3 +4,30 @@
 [submodule "database"]
 	path = database
 	url = https://github.com/vimc/montagu-db.git
+[submodule "submodules/api"]
+	path = submodules/api
+	url = https://github.com/vimc/montagu-api
+[submodule "submodules/reporting-api"]
+	path = submodules/reporting-api
+	url = https://github.com/vimc/montagu-reporting-api
+[submodule "submodules/db"]
+	path = submodules/db
+	url = https://github.com/vimc/montagu-db
+[submodule "submodules/contrib-portal"]
+	path = submodules/contrib-portal
+	url = https://github.com/vimc/montagu-webapps
+[submodule "submodules/admin-portal"]
+	path = submodules/admin-portal
+	url = https://github.com/vimc/montagu-webapps
+[submodule "submodules/report-portal"]
+	path = submodules/report-portal
+	url = https://github.com/vimc/montagu-webapps
+[submodule "submodules/cert-tool"]
+	path = submodules/cert-tool
+	url = https://github.com/vimc/montagu-cert-tool
+[submodule "submodules/proxy"]
+	path = submodules/proxy
+	url = https://github.com/vimc/montagu-proxy
+[submodule "submodules/orderly"]
+	path = submodules/orderly
+	url = https://github.com/vimc/montagu-orderly

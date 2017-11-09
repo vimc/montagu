@@ -6,6 +6,5 @@ src/\.idea/*
 src/montagu-deploy.json
 token_keypair/
 config/
-orderly/
 src/last_deploy.json
 src/last_restore
