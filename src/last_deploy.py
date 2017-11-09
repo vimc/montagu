@@ -1,20 +1,17 @@
-import re
 import datetime
-import versions
-import settings
 import json
 import os.path
+
+import settings
+import versions
 
 path_last_restore = 'last_restore'
 path_last_deploy = 'last_deploy.json'
 
+
 def timestring():
     return str(datetime.datetime.now())
 
-def dict_from_module(module):
-    valid = re.compile('^[a-z][a-z_]*[a-z]$')
-    return {key: getattr(module, key) for key in dir(module)
-            if valid.match(key)}
 
 def last_restore_read():
     last = None
@@ -23,9 +20,11 @@ def last_restore_read():
             last = f.read().strip()
     return last
 
+
 def last_restore_update():
     with open(path_last_restore, 'w') as f:
         f.write(timestring() + '\n')
+
 
 def last_deploy_update(montagu_version):
     our_settings = settings.load_settings()
@@ -34,7 +33,7 @@ def last_deploy_update(montagu_version):
         last_restore = last_restore_read()
     dat = {
         'time': str(datetime.datetime.now()),
-        'versions': dict_from_module(versions),
+        'versions': versions.as_dict(),
         'settings': our_settings,
         'last_restore': last_restore,
         'montagu': montagu_version

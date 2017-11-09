@@ -19,6 +19,7 @@ from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
 
+
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -96,6 +97,7 @@ def deploy():
         paths.delete_safely(paths.token_keypair)
         paths.delete_safely(paths.config)
         paths.delete_safely(paths.orderly)
+
 
 if __name__ == "__main__":
     abspath = abspath(__file__)
