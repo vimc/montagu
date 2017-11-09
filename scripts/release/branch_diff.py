@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
-import subprocess
 import sys
 
-def run(cmd):
-    parts = cmd.split(" ")
-    result = subprocess.run(parts, check=True, stdout=subprocess.PIPE, universal_newlines=True)
-    return result.stdout.strip()
+from helpers import run
+
 
 class Branch:
     def __init__(self, remote, name):
@@ -20,11 +17,13 @@ class Branch:
             parts = raw.split('/')
             return Branch(parts[0], parts[1])
 
+
 def get_branches_at(revision):
     raw = run("git branch -r --merged {}".format(revision))
     parsed = [Branch.parse(b) for b in raw.split('\n')]
     branches = set(b.name for b in parsed if b)
     return branches
+
 
 def get_args():
     if len(sys.argv) != 2:
@@ -40,14 +39,20 @@ e.g. branch-diff v0.4.0""")
     else:
         return sys.argv[1]
 
-if __name__ == "__main__":
-    here = run("git rev-parse --short HEAD")
-    compare_to = get_args()
 
+def get_branch_diff(compare_to):
+    here = run("git rev-parse --short HEAD")
     branches_here = get_branches_at(here)
     branches_there = get_branches_at(compare_to)
-    diff = (branches_here - branches_there) - set(["master"])
+    return (branches_here - branches_there) - set(["master"])
 
-    print("Branches merged into the current commit ({here}) but not into {compare_to}:".format(compare_to=compare_to, here=here))
+
+if __name__ == "__main__":
+    compare_to = get_args()
+    diff = get_branch_diff(compare_to)
+
+    template = "Branches merged into the current commit ({here}) but not " \
+               "into {compare_to}:"
+    print(template.format(compare_to=compare_to, here=here))
     for branch in sorted(diff):
         print(branch)
