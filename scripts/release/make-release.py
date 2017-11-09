@@ -7,7 +7,8 @@ from helpers import run
 from tickets import check_tickets
 
 release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
-dry_run = False
+# Enable this in development to avoid pushing
+dry_run = True
 
 
 def get_latest_release_tag():
@@ -44,7 +45,6 @@ def get_new_tag():
 
 
 def make_release_message(tag, branches_and_tickets):
-    print(branches_and_tickets)
     with StringIO() as msg:
         print("# " + tag, file=msg)
         print("## Tickets", file=msg)
@@ -83,7 +83,7 @@ def fetch():
 
 if __name__ == "__main__":
     if not (git_is_clean() or dry_run):
-        print("Git status reports as not clean; aborting release")
+        print("Git status reports as not clean; aborting making release")
     else:
         fetch()
         latest_tag = get_latest_release_tag()
@@ -98,6 +98,5 @@ if __name__ == "__main__":
         commit_tag_and_push()
 
         print("Done!")
-        print("""The released tickets should now be moved into the 'Deployed'
-state and the release version set. In a future version of this script this will
-be handled automatically""")
+        print("""When you come to deploy this release, the RELEASE_LOG.md file
+(or the commit message) will tell you which tickets need to be updated""")
