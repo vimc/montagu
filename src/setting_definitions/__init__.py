@@ -9,12 +9,14 @@ teamcity_sources = ["test_data", "legacy"]
 def vault_required(settings):
     data_source = settings["initial_data_source"]
     uses_duplicati = settings["backup"] is True or data_source == "restore"
+    uses_vault_passwords = settings["password_group"] is not None and \
+                           settings['password_group'] != "fake"
     return data_source in teamcity_sources \
            or (uses_duplicati and backup.needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
-           or settings["use_real_passwords"] \
-           or settings["clone_reports"] is True
+           or uses_vault_passwords \
+           or ("clone_reports" in settings and settings["clone_reports"] is True)
 
 
 definitions = [
@@ -69,14 +71,14 @@ definitions = [
                               ("support", "Certificate for support.montagu.dide.ic.ac.uk")
                           ]
                           ),
-    BooleanSettingDefinition("use_real_passwords",
-                             "Should real, secure passwords be used?",
-                             "This affects database user accounts, and is also necessary for Montagu to be able to "
-                             "send emails. In testing environments you can answer 'no'. This will mean that:"
-                             "\n- The root db user has the default password 'changeme' "
-                             "\n- Other db users will have the same password as their username."
-                             "\n- Emails will be written to disk (/tmp/montagu_emails) instead of being sent",
-                             default_value=True),
+    EnumSettingDefinition("password_group",
+                          "Which password group should montagu use to retrieve database passwords from the vault?",
+                          [
+                              ("production", "Passwords for production"),
+                              ("science",    "Passwords for science"),
+                              ("fake",       "Do not use passwords from the vault")
+                          ]
+                          ),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"

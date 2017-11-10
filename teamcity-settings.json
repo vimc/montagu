@@ -6,7 +6,7 @@
     "hostname": "localhost",
     "certificate": "self_signed",
     "backup": false,
-    "use_real_passwords": false,
+    "password_group": "fake",
     "clone_reports": false,
     "require_clean_git": false,
     "add_test_user": false
