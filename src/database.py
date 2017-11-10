@@ -13,13 +13,13 @@ from settings import get_secret
 root_user = "vimc"
 
 
-def user_configs():
+def user_configs(password_group):
     # Later, read these from a yml file?
     return [
-        UserConfig(api_db_user, 'all', VaultPassword(api_db_user)),
-        UserConfig('import', 'all', VaultPassword('import')),
-        UserConfig('orderly', 'all', VaultPassword('orderly')),
-        UserConfig('readonly', 'readonly', VaultPassword('readonly')),
+        UserConfig(api_db_user, 'all', VaultPassword(password_group, api_db_user)),
+        UserConfig('import', 'all', VaultPassword(password_group, 'import')),
+        UserConfig('orderly', 'all', VaultPassword(password_group, 'orderly')),
+        UserConfig('readonly', 'readonly', VaultPassword(password_group, 'readonly')),
     ]
 
 
@@ -32,18 +32,27 @@ class GeneratePassword:
 
 
 class VaultPassword:
-    def __init__(self, username):
+    def __init__(self, password_group, username):
+        self.password_group = password_group
         self.username = username
 
     def get(self):
-        return get_secret(self.path, field="password")
+        if self.password_group is None:
+            return "changeme" if self.username == "vimc" else self.username
+        else:
+            return get_secret(self._path(), field="password")
 
-    @property
-    def path(self):
-        return "database/users/" + self.username
+    def _path(self):
+        if self.password_group is None:
+            raise Exception("_path() is not defined without a password group")
+        return "database/{password_group}/users/{username}".format(
+            password_group = self.password_group, username = self.username)
 
     def __str__(self):
-        return "From vault at " + self.path
+        if self.password_group is None:
+            return "Using default password value"
+        else:
+            return "From vault at " + self._path()
 
 
 class UserConfig:
@@ -51,11 +60,14 @@ class UserConfig:
         self.name = name
         self.permissions = permissions  # Currently, this can only be 'all', but the idea is to extend this config later
         self.password_source = password_source
-        self.password = None
+        self._password = None
 
-    def get_password(self):
-        self.password = self.password_source.get()
-
+    # Lazy password resolution
+    @property
+    def password(self):
+        if self._password is None:
+            self._password = self.password_source.get()
+        return self._password
 
 def set_root_password(password):
     query = "ALTER USER {user} WITH PASSWORD '{password}'".format(user=root_user, password=password)
@@ -154,26 +166,22 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(use_real_passwords):
+def setup(password_group):
     print("Setting up database users")
     print("- Scrambling root password")
-    if use_real_passwords:
+    if password_group is not None:
         root_password = GeneratePassword().get()
         set_root_password(root_password)
     else:
         root_password = 'changeme'
 
     print("- Getting user configurations")
-    users = user_configs()
+    users = user_configs(password_group)
 
     print("- Getting user passwords")
     passwords = {}
     for user in users:
         print(" - {name}: {source}".format(name=user.name, source=user.password_source))
-        if use_real_passwords:
-            user.get_password()
-        else:
-            user.password = user.name
         passwords[user.name] = user.password
 
     print("- Updating database users")
