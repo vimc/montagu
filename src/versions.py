@@ -5,15 +5,9 @@ from subprocess import run, PIPE
 
 def get_submodule_version(path):
     full_path = join("submodules", path)
-    result = run(["git", "submodule", "status", full_path], stdout=PIPE, check=True, universal_newlines=True)
-    text = result.stdout
-    if text[0] in [" ", "+", "-"]:
-        parts = text[1:].split(" ")
-        commit_hash = parts[0]
-        if re.match(r"[0-9a-f]{40}", commit_hash):
-            version = commit_hash[:7]
-            return version
-    raise Exception("Unable to understand Git status for submodule '{}': {}".format(path, text))
+    result = run(["git", "-C", full_path, "rev-parse", "--short", "HEAD"],
+                 stdout=PIPE, check=True, universal_newlines=True)
+    return result.stdout.strip()
 
 
 db = get_submodule_version("db")
