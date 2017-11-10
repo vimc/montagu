@@ -7,6 +7,9 @@
 * Your machine needs to trust our Docker Registry. See 
   ["Configuring docker clients to use the registry"](https://github.com/vimc/montagu-ci#configuring-docker-clients-to-use-the-registry)
 
+## Release process
+See [release process](ReleaseProcess.md)
+
 ## Deploy
 As root:
 
