@@ -41,7 +41,7 @@ e.g. branch-diff v0.4.0""")
 
 
 def get_branch_diff(compare_to):
-    here = run("git rev-parse --short HEAD")
+    here = run("git rev-parse --short=7 HEAD")
     branches_here = get_branches_at(here)
     branches_there = get_branches_at(compare_to)
     return (branches_here - branches_there) - set(["master"])
