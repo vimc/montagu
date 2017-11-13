@@ -5,7 +5,7 @@ from subprocess import run, PIPE
 
 def get_submodule_version(path):
     full_path = join("submodules", path)
-    result = run(["git", "-C", full_path, "rev-parse", "--short", "HEAD"],
+    result = run(["git", "-C", full_path, "rev-parse", "--short=7", "HEAD"],
                  stdout=PIPE, check=True, universal_newlines=True)
     return result.stdout.strip()
 
