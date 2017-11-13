@@ -6,3 +6,9 @@
 
 ## Other branches merged in this release
 
+# v0.6.2
+## Tickets
+* i997: Deploy is broken for me
+
+## Other branches merged in this release
+
