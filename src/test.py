@@ -38,6 +38,7 @@ def webapp_integration_tests():
             "docker", "run",
             "--rm",
             "--network", "montagu_default",
+            "--v", "/opt/teamcity-agent/:/root/.docker/config.json",
             "-v", "/var/run/docker.sock:/var/run/docker.sock",
             image,
             portal.title()  # Tests expect capitalized first letter, e.g. "Admin"
