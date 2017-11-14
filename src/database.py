@@ -11,10 +11,6 @@ from service_config import api_db_user
 from settings import get_secret
 
 root_user = "vimc"
-## NOTE: this must be a module global because of the way
-## for_each_user() is implemented (though it's practically a constant
-## so it's not a huge deal).
-annex_table_name = "burden_estimate_stochastic"
 
 def user_configs(password_group):
     # Later, read these from a yml file?
@@ -128,11 +124,20 @@ def grant_readonly(db, user):
     print("  - Granting readonly permissions to {name}".format(name=user.name))
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
-def grant_readonly_annex(db, user):
-    db.execute("REVOKE ALL PRIVILEGES ON {annex_table} FROM {user}".format(
-        annex_table = annex_table_name, user = user.name))
-    db.execute("GRANT SELECT ON {annex_table} TO {user}".format(
-        annex_table = annex_table_name, user = user.name))
+def grant_readonly_annex(db, user, annex_settings):
+    print(" - annex: mapping {} -> readonly".format(user.name))
+    sql1 = "DROP USER MAPPING IF EXISTS FOR {name} " \
+           "SERVER montagu_db_annex;".format(name = user.name)
+    sql2 = "CREATE USER MAPPING FOR {name} " \
+           "SERVER {annex_server_name} " \
+           "OPTIONS (user '{annex_readonly_user}', " \
+           "password '{annex_readonly_password}');".format(
+               name = user.name,
+               annex_server_name = annex_settings['server_name'],
+               annex_readonly_user = annex_settings['readonly_user'],
+               annex_readonly_password = annex_settings['readonly_password'])
+    db.execute(sql1)
+    db.execute(sql2)
 
 def set_permissions(db, user):
     revoke_all(db, user)
@@ -173,17 +178,24 @@ def migrate_schema_annex(annex_settings):
                    host=host, config_file="conf/flyway-annex.conf")
 
 def get_annex_settings(settings):
+    # This is not the name of the host, but the name used in the postgres
+    # scripts to refer to the server (via CREATE SERVER...)
+    server_name = "montagu_db_annex"
+    # Root and readonly user *on the annex*
     root_user = "vimc"
     readonly_user = "readonly"
+
+    # Below here varies based on fake/real; the only difference within
+    # the real types (real/staging) is if we perform migrations.
     if settings["db_annex_type"] == "fake":
-        host = "db_annex"
+        host = "db_annex" # docker volume in compose
         readonly_password = "changeme2"
         root_password = "changeme"
         migrate = True
         port = 5432
     else:
         raise Exception("This is untested")
-        host = "annex.montagu"
+        host = "annex.montagu" # address of our real server
         readonly_password = get_secret("/secret/annex/users/readonly")
         root_password = get_secret("/secret/annex/users/root")
         migrate = settings["db_annex_type"] == "real"
@@ -194,6 +206,7 @@ def get_annex_settings(settings):
             "root_password": root_password,
             "readonly_user": readonly_user,
             "readonly_password": readonly_password,
+            "server_name": server_name,
             "migrate": migrate}
 
 def setup_user(db, user):
@@ -247,7 +260,8 @@ def setup(settings):
     # again, in case users need to have permissions on these new tables
     for_each_user(root_password, users, set_permissions)
 
-    for_each_user(root_password, users, grant_readonly_annex)
+    for_each_user(root_password, users, lambda d, u :
+                  grant_readonly_annex(d, u, annex_settings))
 
     return passwords
 
