@@ -8,7 +8,7 @@ from os.path import abspath, dirname
 from os import chdir
 
 def restore_db():
-    ok = service.status == 'running' and service.volume_present
+    ok = service.status() == 'running' and service.volume_present
     if not ok:
         raise Exception('montagu not in a state we can restore')
     settings = get_settings(False)

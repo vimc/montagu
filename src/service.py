@@ -17,6 +17,8 @@ volume_name = "montagu_db_volume"
 orderly_volume_name = "montagu_orderly_volume"
 network_name = "montagu_default"
 
+db_annex_name = "montagu_db_annex_1"
+
 service_names = {
     api_name,
     reporting_api_name,
@@ -29,18 +31,30 @@ service_names = {
 }
 
 
+# TODO: more medium term it would feel less weird to initialise this
+# object with a 'settings' object so that the annex bit can be done
+# more tidily.  But this is pulled into the other modules as "from
+# service import service" so that's not going to directly work!
+#
+# However, this is actually really hard to do correctly - even passing
+# 'settings' through as an argument to status() is hard because it's
+# used to _load_ the settings and confirm that all settings are filled
+# out appropriately!
 class MontaguService:
     def __init__(self):
         self.client = docker.from_env()
 
-    @property
     def status(self):
+        expected = service_names
+        ## if settings["db_annex_type"] == "fake":
+        expected = expected.union({db_annex_name})
+
         actual = dict((c.name, c) for c in self.client.containers.list(all=True))
-        unexpected = list(x for x in actual.keys() - service_names if "montagu" in x.lower())
+        unexpected = list(x for x in actual.keys() - expected if "montagu" in x.lower())
         if any(unexpected):
             raise Exception("There are unexpected Montagu-related containers running: {}".format(unexpected))
 
-        services = list(c for c in actual.values() if c.name in service_names)
+        services = list(c for c in actual.values() if c.name in expected)
         statuses = set(c.status for c in services)
 
         if len(statuses) == 1:
@@ -63,6 +77,10 @@ class MontaguService:
     @property
     def db(self):
         return self._get(db_name)
+
+    @property
+    def db_annex(self):
+        return self._get(db_annex_name)
 
     @property
     def contrib_portal(self):
@@ -98,15 +116,19 @@ class MontaguService:
         print("Stopping Montagu...", flush=True)
         if self.orderly:
             self.orderly.kill("SIGINT")
-        compose.stop(settings["port"], settings["hostname"], persist_volumes=settings["persist_data"])
+        fake_db_annex = settings["db_annex_type"] == "fake"
+        compose.stop(settings["port"], settings["hostname"],
+                     persist_volumes=settings["persist_data"],
+                     fake_db_annex=fake_db_annex)
 
-    def start(self, port, hostname):
+    def start(self, settings):
         print("Starting Montagu...", flush=True)
-        compose.pull(port, hostname)
-        compose.start(port, hostname)
+        compose.pull(settings['port'], settings['hostname'])
+        fake_db_annex = settings["db_annex_type"] == "fake"
+        compose.start(settings['port'], settings['hostname'], fake_db_annex)
         print("- Checking Montagu has started successfully")
         sleep(2)
-        if service.status != "running":
+        if service.status() != "running":
             raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
 
 

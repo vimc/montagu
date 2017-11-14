@@ -11,7 +11,10 @@ from service_config import api_db_user
 from settings import get_secret
 
 root_user = "vimc"
-
+## NOTE: this must be a module global because of the way
+## for_each_user() is implemented (though it's practically a constant
+## so it's not a huge deal).
+annex_table_name = "burden_estimate_stochastic"
 
 def user_configs(password_group):
     # Later, read these from a yml file?
@@ -125,6 +128,11 @@ def grant_readonly(db, user):
     print("  - Granting readonly permissions to {name}".format(name=user.name))
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
+def grant_readonly_annex(db, user):
+    db.execute("REVOKE ALL PRIVILEGES ON {annex_table} FROM {user}".format(
+        annex_table = annex_table_name, user = user.name))
+    db.execute("GRANT SELECT ON {annex_table} TO {user}".format(
+        annex_table = annex_table_name, user = user.name))
 
 def set_permissions(db, user):
     revoke_all(db, user)
@@ -136,18 +144,57 @@ def set_permissions(db, user):
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
-
-def migrate_schema(db_password):
+def migrate_schema(user, password, host=None, config_file=None,
+                   placeholders=None):
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
-    run([
-        "docker", "run",
-        "--rm",
-        "--network=" + network_name,
-        image,
-        "migrate", "-user=" + root_user, "-password=" + db_password
-    ], check=True)
+    cmd = ["docker", "run", "--rm", "--network=" + network_name, image]
+    if host:
+        cmd += ["-url=jdbc:postgresql://{}/montagu".format(host)]
+    if config_file:
+        cmd += ["-configFile=" + config_file]
+    if placeholders:
+        cmd += ['-placeholders.{}={}'.format(*x) for x in placeholders.items()]
+    cmd += ["-user=" + user, "-password=" + password, "migrate"]
+    run(cmd, check=True)
 
+def migrate_schema_core(root_password, annex_settings):
+    placeholders = {
+        'montagu_db_annex_host': annex_settings['host'],
+        'montagu_db_annex_port': annex_settings['port'],
+        'montagu_db_annex_user': annex_settings['readonly_user'],
+        'montagu_db_annex_password': annex_settings['readonly_password']}
+    migrate_schema("vimc", root_password, placeholders = placeholders)
+
+def migrate_schema_annex(annex_settings):
+    print("- migrating annex schema")
+    host = '{}:{}'.format(annex_settings['host'], annex_settings['port'])
+    migrate_schema(annex_settings['root_user'], annex_settings['root_password'],
+                   host=host, config_file="conf/flyway-annex.conf")
+
+def get_annex_settings(settings):
+    root_user = "vimc"
+    readonly_user = "readonly"
+    if settings["db_annex_type"] == "fake":
+        host = "db_annex"
+        readonly_password = "changeme2"
+        root_password = "changeme"
+        migrate = True
+        port = 5432
+    else:
+        raise Exception("This is untested")
+        host = "annex.montagu"
+        readonly_password = get_secret("/secret/annex/users/readonly")
+        root_password = get_secret("/secret/annex/users/root")
+        migrate = settings["db_annex_type"] == "real"
+        port = 15432
+    return {"host": host,
+            "port": port,
+            "root_user": root_user,
+            "root_password": root_password,
+            "readonly_user": readonly_user,
+            "readonly_password": readonly_password,
+            "migrate": migrate}
 
 def setup_user(db, user):
     print(" - " + user.name)
@@ -166,7 +213,10 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(password_group):
+def setup(settings):
+    annex_settings = setup_annex(settings)
+
+    password_group = settings["password_group"]
     print("Setting up database users")
     print("- Scrambling root password")
     if password_group is not None:
@@ -184,15 +234,26 @@ def setup(password_group):
         print(" - {name}: {source}".format(name=user.name, source=user.password_source))
         passwords[user.name] = user.password
 
+    # NOTE: As I work through this - why not set up users *after* the
+    # schema migration?
     print("- Updating database users")
     for_each_user(root_password, users, setup_user)
 
     print("- Migrating database schema")
-    migrate_schema(root_password)
+    migrate_schema_core(root_password, annex_settings)
 
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
     # again, in case users need to have permissions on these new tables
     for_each_user(root_password, users, set_permissions)
 
+    for_each_user(root_password, users, grant_readonly_annex)
+
     return passwords
+
+def setup_annex(settings):
+    print("Setting up annex")
+    annex_settings = get_annex_settings(settings)
+    if annex_settings['migrate']:
+        migrate_schema_annex(annex_settings)
+    return annex_settings

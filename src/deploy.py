@@ -23,7 +23,7 @@ from last_deploy import last_deploy_update
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
-    status = service.status
+    status = service.status()
     volume_present = service.volume_present
     is_first_time = (status is None) and (not volume_present)
     if is_first_time:
@@ -49,7 +49,7 @@ def _deploy():
         backup.schedule(settings)
 
     # Start Montagu again
-    service.start(settings["port"], settings["hostname"])
+    service.start(settings)
     try:
         configure_montagu(is_first_time, settings)
     except Exception as e:
@@ -78,7 +78,7 @@ def configure_montagu(is_first_time, settings):
         data_import.do(settings)
     orderly.configure_orderly(not data_exists, settings)
 
-    passwords = database.setup(settings["password_group"])
+    passwords = database.setup(settings)
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])
