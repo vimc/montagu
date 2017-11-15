@@ -13,11 +13,7 @@ def restore_db():
         raise Exception('montagu not in a state we can restore')
     settings = get_settings(False)
     backup.restore(settings)
-<<<<<<< HEAD
-    database.setup(settings["use_real_passwords"])
-=======
     database.setup(settings["password_group"])
->>>>>>> master
 
 if __name__ == "__main__":
     abspath = abspath(__file__)

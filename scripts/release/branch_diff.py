@@ -57,7 +57,7 @@ class Difference:
 
     @classmethod
     def get_branch_diff(cls, current=None, past=None, working_dir=None):
-        current = current or run("git rev-parse --short HEAD")
+        current = current or run("git rev-parse --short=7 HEAD")
         branches_now = cls.get_branches_at(current, working_dir=working_dir)
         branches_then = cls.get_branches_at(past, working_dir=working_dir)
         return (branches_now - branches_then) - set(["master"])
@@ -77,17 +77,6 @@ e.g. branch-diff v0.4.0""")
     else:
         return sys.argv[1]
 
-
-<<<<<<< HEAD
-=======
-def get_branch_diff(compare_to):
-    here = run("git rev-parse --short=7 HEAD")
-    branches_here = get_branches_at(here)
-    branches_there = get_branches_at(compare_to)
-    return (branches_here - branches_there) - set(["master"])
-
-
->>>>>>> master
 if __name__ == "__main__":
     compare_to = get_args()
     diff = Difference(compare_to)
