@@ -7,7 +7,7 @@ from helpers import run
 from tickets import check_tickets
 
 release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
-
+dry_run = False
 
 def get_latest_release_tag():
     tags = run("git tag").split('\n')
