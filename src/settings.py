@@ -25,7 +25,6 @@ def load_settings():
 
     return settings
 
-
 def prepare_for_vault_access(address, quiet=False):
     os.environ["VAULT_ADDR"] = address
     if "VAULT_AUTH_GITHUB_TOKEN" in os.environ:
@@ -62,6 +61,11 @@ def get_settings(do_first_time_setup: bool, quiet=False):
         for k, v in settings.items():
             print("- {}: {}".format(k, v))
 
+    # This is a special value within the enum group, but it would be
+    # nicer to refer to it as None
+    if settings['password_group'] == 'fake':
+        settings['password_group'] = None
+
     if vault_required(settings):
         prepare_for_vault_access(settings["vault_address"], quiet=quiet)
 
@@ -77,6 +81,15 @@ def get_secret(secret_path, field="value"):
     secret_path = "secret/{}".format(secret_path)
     return check_output(["vault", "read", "-field=" + field, secret_path]).decode('utf-8')
 
+def set_secret(secret_path, value, field="value"):
+    secret_path = "secret/{}".format(secret_path)
+    pair = "{field}={value}".format(field = field, value = value)
+    check_output(["vault", "write", secret_path, pair])
+
+def list_secrets(secret_path):
+    secret_path = "secret/{}".format(secret_path)
+    x = check_output(["vault", "list", "-format=json", secret_path])
+    return json.loads(x.decode("utf-8"))
 
 def save_secret(secret_path, output, field="value"):
     secret = get_secret(secret_path, field)

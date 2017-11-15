@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -e
 cp teamcity-settings.json src/montagu-deploy.json
-cd src
-pip3 install -r requirements.txt
-./deploy.py
-./test.py $@
+pip3 install --quiet -r src/requirements.txt
+./src/deploy.py
+./src/test.py $@

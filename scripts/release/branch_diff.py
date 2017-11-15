@@ -78,6 +78,16 @@ e.g. branch-diff v0.4.0""")
         return sys.argv[1]
 
 
+<<<<<<< HEAD
+=======
+def get_branch_diff(compare_to):
+    here = run("git rev-parse --short=7 HEAD")
+    branches_here = get_branches_at(here)
+    branches_there = get_branches_at(compare_to)
+    return (branches_here - branches_there) - set(["master"])
+
+
+>>>>>>> master
 if __name__ == "__main__":
     compare_to = get_args()
     diff = Difference(compare_to)

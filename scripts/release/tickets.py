@@ -4,7 +4,7 @@ import requests
 
 from branch_diff import get_branch_diff
 
-branch_pattern = re.compile(r"^i(\d+)($|_)")
+branch_pattern = re.compile(r"^i(\d+)($|[_-])")
 NOT_FOUND = "NOT FOUND"
 
 
