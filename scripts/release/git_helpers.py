@@ -6,17 +6,9 @@ import re
 
 def get_submodule_version(path):
     full_path = join("submodules", path)
-    result = run(["git", "submodule", "status", full_path], stdout=PIPE,
-                 check=True, universal_newlines=True).stdout
-    if result[0] in [" ", "+", "-"]:
-        parts = result[1:].split(" ")
-        commit_hash = parts[0]
-        if re.match(r"[0-9a-f]{40}", commit_hash):
-            version = commit_hash[:7]
-            return version
-
-    template = "Unable to understand Git status for submodule '{}': {}"
-    raise Exception(template.format(path, result))
+    result = run(["git", "-C", full_path, "rev-parse", "--short=7", "HEAD"],
+                 stdout=PIPE, check=True, universal_newlines=True)
+    return result.stdout.strip()
 
 
 def get_past_submodule_version(path, master_repo_version):

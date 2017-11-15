@@ -77,6 +77,7 @@ e.g. branch-diff v0.4.0""")
     else:
         return sys.argv[1]
 
+
 if __name__ == "__main__":
     compare_to = get_args()
     diff = Difference(compare_to)
