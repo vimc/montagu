@@ -15,11 +15,15 @@ class Branch:
 
     @classmethod
     def parse(cls, raw):
+        raw = raw.strip()
         if " -> " in raw:
             return None
         else:
-            parts = raw.split('/')
-            return Branch(parts[0], parts[1])
+            split_point = raw.find('/')
+            if split_point:
+                return Branch(raw[:split_point], raw[(split_point + 1):])
+            else:
+                raise Exception("Unable to parse branch '{}'".format(raw))
 
 
 class Difference:
@@ -57,8 +61,12 @@ class Difference:
     def get_branches_at(cls, revision, working_dir=None):
         raw = run("git branch -r --merged {}".format(revision),
                   working_dir=working_dir)
-        parsed = [Branch.parse(b) for b in raw.split('\n')]
-        branches = set(b.name for b in parsed if b)
+        try:
+            parsed = [Branch.parse(b) for b in raw.split('\n')]
+            branches = set(b.name for b in parsed if b)
+        except Exception as e:
+            ex_template = "For repository {}, this error occurred: {}"
+            raise Exception(ex_template.format(working_dir, e))
         return branches
 
     @classmethod
