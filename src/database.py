@@ -194,10 +194,9 @@ def get_annex_settings(settings):
         migrate = True
         port = 5432
     else:
-        raise Exception("This is untested")
         host = "annex.montagu" # address of our real server
-        readonly_password = get_secret("/secret/annex/users/readonly")
-        root_password = get_secret("/secret/annex/users/root")
+        readonly_password = get_secret("annex/users/readonly", "password")
+        root_password = get_secret("annex/users/root", "password")
         migrate = settings["db_annex_type"] == "real"
         port = 15432
     return {"host": host,
