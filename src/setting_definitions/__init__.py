@@ -107,6 +107,6 @@ definitions = [
                           [
                               ("fake", "Add a totally safe, but empty, version to the constellation"),
                               ("readonly", "Read-only access to the real annex"),
-                              ("write", "Full read-write access to the real annex: PRODUCTION ONLY")
+                              ("real", "Full access to the real annex: PRODUCTION ONLY")
                           ])
 ]
