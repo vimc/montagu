@@ -24,10 +24,16 @@ class Branch:
 
 class Difference:
     def __init__(self, past_version):
+        """We store the difference as a dictionary, where the keys are branches,
+        and each branch maps to a list of repos where that branch was found"""
         self.diff = {}
         self.add_main_diff(past_version)
         for submodule in os.listdir("submodules"):
             self.add_submodule_diff(submodule, past_version)
+
+    @property
+    def branches(self):
+        return self.diff.keys()
 
     def add(self, branches, submodule):
         for b in branches:
