@@ -194,7 +194,7 @@ def get_annex_settings(settings):
         migrate = True
         port = 5432
     else:
-        host = "annex.montagu" # address of our real server
+        host = "annex.montagu.dide.ic.ac.uk" # address of our real server
         readonly_password = get_secret("annex/users/readonly", "password")
         root_password = get_secret("annex/users/root", "password")
         migrate = settings["db_annex_type"] == "real"
