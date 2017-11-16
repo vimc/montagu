@@ -92,7 +92,7 @@ if __name__ == "__main__":
         print("""Done"
 No changes have been pushed, so please review and then push using 
 
-git push --tags
+git push --follow-tags
 
 When you come to deploy this release, the RELEASE_LOG.md file
 (or the commit message) will tell you which tickets need to be updated""")
