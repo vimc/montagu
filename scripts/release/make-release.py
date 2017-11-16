@@ -1,13 +1,27 @@
 #!/usr/bin/env python3
+"""
+Tags a release and writes out a changelog, first checking that associated
+tickets are in the correct status. The changelog is written to RELEASE_LOG.md
+and includes ticket summaries from YouTrack, where applicable
+
+Usage:
+  make-release.py [--test-run]
+
+Options:
+  --test-run    Don't insist on Git being in a clean state
+"""
+
 import re
 
 from io import StringIO
+
+from docopt import docopt
 
 from helpers import run
 from tickets import check_tickets
 
 release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
-dry_run = False
+
 
 def get_latest_release_tag():
     tags = run("git tag").split('\n')
@@ -74,7 +88,9 @@ def fetch():
 
 
 if __name__ == "__main__":
-    if not (git_is_clean() or dry_run):
+    args = docopt(__doc__)
+
+    if not (git_is_clean() or args["--test-run"]):
         print("Git status reports as not clean; aborting making release")
     else:
         fetch()
