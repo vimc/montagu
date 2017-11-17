@@ -7,6 +7,6 @@ from subprocess import run
 import versions
 
 if __name__ == "__main__":
-    run(["git", "submodule", "update", "--recursive", "--remote"])
+    run(["git", "submodule", "update", "--remote"])
     print("\nNew versions:")
     pprint.pprint(versions.as_dict())
