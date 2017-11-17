@@ -246,7 +246,9 @@ def setup(settings):
         passwords[user.name] = user.password
 
     # NOTE: As I work through this - why not set up users *after* the
-    # schema migration?
+    # schema migration?  This is because the migration user needs to
+    # exist, though in practice we don't use them so this could be
+    # reordered later.
     print("- Updating database users")
     for_each_user(root_password, users, setup_user)
 
