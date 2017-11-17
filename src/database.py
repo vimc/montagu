@@ -157,9 +157,9 @@ def migrate_schema_core(root_password, annex_settings):
         'montagu_db_annex_host': annex_settings['host'],
         'montagu_db_annex_port': annex_settings['port'],
         'montagu_db_annex_password': annex_settings['readonly_password']}
-    cmd = ["docker", "run", "--rm", "--network=" + network_name, image,
-           '-placeholders.{}={}'.format(*x) for x in placeholders.items(),
-           "-user=vimc", "-password=" + root_password, "migrate"]
+    cmd = ["docker", "run", "--rm", "--network=" + network_name, image] + \
+          ['-placeholders.{}={}'.format(*x) for x in placeholders.items()] + \
+          ["-user=vimc", "-password=" + root_password, "migrate"]
     run(cmd, check=True)
 
 def migrate_schema_annex(annex_settings):
