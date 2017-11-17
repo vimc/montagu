@@ -46,6 +46,7 @@ class YouTrackHelper:
         self.token = get_token()
 
     def get_tickets(self, branch_names):
+        branch_names = sorted(branch_names)
         for branch in branch_names:
             match = branch_pattern.match(branch)
             if match:
