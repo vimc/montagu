@@ -116,16 +116,16 @@ class MontaguService:
         print("Stopping Montagu...", flush=True)
         if self.orderly:
             self.orderly.kill("SIGINT")
-        fake_db_annex = settings["db_annex_type"] == "fake"
+        use_fake_db_annex = settings["db_annex_type"] == "fake"
         compose.stop(settings["port"], settings["hostname"],
                      persist_volumes=settings["persist_data"],
-                     fake_db_annex=fake_db_annex)
+                     use_fake_db_annex=use_fake_db_annex)
 
     def start(self, settings):
         print("Starting Montagu...", flush=True)
         compose.pull(settings['port'], settings['hostname'])
-        fake_db_annex = settings["db_annex_type"] == "fake"
-        compose.start(settings['port'], settings['hostname'], fake_db_annex)
+        use_fake_db_annex = settings["db_annex_type"] == "fake"
+        compose.start(settings['port'], settings['hostname'], use_fake_db_annex)
         print("- Checking Montagu has started successfully")
         sleep(2)
         if service.status() != "running":
