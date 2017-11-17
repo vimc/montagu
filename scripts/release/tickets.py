@@ -59,6 +59,8 @@ class YouTrackHelper:
         r = self.get("issue/" + full_id)
         if r.status_code == 200:
             return branch, Ticket(r.json())
+        elif r.status_code == 401:
+            raise Exception("Failed to authorize against YouTrack")
         else:
             return branch, NOT_FOUND
 
