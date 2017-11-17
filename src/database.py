@@ -149,31 +149,30 @@ def set_permissions(db, user):
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
-def migrate_schema(user, password, host=None, config_file=None,
-                   placeholders=None):
+def migrate_schema_core(root_password, annex_settings):
+    print("- migrating schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
-    cmd = ["docker", "run", "--rm", "--network=" + network_name, image]
-    if host:
-        cmd += ["-url=jdbc:postgresql://{}/montagu".format(host)]
-    if config_file:
-        cmd += ["-configFile=" + config_file]
-    if placeholders:
-        cmd += ['-placeholders.{}={}'.format(*x) for x in placeholders.items()]
-    cmd += ["-user=" + user, "-password=" + password, "migrate"]
-    run(cmd, check=True)
-
-def migrate_schema_core(root_password, annex_settings):
     placeholders = {
         'montagu_db_annex_host': annex_settings['host'],
         'montagu_db_annex_port': annex_settings['port'],
-        'montagu_db_annex_user': annex_settings['readonly_user'],
         'montagu_db_annex_password': annex_settings['readonly_password']}
-    migrate_schema("vimc", root_password, placeholders = placeholders)
+    cmd = ["docker", "run", "--rm", "--network=" + network_name, image,
+           '-placeholders.{}={}'.format(*x) for x in placeholders.items(),
+           "-user=vimc", "-password=" + root_password, "migrate"]
+    run(cmd, check=True)
 
 def migrate_schema_annex(annex_settings):
     print("- migrating annex schema")
+    image = get_image_name("montagu-migrate", versions.db)
+    pull(image)
+    root_password = annex_settings['root_password']
     host = '{}:{}'.format(annex_settings['host'], annex_settings['port'])
+    config_file = "conf/flyway-annex.conf"
+    cmd = ["docker", "run", "--rm", "--network=" + network_name, image,
+           "-url=jdbc:postgresql://{}/montagu".format(host),
+           "-configFile=" + config_file,
+           "-user=vimc", "-password=" + password, "migrate"]
     migrate_schema(annex_settings['root_user'], annex_settings['root_password'],
                    host=host, config_file="conf/flyway-annex.conf")
 
