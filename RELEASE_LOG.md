@@ -33,3 +33,10 @@
 * rename_migration
 * updatedb
 
+# v0.7.1
+## Tickets
+* i1047: Resolve migration ordering
+* i928: Add set type to burden estimate set
+
+## Other branches merged in this release
+
