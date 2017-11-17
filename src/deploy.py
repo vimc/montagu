@@ -23,7 +23,7 @@ from last_deploy import last_deploy_update
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
-    status = service.status()
+    status = service.status
     volume_present = service.volume_present
     is_first_time = (status is None) and (not volume_present)
     if is_first_time:

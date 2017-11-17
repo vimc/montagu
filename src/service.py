@@ -44,9 +44,10 @@ class MontaguService:
     def __init__(self):
         self.client = docker.from_env()
 
+    @property
     def status(self):
         expected = service_names
-        ## if settings["db_annex_type"] == "fake":
+        # Always tolerate the annex
         expected = expected.union({db_annex_name})
 
         actual = dict((c.name, c) for c in self.client.containers.list(all=True))
@@ -128,7 +129,7 @@ class MontaguService:
         compose.start(settings['port'], settings['hostname'], use_fake_db_annex)
         print("- Checking Montagu has started successfully")
         sleep(2)
-        if service.status() != "running":
+        if service.status != "running":
             raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
 
 
