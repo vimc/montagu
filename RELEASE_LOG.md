@@ -12,3 +12,24 @@
 
 ## Other branches merged in this release
 
+# v0.7.0
+## Tickets
+* i1011: If no coverage data, wide format errors
+* i1023: ValidationException is not converted into ValidationError when uploading burden estimates
+* i1023_refactor: ValidationException is not converted into ValidationError when uploading burden estimates
+* i1023_tweak: ValidationException is not converted into ValidationError when uploading burden estimates
+* i120: Can download burden estimates metadata via the API
+* i120_tests: Can download burden estimates metadata via the API
+* i727: add run parameter tables to the db
+* i820: Rename HepB surface antigen prevalence burden outcome
+* i922: Add burden estimate status
+* i940_updatedb: Endpoint to create model run parameter set
+* i974: Make release tool work with submodules
+* i997: Deploy is broken for me
+
+## Other branches merged in this release
+* dockerauth
+* littledice-patch-1
+* rename_migration
+* updatedb
+
