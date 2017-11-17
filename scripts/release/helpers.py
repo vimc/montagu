@@ -2,8 +2,8 @@ import subprocess
 import shlex
 
 
-def run(cmd):
+def run(cmd, working_dir=None):
     parts = shlex.split(cmd)
     result = subprocess.run(parts, check=True, stdout=subprocess.PIPE,
-                            universal_newlines=True)
+                            universal_newlines=True, cwd=working_dir)
     return result.stdout.strip()
