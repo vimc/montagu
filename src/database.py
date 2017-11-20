@@ -173,8 +173,7 @@ def migrate_schema_annex(annex_settings):
            "-url=jdbc:postgresql://{}/montagu".format(host),
            "-configFile=" + config_file,
            "-user=vimc", "-password=" + root_password, "migrate"]
-    migrate_schema(annex_settings['root_user'], annex_settings['root_password'],
-                   host=host, config_file="conf/flyway-annex.conf")
+    run(cmd, check=True)
 
 def get_annex_settings(settings):
     # This is not the name of the host, but the name used in the postgres
