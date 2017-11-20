@@ -38,11 +38,11 @@ def _deploy():
     # Check that the deployment environment is clean enough
     version = git_check(settings)
 
-    deploy_str = "montagu {} ({}) on {}".format(
+    deploy_str = "montagu {} (`{}`) on `{}`".format(
         version['tag'] or "(untagged)", version['sha'][:7],
         settings['notify_instance_name'])
 
-    notifier.post("Starting deploy of " + deploy_str)
+    notifier.post("*Starting* deploy of " + deploy_str)
 
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:
@@ -50,7 +50,7 @@ def _deploy():
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
-        notifier.post("Stopping previous montagu on " +
+        notifier.post("*Stopping* previous montagu on " +
                       settings['notify_instance_name'] + " :hand:")
         service.stop(settings)
 
@@ -67,7 +67,7 @@ def _deploy():
         print(e)
         service.stop(settings)
         try:
-            notifier.post("Failed deploy of " + deploy_str + " :bomb:")
+            notifier.post("*Failed* deploy of " + deploy_str + " :bomb:")
         except:
             pass
         raise
@@ -76,7 +76,7 @@ def _deploy():
         add_test_user()
 
     last_deploy_update(version)
-    notifier.post("Completed deploy of " + deploy_str + " :shipit:")
+    notifier.post("*Completed* deploy of " + deploy_str + " :shipit:")
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
