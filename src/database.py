@@ -73,10 +73,10 @@ def set_root_password(password):
     service.db.exec_run('psql -U {user} -d postgres -c "{query}"'.format(user=root_user, query=query))
 
 
-def connect(user, password):
+def connect(user, password, host="localhost", port=5432):
     conn_settings = {
-        "host": "localhost",
-        "port": 5432,
+        "host": host,
+        "port": port,
         "name": "montagu",
         "user": user,
         "password": password
@@ -85,6 +85,11 @@ def connect(user, password):
     conn_string = conn_string_template.format(**conn_settings)
     return psycopg2.connect(conn_string)
 
+def connect_annex(annex_settings):
+    return connect(annex_settings["root_user"],
+                   annex_settings["root_password"],
+                   annex_settings["host_from_deploy"],
+                   annex_settings["port_from_deploy"])
 
 def create_user(db, user):
     sql = """DO
@@ -186,19 +191,25 @@ def get_annex_settings(settings):
     # Below here varies based on fake/real; the only difference within
     # the real types (real/staging) is if we perform migrations.
     if settings["db_annex_type"] == "fake":
-        host = "db_annex" # docker volume in compose
+        host = "db_annex" # docker container name in compose
+        port = 5432
+        host_from_deploy = "localhost" # from host
+        port_from_deploy = 15432
         readonly_password = "changeme2"
         root_password = "changeme"
         migrate = True
-        port = 5432
     else:
         host = "annex.montagu.dide.ic.ac.uk" # address of our real server
+        port = 15432
+        host_from_deploy = host
+        port_from_deploy = port
         readonly_password = get_secret("annex/users/readonly", "password")
         root_password = get_secret("annex/users/root", "password")
         migrate = settings["db_annex_type"] == "real"
-        port = 15432
     return {"host": host,
             "port": port,
+            "host_from_deploy": host_from_deploy,
+            "port_from_deploy": port_from_deploy,
             "root_user": root_user,
             "root_password": root_password,
             "readonly_user": readonly_user,
@@ -268,5 +279,17 @@ def setup_annex(settings):
     print("Setting up annex")
     annex_settings = get_annex_settings(settings)
     if annex_settings['migrate']:
+        # NOTE: we do this only on production.  This will mean that
+        # there are some things that it is hard to test in staging.
         migrate_schema_annex(annex_settings)
+        if settings['password_group'] is not None:
+            set_password_annex(annex_settings)
     return annex_settings
+
+def set_password_annex(annex_settings):
+    print("Setting annex readonly password")
+    sql = "ALTER USER readonly WITH PASSWORD '{}'".format(
+        annex_settings['readonly_password'])
+    with connect_annex(annex_settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute(sql)
