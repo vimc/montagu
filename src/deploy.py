@@ -50,8 +50,8 @@ def _deploy():
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
-        notifier.post("*Stopping* previous montagu on " +
-                      settings['notify_instance_name'] + " :hand:")
+        notifier.post("*Stopping* previous montagu on `{}` :hand:".format(
+            settings['notify_instance_name']))
         service.stop(settings)
 
     # Schedule backups
