@@ -16,6 +16,7 @@ def vault_required(settings):
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
+           or settings["notify_channel"] != "" \
            or ("clone_reports" in settings and settings["clone_reports"] is True)
 
 
