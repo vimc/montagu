@@ -9,7 +9,7 @@
     "password_group": "fake",
     "clone_reports": false,
     "require_clean_git": false,
-    "add_test_user": false
+    "add_test_user": false,
     "notify_instance_name": "",
     "notify_channel": ""
 }
