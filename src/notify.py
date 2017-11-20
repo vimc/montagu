@@ -4,13 +4,14 @@ import json
 
 class Notifier:
     def __init__(self, channel):
-        path = get_secret('slack/deploy-webhook')
         self.enabled = len(channel) > 0
-        self.url = 'https://hooks.slack.com/services/{}'.format(path)
-        self.channel = "#" + channel
-        self.username = "montagu-bot"
-        self.icon = ":robot_face:"
-        self.headers = {'Content-Type': 'application/json'}
+        if self.enabled:
+            path = get_secret('slack/deploy-webhook')
+            self.url = 'https://hooks.slack.com/services/{}'.format(path)
+            self.channel = "#" + channel
+            self.username = "montagu-bot"
+            self.icon = ":robot_face:"
+            self.headers = {'Content-Type': 'application/json'}
     def post(self, message):
         if not self.enabled:
             return
