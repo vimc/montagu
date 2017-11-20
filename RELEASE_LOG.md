@@ -40,3 +40,17 @@
 
 ## Other branches merged in this release
 
+# v0.7.2
+## Tickets
+* i1024_onetimelinks: Add onetime links for new endpoints
+* i1053_uploadedon: upload_info.uploaded_on should be a timestamp
+* i884: Add tidyr to orderly image
+* i923: Separate out creating and uploading data against a burden estimate set
+* i928_update_database_interface: Add set type to burden estimate set
+* i940_modifyuploadinfo: Endpoint to create model run parameter set
+* i997: Deploy is broken for me
+
+## Other branches merged in this release
+* onetimelinks
+* update_tooling
+
