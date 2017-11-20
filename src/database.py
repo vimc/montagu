@@ -172,7 +172,7 @@ def migrate_schema_annex(annex_settings):
     cmd = ["docker", "run", "--rm", "--network=" + network_name, image,
            "-url=jdbc:postgresql://{}/montagu".format(host),
            "-configFile=" + config_file,
-           "-user=vimc", "-password=" + password, "migrate"]
+           "-user=vimc", "-password=" + root_password, "migrate"]
     migrate_schema(annex_settings['root_user'], annex_settings['root_password'],
                    host=host, config_file="conf/flyway-annex.conf")
 
