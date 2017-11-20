@@ -39,7 +39,8 @@ def _deploy():
     version = git_check(settings)
 
     deploy_str = "montagu {} ({}) on {}".format(
-        version['tag'], version['sha'][:7], settings['notify_instance_name'])
+        version['tag'] or "(untagged)", version['sha'][:7],
+        settings['notify_instance_name'])
 
     notifier.post("Starting deploy of " + deploy_str)
 
@@ -50,7 +51,7 @@ def _deploy():
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
         notifier.post("Stopping previous montagu on " +
-                      settings['notify_instance_name'])
+                      settings['notify_instance_name'] + " :hand:")
         service.stop(settings)
 
     # Schedule backups
@@ -66,7 +67,7 @@ def _deploy():
         print(e)
         service.stop(settings)
         try:
-            notifier.post(":bomb: Failed deploy of " + deploy_str)
+            notifier.post("Failed deploy of " + deploy_str + " :bomb:")
         except:
             pass
         raise
@@ -75,7 +76,7 @@ def _deploy():
         add_test_user()
 
     last_deploy_update(version)
-    notifier.post(":shipit: Completed deploy of " + deploy_str)
+    notifier.post("Completed deploy of " + deploy_str + " :shipit:")
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
