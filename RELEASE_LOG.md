@@ -54,3 +54,9 @@
 * onetimelinks
 * update_tooling
 
+# v0.7.3
+## Tickets
+* i1059: Order columns of wide format
+
+## Other branches merged in this release
+
