@@ -54,6 +54,7 @@ def get_new_tag():
 def make_release_message(tag, branches_and_tickets):
     with StringIO() as msg:
         print("# " + tag, file=msg)
+        print("", file=msg)
         print("## Tickets", file=msg)
         for branch, ticket in branches_and_tickets:
             if ticket:
