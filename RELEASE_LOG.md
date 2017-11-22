@@ -60,3 +60,16 @@
 
 ## Other branches merged in this release
 
+# v0.7.4
+
+## Tickets
+* i1049: Create a new import image
+* i1054_fix_type_codes: Return estimate set type from API
+* i1054_refactor: Return estimate set type from API
+* i1054_reorganize_tests: Return estimate set type from API
+* i1054_return_set_type: Return estimate set type from API
+* i1063: Deploy tool commit message should conform to usual formatting standards
+* i980: Add IP addresses to architecture diagram
+
+## Other branches merged in this release
+
