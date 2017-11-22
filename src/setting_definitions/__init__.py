@@ -16,6 +16,7 @@ def vault_required(settings):
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
+           or settings["notify_channel"] \
            or ("clone_reports" in settings and settings["clone_reports"] is True)
 
 
@@ -85,6 +86,15 @@ definitions = [
                       "Otherwise, just use the default",
                       default_value="https://support.montagu.dide.ic.ac.uk:8200",
                       is_required=vault_required),
+
+    SettingDefinition("notify_channel",
+                      "What slack channel should we post in?",
+                      "e.g., montagu. Leave as the empty string to not post",
+                      default_value=""),
+    SettingDefinition("instance_name",
+                      "What is the name of this instance to post in a channel?",
+                      default_value="(unknown)"),
+
     BooleanSettingDefinition("clone_reports",
                              "Should montagu-reports be cloned?",
                              "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
