@@ -10,6 +10,6 @@
     "clone_reports": false,
     "require_clean_git": false,
     "add_test_user": false,
-    "instance_name": "",
+    "instance_name": "teamcity",
     "notify_channel": ""
 }
