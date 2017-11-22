@@ -73,3 +73,12 @@
 
 ## Other branches merged in this release
 
+# v0.7.5
+
+## Tickets
+* i1052: Post in #montagu (or some other channel) as deploy begins/ends
+* i1065: remove old templates
+* i940_reorganisetests: Endpoint to create model run parameter set
+
+## Other branches merged in this release
+
