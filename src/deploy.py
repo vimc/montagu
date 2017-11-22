@@ -40,7 +40,7 @@ def _deploy():
 
     deploy_str = "montagu {} (`{}`) on `{}`".format(
         version['tag'] or "(untagged)", version['sha'][:7],
-        settings['notify_instance_name'])
+        settings['instance_name'])
 
     notifier.post("*Starting* deploy of " + deploy_str)
 
@@ -51,7 +51,7 @@ def _deploy():
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
         notifier.post("*Stopping* previous montagu on `{}` :hand:".format(
-            settings['notify_instance_name']))
+            settings['instance_name']))
         service.stop(settings)
 
     # Schedule backups

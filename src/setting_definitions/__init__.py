@@ -16,7 +16,7 @@ def vault_required(settings):
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
-           or settings["notify_channel"] != "" \
+           or settings["notify_channel"] \
            or ("clone_reports" in settings and settings["clone_reports"] is True)
 
 
@@ -91,7 +91,7 @@ definitions = [
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",
                       default_value=""),
-    SettingDefinition("notify_instance_name",
+    SettingDefinition("instance_name",
                       "What is the name of this instance to post in a channel?",
                       default_value="(unknown)"),
 
