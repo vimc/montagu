@@ -10,5 +10,7 @@
     "clone_reports": false,
     "require_clean_git": false,
     "add_test_user": false,
-    "db_annex_type": "fake"
+    "db_annex_type": "fake",
+    "instance_name": "teamcity",
+    "notify_channel": ""
 }

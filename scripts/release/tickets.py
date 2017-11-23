@@ -2,7 +2,7 @@ import os
 import re
 import requests
 
-from branch_diff import get_branch_diff
+from branch_diff import Difference
 
 branch_pattern = re.compile(r"^i(\d+)($|[_-])")
 NOT_FOUND = "NOT FOUND"
@@ -46,6 +46,7 @@ class YouTrackHelper:
         self.token = get_token()
 
     def get_tickets(self, branch_names):
+        branch_names = sorted(branch_names)
         for branch in branch_names:
             match = branch_pattern.match(branch)
             if match:
@@ -58,6 +59,8 @@ class YouTrackHelper:
         r = self.get("issue/" + full_id)
         if r.status_code == 200:
             return branch, Ticket(r.json())
+        elif r.status_code == 401:
+            raise Exception("Failed to authorize against YouTrack")
         else:
             return branch, NOT_FOUND
 
@@ -70,28 +73,40 @@ class YouTrackHelper:
         return requests.get(url, headers=headers)
 
 
-def check_tickets(latest_tag):
-    diff = get_branch_diff(latest_tag)
-    print("Since then, the following branches have been merged in:")
-    print(" ".join(diff))
+def check_ticket(branch, ticket):
+    problem = False
+    print("* " + branch, end="")
+    if ticket is None:
+        pass
+    elif ticket == NOT_FOUND:
+        print(": Unable to find ticket corresponding to branch " + branch,
+              end="")
+        problem = True
+    else:
+        print(": {ticket} ({summary})".format(ticket=ticket.id,
+                                               summary=ticket.get("summary")),
+              end="")
+        if not ticket.okay_to_release():
+            print("\n  Warning: Ticket is {state}".format(state=ticket.state()),
+                  end="")
+            problem = True
     print("")
+    return problem
 
+
+def check_tickets(latest_tag):
+    diff = Difference(latest_tag)
     yt = YouTrackHelper()
-    pairs = list(yt.get_tickets(diff))
+    pairs = list(yt.get_tickets(diff.branches))
     problems = False
+
+    print("\nSince then, the following branches have been merged in:")
     for (branch, ticket) in pairs:
-        if ticket is None:
-            pass
-        elif ticket == NOT_FOUND:
-            print("Unable to find ticket corresponding to branch " + branch)
-            problems = True
-        elif not ticket.okay_to_release():
-            template = "* {ticket} is in state {state}"
-            print(template.format(ticket=ticket.id, state=ticket.state()))
-            problems = True
+        had_problem = check_ticket(branch, ticket)
+        problems = problems or had_problem
 
     if problems:
-        answer = input("Are you sure you want to proceed? (y/N) ")
+        answer = input("\nAre you sure you want to proceed? (y/N) ")
         if answer != "y":
             exit(-1)
 

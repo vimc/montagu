@@ -18,6 +18,7 @@ from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
+from notify import Notifier
 
 
 def _deploy():
@@ -32,9 +33,16 @@ def _deploy():
         print("Montagu status: {}. Data volume present: {}".format(status, volume_present))
 
     settings = get_settings(is_first_time)
+    notifier = Notifier(settings['notify_channel'])
 
     # Check that the deployment environment is clean enough
     version = git_check(settings)
+
+    deploy_str = "montagu {} (`{}`) on `{}`".format(
+        version['tag'] or "(untagged)", version['sha'][:7],
+        settings['instance_name'])
+
+    notifier.post("*Starting* deploy of " + deploy_str)
 
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:
@@ -42,6 +50,8 @@ def _deploy():
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
+        notifier.post("*Stopping* previous montagu on `{}` :hand:".format(
+            settings['instance_name']))
         service.stop(settings)
 
     # Schedule backups
@@ -56,12 +66,17 @@ def _deploy():
         print("An error occurred before deployment could be completed. Stopping Montagu")
         print(e)
         service.stop(settings)
+        try:
+            notifier.post("*Failed* deploy of " + deploy_str + " :bomb:")
+        except:
+            pass
         raise
 
     if settings["add_test_user"] is True:
         add_test_user()
 
     last_deploy_update(version)
+    notifier.post("*Completed* deploy of " + deploy_str + " :shipit:")
 
     print("Finished deploying Montagu")
     if settings["open_browser"]:
