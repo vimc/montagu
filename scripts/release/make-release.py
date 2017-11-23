@@ -18,7 +18,7 @@ from io import StringIO
 from docopt import docopt
 
 from helpers import run
-from tickets import check_tickets
+from tickets import check_tickets, tag_tickets
 
 release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
 
@@ -76,7 +76,7 @@ def write_release_log(message):
         f.write("\n")
 
 
-def commit_tag_and_push():
+def commit_and_tag():
     run("git add RELEASE_LOG.md")
     run("git commit -m \"{msg}\"".format(msg=release_message))
     print("Tagging...")
@@ -104,7 +104,9 @@ if __name__ == "__main__":
         print("Writing release log...")
         release_message = make_release_message(new_tag, branches_and_tickets)
         write_release_log(release_message)
-        commit_tag_and_push()
+        commit_and_tag()
+        ticket_ids = list(ticket.id for branch, ticket in branches_and_tickets)
+        tag_tickets(branches_and_tickets, new_tag)
 
         print("""Done"
 No changes have been pushed, so please review and then push using 

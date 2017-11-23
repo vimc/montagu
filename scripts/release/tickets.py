@@ -55,22 +55,41 @@ class YouTrackHelper:
                 yield branch, None
 
     def get_ticket(self, branch, id):
-        full_id = "VIMC-" + id
-        r = self.get("issue/" + full_id)
+        full_id = self.get_full_id(id)
+        r = self.request("issue/" + full_id)
         if r.status_code == 200:
             return branch, Ticket(r.json())
-        elif r.status_code == 401:
-            raise Exception("Failed to authorize against YouTrack")
         else:
             return branch, NOT_FOUND
 
-    def get(self, url_fragment):
+    def add_build_tag(self, tag):
+        template = "admin/customfield/buildBundle/vimc: Fixed in builds1/{tag}"
+        r = self.request(template.format(tag=tag), method="put")
+        # 409 means already exists
+        return r.status_code in [201, 409], r
+
+    def modify_ticket(self, id, command):
+        full_id = self.get_full_id(id)
+        template = "issue/{issue}/execute?command={command}"
+        fragment = template.format(issue=full_id, command=command)
+        r = self.request(fragment, method="post")
+        return r.status_code == 200, r
+
+    def request(self, url_fragment, method="get"):
         headers = {
             "Authorization": "Bearer " + self.token,
             "Accept": "application/json"
         }
         url = self.base_url + url_fragment
-        return requests.get(url, headers=headers)
+        response = requests.request(method, url, headers=headers)
+        if response.status_code == 401:
+            raise Exception("Failed to authorize against YouTrack")
+        return response
+
+    @classmethod
+    def get_full_id(self, id):
+        full_id = "VIMC-" + id
+        return full_id
 
 
 def check_ticket(branch, ticket):
@@ -84,7 +103,7 @@ def check_ticket(branch, ticket):
         problem = True
     else:
         print(": {ticket} ({summary})".format(ticket=ticket.id,
-                                               summary=ticket.get("summary")),
+                                              summary=ticket.get("summary")),
               end="")
         if not ticket.okay_to_release():
             print("\n  Warning: Ticket is {state}".format(state=ticket.state()),
@@ -111,3 +130,25 @@ def check_tickets(latest_tag):
             exit(-1)
 
     return pairs
+
+
+def tag_tickets(tickets, tag):
+    yt = YouTrackHelper()
+    problems = []
+
+    success, response = yt.add_build_tag(tag)
+    if not success:
+        template = "Failed to create new tag {tag}. {status}: {text}"
+        problems.append(template.format(tag=tag,
+                                        status=response.status_code,
+                                        text=response.text))
+        return problems
+
+    for ticket in tickets:
+        success, response = yt.modify_ticket(ticket, "Fixed in build " + tag)
+        if not success:
+            template = "Failed to tag {id}. {status}: {text}"
+            problems.append(template.format(id=ticket,
+                                            status=response.status_code,
+                                            text=response.text))
+    return problems
