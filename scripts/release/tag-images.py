@@ -46,7 +46,7 @@ def set_image_tags(version):
     print("Setting image tags")
     for name in container_repo_map.keys():
         print("  - " + name)
-        set_image_tag(km, version)
+        set_image_tag(name, version)
 
 def publish_images(version):
     d = docker.client.from_env()
