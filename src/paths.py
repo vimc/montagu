@@ -1,5 +1,6 @@
 import shutil
 
+# TODO: prefix these all with a temp path perhaps?
 ssl = '../ssl'
 artifacts = '../artifacts'
 token_keypair = '../token_keypair'

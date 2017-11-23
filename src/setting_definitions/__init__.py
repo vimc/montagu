@@ -16,6 +16,7 @@ def vault_required(settings):
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
+           or settings["db_annex_type"] != "fake" \
            or settings["notify_channel"] \
            or ("clone_reports" in settings and settings["clone_reports"] is True)
 
@@ -110,5 +111,12 @@ definitions = [
     BooleanSettingDefinition("add_test_user",
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
-                             default_value=False)
+                             default_value=False),
+    EnumSettingDefinition("db_annex_type",
+                          "How do we treat the annex database?",
+                          [
+                              ("fake", "Add a totally safe, but empty, version to the constellation"),
+                              ("readonly", "Read-only access to the real annex"),
+                              ("real", "Full access to the real annex: PRODUCTION ONLY")
+                          ])
 ]

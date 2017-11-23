@@ -1,6 +1,7 @@
 import random
 import string
 from subprocess import run
+from types import SimpleNamespace
 
 import psycopg2
 
@@ -11,7 +12,6 @@ from service_config import api_db_user
 from settings import get_secret
 
 root_user = "vimc"
-
 
 def user_configs(password_group):
     # Later, read these from a yml file?
@@ -32,9 +32,10 @@ class GeneratePassword:
 
 
 class VaultPassword:
-    def __init__(self, password_group, username):
+    def __init__(self, password_group, username, annex=False):
         self.password_group = password_group
         self.username = username
+        self.annex = annex
 
     def get(self):
         if self.password_group is None:
@@ -45,15 +46,17 @@ class VaultPassword:
     def _path(self):
         if self.password_group is None:
             raise Exception("_path() is not defined without a password group")
-        return "database/{password_group}/users/{username}".format(
-            password_group = self.password_group, username = self.username)
+        elif self.annex:
+            return "annex/users/{}".format(self.username)
+        else:
+            return "database/{password_group}/users/{username}".format(
+                password_group = self.password_group, username = self.username)
 
     def __str__(self):
         if self.password_group is None:
             return "Using default password value"
         else:
             return "From vault at " + self._path()
-
 
 class UserConfig:
     def __init__(self, name, permissions, password_source):
@@ -74,10 +77,10 @@ def set_root_password(password):
     service.db.exec_run('psql -U {user} -d postgres -c "{query}"'.format(user=root_user, query=query))
 
 
-def connect(user, password):
+def connect(user, password, host="localhost", port=5432):
     conn_settings = {
-        "host": "localhost",
-        "port": 5432,
+        "host": host,
+        "port": port,
         "name": "montagu",
         "user": user,
         "password": password
@@ -86,6 +89,12 @@ def connect(user, password):
     conn_string = conn_string_template.format(**conn_settings)
     return psycopg2.connect(conn_string)
 
+def connect_annex(annex_settings):
+    root = annex_settings['users']['root']
+    return connect(root.name,
+                   root.password,
+                   annex_settings["host_from_deploy"],
+                   annex_settings["port_from_deploy"])
 
 def create_user(db, user):
     sql = """DO
@@ -125,6 +134,21 @@ def grant_readonly(db, user):
     print("  - Granting readonly permissions to {name}".format(name=user.name))
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
+def grant_readonly_annex(db, user, annex_settings):
+    print(" - annex: mapping {} -> readonly".format(user.name))
+    annex_readonly = annex_settings['users']['readonly']
+    sql1 = "DROP USER MAPPING IF EXISTS FOR {name} " \
+           "SERVER montagu_db_annex;".format(name = user.name)
+    sql2 = "CREATE USER MAPPING FOR {name} " \
+           "SERVER {annex_server_name} " \
+           "OPTIONS (user '{annex_readonly_user}', " \
+           "password '{annex_readonly_password}');".format(
+               name = user.name,
+               annex_server_name = annex_settings['server_name'],
+               annex_readonly_user = annex_readonly.name,
+               annex_readonly_password = annex_readonly.password)
+    db.execute(sql1)
+    db.execute(sql2)
 
 def set_permissions(db, user):
     revoke_all(db, user)
@@ -136,18 +160,77 @@ def set_permissions(db, user):
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
-
-def migrate_schema(db_password):
+def migrate_schema_core(root_password, annex_settings):
+    print("- migrating schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
-    run([
-        "docker", "run",
-        "--rm",
-        "--network=" + network_name,
-        image,
-        "migrate", "-user=" + root_user, "-password=" + db_password
-    ], check=True)
+    placeholders = {
+        'montagu_db_annex_host': annex_settings['host'],
+        'montagu_db_annex_port': annex_settings['port']
+    }
+    cmd = ["docker", "run", "--rm", "--network=" + network_name, image] + \
+          ['-placeholders.{}={}'.format(*x) for x in placeholders.items()] + \
+          ["-user=vimc", "-password=" + root_password, "migrate"]
+    run(cmd, check=True)
 
+def migrate_schema_annex(annex_settings):
+    print("- migrating annex schema")
+    image = get_image_name("montagu-migrate", versions.db)
+    pull(image)
+    root = annex_settings['users']['root']
+    host = '{}:{}'.format(annex_settings['host'], annex_settings['port'])
+    config_file = "conf/flyway-annex.conf"
+    cmd = ["docker", "run", "--rm", "--network=" + network_name, image,
+           "-url=jdbc:postgresql://{}/montagu".format(host),
+           "-configFile=" + config_file,
+           "-user=" + root.name, "-password=" + root.password, "migrate"]
+    run(cmd, check=True)
+
+def get_annex_settings(settings):
+    # This is not the name of the host, but the name used in the postgres
+    # scripts to refer to the server (via CREATE SERVER...)
+    server_name = "montagu_db_annex"
+    # Root and readonly user *on the annex*
+
+    # Below here varies based on fake/real; the only difference within
+    # the real types (real/staging) is if we perform migrations.
+    #
+    # There are two sets of host/port information:
+
+    #   * host/port: these are from the docker containers - in the
+    #     "fake annex" mode they will be the name of the container and
+    #     the default postgres port.
+    #   * host_from_deploy/port_from_deploy: access from the deploy
+    #     script (running outside of docker compose).  In the "fake
+    #     annex" mode this will be localhost and the port that is
+    #     exposed via the supplementary docker compose file
+    if settings["db_annex_type"] == "fake":
+        host = "db_annex" # docker container name in compose
+        port = 5432
+        host_from_deploy = "localhost" # from host
+        port_from_deploy = 15432
+        migrate = True
+        group = None
+    else:
+        host = "annex.montagu.dide.ic.ac.uk" # address of our real server
+        port = 15432
+        host_from_deploy = host
+        port_from_deploy = port
+        migrate = settings["db_annex_type"] == "real"
+        group = settings['password_group']
+    users = {
+        "root": UserConfig("vimc", "all",
+                           VaultPassword(group, "vimc", annex=True)),
+        "readonly": UserConfig("readonly", "readonly",
+                               VaultPassword(group, "readonly", annex=True))
+    }
+    return {"host": host,
+            "port": port,
+            "host_from_deploy": host_from_deploy,
+            "port_from_deploy": port_from_deploy,
+            "server_name": server_name,
+            "migrate": migrate,
+            "users": users}
 
 def setup_user(db, user):
     print(" - " + user.name)
@@ -166,7 +249,10 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(password_group):
+def setup(settings):
+    annex_settings = setup_annex(settings)
+
+    password_group = settings["password_group"]
     print("Setting up database users")
     print("- Scrambling root password")
     if password_group is not None:
@@ -184,15 +270,48 @@ def setup(password_group):
         print(" - {name}: {source}".format(name=user.name, source=user.password_source))
         passwords[user.name] = user.password
 
+    # NOTE: As I work through this - why not set up users *after* the
+    # schema migration?  This is because the migration user needs to
+    # exist, though in practice we don't use them so this could be
+    # reordered later.
     print("- Updating database users")
     for_each_user(root_password, users, setup_user)
 
     print("- Migrating database schema")
-    migrate_schema(root_password)
+    migrate_schema_core(root_password, annex_settings)
 
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
     # again, in case users need to have permissions on these new tables
     for_each_user(root_password, users, set_permissions)
 
+    grant_readonly_annex_root(root_password, annex_settings)
+    for_each_user(root_password, users, lambda d, u :
+                  grant_readonly_annex(d, u, annex_settings))
+
     return passwords
+
+def setup_annex(settings):
+    print("Setting up annex")
+    annex_settings = get_annex_settings(settings)
+    if annex_settings['migrate']:
+        # NOTE: we do this only on production.  This will mean that
+        # there are some things that it is hard to test in staging.
+        migrate_schema_annex(annex_settings)
+        setup_annex_users(annex_settings)
+    return annex_settings
+
+def setup_annex_users(annex_settings):
+    print("Setting up annex users")
+    readonly = annex_settings['users']['readonly']
+    with connect_annex(annex_settings) as conn:
+        with conn.cursor() as cur:
+            setup_user(cur, readonly)
+
+# NOTE: workaround because grant_readonly_annex requires a UserConfig
+# object - or rather something with a 'name' field
+def grant_readonly_annex_root(root_password, annex_settings):
+    root = SimpleNamespace(name = root_user)
+    with connect(root_user, root_password) as conn:
+        with conn.cursor() as cur:
+            grant_readonly_annex(cur, root, annex_settings)
