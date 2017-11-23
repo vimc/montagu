@@ -19,7 +19,8 @@ To deploy onto the stage VM of your choice:
 
 ```
 vagrant ssh uat            # or vagrant ssh science
-/vagrant/deploy
+cd montagu
+./deploy.sh
 ```
 
 You will be asked a series of interactive configuration questions. It's 
