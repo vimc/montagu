@@ -12,5 +12,9 @@
 4. [Connect to the UAT machine and deploy there](staging/README.md)
 5. You may go through multiple rounds of steps 1-3 until you have a release
    you are happy to deploy to production.
-6. Deploy to live. (Do we have documentation for this?)
+6. Deploy to live:
+   1. ssh production.montagu.dide.ic.ac.uk
+   1. sudo su
+   1. cd /montagu/deploy
+   1. ./deploy.sh
 7. Use RELEASE_LOG.md to know which tickets to update to the 'Deployed' status
