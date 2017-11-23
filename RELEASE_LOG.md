@@ -82,3 +82,19 @@
 
 ## Other branches merged in this release
 
+# v0.8.0
+
+## Tickets
+* i1073: stochastic params template should have 200 rows
+* i827: Add migration to add burden outcomes if not present
+* i880: Host large tables on separate machine
+* i940_actioncontext: Endpoint to create model run parameter set
+* i940_controller: Endpoint to create model run parameter set
+* i940_morerepologic: Endpoint to create model run parameter set
+* i940_validation: Endpoint to create model run parameter set
+
+## Other branches merged in this release
+* better_deploy_script
+* fix
+* stochasticparams
+
