@@ -88,10 +88,26 @@ def fetch():
     run("git fetch --tags --all")
 
 
+def update_youtrack(branches_and_tickets, test_run):
+    if test_run:
+        print("--test-run is enabled: Skipping updating YouTrack")
+        return
+
+    print("Updating YouTrack...")
+    tickets = list(ticket for branch, ticket in branches_and_tickets)
+    problems = tag_tickets(tickets, new_tag)
+    if problems:
+        print("Error updating YouTrack:")
+        for problem in problems:
+            print(problem)
+        print("")
+
+
 if __name__ == "__main__":
     args = docopt(__doc__)
+    test_run = args["--test-run"]
 
-    if not (git_is_clean() or args["--test-run"]):
+    if not (git_is_clean() or test_run):
         print("Git status reports as not clean; aborting making release")
     else:
         fetch()
@@ -105,15 +121,7 @@ if __name__ == "__main__":
         release_message = make_release_message(new_tag, branches_and_tickets)
         write_release_log(release_message)
         commit_and_tag()
-
-        print("Updating YouTrack...")
-        tickets = list(ticket for branch, ticket in branches_and_tickets)
-        problems = tag_tickets(tickets, new_tag)
-        if problems:
-            print("Error updating YouTrack:")
-            for problem in problems:
-                print(problem)
-            print("")
+        update_youtrack(branches_and_tickets, test_run)
 
         print("""Done
 
