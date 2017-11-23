@@ -15,9 +15,6 @@ import os
 import re
 import git_helpers
 
-os.chdir("../..")
-tag = "v0.8.0"
-
 # This feels like something we should have elsewhere; it's a map of
 # the name of the *repo* (the key here) with the name of the submodule
 # *subdirectory* (the value, which then maps onto the docker compose
