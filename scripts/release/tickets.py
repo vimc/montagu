@@ -55,7 +55,7 @@ class YouTrackHelper:
                 yield branch, None
 
     def get_ticket(self, branch, id):
-        full_id = self.get_full_id(id)
+        full_id = "VIMC-" + id
         r = self.request("issue/" + full_id)
         if r.status_code == 200:
             return branch, Ticket(r.json())
@@ -68,8 +68,7 @@ class YouTrackHelper:
         # 409 means already exists
         return r.status_code in [201, 409], r
 
-    def modify_ticket(self, id, command):
-        full_id = self.get_full_id(id)
+    def modify_ticket(self, full_id, command):
         template = "issue/{issue}/execute?command={command}"
         fragment = template.format(issue=full_id, command=command)
         r = self.request(fragment, method="post")
@@ -85,11 +84,6 @@ class YouTrackHelper:
         if response.status_code == 401:
             raise Exception("Failed to authorize against YouTrack")
         return response
-
-    @classmethod
-    def get_full_id(self, id):
-        full_id = "VIMC-" + id
-        return full_id
 
 
 def check_ticket(branch, ticket):
@@ -145,10 +139,10 @@ def tag_tickets(tickets, tag):
         return problems
 
     for ticket in tickets:
-        success, response = yt.modify_ticket(ticket, "Fixed in build " + tag)
+        success, response = yt.modify_ticket(ticket.id, "Fixed in build " + tag)
         if not success:
             template = "Failed to tag {id}. {status}: {text}"
-            problems.append(template.format(id=ticket,
+            problems.append(template.format(id=ticket.id,
                                             status=response.status_code,
                                             text=response.text))
     return problems

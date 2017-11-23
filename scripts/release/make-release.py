@@ -105,10 +105,18 @@ if __name__ == "__main__":
         release_message = make_release_message(new_tag, branches_and_tickets)
         write_release_log(release_message)
         commit_and_tag()
-        ticket_ids = list(ticket.id for branch, ticket in branches_and_tickets)
-        tag_tickets(branches_and_tickets, new_tag)
 
-        print("""Done"
+        print("Updating YouTrack...")
+        tickets = list(ticket for branch, ticket in branches_and_tickets)
+        problems = tag_tickets(tickets, new_tag)
+        if problems:
+            print("Error updating YouTrack:")
+            for problem in problems:
+                print(problem)
+            print("")
+
+        print("""Done
+
 No changes have been pushed, so please review and then push using 
 
 git push --follow-tags
