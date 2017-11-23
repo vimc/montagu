@@ -5,7 +5,7 @@ run with the "publish" option it will also publish images to
 https://hub.docker.com/u/vimc
 
 Usage:
-  tag-images.py tag <version>
+  tag-images.py tag [--publish] <version>
   tag-images.py publish <version>
 """
 import docker
@@ -74,5 +74,7 @@ if __name__ == "__main__":
         raise Exception("Invalid tag")
     if args["tag"]:
         set_image_tags(version)
+        if args["--publish"]:
+            publish_images(version)
     elif args["publish"]:
         publish_images(version)
