@@ -1,4 +1,5 @@
 from subprocess import Popen
+from docker_helpers import montagu_registry
 
 import versions
 
@@ -37,6 +38,8 @@ def run(args, port, hostname, use_fake_db_annex):
 
 def get_env(port, hostname):
     return {
+        'MONTAGU_REGISTRY': montagu_registry,
+
         'MONTAGU_PORT': str(port),
         'MONTAGU_HOSTNAME': hostname,
 
