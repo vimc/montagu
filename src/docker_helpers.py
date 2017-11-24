@@ -4,7 +4,8 @@ import os
 montagu_registry_local = "docker.montagu.dide.ic.ac.uk:5000"
 montagu_registry_hub = "vimc"
 
-# This is really ugly, but we need to
+# This is really ugly, but the alternative is to alter every call to
+# get_image_name and that feels much more invasive right now.
 try:
     use_docker_hub = os.environ['MONTAGU_USE_DOCKER_HUB'] == "true"
 except KeyError:
