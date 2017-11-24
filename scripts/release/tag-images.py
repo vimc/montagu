@@ -18,16 +18,23 @@ import git_helpers
 # This feels like something we should have elsewhere; it's a map of
 # the name of the *repo* (the key here) with the name of the submodule
 # *subdirectory* (the value, which then maps onto the docker compose
-# container name).  It's easy enough to lift this out later though
+# container name).  It's easy enough to lift this out later though.
+#
+# Not currently included are montagu-portal-integration-tests and
+# montagu-api-blackbox-tests (both of which version against the api
+# submodule).
 container_repo_map = {
-    "montagu-api": "api",
-    "montagu-reporting-api": "reporting-api",
-    "montagu-db": "db",
-    "montagu-contrib-portal": "contrib-portal",
     "montagu-admin-portal": "admin-portal",
+    "montagu-api": "api",
+    "montagu-cert-tool": "cert-tool",
+    "montagu-cli": "api",
+    "montagu-contrib-portal": "contrib-portal",
+    "montagu-db": "db",
+    "montagu-migrate": "db",
+    "montagu-orderly": "orderly",
     "montagu-report-portal": "report-portal",
-    "montagu-reverse-proxy": "proxy",
-    "montagu-orderly": "orderly"
+    "montagu-reporting-api": "reporting-api",
+    "montagu-reverse-proxy": "proxy"
 }
 
 registry = "docker.montagu.dide.ic.ac.uk:5000"
