@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Tags images used in a particular release and pushes the tags into
-our local docker registrty at docker.montagu.dide.ic.ac.uk:5000.  If
-run with the "publish" option it will also publish images to
+our local docker registry at docker.montagu.dide.ic.ac.uk:5000.  Use
+tag 'latest' to select the most recent conforming git tag (this will
+not set things to be the docker 'latest' tag though).  If run with the
+"publish" option it will also publish images to
 https://hub.docker.com/u/vimc
 
 Usage:
   tag-images.py tag [--publish] <version>
   tag-images.py publish <version>
+
 """
 import docker
 import docopt
@@ -14,6 +17,7 @@ from subprocess import run
 import os
 import re
 import git_helpers
+from helpers import get_latest_release_tag, validate_release_tag
 
 # This feels like something we should have elsewhere; it's a map of
 # the name of the *repo* (the key here) with the name of the submodule
@@ -73,9 +77,10 @@ def get_past_submodule_versions(master_repo_version):
 if __name__ == "__main__":
     args = docopt.docopt(__doc__)
     version = args["<version>"]
-    release_tag_pattern = re.compile(r"^v\d+\.\d+\.\d+(-RC\d)?$")
-    if not release_tag_pattern.match(version):
-        raise Exception("Invalid tag")
+    if version == "latest":
+        version = get_latest_release_tag()
+    else:
+        validate_release_tag(version)
     if args["tag"]:
         set_image_tags(version)
         if args["--publish"]:

@@ -11,22 +11,12 @@ Options:
   --test-run    Don't insist on Git being in a clean state
 """
 
-import re
-
 from io import StringIO
 
 from docopt import docopt
 
-from helpers import run
+from helpers import run, get_latest_release_tag, version_greater_than
 from tickets import check_tickets
-
-release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
-
-
-def get_latest_release_tag():
-    tags = run("git tag").split('\n')
-    release_tags = sorted(t for t in tags if release_tag_pattern.match(t))
-    return release_tags[-1]
 
 
 def git_is_clean():
@@ -39,14 +29,11 @@ def tag(tag_name, branch_diff):
     run("git tag -a {tag} -m \"{msg}\"".format(tag=tag_name, msg=message))
 
 
-def get_new_tag():
+def get_new_tag(latest_tag):
     new_tag = "v" + input("What should the new release tag be? v")
-    if new_tag <= latest_tag:
+    if not version_greater_than(new_tag, latest_tag):
         template = "Error: {new_tag} is not after {latest_tag}"
         print(template.format(new_tag=new_tag, latest_tag=latest_tag))
-        exit(-1)
-    if not release_tag_pattern.match(new_tag):
-        print("Error: tag does not correspond to regex")
         exit(-1)
     return new_tag
 
@@ -99,7 +86,7 @@ if __name__ == "__main__":
         print("The latest release was " + latest_tag)
 
         branches_and_tickets = check_tickets(latest_tag)
-        new_tag = get_new_tag()
+        new_tag = get_new_tag(latest_tag)
 
         print("Writing release log...")
         release_message = make_release_message(new_tag, branches_and_tickets)
@@ -107,9 +94,10 @@ if __name__ == "__main__":
         commit_tag_and_push()
 
         print("""Done"
-No changes have been pushed, so please review and then push using 
+No changes have been pushed, so please review and then push using
 
-git push --follow-tags
+  git push --follow-tags
+  ./scripts/release/tag-images.py tag --publish latest
 
 When you come to deploy this release, the RELEASE_LOG.md file
 (or the commit message) will tell you which tickets need to be updated""")
