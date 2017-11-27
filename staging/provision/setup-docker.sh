@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-DOCKER_VERSION=17.03.0~ce-0~ubuntu-xenial
+DOCKER_VERSION=17.09.0~ce-0~ubuntu-xenial
 COMPOSE_VERSION=1.13.0
 
 if which -a docker > /dev/null; then
