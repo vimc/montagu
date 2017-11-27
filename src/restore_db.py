@@ -6,6 +6,7 @@ from service import service
 from settings import get_settings
 from os.path import abspath, dirname
 from os import chdir
+from cli import add_test_user
 
 def restore_db():
     ok = service.status == 'running' and service.volume_present
@@ -14,6 +15,8 @@ def restore_db():
     settings = get_settings(False)
     backup.restore(settings)
     database.setup(settings["password_group"])
+    if settings["add_test_user"] is True:
+        add_test_user()
 
 if __name__ == "__main__":
     abspath = abspath(__file__)
