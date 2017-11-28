@@ -2,6 +2,7 @@
 from os import chdir
 from os.path import abspath, dirname
 
+import backup
 import service
 from settings import get_settings
 
