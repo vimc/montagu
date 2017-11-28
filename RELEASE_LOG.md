@@ -113,3 +113,10 @@
 
 ## Other branches merged in this release
 
+# v0.8.2
+
+## Tickets
+* i1067: Fix restore with annex
+
+## Other branches merged in this release
+
