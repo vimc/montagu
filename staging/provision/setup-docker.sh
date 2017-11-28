@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-COMPOSE_VERSION=1.13.0
+COMPOSE_VERSION=1.17.0
 
 if which -a docker > /dev/null; then
     echo "docker is already installed"
