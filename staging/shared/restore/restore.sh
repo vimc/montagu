@@ -4,7 +4,10 @@ if [ ! -f /vagrant/vault_config ]; then
     echo "Run restore-prepare.sh on host"
     exit 1
 fi
+
 . /vagrant/vault_config
+export VAULT_ADDR
+export VAULT_AUTH_GITHUB_TOKEN
 
 vault auth -method=github
 vault read -field=password /secret/registry/vimc | \
