@@ -97,12 +97,11 @@ def connect_annex(annex_settings):
                    annex_settings["port_from_deploy"])
 
 def create_user(db, user):
-    # just create the user now - passwords are managed with set_password
     sql = """DO
 $body$
 BEGIN
    IF NOT EXISTS (SELECT FROM pg_catalog.pg_user WHERE usename = '{name}') THEN
-      CREATE ROLE {name};
+      CREATE ROLE {name} LOGIN PASSWORD '{password}';
    END IF;
 END
 $body$""".format(name=user.name, password=user.password)
