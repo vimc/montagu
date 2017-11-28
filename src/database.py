@@ -319,12 +319,12 @@ def grant_readonly_annex_root(root_password, annex_settings):
 
 def prepare_db_for_import(settings):
     print("Preparing databse for import")
-    ## NOTE: this can be done by connecting to using the connection
-    ## function, but that that requires further changes to the connect
-    ## function to allow connection to the postgres maintenance
-    ## database.  This way works for now.  This also allows us to
-    ## avoid working out what the root password will be because we're
-    ## interating without passwords over exec.
+    ## NOTE: this could otherwise be done by connecting using the
+    ## connection function, but that that requires further changes to
+    ## the connect function to allow connection to the postgres
+    ## maintenance database.  This way works for now.  This also
+    ## allows us to avoid working out what the root password will be
+    ## because we're interating without passwords over exec.
     db = service.db
     print("- deleting and recreating database")
     db.exec_run(["dropdb", "-U", "vimc", "--if-exists", "montagu"])
