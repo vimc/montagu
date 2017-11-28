@@ -6,6 +6,7 @@ from os.path import isdir
 
 import service
 
+from database import prepare_db_for_import
 from last_deploy import last_restore_update
 
 finished_setup = False
@@ -53,5 +54,9 @@ def schedule(settings):
 def restore(settings):
     print("Restoring from remote backup")
     setup(settings)
+    ## Because of the annex work we need to ensure that users *exist*
+    ## here at this point and do that just before removing the
+    ## database.  This is all a bit nasty really.
+    prepare_db_for_import(settings)
     run(["../backup/restore.py"], check=True)
     last_restore_update()
