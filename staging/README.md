@@ -28,6 +28,15 @@ important that the port you configure Montagu with matches the eventual port
 that users will be navigating to. So the port that Vagrant exposes the outside
 world must match.
 
+## To test the restore
+
+```
+vagrant destroy -f restore-test
+vagrant up restore-test
+./restore-prepare.sh
+vagrant ssh restore-test -c '/vagrant/restore/restore.sh'
+```
+
 ## Troubleshooting
 
 ### Bringing up vms
