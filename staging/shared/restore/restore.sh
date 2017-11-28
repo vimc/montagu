@@ -23,8 +23,6 @@ if [ -f $MONTAGU_PATH ]; then
 fi
 
 git clone --recursive https://github.com/vimc/montagu $MONTAGU_PATH
-git -C $MONTAGU_PATH checkout i1067
-git -C $MONTAGU_PATH submodule update
 
 cp /vagrant/restore/settings.json $MONTAGU_PATH/src/montagu-deploy.json
 

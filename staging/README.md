@@ -31,10 +31,10 @@ world must match.
 ## To test the restore
 
 ```
-vagrant destroy restore-test
+vagrant destroy -f restore-test
 vagrant up restore-test
 ./restore-prepare.sh
-vagrant ssh -c '/shared/restore/restore.sh'
+vagrant ssh restore-test -c '/vagrant/restore/restore.sh'
 ```
 
 ## Troubleshooting
