@@ -16,7 +16,7 @@ MONTAGU_PATH=/montagu
 
 if [ -f $MONTAGU_PATH ]; then
     (cd $MONTAGU_PATH && ./src/stop.py)
-    .
+    rm -rf $MONTAGU_PATH
 fi
 
 git clone --recursive https://github.com/vimc/montagu $MONTAGU_PATH
