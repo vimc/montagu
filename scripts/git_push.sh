@@ -25,6 +25,7 @@ function cleanup {
 trap cleanup EXIT
 
 vault read -field=value secret/vimc-robot/id_rsa > $SSH_KEY
+chmod 600 $SSH_KEY
 
 export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
 git -C $MONTAGU_PATH push $*
