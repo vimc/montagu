@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -x
 
-DOCKER_VERSION=17.09.0~ce-0~ubuntu-xenial
 COMPOSE_VERSION=1.13.0
 
 if which -a docker > /dev/null; then
@@ -14,7 +13,7 @@ else
    $(lsb_release -cs) \
    stable"
     sudo apt-get update
-    sudo apt-get install -y docker-ce=$DOCKER_VERSION
+    sudo apt-get install -y docker-ce
     sudo usermod -aG docker vagrant
 fi
 
