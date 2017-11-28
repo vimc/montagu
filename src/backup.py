@@ -55,7 +55,7 @@ def restore(settings):
     print("Restoring from remote backup")
     setup(settings)
     ## Because of the annex work we need to ensure that users *exist*
-    ## here at this point and do that just before removing the
+    ## here at this point and do that just before restoring the
     ## database.  This is all a bit nasty really.
     prepare_db_for_import(settings)
     run(["../backup/restore.py"], check=True)
