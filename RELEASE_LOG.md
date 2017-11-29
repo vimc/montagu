@@ -98,10 +98,42 @@
 * fix
 * stochasticparams
 
+# v0.8.1
+
+##Tickets
+* i1080: VIMC-1080 (Find all instances of 'deterministic' and change to 'central' )
+* i1082: VIMC-1082 (Add model_run_parameter_set to burden_estimate_set)
+* i1083: VIMC-1083 (Bug - run-development-apis.sh fails)
+* i1084: VIMC-1084 (Embed guidance within Montagu contribution portal)
+* i1088: VIMC-1088 (Bug: burden estimates uploading errors on UAT)
+* i1088_refactor_error_handler: VIMC-1088 (Bug: burden estimates uploading errors on UAT)
+* i1915_update_assertj: Unable to find ticket corresponding to branch i1915_update_assertj
+* i915: VIMC-915 (Stream posted burden estimate data from request stream through to database)
+* i915_streamed_copy: VIMC-915 (Stream posted burden estimate data from request stream through to database)
+
+## Other branches merged in this release
+
+# v0.8.2
+
+## Tickets
+* i1067: Fix restore with annex
+
+## Other branches merged in this release
+
+# v0.8.3
+
+## Tickets
+* i1090: model run parameter creation endpoint to accept model version and responsibility set
+* i1091: Add help pages with Demographic data FAQs and link them from responsibility model outputs help page
+* i1093: Largest burden estimate uploads time out on UAT
+* i1094: add cases_crs and deaths_crs to database
+* i942_controller: Create endpoint to retrieve model run parameter sets
+* i942_db: Create endpoint to retrieve model run parameter sets
+* i942_spec: Create endpoint to retrieve model run parameter sets
+
+## Other branches merged in this release
+
 # v0.8.4
 
 ## Tickets
 * i979: Push docker images to docker hub
-
-## Other branches merged in this release
-
