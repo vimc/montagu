@@ -19,6 +19,13 @@ permanent = [
     :ram => ram,
     :port => 11443,
     :dbport => 5432
+  },
+  {
+    :hostname => 'restore-test',
+    :ip => '192.168.81.13',
+    :ram => ram,
+    :port => 20443,
+    :dbport => 25432
   }
 ]
 
