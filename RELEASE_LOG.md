@@ -120,3 +120,16 @@
 
 ## Other branches merged in this release
 
+# v0.8.3
+
+## Tickets
+* i1090: model run parameter creation endpoint to accept model version and responsibility set
+* i1091: Add help pages with Demographic data FAQs and link them from responsibility model outputs help page
+* i1093: Largest burden estimate uploads time out on UAT
+* i1094: add cases_crs and deaths_crs to database
+* i942_controller: Create endpoint to retrieve model run parameter sets
+* i942_db: Create endpoint to retrieve model run parameter sets
+* i942_spec: Create endpoint to retrieve model run parameter sets
+
+## Other branches merged in this release
+
