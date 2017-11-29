@@ -55,7 +55,6 @@ def make_release_message(tag, branches_and_tickets):
                 line = "* {branch}: {summary}".format(branch=branch,
                                                       summary=summary)
                 print(line, file=msg)
-
         print("\n## Other branches merged in this release", file=msg)
         for branch, ticket in branches_and_tickets:
             if not ticket:
