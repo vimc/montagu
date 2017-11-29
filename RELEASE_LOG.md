@@ -140,3 +140,32 @@
 
 ## Other branches merged in this release
 
+# v0.8.5
+
+## Tickets
+* i1044_repository: Record set type when creating a new burden estimate set
+* i1067: Fix restore with annex
+* i1080: Find all instances of 'deterministic' and change to 'central' 
+* i1082: Add model_run_parameter_set to burden_estimate_set
+* i1083: Bug - run-development-apis.sh fails
+* i1084: Embed guidance within Montagu contribution portal
+* i1088: Bug: burden estimates uploading errors on UAT
+* i1088_refactor_error_handler: Bug: burden estimates uploading errors on UAT
+* i1090: model run parameter creation endpoint to accept model version and responsibility set
+* i1091: Add help pages with Demographic data FAQs and link them from responsibility model outputs help page
+* i1092: Can't make release if branch without issue is merged in
+* i1093: Largest burden estimate uploads time out on UAT
+* i1094: add cases_crs and deaths_crs to database
+* i915: Stream posted burden estimate data from request stream through to database
+* i915_streamed_copy: Stream posted burden estimate data from request stream through to database
+* i919_templates: Add new 96 country templates to portal
+* i942_controller: Create endpoint to retrieve model run parameter sets
+* i942_db: Create endpoint to retrieve model run parameter sets
+* i942_spec: Create endpoint to retrieve model run parameter sets
+* i978: Display name is not rendered in title on report page
+* i979: Push docker images to docker hub
+
+## Other branches merged in this release
+* 1083
+* i1915_update_assertj
+
