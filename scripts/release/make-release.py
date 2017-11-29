@@ -45,7 +45,9 @@ def make_release_message(tag, branches_and_tickets):
         print("", file=msg)
         print("## Tickets", file=msg)
         for branch, ticket in branches_and_tickets:
-            if not ticket == NOT_FOUND:
+            if ticket == NOT_FOUND:
+                pass
+            else:
                 summary = ticket.get("summary")
                 line = "* {branch}: {summary}".format(branch=branch,
                                                       summary=summary)
