@@ -44,11 +44,30 @@ container_repo_map = {
 registry_local = "docker.montagu.dide.ic.ac.uk:5000"
 registry_hub = "vimc"
 
+class DockerTag:
+    def __init__(self, registry, name, version = None):
+        self.registry = registry
+        self.name = name
+        self.version = version
+    def __str__(self):
+        if version:
+            return "{}/{}:{}".format(self.registry, self.name, self.version)
+        else:
+            return "{}/{}".format(self.registry, self.name)
+    @property
+    def repository(self):
+        return "{}/{}".format(self.registry, self.name)
+    @classmethod
+    def parse(self, raw):
+        registry, parts = raw.split("/")
+        name, version = parts.split(":")
+        return DockerTag(registry, name, version)
+
 def set_image_tag(name, version):
     repo_name = container_repo_map[name]
     sha = git_helpers.get_past_submodule_version(repo_name, version)
     d = docker.client.from_env()
-    img = d.images.pull("{}/{}:{}".format(registry_local, name, sha))
+    img = d.images.pull(str(DockerTag(registry_local, name, sha)))
     tag_and_push(img, registry_local, name, version)
 
 def set_image_tags(version):
@@ -61,22 +80,22 @@ def publish_images(version):
     d = docker.client.from_env()
     print("Pushing release to docker hub")
     for name in container_repo_map.keys():
-        img = d.images.get("{}/{}:{}".format(registry_local, name, version))
+        img = d.images.get(str(DockerTag(registry_local, name, version)))
         publish_image(img, name)
 
 def publish_image(img, name):
-    tags = img.tags
-    published = [x.split(":")[-1] for x in tags if x.startswith(registry_hub)]
-    existing = [x.split(":")[-1] for x in tags if x.startswith(registry_local)]
+    tags = [DockerTag.parse(x) for x in img.tags]
+    published = [t.version for t in tags if t.registry == registry_hub]
+    existing = [t.version for t in tags if t.registry == registry_local]
     for tag in set(existing) - set(published):
         tag_and_push(img, registry_hub, name, tag)
 
 # NOTE: Using subprocess here and not the python docker module because
 # the latter does not support streaming as nicely as the CLI
 def tag_and_push(img, registry_local, name, tag):
-    repo = "{}/{}".format(registry_local, name)
-    img.tag(repo, tag)
-    run(["docker", "push", "{}:{}".format(repo, tag)], check = True)
+    t = DockerTag(registry_local, name, tag)
+    img.tag(t.repository, t.version)
+    run(["docker", "push", str(t)], check = True)
 
 def get_past_submodule_versions(master_repo_version):
     return {k: get_past_submodule_version(k, master_repo_version)
