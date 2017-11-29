@@ -79,7 +79,7 @@ def write_release_log(message):
 def commit_and_tag():
     run("git add RELEASE_LOG.md")
     run("git commit -m \"{msg}\"".format(msg=release_message))
-    print("Tagging...")
+    print("* Tagging")
     tag(new_tag, release_message)
 
 
@@ -90,10 +90,10 @@ def fetch():
 
 def update_youtrack(branches_and_tickets, test_run):
     if test_run:
-        print("--test-run is enabled: Skipping updating YouTrack")
+        print("* --test-run is enabled: Skipping updating YouTrack")
         return
 
-    print("Updating YouTrack...")
+    print("* Updating YouTrack")
     tickets = list(ticket for branch, ticket in branches_and_tickets)
     problems = tag_tickets(tickets, new_tag)
     if problems:
@@ -117,17 +117,17 @@ if __name__ == "__main__":
         branches_and_tickets = check_tickets(latest_tag)
         new_tag = get_new_tag()
 
-        print("Writing release log...")
+        print("* Writing release log")
         release_message = make_release_message(new_tag, branches_and_tickets)
         write_release_log(release_message)
         commit_and_tag()
         update_youtrack(branches_and_tickets, test_run)
 
-        print("""Done
+        print("""---------------------------------------------------------------
+Completed successfully. No changes have been pushed, so please review and then 
+push using: git push --follow-tags
 
-No changes have been pushed, so please review and then push using 
-
-git push --follow-tags
-
-When you come to deploy this release, the RELEASE_LOG.md file
-(or the commit message) will tell you which tickets need to be updated""")
+Tickets have been tagged in YouTrack, so post release do the following:
+* Go to 
+  https://vimc.myjetbrains.com/youtrack/issues?q=Fixed%20in%20build:%20{tag}
+* Select all tickets and type "State: Deployed".""".format(tag=new_tag))
