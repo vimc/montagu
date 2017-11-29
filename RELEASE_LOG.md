@@ -98,3 +98,9 @@
 * fix
 * stochasticparams
 
+# v0.8.4
+
+## Tickets
+
+## Other branches merged in this release
+
