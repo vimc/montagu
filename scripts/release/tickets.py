@@ -77,7 +77,7 @@ def check_ticket(branch, ticket):
     problem = False
     print("* " + branch, end="")
     if ticket == NOT_FOUND:
-        print(": Unable to find ticket corresponding to branch " + branch,
+        print("\n  Warning: Unable to find ticket corresponding to branch " + branch,
               end="")
         problem = True
     else:
