@@ -1,7 +1,7 @@
 version: '2'
 services:
   api:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-api:${MONTAGU_API_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-api:${MONTAGU_API_VERSION}
     depends_on:
       - db
     volumes:
@@ -9,32 +9,32 @@ services:
       # volume will remain empty. Otherwise emails are written to disk here.
       - emails:/tmp/montagu_emails
   reporting_api:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-reporting-api:${MONTAGU_REPORTING_API_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-reporting-api:${MONTAGU_REPORTING_API_VERSION}
     volumes:
       - orderly_volume:/orderly
     depends_on:
       - orderly
   db:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     ports:
       - "5432:5432"
     volumes:
       - db_volume:/pgdata
   contrib:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     depends_on:
       - api
   admin:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     depends_on:
       - api
   report:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-report-portal:${MONTAGU_REPORT_PORTAL_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-report-portal:${MONTAGU_REPORT_PORTAL_VERSION}
     depends_on:
       - api
       - reporting_api
   proxy:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     ports:
       - "${MONTAGU_PORT}:${MONTAGU_PORT}"
       - 80:80
@@ -46,7 +46,7 @@ services:
       - report
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
   orderly:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
     volumes:
       - orderly_volume:/orderly
     command: --port 8321 --go-signal /orderly_go /orderly

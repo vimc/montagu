@@ -133,3 +133,7 @@
 
 ## Other branches merged in this release
 
+# v0.8.4
+
+## Tickets
+* i979: Push docker images to docker hub
