@@ -76,9 +76,7 @@ class YouTrackHelper:
 def check_ticket(branch, ticket):
     problem = False
     print("* " + branch, end="")
-    if ticket is None:
-        pass
-    elif ticket == NOT_FOUND:
+    if ticket is None or ticket == NOT_FOUND:
         print(": Unable to find ticket corresponding to branch " + branch,
               end="")
         problem = True
