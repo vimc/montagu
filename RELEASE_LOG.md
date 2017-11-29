@@ -169,3 +169,9 @@
 * 1083
 * i1915_update_assertj
 
+# v0.8.6
+
+## Tickets
+
+## Other branches merged in this release
+
