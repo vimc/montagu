@@ -17,6 +17,7 @@ from docopt import docopt
 
 from helpers import run, get_latest_release_tag, version_greater_than
 from tickets import check_tickets
+from tickets import NOT_FOUND
 
 
 def git_is_clean():
@@ -44,15 +45,16 @@ def make_release_message(tag, branches_and_tickets):
         print("", file=msg)
         print("## Tickets", file=msg)
         for branch, ticket in branches_and_tickets:
-            if ticket:
+            if ticket == NOT_FOUND:
+                pass
+            else:
                 summary = ticket.get("summary")
                 line = "* {branch}: {summary}".format(branch=branch,
                                                       summary=summary)
                 print(line, file=msg)
-
         print("\n## Other branches merged in this release", file=msg)
         for branch, ticket in branches_and_tickets:
-            if not ticket:
+            if ticket == NOT_FOUND:
                 print("* " + branch, file=msg)
         return msg.getvalue()
 

@@ -52,7 +52,7 @@ class YouTrackHelper:
             if match:
                 yield self.get_ticket(branch, match.group(1))
             else:
-                yield branch, None
+                yield branch, NOT_FOUND
 
     def get_ticket(self, branch, id):
         full_id = "VIMC-" + id
@@ -76,10 +76,8 @@ class YouTrackHelper:
 def check_ticket(branch, ticket):
     problem = False
     print("* " + branch, end="")
-    if ticket is None:
-        pass
-    elif ticket == NOT_FOUND:
-        print(": Unable to find ticket corresponding to branch " + branch,
+    if ticket == NOT_FOUND:
+        print("\n  Warning: Unable to find ticket corresponding to branch " + branch,
               end="")
         problem = True
     else:
