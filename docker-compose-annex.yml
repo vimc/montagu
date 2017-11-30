@@ -1,7 +1,7 @@
 version: '2'
 services:
   db_annex:
-    image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+    image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     ports:
       - "15432:5432"
     volumes:

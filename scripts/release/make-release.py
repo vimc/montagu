@@ -11,22 +11,13 @@ Options:
   --test-run    Don't insist on Git being in a clean state
 """
 
-import re
-
 from io import StringIO
 
 from docopt import docopt
 
-from helpers import run
+from helpers import run, get_latest_release_tag, version_greater_than
 from tickets import check_tickets, tag_tickets
-
-release_tag_pattern = re.compile(r"^v\d\.\d\.\d(-RC\d)?$")
-
-
-def get_latest_release_tag():
-    tags = run("git tag").split('\n')
-    release_tags = sorted(t for t in tags if release_tag_pattern.match(t))
-    return release_tags[-1]
+from tickets import NOT_FOUND
 
 
 def git_is_clean():
@@ -39,14 +30,11 @@ def tag(tag_name, branch_diff):
     run("git tag -a {tag} -m \"{msg}\"".format(tag=tag_name, msg=message))
 
 
-def get_new_tag():
+def get_new_tag(latest_tag):
     new_tag = "v" + input("What should the new release tag be? v")
-    if new_tag <= latest_tag:
+    if not version_greater_than(new_tag, latest_tag):
         template = "Error: {new_tag} is not after {latest_tag}"
         print(template.format(new_tag=new_tag, latest_tag=latest_tag))
-        exit(-1)
-    if not release_tag_pattern.match(new_tag):
-        print("Error: tag does not correspond to regex")
         exit(-1)
     return new_tag
 
@@ -57,15 +45,16 @@ def make_release_message(tag, branches_and_tickets):
         print("", file=msg)
         print("## Tickets", file=msg)
         for branch, ticket in branches_and_tickets:
-            if ticket:
+            if ticket == NOT_FOUND:
+                pass
+            else:
                 summary = ticket.get("summary")
                 line = "* {branch}: {summary}".format(branch=branch,
                                                       summary=summary)
                 print(line, file=msg)
-
         print("\n## Other branches merged in this release", file=msg)
         for branch, ticket in branches_and_tickets:
-            if not ticket:
+            if ticket == NOT_FOUND:
                 print("* " + branch, file=msg)
         return msg.getvalue()
 
@@ -115,7 +104,7 @@ if __name__ == "__main__":
         print("The latest release was " + latest_tag)
 
         branches_and_tickets = check_tickets(latest_tag)
-        new_tag = get_new_tag()
+        new_tag = get_new_tag(latest_tag)
 
         print("* Writing release log")
         release_message = make_release_message(new_tag, branches_and_tickets)
@@ -125,7 +114,10 @@ if __name__ == "__main__":
 
         print("""---------------------------------------------------------------
 Completed successfully. No changes have been pushed, so please review and then 
-push using: git push --follow-tags
+push using: 
+
+git push --follow-tags
+./scripts/release/tag-images.py tag --publish latest
 
 Tickets have been tagged in YouTrack, so post release do the following:
 * Go to 
