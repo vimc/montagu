@@ -146,3 +146,15 @@
 
 ## Other branches merged in this release
 
+# v0.8.5
+
+## Tickets
+* i924_models: Report burden estimate set status
+* i941_token_whitesp: UI to upload model run parameter set
+* i999: Return burden estimate set status from endpoints
+
+## Other branches merged in this release
+* kotlin1.2
+* update_dependencies_2017_11
+* update_dependencies_2017_11_refresh_database_interface
+
