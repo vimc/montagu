@@ -14,7 +14,22 @@ See [release process](ReleaseProcess.md)
 As root:
 
 1. `(cd src && pip3 install --user -r requirements.txt)`
-2. `./src/deploy.py`
+2. ./src/deploy.py
+
+### Deploy a specific version
+
+```
+./deploy.py v0.1.2
+```
+
+If the version number is omitted the script will prompt you for one (it must match the pattern of `vX.Y.Z-RCa` where `X`, `Y`, `Z` and `a` are one or more digits.
+
+### Use dockerhub containers
+We also have all our released images on [docker hub](https://hub.docker.com/u/vimc/dashboard/) and the deploy tool can work from there.  This requires VPN access only for the vault, so for test deployments can be done off-site more easily.
+
+```
+./deploy.py --docker-hub <version>
+```
 
 ### Settings
 The deploy tool will ask you a series of questions interactively, suggesting
