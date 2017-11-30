@@ -16,5 +16,5 @@
    1. ssh production.montagu.dide.ic.ac.uk
    1. sudo su
    1. cd /montagu/deploy
-   1. ./deploy.sh
+   1. ./deploy.py
 7. Use RELEASE_LOG.md to know which tickets to update to the 'Deployed' status
