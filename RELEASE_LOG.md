@@ -140,3 +140,16 @@
 
 ## Other branches merged in this release
 
+# v0.8.4
+
+## Tickets
+* i1044_repository: Record set type when creating a new burden estimate set
+* i1091: Add help pages with Demographic data FAQs and link them from responsibility model outputs help page
+* i1092: Can't make release if branch without issue is merged in
+* i919_newtemplates: Add new 96 country templates to portal
+* i919_templates: Add new 96 country templates to portal
+* i978: Display name is not rendered in title on report page
+* i979: Push docker images to docker hub
+
+## Other branches merged in this release
+
