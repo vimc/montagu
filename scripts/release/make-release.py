@@ -116,8 +116,8 @@ if __name__ == "__main__":
 Completed successfully. No changes have been pushed, so please review and then 
 push using: 
 
-git push --follow-tags
-./scripts/release/tag-images.py tag --publish latest
+  git push --follow-tags
+  ./scripts/release/tag-images.py tag --publish latest
 
 Tickets have been tagged in YouTrack, so post release do the following:
 * Go to 
