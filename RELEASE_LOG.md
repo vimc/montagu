@@ -150,7 +150,6 @@
 
 ## Tickets
 * i924_models: Report burden estimate set status
-* i941_token_whitesp: UI to upload model run parameter set
 * i999: Return burden estimate set status from endpoints
 
 ## Other branches merged in this release
