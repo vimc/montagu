@@ -157,3 +157,14 @@
 * update_dependencies_2017_11
 * update_dependencies_2017_11_refresh_database_interface
 
+# v0.8.6
+
+## Tickets
+* i1044: Record set type when creating a new burden estimate set
+* i1105: Error 404 downloading Resources where sub-folders 2 levels deep
+* i924: Report burden estimate set status
+* i924_dates: Report burden estimate set status
+* i941_token: UI to upload model run parameter set
+
+## Other branches merged in this release
+
