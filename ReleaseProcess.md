@@ -17,4 +17,4 @@
    1. `sudo su`
    1. `cd /montagu/deploy`
    1. `MONTAGU_USE_DOCKER_HUB=true ./deploy.sh`
-7. Use RELEASE_LOG.md to know which tickets to update to the 'Deployed' status
+7. Use `RELEASE_LOG.md` to know which tickets to update to the 'Deployed' status
