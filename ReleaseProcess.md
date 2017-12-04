@@ -13,8 +13,8 @@
 5. You may go through multiple rounds of steps 1-3 until you have a release
    you are happy to deploy to production.
 6. Deploy to live:
-   1. ssh production.montagu.dide.ic.ac.uk
-   1. sudo su
-   1. cd /montagu/deploy
-   1. MONTAGU_USE_DOCKER_HUB=true ./deploy.sh
+   1. `ssh production.montagu.dide.ic.ac.uk`
+   1. `sudo su`
+   1. `cd /montagu/deploy`
+   1. `MONTAGU_USE_DOCKER_HUB=true ./deploy.sh`
 7. Use RELEASE_LOG.md to know which tickets to update to the 'Deployed' status
