@@ -183,3 +183,18 @@
 
 ## Other branches merged in this release
 
+# v0.8.7
+
+## Tickets
+* i1000: Refactor a controller with a streamed endpoint
+* i1000_include_in_routes: Refactor a controller with a streamed endpoint
+* i1000_use_types_instead_of_strings: Refactor a controller with a streamed endpoint
+* i1075: Automatically tag tickets as part of release
+* i1081: Upgrade pandoc in orderly container
+* i1096: Get science restore working with submodules
+* i586: add loading state to download data set button
+* i926_schema: Add model run parameter set to burden estimate set
+* i941_tidyup: UI to upload model run parameter set
+
+## Other branches merged in this release
+
