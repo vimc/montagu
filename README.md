@@ -14,7 +14,7 @@ See [release process](ReleaseProcess.md)
 As root:
 
 1. `(cd src && pip3 install --user -r requirements.txt)`
-2. ./src/deploy.py
+2. `./src/deploy.py`
 
 ### Deploy a specific version
 
