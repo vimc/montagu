@@ -146,3 +146,55 @@
 
 ## Other branches merged in this release
 
+# v0.8.5
+
+## Tickets
+* i924_models: Report burden estimate set status
+* i999: Return burden estimate set status from endpoints
+
+## Other branches merged in this release
+* kotlin1.2
+* update_dependencies_2017_11
+* update_dependencies_2017_11_refresh_database_interface
+
+# v0.8.6
+
+## Tickets
+* i1044: Record set type when creating a new burden estimate set
+* i1105: Error 404 downloading Resources where sub-folders 2 levels deep
+* i924: Report burden estimate set status
+* i924_dates: Report burden estimate set status
+* i941_token: UI to upload model run parameter set
+
+## Other branches merged in this release
+
+# v0.8.7
+
+## Tickets
+* i1000: Refactor a controller with a streamed endpoint
+* i1000_include_in_routes: Refactor a controller with a streamed endpoint
+* i1000_use_types_instead_of_strings: Refactor a controller with a streamed endpoint
+* i1075: Automatically tag tickets as part of release
+* i1081: Upgrade pandoc in orderly container
+* i1096: Get science restore working with submodules
+* i586: add loading state to download data set button
+* i926_schema: Add model run parameter set to burden estimate set
+* i941_tidyup: UI to upload model run parameter set
+
+## Other branches merged in this release
+
+# v0.8.7
+
+## Tickets
+* i1000: Refactor a controller with a streamed endpoint
+* i1000_include_in_routes: Refactor a controller with a streamed endpoint
+* i1000_use_types_instead_of_strings: Refactor a controller with a streamed endpoint
+* i1075: Automatically tag tickets as part of release
+* i1081: Upgrade pandoc in orderly container
+* i1096: Get science restore working with submodules
+* i586: add loading state to download data set button
+* i926_schema: Add model run parameter set to burden estimate set
+* i941_tidyup: UI to upload model run parameter set
+
+## Other branches merged in this release
+
