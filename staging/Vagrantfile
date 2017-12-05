@@ -64,7 +64,7 @@ Vagrant.configure(2) do |config|
                                 host: machine[:dbport]
       machine_config.vm.provision :shell do |shell|
         shell.path = 'provision/setup-hostname.sh'
-        shell.args = matchine[:hostname]
+        shell.args = machine[:hostname]
       end
     end
   end
