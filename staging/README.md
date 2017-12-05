@@ -28,15 +28,30 @@ important that the port you configure Montagu with matches the eventual port
 that users will be navigating to. So the port that Vagrant exposes the outside
 world must match.
 
+## To rebuild a VM
+
+```
+vagrant ssh uat -c '/vagrant/record-montagu-configuration uat'
+vagrant destroy uat
+vboxmanage closemedium disk disk/uat.vdi --delete
+vagrant up uat
+./restore_prepare.sh
+vagrant ssh uat -c '/vagrant/restore uat
+```
+
+
+
 ## To test the restore
 
 ```
 vagrant destroy -f restore-test
-vboxmanage closemedium disk disl/restore-test.vdi --delete
+vboxmanage closemedium disk disk/restore-test.vdi --delete
 vagrant up restore-test
 ./restore-prepare.sh
-vagrant ssh restore-test -c '/vagrant/restore/restore.sh'
+vagrant ssh restore-test -c '/vagrant/restore restore-test'
 ```
+
+Then go to https://support.montagu.dide.ic.ac.uk:20443 where things should be running
 
 ## Troubleshooting
 
