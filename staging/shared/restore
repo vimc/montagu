@@ -9,8 +9,8 @@ fi
 
 MONTAGU_PATH=~/montagu
 
-MONTAGU_SETTINGS="/vagrant/$NAME/montagu-deploy.json"
-MONTAGU_VERSION="/vagrant/$NAME/version"
+MONTAGU_SETTINGS="/vagrant/config/$NAME/montagu-deploy.json"
+MONTAGU_VERSION="/vagrant/config/$NAME/version"
 
 if [ ! -f $MONTAGU_SETTINGS ]; then
     echo "Settings not found at $MONTAGU_SETTINGS"
