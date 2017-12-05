@@ -71,3 +71,11 @@ The solution is to load the virtualbox module
 ```
 sudo modprobe vboxnetadp
 ```
+
+## Requirements
+
+Install in the host machine:
+
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant](https://www.vagrantup.com/downloads.html)
+* `vagrant plugin install vagrant-persistent-storage`
