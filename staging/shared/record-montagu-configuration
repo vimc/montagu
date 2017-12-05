@@ -4,7 +4,7 @@ NAME=$(hostname)
 MONTAGU_PATH=~/montagu
 CONFIG_PATH=/vagrant/config/$NAME
 
-if [ ! -z "$(git status --short)" ]; then
+if [ ! -z "$(git -C $MONTAGU_PATH status --short)" ]; then
     echo "Git is not clean - can't continue"
     exit 1
 fi
