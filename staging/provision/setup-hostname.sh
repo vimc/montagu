@@ -11,7 +11,7 @@ sed -i "s/vagrant/$NAME/g" /etc/hosts
 sed -i "s/vagrant/$NAME/g" /etc/hostname
 
 cp /vagrant/bash_prompt /etc/bash_prompt
-if grep bash_prompt /etc/bash/bash.bashrc; then
+if grep bash_prompt /etc/bash.bashrc; then
     echo "Prompt already set up"
 else
     echo ". /etc/bash_prompt" >> /etc/bash.bashrc
