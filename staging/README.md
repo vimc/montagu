@@ -9,7 +9,7 @@ cd ~/staging/staging
 
 ## To run the VMs
 ```
-vagrant up
+vagrant up uat science
 ```
 
 will bring up two VMs; one called `uat` and one called `science`.
