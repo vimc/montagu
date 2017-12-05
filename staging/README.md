@@ -35,7 +35,7 @@ vagrant ssh uat -c '/vagrant/record-montagu-configuration'
 vagrant destroy uat
 vboxmanage closemedium disk disk/uat.vdi --delete
 vagrant up uat
-./restore_prepare.sh
+./restore-prepare.sh
 vagrant ssh uat -c '/vagrant/restore'
 ```
 
