@@ -32,6 +32,7 @@ world must match.
 
 ```
 vagrant destroy -f restore-test
+vboxmanage closemedium disk disl/restore-test.vdi --delete
 vagrant up restore-test
 ./restore-prepare.sh
 vagrant ssh restore-test -c '/vagrant/restore/restore.sh'
