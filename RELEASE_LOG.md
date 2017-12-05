@@ -209,3 +209,14 @@
 
 ## Other branches merged in this release
 
+# v0.8.8
+
+## Tickets
+* i1006: Make 'Responsibilities' breadcrumb more informative
+* i1025: NetworkError popup on successful report download from support
+* i1060: order rows of long format coverage data
+* i1107: Automate and document deployment from hub
+* i941_component: UI to upload model run parameter set
+
+## Other branches merged in this release
+
