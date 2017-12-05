@@ -39,8 +39,6 @@ vagrant up uat
 vagrant ssh uat -c '/vagrant/restore'
 ```
 
-
-
 ## To test the restore
 
 ```
