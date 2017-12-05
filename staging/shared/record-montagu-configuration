@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+NAME=$1
+if [ $# -neq 1 ]
+then
+    echo "Expected one argument"
+    exit 1
+fi
+
+MONTAGU_PATH=~/montagu
+CONFIG_PATH=/vagrant/config/$1
+
+if [ -z "$(git status --short)" ]; then
+else
+    echo "Git is not clean - can't continue"
+    exit 1
+fi
+
+echo "Backing up configuration from $MONTAGU_PATH to $CONFIG_PATH"
+
+mkdir -p $CONFIG_PATH
+cp $MONTAGU_PATH/src/montagu-deploy.json $CONFIG_PATH
+git -C $MONTAGU_PATH rev-parse HEAD > $CONFIG_PATH/version
