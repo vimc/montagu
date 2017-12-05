@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-NAME=$1
-if [ ! "$#" -eq 1 ]; then
-    echo "Expected one argument"
-    exit 1
-fi
-
+NAME=$(hostname)
 if [ ! -f /vagrant/vault_config ]; then
     echo "Run restore-prepare.sh on host"
     exit 1

@@ -31,12 +31,12 @@ world must match.
 ## To rebuild a VM
 
 ```
-vagrant ssh uat -c '/vagrant/record-montagu-configuration uat'
+vagrant ssh uat -c '/vagrant/record-montagu-configuration'
 vagrant destroy uat
 vboxmanage closemedium disk disk/uat.vdi --delete
 vagrant up uat
 ./restore_prepare.sh
-vagrant ssh uat -c '/vagrant/restore uat
+vagrant ssh uat -c '/vagrant/restore'
 ```
 
 
@@ -48,7 +48,7 @@ vagrant destroy -f restore-test
 vboxmanage closemedium disk disk/restore-test.vdi --delete
 vagrant up restore-test
 ./restore-prepare.sh
-vagrant ssh restore-test -c '/vagrant/restore restore-test'
+vagrant ssh restore-test -c '/vagrant/restore'
 ```
 
 Then go to https://support.montagu.dide.ic.ac.uk:20443 where things should be running
