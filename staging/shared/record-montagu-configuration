@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 NAME=$1
-if [ $# -neq 1 ]
-then
+if [ ! "$#" -eq 1 ]; then
     echo "Expected one argument"
     exit 1
 fi
@@ -9,8 +8,7 @@ fi
 MONTAGU_PATH=~/montagu
 CONFIG_PATH=/vagrant/config/$1
 
-if [ -z "$(git status --short)" ]; then
-else
+if [ ! -z "$(git status --short)" ]; then
     echo "Git is not clean - can't continue"
     exit 1
 fi
