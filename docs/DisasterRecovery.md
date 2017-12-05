@@ -27,20 +27,23 @@ skip some steps.
   Tokens. The new token must have the 'user' scope.
 
 ## Support machine 
-We have to, at a minimum, get the vault and the Docker registry back up. 
-TeamCity is included in this section, but can wait, unless the code needs 
-patching.
+
+We have to, at a minimum, get the vault and the Docker registry back up. Getting TeamCity up is required before we can start working again, but is not needed to redeploy production.
 
 ### 1. Install minimum requirements
+
 As root:
 
 * `apt-get update`
 * `apt install git python3-pip -y`
 * [Install Docker Community Edition](https://docs.docker.com/engine/installation/)
+* [Install vagrant](https://www.vagrantup.com/downloads.html) (for TeamCity)
+
+See [provision.sh in montagu-recovery](https://github.com/vimc/montagu-recovery/blob/master/provision.sh) for further details.
 
 ### 2. Restore backup
-As root:
 
+As root:
 
 * Get the backup code:
   ```
@@ -56,19 +59,20 @@ As root:
 * Less urgent, but worth doing now: `./schedule.py`, to get backups going.
 
 ### 3. Restore the Vault
+
 Follow the instructions [here](https://github.com/vimc/montagu-vault/blob/master/README.md#restoring-the-vault-from-backup).
 
 ### 4. Restore the Docker Registry
-Follow the instructions [here](https://github.com/vimc/montagu-ci#running-the-registry-on-the-ci-host).
-Make sure you use the named volume (`registry_data`) created by the restore 
-process.
 
-### 5. ~~(Less urgent) Restore TeamCity~~
+Follow the instructions [here](https://github.com/vimc/montagu-registry#deployment)
 
-Backups will be restored by duplicati and can be restored following instructions [here](https://github.com/vimc/montagu-ci#backups)
+### 5. Restore TeamCity
+
+Backups will have been restored by duplicati and can be restored following instructions [here](https://github.com/vimc/montagu-ci#recovery-from-backup)
 
 ## Production machine
-First, as root:
+
+Then, as root:
 ```
 cd /
 git clone https://github.com/vimc/montagu.git montagu
@@ -76,4 +80,3 @@ cd /montagu
 ```
 
 Then follow [these instructions](https://github.com/vimc/montagu/blob/master/README.md).
-
