@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+set -x
 NAME=$(hostname)
 MONTAGU_PATH=~/montagu
-CONFIG_PATH=/vagrant/config/$1
+CONFIG_PATH=/vagrant/config/$NAME
 
 if [ ! -z "$(git status --short)" ]; then
     echo "Git is not clean - can't continue"
