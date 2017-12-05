@@ -56,7 +56,7 @@ Vagrant.configure(2) do |config|
         vbox.memory = ram_size_mb
       end
       machine_config.persistent_storage.location =
-        "disk/#{server[:hostname]}.vdi"
+        "disk/#{machine[:hostname]}.vdi"
       machine_config.vm.network :private_network, ip: machine[:ip]
       machine_config.vm.network "forwarded_port", guest: machine[:port],
                                 host: machine[:port]
