@@ -95,6 +95,12 @@ definitions = [
     SettingDefinition("instance_name",
                       "What is the name of this instance to post in a channel?",
                       default_value="(unknown)"),
+    SettingDefinition("docker_prefix",
+                      "What docker prefix name should we use?  Leave this as "
+                      "'montagu' for the primary deployment on a machine and "
+                      "set to an alternative value if you want to run multiple "
+                      "copies simultaneously",
+                      default_value="montagu"),
 
     BooleanSettingDefinition("clone_reports",
                              "Should montagu-reports be cloned?",
