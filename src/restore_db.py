@@ -3,21 +3,22 @@
 import backup
 import database
 from notify import Notifier
-from service import service
+from service import MontaguService
 from settings import get_settings
 from os.path import abspath, dirname
 from os import chdir
 from cli import add_test_user
 
 def restore_db():
-    settings = get_settings(False)
+    settings = get_settings()
+    service = MontaguService(settings)
     notifier = Notifier(settings['notify_channel'])
     try:
-        ok = service.status == 'running' and service.volume_present
+        ok = service.status == 'running' and service.db_volume_present
         if not ok:
             raise Exception('montagu not in a state we can restore')
-        backup.restore(settings)
-        database.setup(settings)
+        backup.restore(service)
+        database.setup(service)
         if settings["add_test_user"] is True:
             add_test_user()
         notifier.post("*Restored* data from backup on `{}` :recycle:".format(

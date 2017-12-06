@@ -7,7 +7,6 @@ import psycopg2
 
 import versions
 from docker_helpers import get_image_name, pull
-from service import service, network_name
 from service_config import api_db_user
 from settings import get_secret
 
@@ -72,12 +71,12 @@ class UserConfig:
             self._password = self.password_source.get()
         return self._password
 
-def set_root_password(password):
+def set_root_password(service, password):
     query = "ALTER USER {user} WITH PASSWORD '{password}'".format(user=root_user, password=password)
     service.db.exec_run('psql -U {user} -d postgres -c "{query}"'.format(user=root_user, query=query))
 
 
-def connect(user, password, host="localhost", port=5432):
+def connect(user, password, port, host="localhost"):
     conn_settings = {
         "host": host,
         "port": port,
@@ -93,8 +92,8 @@ def connect_annex(annex_settings):
     root = annex_settings['users']['root']
     return connect(root.name,
                    root.password,
-                   annex_settings["host_from_deploy"],
-                   annex_settings["port_from_deploy"])
+                   annex_settings["port_from_deploy"],
+                   annex_settings["host_from_deploy"])
 
 def create_user(db, user):
     sql = """DO
@@ -160,7 +159,8 @@ def set_permissions(db, user):
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
-def migrate_schema_core(root_password, annex_settings):
+def migrate_schema_core(service, root_password, annex_settings):
+    network_name = service.network_name
     print("- migrating schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
@@ -173,7 +173,8 @@ def migrate_schema_core(root_password, annex_settings):
           ["-user=vimc", "-password=" + root_password, "migrate"]
     run(cmd, check=True)
 
-def migrate_schema_annex(annex_settings):
+def migrate_schema_annex(service, annex_settings):
+    network_name = service.network_name
     print("- migrating annex schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
@@ -208,12 +209,12 @@ def get_annex_settings(settings):
         host = "db_annex" # docker container name in compose
         port = 5432
         host_from_deploy = "localhost" # from host
-        port_from_deploy = 15432
+        port_from_deploy = settings["port_annex"]
         migrate = True
         group = None
     else:
         host = "annex.montagu.dide.ic.ac.uk" # address of our real server
-        port = 15432
+        port = 15432 # port of our real server
         host_from_deploy = host
         port_from_deploy = port
         migrate = settings["db_annex_type"] == "real"
@@ -239,25 +240,25 @@ def setup_user(db, user):
     set_permissions(db, user)
 
 
-def for_each_user(root_password, users, operation):
+def for_each_user(root_password, port, users, operation):
     """Operation is a callback (function) that takes the connection cursor
     and a UserConfig object"""
-    with connect(root_user, root_password) as conn:
+    with connect(root_user, root_password, port) as conn:
         with conn.cursor() as cur:
             for user in users:
                 operation(cur, user)
         conn.commit()
 
 
-def setup(settings):
-    annex_settings = setup_annex(settings)
+def setup(service):
+    annex_settings = setup_annex(service)
 
-    password_group = settings["password_group"]
+    password_group = service.settings["password_group"]
     print("Setting up database users")
     print("- Scrambling root password")
     if password_group is not None:
         root_password = GeneratePassword().get()
-        set_root_password(root_password)
+        set_root_password(service, root_password)
     else:
         root_password = 'changeme'
 
@@ -275,29 +276,30 @@ def setup(settings):
     # exist, though in practice we don't use them so this could be
     # reordered later.
     print("- Updating database users")
-    for_each_user(root_password, users, setup_user)
+    port_db = service.settings["port_db"]
+    for_each_user(root_password, port_db, users, setup_user)
 
     print("- Migrating database schema")
-    migrate_schema_core(root_password, annex_settings)
+    migrate_schema_core(service, root_password, annex_settings)
 
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
     # again, in case users need to have permissions on these new tables
-    for_each_user(root_password, users, set_permissions)
+    for_each_user(root_password, port_db, users, set_permissions)
 
-    grant_readonly_annex_root(root_password, annex_settings)
-    for_each_user(root_password, users, lambda d, u :
+    grant_readonly_annex_root(root_password, service.settings, annex_settings)
+    for_each_user(root_password, port_db, users, lambda d, u :
                   grant_readonly_annex(d, u, annex_settings))
 
     return passwords
 
-def setup_annex(settings):
+def setup_annex(service):
     print("Setting up annex")
-    annex_settings = get_annex_settings(settings)
+    annex_settings = get_annex_settings(service.settings)
     if annex_settings['migrate']:
         # NOTE: we do this only on production.  This will mean that
         # there are some things that it is hard to test in staging.
-        migrate_schema_annex(annex_settings)
+        migrate_schema_annex(service, annex_settings)
         setup_annex_users(annex_settings)
     return annex_settings
 
@@ -310,13 +312,14 @@ def setup_annex_users(annex_settings):
 
 # NOTE: workaround because grant_readonly_annex requires a UserConfig
 # object - or rather something with a 'name' field
-def grant_readonly_annex_root(root_password, annex_settings):
+def grant_readonly_annex_root(root_password, settings, annex_settings):
     root = SimpleNamespace(name = root_user)
-    with connect(root_user, root_password) as conn:
+    port = settings["port_db"]
+    with connect(root_user, root_password, port) as conn:
         with conn.cursor() as cur:
             grant_readonly_annex(cur, root, annex_settings)
 
-def prepare_db_for_import(settings):
+def prepare_db_for_import(service):
     print("Preparing databse for import")
     ## NOTE: this could otherwise be done by connecting using the
     ## connection function, but that that requires further changes to
@@ -329,6 +332,6 @@ def prepare_db_for_import(settings):
     db.exec_run(["dropdb", "-U", "vimc", "--if-exists", "montagu"])
     db.exec_run(["createdb", "-U", "vimc", "montagu"])
     print("- configuring users")
-    users = user_configs(settings["password_group"])
+    users = user_configs(service.settings["password_group"])
     for user in users:
         db.exec_run(["createuser", "-U", "vimc", user.name])

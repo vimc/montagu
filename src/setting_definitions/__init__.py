@@ -1,10 +1,16 @@
-import backup
+from subprocess import run, DEVNULL
+
 from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
+## NOTE: This duplicates the code in backup.py in order to break a
+## circular dependency.  It would be good to factor that out but I
+## can't see a really obvious decent spot for it.
+def backup_needs_setup():
+    return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
 
 def vault_required(settings):
     data_source = settings["initial_data_source"]
@@ -12,7 +18,7 @@ def vault_required(settings):
     uses_vault_passwords = settings["password_group"] is not None and \
                            settings['password_group'] != "fake"
     return data_source in teamcity_sources \
-           or (uses_duplicati and backup.needs_setup()) \
+           or (uses_duplicati and backup_needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
@@ -57,6 +63,12 @@ definitions = [
                       "if there is another layer wrapping around Montagu (e.g. if it is being deployed to a VM) the "
                       "real port exposed on the physical machine must agree with the port you choose now.",
                       default_value=443),
+    SettingDefinition("port_http",
+                      "What port should Montagu listen for http on?",
+                      default_value=80),
+    SettingDefinition("port_db",
+                      "What port should the database listen on?",
+                      default_value=5432),
     SettingDefinition("hostname",
                       "What hostname is Montagu being accessed as?",
                       "This hostname should match the SSL certificate. Likely values:"
@@ -81,6 +93,27 @@ definitions = [
                               ("fake",       "Do not use passwords from the vault")
                           ]
                           ),
+    EnumSettingDefinition("db_annex_type",
+                          "How do we treat the annex database?",
+                          [
+                              ("fake", "Add a totally safe, but empty, version to the constellation"),
+                              ("readonly", "Read-only access to the real annex"),
+                              ("real", "Full access to the real annex: PRODUCTION ONLY")
+                          ]),
+    SettingDefinition("port_annex",
+                      "What port should the annex listen on?",
+                      default_value=15432,
+                      is_required=lambda x: x["db_annex_type"] == "fake"),
+    SettingDefinition("notify_channel",
+                      "What slack channel should we post in?",
+                      "e.g., montagu. Leave as the empty string to not post",
+                      default_value=""),
+    BooleanSettingDefinition("clone_reports",
+                             "Should montagu-reports be cloned?",
+                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
+                             "If you answer no, then we set up only an empty orderly repository, and you will not be "
+                             "able to clone the reports repository",
+                             default_value=True),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
@@ -88,20 +121,16 @@ definitions = [
                       default_value="https://support.montagu.dide.ic.ac.uk:8200",
                       is_required=vault_required),
 
-    SettingDefinition("notify_channel",
-                      "What slack channel should we post in?",
-                      "e.g., montagu. Leave as the empty string to not post",
-                      default_value=""),
     SettingDefinition("instance_name",
-                      "What is the name of this instance to post in a channel?",
+                      "What is the name of this instance?",
                       default_value="(unknown)"),
+    SettingDefinition("docker_prefix",
+                      "What docker prefix name should we use?  Leave this as "
+                      "'montagu' for the primary deployment on a machine and "
+                      "set to an alternative value if you want to run multiple "
+                      "copies simultaneously.",
+                      default_value="montagu"),
 
-    BooleanSettingDefinition("clone_reports",
-                             "Should montagu-reports be cloned?",
-                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
-                             "If you answer no, then we set up only an empty orderly repository, and you will not be "
-                             "able to clone the reports repository",
-                             default_value=True),
     BooleanSettingDefinition("require_clean_git",
                              "Should we require a clean git state?",
                              "If you answer yes, then we require that git is 'clean' (no untracked or modified files) "
@@ -111,12 +140,5 @@ definitions = [
     BooleanSettingDefinition("add_test_user",
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
-                             default_value=False),
-    EnumSettingDefinition("db_annex_type",
-                          "How do we treat the annex database?",
-                          [
-                              ("fake", "Add a totally safe, but empty, version to the constellation"),
-                              ("readonly", "Read-only access to the real annex"),
-                              ("real", "Full access to the real annex: PRODUCTION ONLY")
-                          ])
+                             default_value=False)
 ]
