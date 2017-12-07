@@ -12,5 +12,9 @@
     "add_test_user": false,
     "db_annex_type": "fake",
     "instance_name": "teamcity",
-    "notify_channel": ""
+    "notify_channel": "",
+    "port_http": 80,
+    "port_db": 5432,
+    "port_annex": 15432,
+    "docker_prefix": "montagu"
 }
