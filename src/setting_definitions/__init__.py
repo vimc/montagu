@@ -63,6 +63,9 @@ definitions = [
                       "if there is another layer wrapping around Montagu (e.g. if it is being deployed to a VM) the "
                       "real port exposed on the physical machine must agree with the port you choose now.",
                       default_value=443),
+    SettingDefinition("port_http",
+                      "What port should Montagu listen for http on?",
+                      default_value=80),
     SettingDefinition("port_db",
                       "What port should the database listen on?",
                       default_value=5432),

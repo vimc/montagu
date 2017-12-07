@@ -34,14 +34,17 @@ def run(args, settings):
 
 def get_env(settings):
     port = settings["port"]
+    port_http = settings["port_http"]
     port_db = settings["port_db"]
     hostname = settings["hostname"]
     port_annex = settings.get("port_annex", "")
     return {
         'MONTAGU_REGISTRY': montagu_registry,
 
-        'MONTAGU_PORT': str(port),
         'MONTAGU_HOSTNAME': hostname,
+
+        'MONTAGU_PORT': str(port),
+        'MONTAGU_PORT_HTTP': str(port_http),
         'MONTAGU_PORT_DB': str(port_db),
         'MONTAGU_PORT_ANNEX': str(port_annex),
 

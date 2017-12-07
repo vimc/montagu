@@ -37,7 +37,7 @@ services:
     image: ${MONTAGU_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     ports:
       - "${MONTAGU_PORT}:${MONTAGU_PORT}"
-      - 80:80
+      - "${MONTAGU_PORT_HTTP}:80"
     depends_on:
       - api
       - reporting_api
