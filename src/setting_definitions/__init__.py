@@ -94,6 +94,10 @@ definitions = [
                               ("readonly", "Read-only access to the real annex"),
                               ("real", "Full access to the real annex: PRODUCTION ONLY")
                           ]),
+    SettingDefinition("notify_channel",
+                      "What slack channel should we post in?",
+                      "e.g., montagu. Leave as the empty string to not post",
+                      default_value=""),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
@@ -101,12 +105,8 @@ definitions = [
                       default_value="https://support.montagu.dide.ic.ac.uk:8200",
                       is_required=vault_required),
 
-    SettingDefinition("notify_channel",
-                      "What slack channel should we post in?",
-                      "e.g., montagu. Leave as the empty string to not post",
-                      default_value=""),
     SettingDefinition("instance_name",
-                      "What is the name of this instance to post in a channel?",
+                      "What is the name of this instance?",
                       default_value="(unknown)"),
     SettingDefinition("docker_prefix",
                       "What docker prefix name should we use?  Leave this as "
