@@ -65,7 +65,7 @@ definitions = [
                       default_value=443),
     SettingDefinition("port_db",
                       "What port should the database listen on?",
-                      default_value=6543),
+                      default_value=5432),
     SettingDefinition("hostname",
                       "What hostname is Montagu being accessed as?",
                       "This hostname should match the SSL certificate. Likely values:"
@@ -97,6 +97,10 @@ definitions = [
                               ("readonly", "Read-only access to the real annex"),
                               ("real", "Full access to the real annex: PRODUCTION ONLY")
                           ]),
+    SettingDefinition("port_annex",
+                      "What port should the annex listen on?",
+                      default_value=15432,
+                      required = lambda x: x["db_annex_type"] == "fake"),
     SettingDefinition("notify_channel",
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",

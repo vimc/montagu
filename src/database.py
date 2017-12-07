@@ -209,12 +209,12 @@ def get_annex_settings(settings):
         host = "db_annex" # docker container name in compose
         port = 5432
         host_from_deploy = "localhost" # from host
-        port_from_deploy = 15432
+        port_from_deploy = settings["port_db_annex"]
         migrate = True
         group = None
     else:
         host = "annex.montagu.dide.ic.ac.uk" # address of our real server
-        port = 15432
+        port = 15432 # port of our real server
         host_from_deploy = host
         port_from_deploy = port
         migrate = settings["db_annex_type"] == "real"
