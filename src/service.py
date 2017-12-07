@@ -133,11 +133,15 @@ class MontaguService:
         # seems to bring things down much more quicky.
         print("Stopping Montagu...", flush=True)
         if self.orderly:
-            self.orderly.kill("SIGINT")
+            try:
+                self.orderly.kill("SIGINT")
+            except:
+                print("Killing orderly container failed - continuing")
+                pass
         compose.stop(self.settings["port"], self.settings["hostname"],
                      persist_volumes=self.settings["persist_data"],
                      use_fake_db_annex=self.use_fake_db_annex,
-                     docker_prefix=self.prefix)
+                     project_name=self.prefix)
 
     def start(self):
         print("Starting Montagu...", flush=True)
@@ -147,7 +151,7 @@ class MontaguService:
                       self.use_fake_db_annex, self.prefix)
         print("- Checking Montagu has started successfully")
         sleep(2)
-        if service.status != "running":
-            raise Exception("Failed to start Montagu. Service status is {}".format(service.status))
+        if self.status != "running":
+            raise Exception("Failed to start Montagu. Service status is {}".format(self.status))
 
 __all__ = ["MontaguService"]

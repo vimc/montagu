@@ -28,7 +28,7 @@ def add_secure_config(password_group):
 
 
 def cli():
-    settings = get_settings(do_first_time_setup=False, quiet=True)
+    settings = get_settings(quiet=True)
 
     command = [
         "docker", "run",
@@ -46,7 +46,7 @@ def cli():
 
 
 def add_test_user():
-    settings = get_settings(do_first_time_setup=False, quiet=True)
+    settings = get_settings(quiet=True)
     service = MontaguService(settings)
     network = service.network_name
 

@@ -13,17 +13,19 @@ from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
 from cli import add_test_user
 from git import git_check
+from service import MontaguService
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
 
-
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
-    get service worked out here...
+
+    settings = get_settings()
+    service = MontaguService(settings)
     status = service.status
     volume_present = service.db_volume_present
     is_first_time = (status is None) and (not volume_present)
@@ -32,7 +34,6 @@ def _deploy():
     else:
         print("Montagu status: {}. Data volume present: {}".format(status, volume_present))
 
-    settings = get_settings(is_first_time)
     notifier = Notifier(settings['notify_channel'])
 
     # Check that the deployment environment is clean enough
@@ -46,26 +47,26 @@ def _deploy():
 
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:
-        backup.backup(settings)
+        backup.backup(service)
 
     # Stop Montagu if it is running (and delete data volume if persist_data is False)
     if not is_first_time:
         notifier.post("*Stopping* previous montagu on `{}` :hand:".format(
             settings['instance_name']))
-        service.stop(settings)
+        service.stop()
 
     # Schedule backups
     if settings["backup"]:
-        backup.schedule(settings)
+        backup.schedule(service)
 
     # Start Montagu again
-    service.start(settings)
+    service.start()
     try:
-        configure_montagu(is_first_time, settings)
+        configure_montagu(service, is_first_time)
     except Exception as e:
         print("An error occurred before deployment could be completed. Stopping Montagu")
         print(e)
-        service.stop(settings)
+        service.stop()
         try:
             notifier.post("*Failed* deploy of " + deploy_str + " :bomb:")
         except:
@@ -84,7 +85,7 @@ def _deploy():
         webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
-def configure_montagu(is_first_time, settings):
+def configure_montagu(service, is_first_time):
     # Do things to the database
     data_exists = (not is_first_time) and settings["persist_data"]
     if data_exists:
@@ -96,11 +97,12 @@ def configure_montagu(is_first_time, settings):
     passwords = database.setup(service)
 
     # Push secrets into containers
-    cert_paths = get_ssl_certificate(settings["certificate"])
+    cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
-    send_emails = settings["password_group"] == 'production'
-    configure_api(service, passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
+    send_emails = service.settings["password_group"] == 'production'
+    configure_api(service, passwords['api'], token_keypair_paths,
+                  service.settings["hostname"], send_emails)
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
 

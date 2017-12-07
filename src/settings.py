@@ -36,11 +36,9 @@ def prepare_for_vault_access(address, quiet=False):
         run(["vault", "auth", "-method=github"], check=True)
 
 
-def get_settings(do_first_time_setup: bool, quiet=False):
+def get_settings(quiet=False):
     settings = load_settings()
     missing = list(d for d in definitions if d.name not in settings)
-    if not do_first_time_setup:
-        missing = list(d for d in missing if not d.first_time_only)
 
     showed_prompt = False
     if any(missing):

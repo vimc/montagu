@@ -10,7 +10,7 @@ from os import chdir
 from cli import add_test_user
 
 def restore_db():
-    settings = get_settings(False)
+    settings = get_settings()
     service = MontaguService(settings)
     notifier = Notifier(settings['notify_channel'])
     try:

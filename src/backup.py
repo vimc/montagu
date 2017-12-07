@@ -4,20 +4,19 @@ from subprocess import run, DEVNULL
 import pystache as pystache
 from os.path import isdir
 
-from service import MontaguService
-
 from database import prepare_db_for_import
 from last_deploy import last_restore_update
 
 finished_setup = False
 
 
-def configure(settings):
+## TODO: if there is more than one montagu instance on a machine, then
+## only one can backup!  This is fine but not enforced anywhere.
+def configure(service):
     with open("../backup/configs/production/config.json", 'r') as f:
         template = f.read()
-    service = MontaguService(settings)
     config = pystache.render(template, {
-        "s3_bucket": settings["backup_bucket"],
+        "s3_bucket": service.settings["backup_bucket"],
         "db_container": service.container_name("db"),
         "orderly_volume": service.volume_name("orderly")
     })
@@ -30,25 +29,25 @@ def needs_setup():
     return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
 
 
-def setup(settings):
+def setup(service):
     if needs_setup():
         print("- Configuring and installing backup service")
-        configure(settings)
+        configure(service)
         run("../backup/setup.sh", check=True)
 
 
-def backup(settings):
+def backup(service):
     # Note, it is safe to run the backup on a running system, as pg_dump uses TRANSACTION ISOLATION LEVEL SERIALIZABLE
     # i.e. The backup will only see transactions that were committed before the isolation level was set.
     # So we will get a consistent backup, even if changes are being made.
     print("Performing backup")
-    setup(settings)
+    setup(service)
     run("../backup/backup.py", check=True)
 
 
-def schedule(settings):
+def schedule(service):
     print("Scheduling backup")
-    setup(settings)
+    setup(service)
     run(["../backup/schedule.py", "--no-immediate-backup"], check=True)
 
 

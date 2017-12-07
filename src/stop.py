@@ -12,5 +12,5 @@ from settings import get_settings
 if __name__ == "__main__":
     abspath = abspath(__file__)
     chdir(dirname(abspath))
-    settings = get_settings(False)
+    settings = get_settings()
     MontaguService(settings).stop()

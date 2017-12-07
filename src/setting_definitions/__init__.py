@@ -105,7 +105,7 @@ definitions = [
                       "What docker prefix name should we use?  Leave this as "
                       "'montagu' for the primary deployment on a machine and "
                       "set to an alternative value if you want to run multiple "
-                      "copies simultaneously",
+                      "copies simultaneously.",
                       default_value="montagu"),
 
     BooleanSettingDefinition("clone_reports",

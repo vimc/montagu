@@ -15,7 +15,7 @@ def configure_orderly(service, initialise_volume):
     ## clone:
     configure_orderly_ssh(service)
     ## Then this requires an empty directory:
-    if initialise_volume and settings["initial_data_source"] != "restore":
+    if initialise_volume and service.settings["initial_data_source"] != "restore":
         print("Setting up orderly store")
         initialise_orderly_store(service)
     ## Then set up some passwords
