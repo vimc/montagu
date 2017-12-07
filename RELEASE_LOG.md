@@ -220,3 +220,14 @@
 
 ## Other branches merged in this release
 
+# v0.8.9
+
+## Tickets
+* i1007_v2: Can't link directly to user details page in admin portal
+* i1061: order rows of wide format coverage data
+* i1111: Delete DALYs column from Rota-JHU-Tam burden estimate templates (central & stochastic)?
+* i1119: Re-enable download demographics button if user switches to a different data set
+* i1137: Create fake annex for API development
+
+## Other branches merged in this release
+
