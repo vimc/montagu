@@ -138,17 +138,12 @@ class MontaguService:
             except:
                 print("Killing orderly container failed - continuing")
                 pass
-        compose.stop(self.settings["port"], self.settings["hostname"],
-                     persist_volumes=self.settings["persist_data"],
-                     use_fake_db_annex=self.use_fake_db_annex,
-                     project_name=self.prefix)
+        compose.stop(self.settings)
 
     def start(self):
         print("Starting Montagu...", flush=True)
-        compose.pull(self.settings["port"], self.settings["hostname"],
-                     self.prefix)
-        compose.start(self.settings["port"], self.settings["hostname"],
-                      self.use_fake_db_annex, self.prefix)
+        compose.pull(self.settings)
+        compose.start(self.settings)
         print("- Checking Montagu has started successfully")
         sleep(2)
         if self.status != "running":

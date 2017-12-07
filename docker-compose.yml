@@ -17,7 +17,7 @@ services:
   db:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     ports:
-      - "5432:5432"
+      - "${MONTAGU_PORT_DB}:5432"
     volumes:
       - db_volume:/pgdata
   contrib:
