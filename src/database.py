@@ -209,7 +209,7 @@ def get_annex_settings(settings):
         host = "db_annex" # docker container name in compose
         port = 5432
         host_from_deploy = "localhost" # from host
-        port_from_deploy = settings["port_db_annex"]
+        port_from_deploy = settings["port_annex"]
         migrate = True
         group = None
     else:
