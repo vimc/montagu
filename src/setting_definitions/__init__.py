@@ -100,7 +100,7 @@ definitions = [
     SettingDefinition("port_annex",
                       "What port should the annex listen on?",
                       default_value=15432,
-                      required = lambda x: x["db_annex_type"] == "fake"),
+                      is_required=lambda x: x["db_annex_type"] == "fake"),
     SettingDefinition("notify_channel",
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",
