@@ -9,7 +9,7 @@ def start(settings):
 
 
 def stop(settings):
-    command = "down" if settings["persist_volumes"] else "down --volumes"
+    command = "down" if settings["persist_data"] else "down --volumes"
     run(command, port, port_db, hostname, use_fake_db_annex, project_name)
 
 
