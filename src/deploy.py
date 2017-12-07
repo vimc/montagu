@@ -13,7 +13,6 @@ from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
 from cli import add_test_user
 from git import git_check
-from service import service
 from service_config import configure_api, configure_proxy
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
@@ -24,8 +23,9 @@ from notify import Notifier
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
+    get service worked out here...
     status = service.status
-    volume_present = service.volume_present
+    volume_present = service.db_volume_present
     is_first_time = (status is None) and (not volume_present)
     if is_first_time:
         print("Montagu not detected: Beginning new deployment")
@@ -90,19 +90,19 @@ def configure_montagu(is_first_time, settings):
     if data_exists:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
-        data_import.do(settings)
-    orderly.configure_orderly(not data_exists, settings)
+        data_import.do(service)
+    orderly.configure_orderly(service, not data_exists)
 
-    passwords = database.setup(settings)
+    passwords = database.setup(service)
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
     send_emails = settings["password_group"] == 'production'
-    configure_api(passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
-    configure_reporting_api(token_keypair_paths)
-    configure_proxy(cert_paths)
+    configure_api(service, passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
+    configure_reporting_api(service, token_keypair_paths)
+    configure_proxy(service, cert_paths)
 
 
 def deploy():

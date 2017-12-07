@@ -3,39 +3,38 @@ from subprocess import check_output
 import backup
 import versions
 from docker_helpers import docker_cp
-from service import service
 from teamcity import save_artifact
 
 
-def do(settings):
-    source = settings["initial_data_source"]
+def do(service):
+    source = service.settings["initial_data_source"]
     print("Running initial data import with mode: {}".format(source))
     if source == "minimal":
         print("- Nothing to do (migrations will insert minimal data)")
     elif source == "test_data":
         local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql", commit_hash=versions.api)
-        import_sql(local_path)
+        import_sql(db, local_path)
     elif source == "legacy":
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
-        import_dump(local_path)
+        import_dump(db, local_path)
     elif source == "restore":
-        backup.restore(settings)
+        backup.restore(service)
     else:
         raise Exception("Unknown mode '{}'".format(source))
 
 
-def import_sql(sql_path):
+def import_sql(db, sql_path):
     print("- Copying {} to DB container and importing into database".format(sql_path))
     target_path = "/tmp/import.sql"
-    docker_cp(sql_path, service.db.name, target_path)
-    check_output(["docker", "exec", service.db.name, "psql", "-U", "vimc", "-d", "montagu", "-f", target_path])
+    docker_cp(sql_path, db.name, target_path)
+    check_output(["docker", "exec", db.name, "psql", "-U", "vimc", "-d", "montagu", "-f", target_path])
 
 
-def import_dump(dump_path):
+def import_dump(db, dump_path):
     print("- Copying {} to DB container and importing into database".format(dump_path))
     target_path = "/tmp/import.dump"
-    docker_cp(dump_path, service.db.name, target_path)
-    check_output(["docker", "exec", service.db.name, "/montagu-bin/restore-dump.sh", target_path])
+    docker_cp(dump_path, db.name, target_path)
+    check_output(["docker", "exec", db.name, "/montagu-bin/restore-dump.sh", target_path])
 
 
 def get_artifact(build_type, remote_path, local_name=None, commit_hash=None):

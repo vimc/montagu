@@ -44,7 +44,7 @@ class MontaguService:
 
     @property
     def container_names(self):
-        return set([self._container_name(x) for x in self.containers.keys()])
+        return set([self.container_name(x) for x in self.containers.keys()])
 
     @property
     def status(self):
@@ -67,8 +67,11 @@ class MontaguService:
             raise Exception("Montagu service is in a indeterminate state. "
                             "Manual intervention is required.\nStatus: {}".format(status_map))
 
-    def _container_name(self, name):
+    def container_name(self, name):
         return "{}_{}_1".format(self.prefix, self.containers[name])
+
+    def volume_name(self, name):
+        return "{}_{}".format(self.prefix, self.volumes[name])
 
     @property
     def api(self):
@@ -105,7 +108,7 @@ class MontaguService:
     @property
     def db_volume_present(self):
         try:
-            self.client.volumes.get(self.db_volume_name)
+            self.client.volumes.get(self.volume_name("db"))
             return True
         except docker.errors.NotFound:
             return False
@@ -114,17 +117,9 @@ class MontaguService:
     def network_name(self):
         return "{}_{}".format(self.prefix, self.network)
 
-    @property
-    def orderly_volume_name(self):
-        return "{}_{}".format(self.prefix, self.volumes["orderly"])
-
-    @property
-    def db_volume_name(self):
-        return "{}_{}".format(self.prefix, self.volumes["db"])
-
     def _get(self, name):
         try:
-            return self.client.containers.get(self._container_name(name))
+            return self.client.containers.get(self.container_name(name))
         except docker.errors.NotFound:
             return None
 

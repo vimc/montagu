@@ -2,10 +2,9 @@ import shutil
 
 from certificates import extract_certificates, cert_dir
 from docker_helpers import docker_cp
-from service import service
 
-
-def configure_webapps(keystore_password):
+## TODO: so far as I can see this is obsolete?
+def configure_webapps(service, keystore_password):
     print("Configuring portals")
     cert_paths = extract_certificates(keystore_password)
     try:

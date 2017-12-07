@@ -10,6 +10,7 @@ import versions
 from database import user_configs
 from docker_helpers import get_image_name
 from settings import get_settings
+from service import MontaguService
 
 from service_config import api_db_user
 
@@ -46,11 +47,13 @@ def cli():
 
 def add_test_user():
     settings = get_settings(do_first_time_setup=False, quiet=True)
+    service = MontaguService(settings)
+    network = service.network_name
 
     command = [
         "docker", "run",
         "-it",
-        "--network", "montagu_default"
+        "--network", network
     ]
 
     password_group = settings['password_group']

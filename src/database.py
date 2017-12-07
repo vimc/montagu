@@ -7,7 +7,6 @@ import psycopg2
 
 import versions
 from docker_helpers import get_image_name, pull
-from service import service, network_name
 from service_config import api_db_user
 from settings import get_secret
 
@@ -72,7 +71,7 @@ class UserConfig:
             self._password = self.password_source.get()
         return self._password
 
-def set_root_password(password):
+def set_root_password(service, password):
     query = "ALTER USER {user} WITH PASSWORD '{password}'".format(user=root_user, password=password)
     service.db.exec_run('psql -U {user} -d postgres -c "{query}"'.format(user=root_user, query=query))
 
@@ -160,7 +159,8 @@ def set_permissions(db, user):
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
-def migrate_schema_core(root_password, annex_settings):
+def migrate_schema_core(service, root_password, annex_settings):
+    network_name = service.network_name
     print("- migrating schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
@@ -173,7 +173,8 @@ def migrate_schema_core(root_password, annex_settings):
           ["-user=vimc", "-password=" + root_password, "migrate"]
     run(cmd, check=True)
 
-def migrate_schema_annex(annex_settings):
+def migrate_schema_annex(service, annex_settings):
+    network_name = service.network_name
     print("- migrating annex schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
@@ -249,15 +250,15 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(settings):
-    annex_settings = setup_annex(settings)
+def setup(service):
+    annex_settings = setup_annex(service)
 
-    password_group = settings["password_group"]
+    password_group = service.settings["password_group"]
     print("Setting up database users")
     print("- Scrambling root password")
     if password_group is not None:
         root_password = GeneratePassword().get()
-        set_root_password(root_password)
+        set_root_password(service, root_password)
     else:
         root_password = 'changeme'
 
@@ -278,7 +279,7 @@ def setup(settings):
     for_each_user(root_password, users, setup_user)
 
     print("- Migrating database schema")
-    migrate_schema_core(root_password, annex_settings)
+    migrate_schema_core(service, root_password, annex_settings)
 
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
@@ -291,13 +292,13 @@ def setup(settings):
 
     return passwords
 
-def setup_annex(settings):
+def setup_annex(service):
     print("Setting up annex")
-    annex_settings = get_annex_settings(settings)
+    annex_settings = get_annex_settings(service.settings)
     if annex_settings['migrate']:
         # NOTE: we do this only on production.  This will mean that
         # there are some things that it is hard to test in staging.
-        migrate_schema_annex(annex_settings)
+        migrate_schema_annex(service, annex_settings)
         setup_annex_users(annex_settings)
     return annex_settings
 
@@ -316,7 +317,7 @@ def grant_readonly_annex_root(root_password, annex_settings):
         with conn.cursor() as cur:
             grant_readonly_annex(cur, root, annex_settings)
 
-def prepare_db_for_import(settings):
+def prepare_db_for_import(service):
     print("Preparing databse for import")
     ## NOTE: this could otherwise be done by connecting using the
     ## connection function, but that that requires further changes to
@@ -329,6 +330,6 @@ def prepare_db_for_import(settings):
     db.exec_run(["dropdb", "-U", "vimc", "--if-exists", "montagu"])
     db.exec_run(["createdb", "-U", "vimc", "montagu"])
     print("- configuring users")
-    users = user_configs(settings["password_group"])
+    users = user_configs(service.settings["password_group"])
     for user in users:
         db.exec_run(["createuser", "-U", "vimc", user.name])

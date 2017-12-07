@@ -4,30 +4,31 @@ from os.path import join, isfile
 import paths
 from cert_tool import run_cert_tool
 from docker_helpers import docker_cp
-from service import service, api_name, reporting_api_name
 from settings import get_secret
 
 api_db_user = "api"
 
 
-def configure_api(db_password: str, keypair_paths, hostname, send_emails: bool):
+def configure_api(service, db_password: str, keypair_paths, hostname, send_emails: bool):
     config_path = "/etc/montagu/api/"
+    container = service.api
     print("Configuring API")
     service.api.exec_run("mkdir -p " + config_path)
 
     print("- Injecting token signing keypair into container")
     service.api.exec_run("mkdir -p " + join(config_path, "token_key"))
-    docker_cp(keypair_paths['private'], api_name, join(config_path, "token_key/private_key.der"))
-    docker_cp(keypair_paths['public'], api_name, join(config_path, "token_key/public_key.der"))
+    docker_cp(keypair_paths['private'], container.name, join(config_path, "token_key/private_key.der"))
+    docker_cp(keypair_paths['public'], container.name, join(config_path, "token_key/public_key.der"))
 
     print("- Injecting settings into container")
-    generate_api_config_file(config_path, db_password, hostname, send_emails)
+    generate_api_config_file(service, config_path, db_password, hostname,
+                             send_emails)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
 
 
-def configure_reporting_api(keypair_paths):
+def configure_reporting_api(service, keypair_paths):
     config_path = "/etc/montagu/reports_api/"
     container = service.reporting_api
     print("Configuring reporting API")
@@ -38,7 +39,7 @@ def configure_reporting_api(keypair_paths):
 
     print("- Injecting public key for token verification into container")
     container.exec_run("mkdir -p " + join(config_path, "token_key"))
-    docker_cp(keypair_paths['public'], reporting_api_name, join(config_path, "token_key/public_key.der"))
+    docker_cp(keypair_paths['public'], container.name, join(config_path, "token_key/public_key.der"))
 
     print("- Sending go signal to reporting API")
     container.exec_run("touch {}/go_signal".format(config_path))
@@ -62,11 +63,12 @@ def get_token_keypair():
     return result
 
 
-def generate_api_config_file(config_path, db_password: str, hostname: str, send_emails: bool):
+def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
     print(" - Public URL: " + public_url)
+    api_name = service.container_name("api")
 
     with open(config_file_path, "w") as file:
         print("db.username={}".format(api_db_user), file=file)

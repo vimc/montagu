@@ -3,15 +3,14 @@ from os.path import join
 from typing import Dict
 
 from docker_helpers import docker_cp
-from service import service
 
 
-def configure_proxy(cert_paths: Dict[str, str]):
+def configure_proxy(service, cert_paths: Dict[str, str]):
     print("Configuring reverse proxy")
-    add_certificate_to_proxy(cert_paths)
+    add_certificate_to_proxy(service, cert_paths)
 
 
-def add_certificate_to_proxy(cert_paths: Dict[str, str]):
+def add_certificate_to_proxy(service, cert_paths: Dict[str, str]):
     print("- Adding certificate to reverse-proxy container")
     add_certificate(service.proxy, cert_paths, "/etc/montagu/proxy")
 

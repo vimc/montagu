@@ -4,7 +4,7 @@ from subprocess import run, DEVNULL
 import pystache as pystache
 from os.path import isdir
 
-import service
+from service import MontaguService
 
 from database import prepare_db_for_import
 from last_deploy import last_restore_update
@@ -15,10 +15,11 @@ finished_setup = False
 def configure(settings):
     with open("../backup/configs/production/config.json", 'r') as f:
         template = f.read()
+    service = MontaguService(settings)
     config = pystache.render(template, {
         "s3_bucket": settings["backup_bucket"],
-        "db_container": service.db_name,
-        "orderly_volume": service.orderly_volume_name
+        "db_container": service.container_name("db"),
+        "orderly_volume": service.volume_name("orderly")
     })
     makedirs("/etc/montagu/backup", exist_ok=True)
     with open("/etc/montagu/backup/config.json", 'w') as f:
@@ -51,12 +52,12 @@ def schedule(settings):
     run(["../backup/schedule.py", "--no-immediate-backup"], check=True)
 
 
-def restore(settings):
+def restore(service):
     print("Restoring from remote backup")
-    setup(settings)
+    setup(service.settings)
     ## Because of the annex work we need to ensure that users *exist*
     ## here at this point and do that just before restoring the
     ## database.  This is all a bit nasty really.
-    prepare_db_for_import(settings)
+    prepare_db_for_import(service)
     run(["../backup/restore.py"], check=True)
     last_restore_update()
