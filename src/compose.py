@@ -4,26 +4,26 @@ from docker_helpers import montagu_registry
 import versions
 
 
-def start(port, hostname, use_fake_db_annex):
+def start(port, hostname, use_fake_db_annex, project_name):
     run("up -d", port, hostname, use_fake_db_annex)
 
 
-def stop(port, hostname, persist_volumes, use_fake_db_annex):
+def stop(port, hostname, persist_volumes, use_fake_db_annex, project_name):
     if persist_volumes:
         run("down", port, hostname, use_fake_db_annex)
     else:
         run("down --volumes", port, hostname, use_fake_db_annex)  # Also deletes volumes
 
 
-def pull(port, hostname):
+def pull(port, hostname, project_name):
     # NOTE: passing use_fake_db_annex = False here because it does not
     # affect the pull (the fake db annex uses the main montagu-db
     # container)
-    run("pull", port, hostname, False)
+    run("pull", port, hostname, False, project_name)
 
 
-def run(args, port, hostname, use_fake_db_annex):
-    prefix = 'docker-compose --project-name montagu '
+def run(args, port, hostname, use_fake_db_annex, project_name):
+    prefix = 'docker-compose --project-name ' + project_name
     if use_fake_db_annex:
         # NOTE: it's surprising that the '../' is needed here, but
         # docker-compose apparently looks like git through parent
