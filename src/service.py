@@ -5,43 +5,46 @@ import docker
 import compose
 
 # These values must line up with the docker-compose file
+components = {
+    "containers": {
+        # logical name: container name in docker compose
+        "api": "api",
+        "reporting_api": "reporting_api",
+        "db": "db",
+        "contrib_portal": "contrib",
+        "admin_portal": "admin",
+        "reporting_portal": "report",
+        "proxy": "proxy",
+        "orderly": "orderly"
+    },
+    "volumes": {
+        "db": "db_volume",
+        "orderly": "orderly_volume"
+    },
+    "network": "default"
+}
 
-# Containers
-api_name = "api"
-reporting_api_name = "reporting_api"
-db_name = "db"
-contrib_name = "contrib"
-admin_portal_name = "admin"
-report_portal_name = "report"
-proxy_portal_name = "proxy"
-orderly_name = "orderly"
-
-# Not always present
-db_annex_name = "db_annex"
-
-# Volumes
-db_volume_name = "db_volume"
-orderly_volume_name = "orderly_volume"
-
-# Network
-network_name = "default"
+# These are not always present so will be added above as needed
+db_annex_container_name = "db_annex"
+db_annex_volume_name = "db_annex_volume"
 
 class MontaguService:
     def __init__(self, settings):
         self.client = docker.from_env()
         self.settings = settings
         self.prefix = settings["docker_prefix"]
-        self.containers = [api_name, reporting_api_name, db_name,
-                           contrib_name, admin_portal_name,
-                           report_portal_name, proxy_portal_name,
-                           orderly_name]
         self.use_fake_db_annex = settings["db_annex_type"] == "fake"
+        # Our components:
+        self.containers = components['containers'].copy()
+        self.volumes = components['volumes'].copy()
+        self.network = components['network']
         if self.use_fake_db_annex:
-            self.containers.append(db_annex_name)
+            self.containers["annex"] = db_annex_container_name
+            self.volumes["annex"] = db_annex_volume_name
 
     @property
     def container_names(self):
-        return set([self._container_name(x) for x in self.containers])
+        return set([self._container_name(x) for x in self.containers.keys()])
 
     @property
     def status(self):
@@ -65,57 +68,59 @@ class MontaguService:
                             "Manual intervention is required.\nStatus: {}".format(status_map))
 
     def _container_name(self, name):
-        return '{}_{}_1'.format(self.prefix, name)
+        return "{}_{}_1".format(self.prefix, self.containers[name])
 
     @property
     def api(self):
-        return self._get(api_name)
+        return self._get("api")
 
     @property
     def reporting_api(self):
-        return self._get(reporting_api_name)
+        return self._get("reporting_api")
 
     @property
     def db(self):
-        return self._get(db_name)
+        return self._get("db")
 
     @property
     def db_annex(self):
-        return self._get(db_annex_name)
+        return self._get("db_annex")
 
     @property
     def contrib_portal(self):
-        return self._get(contrib_name)
+        return self._get("contrib_portal")
 
     @property
     def admin_portal(self):
-        return self._get(admin_portal_name)
+        return self._get("admin_portal")
 
     @property
     def proxy(self):
-        return self._get(proxy_portal_name)
+        return self._get("proxy")
 
     @property
     def orderly(self):
-        return self._get(orderly_name)
-
+        return self._get("orderly")
 
     @property
-    def volume_present(self):
-        present = [v.name for v in self.client.volumes.list()]
-        return self.db_volume_name() in present
+    def db_volume_present(self):
+        try:
+            self.client.volumes.get(self.db_volume_name)
+            return True
+        except docker.errors.NotFound:
+            return False
 
     @property
     def network_name(self):
-        return "{}_{}".format(self.prefix, _network_name)
+        return "{}_{}".format(self.prefix, self.network)
 
     @property
     def orderly_volume_name(self):
-        return "{}_{}".format(self.prefix, _orderly_volume_name)
+        return "{}_{}".format(self.prefix, self.volumes["orderly"])
 
     @property
     def db_volume_name(self):
-        return "{}_{}".format(self.prefix, _db_volume_name)
+        return "{}_{}".format(self.prefix, self.volumes["db"])
 
     def _get(self, name):
         try:
