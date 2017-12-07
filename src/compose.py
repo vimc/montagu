@@ -10,7 +10,7 @@ def start(settings):
 
 def stop(settings):
     command = "down" if settings["persist_data"] else "down --volumes"
-    run(command, port, port_db, hostname, use_fake_db_annex, project_name)
+    run(command, settings)
 
 
 def pull(settings):
@@ -20,7 +20,7 @@ def pull(settings):
 def run(args, settings):
     project_name = settings["docker_prefix"]
     prefix = 'docker-compose --project-name {} '.format(project_name)
-    if use_fake_db_annex:
+    if settings["db_annex_type"] == "fake":
         # NOTE: it's surprising that the '../' is needed here, but
         # docker-compose apparently looks like git through parent
         # directories until it finds a docker-compose file!

@@ -131,7 +131,9 @@ class MontaguService:
         # see how to work around at the R level. So instead we send an
         # interrupt signal (SIGINT) just before the stop, and that
         # seems to bring things down much more quicky.
-        print("Stopping Montagu...", flush=True)
+        print("Stopping Montagu...({}: {})".format(
+            self.settings["instance_name"], self.settings["docker_prefix"]),
+            flush=True)
         if self.orderly:
             try:
                 self.orderly.kill("SIGINT")
