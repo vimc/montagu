@@ -87,7 +87,7 @@ def _deploy():
 
 def configure_montagu(service, is_first_time):
     # Do things to the database
-    data_exists = (not is_first_time) and settings["persist_data"]
+    data_exists = (not is_first_time) and service.settings["persist_data"]
     if data_exists:
         print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
     else:
