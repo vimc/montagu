@@ -76,7 +76,7 @@ def set_root_password(service, password):
     service.db.exec_run('psql -U {user} -d postgres -c "{query}"'.format(user=root_user, query=query))
 
 
-def connect(user, password, host="localhost", port=5432):
+def connect(user, password, port, host="localhost"):
     conn_settings = {
         "host": host,
         "port": port,
@@ -92,8 +92,8 @@ def connect_annex(annex_settings):
     root = annex_settings['users']['root']
     return connect(root.name,
                    root.password,
-                   annex_settings["host_from_deploy"],
-                   annex_settings["port_from_deploy"])
+                   annex_settings["port_from_deploy"],
+                   annex_settings["host_from_deploy"])
 
 def create_user(db, user):
     sql = """DO
@@ -240,10 +240,10 @@ def setup_user(db, user):
     set_permissions(db, user)
 
 
-def for_each_user(root_password, users, operation):
+def for_each_user(root_password, port, users, operation):
     """Operation is a callback (function) that takes the connection cursor
     and a UserConfig object"""
-    with connect(root_user, root_password) as conn:
+    with connect(root_user, root_password, port) as conn:
         with conn.cursor() as cur:
             for user in users:
                 operation(cur, user)
@@ -276,7 +276,8 @@ def setup(service):
     # exist, though in practice we don't use them so this could be
     # reordered later.
     print("- Updating database users")
-    for_each_user(root_password, users, setup_user)
+    port_db = service.settings["port_db"]
+    for_each_user(root_password, port_db, users, setup_user)
 
     print("- Migrating database schema")
     migrate_schema_core(service, root_password, annex_settings)
@@ -284,10 +285,10 @@ def setup(service):
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
     # again, in case users need to have permissions on these new tables
-    for_each_user(root_password, users, set_permissions)
+    for_each_user(root_password, port_db, users, set_permissions)
 
-    grant_readonly_annex_root(root_password, annex_settings)
-    for_each_user(root_password, users, lambda d, u :
+    grant_readonly_annex_root(root_password, service.settings, annex_settings)
+    for_each_user(root_password, port_db, users, lambda d, u :
                   grant_readonly_annex(d, u, annex_settings))
 
     return passwords
@@ -311,9 +312,10 @@ def setup_annex_users(annex_settings):
 
 # NOTE: workaround because grant_readonly_annex requires a UserConfig
 # object - or rather something with a 'name' field
-def grant_readonly_annex_root(root_password, annex_settings):
+def grant_readonly_annex_root(root_password, settings, annex_settings):
     root = SimpleNamespace(name = root_user)
-    with connect(root_user, root_password) as conn:
+    port = settings["port_db"]
+    with connect(root_user, root_password, port) as conn:
         with conn.cursor() as cur:
             grant_readonly_annex(cur, root, annex_settings)
 
