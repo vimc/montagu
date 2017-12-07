@@ -87,6 +87,13 @@ definitions = [
                               ("fake",       "Do not use passwords from the vault")
                           ]
                           ),
+    EnumSettingDefinition("db_annex_type",
+                          "How do we treat the annex database?",
+                          [
+                              ("fake", "Add a totally safe, but empty, version to the constellation"),
+                              ("readonly", "Read-only access to the real annex"),
+                              ("real", "Full access to the real annex: PRODUCTION ONLY")
+                          ]),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
@@ -123,12 +130,5 @@ definitions = [
     BooleanSettingDefinition("add_test_user",
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
-                             default_value=False),
-    EnumSettingDefinition("db_annex_type",
-                          "How do we treat the annex database?",
-                          [
-                              ("fake", "Add a totally safe, but empty, version to the constellation"),
-                              ("readonly", "Read-only access to the real annex"),
-                              ("real", "Full access to the real annex: PRODUCTION ONLY")
-                          ])
+                             default_value=False)
 ]
