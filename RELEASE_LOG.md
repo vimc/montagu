@@ -242,3 +242,14 @@
 
 ## Other branches merged in this release
 
+# v0.8.10
+
+## Tickets
+* i1145: Update current_burden_estimate_set on creation, not population
+* i1148: Add `model_run` to `burden_estimate` and `burden_estimate_stochastic`. 
+* i1172: Allow multiple open touchstones in the contrib portal
+* i949_annex_codegen: Store stochastic estimates in the annex
+* i949_expose_annex: Store stochastic estimates in the annex
+
+## Other branches merged in this release
+
