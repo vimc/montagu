@@ -9,7 +9,7 @@ cd ~/staging/staging
 
 ## To run the VMs
 ```
-vagrant up
+vagrant up uat science
 ```
 
 will bring up two VMs; one called `uat` and one called `science`.
@@ -28,14 +28,28 @@ important that the port you configure Montagu with matches the eventual port
 that users will be navigating to. So the port that Vagrant exposes the outside
 world must match.
 
+## To rebuild a VM
+
+```
+vagrant ssh uat -c '/vagrant/record-montagu-configuration'
+vagrant destroy uat
+vboxmanage closemedium disk disk/uat.vdi --delete
+vagrant up uat
+./restore-prepare.sh
+vagrant ssh uat -c '/vagrant/restore'
+```
+
 ## To test the restore
 
 ```
 vagrant destroy -f restore-test
+vboxmanage closemedium disk disk/restore-test.vdi --delete
 vagrant up restore-test
 ./restore-prepare.sh
-vagrant ssh restore-test -c '/vagrant/restore/restore.sh'
+vagrant ssh restore-test -c '/vagrant/restore'
 ```
+
+Then go to https://support.montagu.dide.ic.ac.uk:20443 where things should be running
 
 ## Troubleshooting
 
@@ -70,3 +84,11 @@ The solution is to load the virtualbox module
 ```
 sudo modprobe vboxnetadp
 ```
+
+## Requirements
+
+Install in the host machine:
+
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant](https://www.vagrantup.com/downloads.html)
+* `vagrant plugin install vagrant-persistent-storage`
