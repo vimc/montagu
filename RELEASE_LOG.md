@@ -253,3 +253,10 @@
 
 ## Other branches merged in this release
 
+# v0.9.0
+
+## Tickets
+* i1086: Check staging provisioning instructions
+
+## Other branches merged in this release
+
