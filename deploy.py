@@ -12,7 +12,7 @@ import os
 from subprocess import run
 import sys
 sys.path.append("scripts/release")
-from helpers import get_latest_release_tag, validate_release_tag
+from release_tag import get_latest_release_tag, validate_release_tag
 
 def checkout(version):
     print("checking out version {}".format(version))
