@@ -13,8 +13,12 @@ release_tag_pattern = re.compile(r"^v(\d+)\.(\d+)\.(\d+)(?:-RC(\d+))?$")
 
 def get_latest_release_tag():
     tags = run("git tag").split('\n')
-    release_tags = sorted(t for t in tags if release_tag_pattern.match(t))
-    return release_tags[-1]
+    release_tags = sorted(parse_version(t) for t in tags if release_tag_pattern.match(t))
+    latest = release_tags[-1]
+    s = "v{}.{}.{}".format(latest[0], latest[1], latest[2])
+    if latest[3] != float("inf"):
+        s += "-RC" + latest[3]
+    return s
 
 def validate_release_tag(tag):
     m = release_tag_pattern.match(tag)
