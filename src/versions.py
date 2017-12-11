@@ -14,6 +14,7 @@ def get_submodule_version(path):
 
 db = get_submodule_version("db")
 orderly = get_submodule_version("orderly")
+shiny = get_submodule_version("shiny")
 
 api = get_submodule_version("api")
 reporting_api = get_submodule_version("reporting-api")
@@ -30,6 +31,7 @@ def as_dict():
     return {
         'db': db,
         'orderly': orderly,
+        'shiny': shiny,
         'api': api,
         'reporting_api': api,
         'contrib_portal': contrib_portal,

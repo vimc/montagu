@@ -51,5 +51,6 @@ def get_env(settings):
 
         'MONTAGU_PROXY_VERSION': versions.proxy,
 
-        'MONTAGU_ORDERLY_VERSION': versions.orderly
+        'MONTAGU_ORDERLY_VERSION': versions.orderly,
+        'MONTAGU_SHINY_VERSION': versions.shiny
     }

@@ -15,7 +15,8 @@ components = {
         "admin_portal": "admin",
         "reporting_portal": "report",
         "proxy": "proxy",
-        "orderly": "orderly"
+        "orderly": "orderly",
+        "shiny": "shiny"
     },
     "volumes": {
         "db": "db_volume",
