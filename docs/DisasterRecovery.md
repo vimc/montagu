@@ -60,7 +60,7 @@ As root:
 
 ### 3. Restore the Vault
 
-Follow the instructions [here](https://github.com/vimc/montagu-vault/blob/master/README.md#restoring-the-vault-from-backup).
+Follow the instructions [here](https://github.com/vimc/montagu-vault/blob/master/README.md#restarting-the-vault).
 
 ### 4. Restore the Docker Registry
 
