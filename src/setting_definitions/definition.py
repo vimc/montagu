@@ -14,6 +14,8 @@ class SettingDefinition:
         self.default_value = default_value
         self.first_time_only = first_time_only
         self._is_required = is_required
+        if first_time_only:
+            raise Exception("Don't use first_time_only")
 
     def ask(self):
         print("")

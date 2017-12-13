@@ -3,7 +3,7 @@ services:
   db_annex:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     ports:
-      - "15432:5432"
+      - "${MONTAGU_PORT_ANNEX}:5432"
     volumes:
       - db_annex_volume:/pgdata
 
