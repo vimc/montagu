@@ -63,12 +63,6 @@ definitions = [
                       "if there is another layer wrapping around Montagu (e.g. if it is being deployed to a VM) the "
                       "real port exposed on the physical machine must agree with the port you choose now.",
                       default_value=443),
-    SettingDefinition("port_http",
-                      "What port should Montagu listen for http on?",
-                      default_value=80),
-    SettingDefinition("port_db",
-                      "What port should the database listen on?",
-                      default_value=5432),
     SettingDefinition("hostname",
                       "What hostname is Montagu being accessed as?",
                       "This hostname should match the SSL certificate. Likely values:"
@@ -100,10 +94,6 @@ definitions = [
                               ("readonly", "Read-only access to the real annex"),
                               ("real", "Full access to the real annex: PRODUCTION ONLY")
                           ]),
-    SettingDefinition("port_annex",
-                      "What port should the annex listen on?",
-                      default_value=15432,
-                      is_required=lambda x: x["db_annex_type"] == "fake"),
     SettingDefinition("notify_channel",
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",
@@ -124,12 +114,6 @@ definitions = [
     SettingDefinition("instance_name",
                       "What is the name of this instance?",
                       default_value="(unknown)"),
-    SettingDefinition("docker_prefix",
-                      "What docker prefix name should we use?  Leave this as "
-                      "'montagu' for the primary deployment on a machine and "
-                      "set to an alternative value if you want to run multiple "
-                      "copies simultaneously.",
-                      default_value="montagu"),
 
     BooleanSettingDefinition("require_clean_git",
                              "Should we require a clean git state?",

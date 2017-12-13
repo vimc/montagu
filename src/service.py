@@ -31,8 +31,10 @@ db_annex_volume_name = "db_annex_volume"
 class MontaguService:
     def __init__(self, settings):
         self.client = docker.from_env()
-        self.settings = settings
-        self.prefix = settings["docker_prefix"]
+        self.settings = dict(settings)
+        ## TODO: This will eventually be lifted up to be a setting
+        self.docker_prefix = "montagu"
+        self.settings['docker_prefix'] = self.docker_prefix
         self.use_fake_db_annex = settings["db_annex_type"] == "fake"
         # Our components:
         self.containers = components['containers'].copy()
@@ -51,7 +53,7 @@ class MontaguService:
         expected = self.container_names
         actual = dict((c.name, c) for c in self.client.containers.list(all=True))
         unexpected = list(x for x in actual.keys() - expected
-                          if x.startswith(self.prefix + "_"))
+                          if x.startswith(self.docker_prefix + "_"))
         if any(unexpected):
             raise Exception("There are unexpected Montagu-related containers running: {}".format(unexpected))
 
@@ -68,10 +70,10 @@ class MontaguService:
                             "Manual intervention is required.\nStatus: {}".format(status_map))
 
     def container_name(self, name):
-        return "{}_{}_1".format(self.prefix, self.containers[name])
+        return "{}_{}_1".format(self.docker_prefix, self.containers[name])
 
     def volume_name(self, name):
-        return "{}_{}".format(self.prefix, self.volumes[name])
+        return "{}_{}".format(self.docker_prefix, self.volumes[name])
 
     @property
     def api(self):
@@ -115,7 +117,7 @@ class MontaguService:
 
     @property
     def network_name(self):
-        return "{}_{}".format(self.prefix, self.network)
+        return "{}_{}".format(self.docker_prefix, self.network)
 
     def _get(self, name):
         try:

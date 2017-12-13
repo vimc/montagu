@@ -10,8 +10,6 @@ from last_deploy import last_restore_update
 finished_setup = False
 
 
-## TODO: if there is more than one montagu instance on a machine, then
-## only one can backup!  This is fine but not enforced anywhere.
 def configure(service):
     with open("../backup/configs/production/config.json", 'r') as f:
         template = f.read()
