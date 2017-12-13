@@ -13,10 +13,10 @@ def do(service):
         print("- Nothing to do (migrations will insert minimal data)")
     elif source == "test_data":
         local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql", commit_hash=versions.api)
-        import_sql(db, local_path)
+        import_sql(service.db, local_path)
     elif source == "legacy":
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
-        import_dump(db, local_path)
+        import_dump(service.db, local_path)
     elif source == "restore":
         backup.restore(service)
     else:
