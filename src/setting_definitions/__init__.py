@@ -2,6 +2,7 @@ import backup
 from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
+from setting_definitions.array import ArraySettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
@@ -77,8 +78,8 @@ definitions = [
                           "Which password group should montagu use to retrieve database passwords from the vault?",
                           [
                               ("production", "Passwords for production"),
-                              ("science",    "Passwords for science"),
-                              ("fake",       "Do not use passwords from the vault")
+                              ("science", "Passwords for science"),
+                              ("fake", "Do not use passwords from the vault")
                           ]
                           ),
     EnumSettingDefinition("db_annex_type",
@@ -119,7 +120,8 @@ definitions = [
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
                              default_value=False),
-    SettingDefinition("template_report_version",
-                      "Which version of internal-2017-burden-estimates-template should we pull templates from?",
-                      default_value=""),
+    ArraySettingDefinition("template_reports",
+                           "Which report paths should we pull templates from? Provide a comma separated list of paths"
+                           " in the format reportname/versionid",
+                           default_value="")
 ]

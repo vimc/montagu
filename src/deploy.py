@@ -103,7 +103,7 @@ def configure_montagu(is_first_time, settings):
     configure_api(passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
     configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
-    configure_contrib_portal(settings["template_report_version"])
+    configure_contrib_portal(settings["template_reports"])
 
 def deploy():
     try:
