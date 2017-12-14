@@ -44,6 +44,8 @@ services:
       - admin
       - contrib
       - report
+    volumes:
+      - vimc_website_volume:/vimc-website
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
   orderly:
     image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
@@ -54,4 +56,5 @@ services:
 volumes:
   db_volume:
   orderly_volume:
+  vimc_website_volume:
   emails:
