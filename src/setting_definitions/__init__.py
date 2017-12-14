@@ -121,7 +121,7 @@ definitions = [
                              "This must set to False on production!",
                              default_value=False),
     ArraySettingDefinition("template_reports",
-                           "Which report paths should we pull templates from? Provide a comma separated list of paths"
-                           " in the format reportname/versionid",
+                           "Which report paths should we pull templates from? Provide a comma separated list of paths "
+                           "in the format reportname/versionid",
                            default_value="")
 ]
