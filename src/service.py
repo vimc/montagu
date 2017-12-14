@@ -15,6 +15,7 @@ orderly_name = "montagu_orderly_1"
 
 volume_name = "montagu_db_volume"
 orderly_volume_name = "montagu_orderly_volume"
+template_volume_name="montagu_template_volume"
 network_name = "montagu_default"
 
 db_annex_name = "montagu_db_annex_1"

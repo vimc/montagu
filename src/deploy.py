@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import webbrowser
 from os import chdir
-from os.path import abspath, dirname
+from os.path import abspath, dirname, join
 from time import sleep
 
 import backup
@@ -14,7 +14,7 @@ from certificates import get_ssl_certificate
 from cli import add_test_user
 from git import git_check
 from service import service
-from service_config import configure_api, configure_proxy
+from service_config import configure_api, configure_proxy, configure_contrib_portal
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
@@ -103,7 +103,7 @@ def configure_montagu(is_first_time, settings):
     configure_api(passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
     configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
-
+    configure_contrib_portal(settings["template_report_version"])
 
 def deploy():
     try:
