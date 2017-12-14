@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import webbrowser
 from os import chdir
-from os.path import abspath, dirname, join
+from os.path import abspath, dirname
 from time import sleep
 
 import backup
