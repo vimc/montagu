@@ -19,6 +19,7 @@ from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
+from vimc_website import build_vimc_website
 
 
 def _deploy():
@@ -103,7 +104,7 @@ def configure_montagu(is_first_time, settings):
     configure_api(passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
     configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
-
+    build_vimc_website()
 
 def deploy():
     try:
