@@ -1,4 +1,5 @@
-import backup
+from subprocess import run, DEVNULL
+
 from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
@@ -6,6 +7,11 @@ from setting_definitions.array import ArraySettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
+## NOTE: This duplicates the code in backup.py in order to break a
+## circular dependency.  It would be good to factor that out but I
+## can't see a really obvious decent spot for it.
+def backup_needs_setup():
+    return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
 
 def vault_required(settings):
     data_source = settings["initial_data_source"]
@@ -13,7 +19,7 @@ def vault_required(settings):
     uses_vault_passwords = settings["password_group"] is not None and \
                            settings['password_group'] != "fake"
     return data_source in teamcity_sources \
-           or (uses_duplicati and backup.needs_setup()) \
+           or (uses_duplicati and backup_needs_setup()) \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
@@ -89,6 +95,16 @@ definitions = [
                               ("readonly", "Read-only access to the real annex"),
                               ("real", "Full access to the real annex: PRODUCTION ONLY")
                           ]),
+    SettingDefinition("notify_channel",
+                      "What slack channel should we post in?",
+                      "e.g., montagu. Leave as the empty string to not post",
+                      default_value=""),
+    BooleanSettingDefinition("clone_reports",
+                             "Should montagu-reports be cloned?",
+                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
+                             "If you answer no, then we set up only an empty orderly repository, and you will not be "
+                             "able to clone the reports repository",
+                             default_value=True),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
@@ -96,20 +112,10 @@ definitions = [
                       default_value="https://support.montagu.dide.ic.ac.uk:8200",
                       is_required=vault_required),
 
-    SettingDefinition("notify_channel",
-                      "What slack channel should we post in?",
-                      "e.g., montagu. Leave as the empty string to not post",
-                      default_value=""),
     SettingDefinition("instance_name",
-                      "What is the name of this instance to post in a channel?",
+                      "What is the name of this instance?",
                       default_value="(unknown)"),
 
-    BooleanSettingDefinition("clone_reports",
-                             "Should montagu-reports be cloned?",
-                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
-                             "If you answer no, then we set up only an empty orderly repository, and you will not be "
-                             "able to clone the reports repository",
-                             default_value=True),
     BooleanSettingDefinition("require_clean_git",
                              "Should we require a clean git state?",
                              "If you answer yes, then we require that git is 'clean' (no untracked or modified files) "

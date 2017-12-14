@@ -17,7 +17,7 @@ from subprocess import run
 import os
 import re
 import git_helpers
-from helpers import get_latest_release_tag, validate_release_tag
+from release_tag import get_latest_release_tag, validate_release_tag
 
 # This feels like something we should have elsewhere; it's a map of
 # the name of the *repo* (the key here) with the name of the submodule

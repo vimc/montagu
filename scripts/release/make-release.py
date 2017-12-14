@@ -15,7 +15,8 @@ from io import StringIO
 
 from docopt import docopt
 
-from helpers import run, get_latest_release_tag, version_greater_than
+from helpers import run
+from release_tag import get_latest_release_tag, version_greater_than
 from tickets import check_tickets, tag_tickets
 from tickets import NOT_FOUND
 

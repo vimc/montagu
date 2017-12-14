@@ -260,3 +260,20 @@
 
 ## Other branches merged in this release
 
+# v0.9.1
+
+## Tickets
+* i1005: Breadcrumb on report page should show version 
+* i1175_class: deploy.py does not suggest latest tag
+* i1195: add IP to allowed redirects
+* i920: use sass instead of css
+* i930: Record the current stochastic burden estimate set
+* i930_db_refresh: Record the current stochastic burden estimate set
+* i949_get_single_estimate_set: Accept estimates in stochastic format
+* i949_repository: Accept estimates in stochastic format
+* i949_separate_out_logic: Accept estimates in stochastic format
+* i949_separate_tests: Accept estimates in stochastic format
+* i949_use_jvm8: Accept estimates in stochastic format
+
+## Other branches merged in this release
+
