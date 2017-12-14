@@ -6,4 +6,7 @@ class ArraySettingDefinition(SettingDefinition):
         super().__init__(name, question, default_value)
 
     def parse(self, value):
+        if len(value) == 0:
+            return []
+
         return value.split(",")

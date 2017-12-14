@@ -12,5 +12,6 @@
     "add_test_user": false,
     "db_annex_type": "fake",
     "instance_name": "teamcity",
-    "notify_channel": ""
+    "notify_channel": "",
+    "template_reports":[]
 }
