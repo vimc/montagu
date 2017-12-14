@@ -76,6 +76,8 @@ def _deploy():
     if settings["add_test_user"] is True:
         add_test_user()
 
+    build_vimc_website()
+
     last_deploy_update(version)
     notifier.post("*Completed* deploy of " + deploy_str + " :shipit:")
 
@@ -104,7 +106,6 @@ def configure_montagu(is_first_time, settings):
     configure_api(passwords['api'], token_keypair_paths, settings["hostname"], send_emails)
     configure_reporting_api(token_keypair_paths)
     configure_proxy(cert_paths)
-    build_vimc_website()
 
 def deploy():
     try:
