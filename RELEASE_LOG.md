@@ -277,3 +277,30 @@
 
 ## Other branches merged in this release
 
+# v0.9.2
+
+## Tickets
+* i1128_models: Refactor all controllers to use new pattern
+* i1128_user: Refactor all controllers to use new pattern
+* i1149: Remove redundant TeamCity scripts from webapps
+* i1153: update enzyme
+* i1173: If modelling group has no responsibilities in touchstone, API returns 'null' status
+* i1177: Show more descriptive message depending on responsibility set status
+* i1181: Commit a lint to the webapps and apply to whole project
+* i1192: Use bootstrap sass files 
+* i1201: Remove global 'services' object in montagu deploy scripts
+* i1208_component: Create page that lists model run parameter sets
+* i1208_reorganize_files: Create page that lists model run parameter sets
+* i1208_store_actions_source: Create page that lists model run parameter sets
+* i1210: Add more descriptive label to 'details' field of the create burden estimate set form
+* i1212: Use bootstrap table styling throughout
+* i1212_alex_suggestions: Use bootstrap table styling throughout
+* i1221: Change terminology on burden estimate set upload page
+* i208_integration_test: Check if gavi start/stop year need retaining
+* i925: In the portal, get the user to first create the burden estimate set and then upload against it
+* i925_form: In the portal, get the user to first create the burden estimate set and then upload against it
+* i930: Record the current stochastic burden estimate set
+* i949: Accept estimates in stochastic format
+
+## Other branches merged in this release
+
