@@ -106,7 +106,7 @@ def configure_montagu(service, is_first_time):
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
 
-    if service.settings["template_reports"]:
+    if service.settings["inclue_template_reports"]:
         configure_contrib_portal(service)
 
 def deploy():

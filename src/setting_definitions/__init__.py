@@ -128,7 +128,7 @@ definitions = [
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
                              default_value=False),
-    BooleanSettingDefinition("template_reports",
+    BooleanSettingDefinition("include_template_reports",
                              "Should we copy burden estimate templates from orderly into the contrib portal container?",
                              "",
                              default_value=False)
