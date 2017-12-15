@@ -19,6 +19,7 @@ from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
+from vimc_website import build_vimc_website
 
 def _deploy():
     print_ascii_art()
@@ -76,6 +77,8 @@ def _deploy():
     if settings["add_test_user"] is True:
         add_test_user()
 
+    build_vimc_website()
+
     last_deploy_update(version)
     notifier.post("*Completed* deploy of " + deploy_str + " :shipit:")
 
@@ -105,7 +108,6 @@ def configure_montagu(service, is_first_time):
                   service.settings["hostname"], send_emails)
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
-
 
 def deploy():
     try:

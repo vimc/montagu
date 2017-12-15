@@ -37,13 +37,16 @@ services:
     image: ${MONTAGU_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     ports:
       - "${MONTAGU_PORT}:${MONTAGU_PORT}"
-      - 80:80
+      - "80:80"
+      - "8080:8080"
     depends_on:
       - api
       - reporting_api
       - admin
       - contrib
       - report
+    volumes:
+      - vimc_website_volume:/vimc-website
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
   orderly:
     image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
@@ -54,4 +57,5 @@ services:
 volumes:
   db_volume:
   orderly_volume:
+  vimc_website_volume:
   emails:
