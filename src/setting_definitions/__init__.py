@@ -3,7 +3,6 @@ from subprocess import run, DEVNULL
 from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
-from setting_definitions.array import ArraySettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
