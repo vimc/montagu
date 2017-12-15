@@ -7,11 +7,13 @@ from setting_definitions.array import ArraySettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
+
 ## NOTE: This duplicates the code in backup.py in order to break a
 ## circular dependency.  It would be good to factor that out but I
 ## can't see a really obvious decent spot for it.
 def backup_needs_setup():
     return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
+
 
 def vault_required(settings):
     data_source = settings["initial_data_source"]
@@ -126,8 +128,8 @@ definitions = [
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
                              default_value=False),
-    ArraySettingDefinition("template_reports",
-                           "Which report paths should we pull templates from? Provide a comma separated list of paths "
-                           "in the format reportname/versionid",
-                           default_value="")
+    BooleanSettingDefinition("template_reports",
+                             "Should we copy burden estimate templates from orderly into the contrib portal container?",
+                             "",
+                             default_value=False)
 ]

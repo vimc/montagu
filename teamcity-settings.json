@@ -13,5 +13,5 @@
     "db_annex_type": "fake",
     "instance_name": "teamcity",
     "notify_channel": "",
-    "template_reports":[]
+    "template_reports":false
 }
