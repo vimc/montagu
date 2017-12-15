@@ -19,6 +19,4 @@ def add_templates_to_contrib_portal(service, path_to_templates):
 def get_template_report_versions():
     with open("template_report_versions") as f:
         value = f.read()
-    if len(value) == 0:
-        return []
-    return value.split()
+    return [x.strip() for x in value.split("\n") if x]
