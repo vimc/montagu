@@ -12,8 +12,8 @@ def do(service):
     if source == "minimal":
         print("- Nothing to do (migrations will insert minimal data)")
     elif source == "test_data":
-        local_path = get_artifact("montagu_api_generate_test_data", "test-data.sql", commit_hash=versions.api)
-        import_sql(service.db, local_path)
+        local_path = get_artifact("montagu_api_generate_test_data", "test-data.bin", commit_hash=versions.api)
+        import_dump(service.db, local_path)
     elif source == "legacy":
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
         import_dump(service.db, local_path)
@@ -23,11 +23,11 @@ def do(service):
         raise Exception("Unknown mode '{}'".format(source))
 
 
-def import_sql(db, sql_path):
-    print("- Copying {} to DB container and importing into database".format(sql_path))
-    target_path = "/tmp/import.sql"
-    docker_cp(sql_path, db.name, target_path)
-    check_output(["docker", "exec", db.name, "psql", "-U", "vimc", "-d", "montagu", "-f", target_path])
+# def import_sql(db, sql_path):
+#     print("- Copying {} to DB container and importing into database".format(sql_path))
+#     target_path = "/tmp/import.sql"
+#     docker_cp(sql_path, db.name, target_path)
+#     check_output(["docker", "exec", db.name, "psql", "-U", "vimc", "-d", "montagu", "-f", target_path])
 
 
 def import_dump(db, dump_path):
