@@ -23,13 +23,6 @@ def do(service):
         raise Exception("Unknown mode '{}'".format(source))
 
 
-# def import_sql(db, sql_path):
-#     print("- Copying {} to DB container and importing into database".format(sql_path))
-#     target_path = "/tmp/import.sql"
-#     docker_cp(sql_path, db.name, target_path)
-#     check_output(["docker", "exec", db.name, "psql", "-U", "vimc", "-d", "montagu", "-f", target_path])
-
-
 def import_dump(db, dump_path):
     print("- Copying {} to DB container and importing into database".format(dump_path))
     target_path = "/tmp/import.dump"
