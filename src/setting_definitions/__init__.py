@@ -6,11 +6,13 @@ from setting_definitions.enum import EnumSettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
+
 ## NOTE: This duplicates the code in backup.py in order to break a
 ## circular dependency.  It would be good to factor that out but I
 ## can't see a really obvious decent spot for it.
 def backup_needs_setup():
     return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
+
 
 def vault_required(settings):
     data_source = settings["initial_data_source"]
@@ -83,8 +85,8 @@ definitions = [
                           "Which password group should montagu use to retrieve database passwords from the vault?",
                           [
                               ("production", "Passwords for production"),
-                              ("science",    "Passwords for science"),
-                              ("fake",       "Do not use passwords from the vault")
+                              ("science", "Passwords for science"),
+                              ("fake", "Do not use passwords from the vault")
                           ]
                           ),
     EnumSettingDefinition("db_annex_type",
@@ -124,5 +126,9 @@ definitions = [
     BooleanSettingDefinition("add_test_user",
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
+                             default_value=False),
+    BooleanSettingDefinition("include_template_reports",
+                             "Should we copy burden estimate templates from orderly into the contrib portal container?",
+                             "",
                              default_value=False)
 ]

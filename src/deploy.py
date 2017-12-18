@@ -14,7 +14,7 @@ from certificates import get_ssl_certificate
 from cli import add_test_user
 from git import git_check
 from service import MontaguService
-from service_config import configure_api, configure_proxy
+from service_config import configure_api, configure_proxy, configure_contrib_portal
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
@@ -106,6 +106,8 @@ def configure_montagu(service, is_first_time):
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
 
+    if service.settings["include_template_reports"]:
+        configure_contrib_portal(service)
 
 def deploy():
     try:

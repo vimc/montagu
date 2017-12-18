@@ -24,6 +24,8 @@ services:
     image: ${MONTAGU_REGISTRY}/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     depends_on:
       - api
+    volumes:
+      - template_volume:/usr/share/nginx/html/templates
   admin:
     image: ${MONTAGU_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     depends_on:
@@ -54,4 +56,5 @@ services:
 volumes:
   db_volume:
   orderly_volume:
+  template_volume:
   emails:
