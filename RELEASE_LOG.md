@@ -304,3 +304,11 @@
 
 ## Other branches merged in this release
 
+# v0.9.3
+
+## Tickets
+* i1182_copy_templates: Copy templates from orderly store to running contrib portal container
+* i1182_removetemplates: Copy templates from orderly store to running contrib portal container
+
+## Other branches merged in this release
+
