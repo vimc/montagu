@@ -7,3 +7,8 @@ def run(cmd, working_dir=None):
     result = subprocess.run(parts, check=True, stdout=subprocess.PIPE,
                             universal_newlines=True, cwd=working_dir)
     return result.stdout.strip()
+
+
+def fetch():
+    print("Fetching from remote...")
+    run("git fetch --tags --all")

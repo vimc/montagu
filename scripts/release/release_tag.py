@@ -1,6 +1,6 @@
 import re
 from functools import total_ordering
-from helpers import run
+from helpers import run, fetch
 
 release_tag_pattern = re.compile(r"^v(\d+)\.(\d+)\.(\d+)(?:-RC(\d+))?$")
 
@@ -53,6 +53,7 @@ def validate_release_tag(tag):
 
 
 def get_latest_release_tag():
+    fetch()
     tags = run("git tag").split('\n')
     release_tags = sorted(ReleaseTag.parse(t) for t in tags if release_tag_pattern.match(t))
     return str(release_tags[-1])

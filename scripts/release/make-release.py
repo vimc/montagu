@@ -15,7 +15,7 @@ from io import StringIO
 
 from docopt import docopt
 
-from helpers import run
+from helpers import run, fetch
 from release_tag import get_latest_release_tag, version_greater_than
 from tickets import check_tickets, tag_tickets
 from tickets import NOT_FOUND
@@ -71,11 +71,6 @@ def commit_and_tag():
     run("git commit -m \"{msg}\"".format(msg=release_message))
     print("* Tagging")
     tag(new_tag, release_message)
-
-
-def fetch():
-    print("Fetching from remote...")
-    run("git fetch --tags --all")
 
 
 def update_youtrack(branches_and_tickets, test_run):
