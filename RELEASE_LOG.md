@@ -312,3 +312,11 @@
 
 ## Other branches merged in this release
 
+# v0.9.4
+
+## Tickets
+* i1174: Restore fetch functionality to ./deploy.py
+* i790: Test data import is broken
+
+## Other branches merged in this release
+
