@@ -328,3 +328,10 @@
 
 ## Other branches merged in this release
 
+# v0.9.6
+
+## Tickets
+* i1238: Bug - close button styling missing
+
+## Other branches merged in this release
+
