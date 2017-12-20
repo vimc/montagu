@@ -320,3 +320,11 @@
 
 ## Other branches merged in this release
 
+# v0.9.5
+
+## Tickets
+* i1234: Add 'open' flag to responsibility
+* i1237: add rubella_infections to db
+
+## Other branches merged in this release
+
