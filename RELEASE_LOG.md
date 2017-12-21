@@ -343,3 +343,12 @@
 
 ## Other branches merged in this release
 
+# v0.9.8
+
+## Tickets
+* i1151: fix warnings in tests caused by components
+* i1178: New API endpoint to fetch touchstones where a modelling group has a responsibility set
+* i1243: Bug: stochastic params template missing
+
+## Other branches merged in this release
+
