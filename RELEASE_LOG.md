@@ -335,3 +335,11 @@
 
 ## Other branches merged in this release
 
+# v0.9.7
+
+## Tickets
+* i1235: Only return open responsibilities from API
+* i1235_dbinterface: Only return open responsibilities from API
+
+## Other branches merged in this release
+
