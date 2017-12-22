@@ -366,3 +366,11 @@
 ## Other branches merged in this release
 * 1100
 
+# v0.9.10
+
+## Tickets
+* i1242: tweaks to burden estimate upload page
+* i1246: hardcode new template links
+
+## Other branches merged in this release
+
