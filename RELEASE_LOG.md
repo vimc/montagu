@@ -389,3 +389,11 @@
 
 ## Other branches merged in this release
 
+# v0.9.13
+
+## Tickets
+* i1241: Update deadlines on model outputs guidance page
+* i562: Only show touchstones where selected modelling group has a responsibility
+
+## Other branches merged in this release
+
