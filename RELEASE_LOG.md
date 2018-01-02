@@ -374,3 +374,11 @@
 
 ## Other branches merged in this release
 
+# v0.9.11
+
+## Tickets
+* i1249: Error 404 does not come back as JSON
+* i562: Only show touchstones where selected modelling group has a responsibility
+
+## Other branches merged in this release
+
