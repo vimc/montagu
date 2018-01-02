@@ -382,3 +382,10 @@
 
 ## Other branches merged in this release
 
+# v0.9.12
+
+## Tickets
+* i562: Only show touchstones where selected modelling group has a responsibility
+
+## Other branches merged in this release
+
