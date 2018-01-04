@@ -55,10 +55,10 @@ services:
     command: --port 8321 --go-signal /orderly_go /orderly
   shiny:
     image: ${MONTAGU_REGISTRY}/montagu-shiny:${MONTAGU_SHINY_VERSION}
-    ports:
-      - "3838:3838"
     volumes:
       - shiny_volume:/srv/shiny-server/apps
+  shiny_proxy:
+    image: ${MONTAGU_REGISTRY}/montagu-shiny-proxy:${MONTAGU_SHINY_VERSION}
 
 volumes:
   db_volume:

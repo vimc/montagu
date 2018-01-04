@@ -56,7 +56,8 @@ def get_token_keypair():
     run_cert_tool("gen-keypair", paths.token_keypair, args=['/working'])
     result = {
         "private": join(paths.token_keypair, "private_key.der"),
-        "public": join(paths.token_keypair, "public_key.der")
+        "public": join(paths.token_keypair, "public_key.der"),
+        "public_pem": join(paths.token_keypair, "public_key.pem")
     }
     if (not isfile(result['private'])) or (not isfile(result['public'])):
         raise Exception("Obtaining token keypair failed: Missing file(s) in " + paths.token_keypair)
