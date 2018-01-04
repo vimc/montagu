@@ -404,3 +404,12 @@
 ## Other branches merged in this release
 * hotfix
 
+# v0.9.15
+
+## Tickets
+* i1253: Return disease with model run parameter sets
+* i1253_updateintegrationtests: Return disease with model run parameter sets
+* i1265: Only return touchstones with open responsibilities for a group
+
+## Other branches merged in this release
+
