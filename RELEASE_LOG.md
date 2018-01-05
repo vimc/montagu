@@ -413,3 +413,16 @@
 
 ## Other branches merged in this release
 
+# v0.9.16
+
+## Tickets
+* i1185: Integration tests should clean up even if they fail
+* i1186: Dropdowns have squashed buttons in Firefox
+* i1209: Allow user to download metadata blob that uniquely identifies model run parameter set
+* i1215_formchanges: Redesign model run parameter sets page
+* i1254: Replace guidance for modeller applicants & hide stochastic parameters template
+
+## Other branches merged in this release
+* templatelinks
+* templatelinks2
+
