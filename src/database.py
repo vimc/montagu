@@ -250,8 +250,7 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(service):
-    annex_settings = setup_annex(service)
+def setup(service, annex_settings):
 
     password_group = service.settings["password_group"]
     print("Setting up database users")

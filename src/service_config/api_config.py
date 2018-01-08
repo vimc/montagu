@@ -7,9 +7,10 @@ from docker_helpers import docker_cp
 from settings import get_secret
 
 api_db_user = "api"
+api_annex_user = "api"
 
 
-def configure_api(service, db_password: str, keypair_paths, hostname, send_emails: bool):
+def configure_api(service, db_password: str, keypair_paths, hostname, send_emails: bool, annex_settings):
     config_path = "/etc/montagu/api/"
     container = service.api
     print("Configuring API")
@@ -22,7 +23,7 @@ def configure_api(service, db_password: str, keypair_paths, hostname, send_email
 
     print("- Injecting settings into container")
     generate_api_config_file(service, config_path, db_password, hostname,
-                             send_emails)
+                             send_emails, annex_settings)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -63,16 +64,21 @@ def get_token_keypair():
     return result
 
 
-def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool):
+def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool, annex_settings):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
     print(" - Public URL: " + public_url)
     api_name = service.container_name("api")
+    root = annex_settings['users']['root']
 
     with open(config_file_path, "w") as file:
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
+        print("annex.username={}".format(root.name), file=file)
+        print("annex.password={}".format(root.password), file=file)
+        print("annex.host={}".format(annex_settings['host']), file=file)
+        print("annex.port={}".format(annex_settings['port']), file=file)
         print("app.url={}".format(public_url), file=file)
         configure_email(file, send_emails)
 
