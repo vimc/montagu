@@ -443,3 +443,10 @@
 
 ## Other branches merged in this release
 
+# v0.10.1
+
+## Tickets
+* i1274: Update model outputs guidance page
+
+## Other branches merged in this release
+
