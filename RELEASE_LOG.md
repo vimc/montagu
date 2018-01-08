@@ -432,3 +432,14 @@
 
 ## Other branches merged in this release
 
+# v0.10.0
+
+## Tickets
+* i1128_password: Refactor all controllers to use new pattern
+* i1179: Link users to model run parameter upload page in portal
+* i1215_page]: Redesign model run parameter sets page
+* i1227: Large estimates are not streamed properly
+* i1273: Page should update model run param sets after successful upload
+
+## Other branches merged in this release
+
