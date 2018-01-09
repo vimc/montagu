@@ -17,7 +17,7 @@ from release_tag import get_latest_release_tag, validate_release_tag
 def checkout(version):
     print("checking out version {}".format(version))
     run(["git", "checkout", version], check = True)
-    run(["git", "submodule", "update"], check = True)
+    run(["git", "submodule", "update", "--recursive"], check = True)
 
 def deploy():
     run("./src/deploy.py", check = True)
