@@ -77,8 +77,6 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         print("db.password={}".format(db_password), file=file)
         print("annex.username={}".format(root.name), file=file)
         print("annex.password={}".format(root.password), file=file)
-        print("annex.host={}".format(annex_settings['host']), file=file)
-        print("annex.port={}".format(annex_settings['port']), file=file)
         print("app.url={}".format(public_url), file=file)
         configure_email(file, send_emails)
 
