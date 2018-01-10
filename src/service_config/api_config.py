@@ -11,7 +11,7 @@ api_annex_user = "api"
 
 
 def configure_api(service, db_password: str, keypair_paths, hostname, send_emails: bool,
-                  add_annex: bool, annex_user: str, annex_password: str):
+                  add_annex: bool, annex_user):
     config_path = "/etc/montagu/api/"
     container = service.api
     print("Configuring API")
@@ -66,8 +66,7 @@ def get_token_keypair():
 
 
 def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool,
-                             add_annex: bool, annex_user: str,
-                             annex_password: str):
+                             add_annex: bool, annex_user):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
@@ -78,7 +77,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
         print("app.url={}".format(public_url), file=file)
-        configure_annex(file, annex_user, annex_password, add_annex)
+        configure_annex(file, annex_user.name, annex_user.password, add_annex)
         configure_email(file, send_emails)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))

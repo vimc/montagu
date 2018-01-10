@@ -105,7 +105,7 @@ def configure_montagu(service, is_first_time):
     send_emails = service.settings["password_group"] == 'production'
     add_annex = service.settings["db_annex_type"] != 'readonly'
     configure_api(service, passwords['api'], token_keypair_paths,
-                  service.settings["hostname"], send_emails, add_annex, annex_root_user.name, annex_root_user.password)
+                  service.settings["hostname"], send_emails, add_annex, annex_root_user)
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
 
