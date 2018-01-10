@@ -450,3 +450,17 @@
 
 ## Other branches merged in this release
 
+# v0.10.2
+
+## Tickets
+* i1217: ModellingGroupController
+* i1217_coverage: ModellingGroupController
+* i1217_model_run_parameters: ModellingGroupController
+* i1217_responsibility: ModellingGroupController
+* i1261: API is not following spec for model run params endpoint
+* i1290: submodule update needs to be recursive
+* i1291: staging machines too small to hold db
+* i1294: backup setup is broken
+
+## Other branches merged in this release
+
