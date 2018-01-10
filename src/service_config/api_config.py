@@ -10,7 +10,8 @@ api_db_user = "api"
 api_annex_user = "api"
 
 
-def configure_api(service, db_password: str, keypair_paths, hostname, send_emails: bool, annex_user: str, annex_password: str):
+def configure_api(service, db_password: str, keypair_paths, hostname, send_emails: bool,
+                  add_annex: bool, annex_user: str, annex_password: str):
     config_path = "/etc/montagu/api/"
     container = service.api
     print("Configuring API")
@@ -23,7 +24,7 @@ def configure_api(service, db_password: str, keypair_paths, hostname, send_email
 
     print("- Injecting settings into container")
     generate_api_config_file(service, config_path, db_password, hostname,
-                             send_emails, annex_user, annex_password)
+                             send_emails, add_annex, annex_user, annex_password)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -64,7 +65,9 @@ def get_token_keypair():
     return result
 
 
-def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool, annex_user: str, annex_password: str):
+def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool,
+                             add_annex: bool, annex_user: str,
+                             annex_password: str):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
@@ -74,12 +77,17 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
     with open(config_file_path, "w") as file:
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
-        print("annex.username={}".format(annex_user), file=file)
-        print("annex.password={}".format(annex_password), file=file)
         print("app.url={}".format(public_url), file=file)
+        configure_annex(file, annex_user, annex_password, add_annex)
         configure_email(file, send_emails)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
+
+
+def configure_annex(file, annex_user, annex_password, add_annex: bool):
+    if add_annex:
+        print("annex.username={}".format(annex_user), file=file)
+        print("annex.password={}".format(annex_password), file=file)
 
 
 def configure_email(file, send_emails: bool):
