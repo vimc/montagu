@@ -24,7 +24,7 @@ def configure_api(service, db_password: str, keypair_paths, hostname, send_email
 
     print("- Injecting settings into container")
     generate_api_config_file(service, config_path, db_password, hostname,
-                             send_emails, add_annex, annex_user, annex_password)
+                             send_emails, add_annex, annex_user)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
