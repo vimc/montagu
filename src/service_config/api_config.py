@@ -66,7 +66,7 @@ def get_token_keypair():
 
 
 def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool,
-                             add_annex: bool, annex_user):
+                             annex_user):
     mkdir(paths.config)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
@@ -82,7 +82,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         configure_email(file, send_emails)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
-    
+
 
 def configure_email(file, send_emails: bool):
     if send_emails:
