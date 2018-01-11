@@ -96,16 +96,19 @@ def configure_montagu(service, is_first_time):
 
     annex_settings = database.setup_annex(service)
     passwords = database.setup(service, annex_settings)
-    annex_root_user = annex_settings['users']['root']
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
     send_emails = service.settings["password_group"] == 'production'
-    add_annex = service.settings["db_annex_type"] != 'readonly'
+    if service.settings["db_annex_type"] == 'readonly':
+        annex_api_user = annex_settings['users']['readonly']
+    else:
+        annex_api_user = annex_settings['users']['root']
+
     configure_api(service, passwords['api'], token_keypair_paths,
-                  service.settings["hostname"], send_emails, add_annex, annex_root_user)
+                  service.settings["hostname"], send_emails, annex_api_user)
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
 
