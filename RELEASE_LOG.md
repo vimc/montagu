@@ -464,3 +464,15 @@
 
 ## Other branches merged in this release
 
+# v0.10.3
+
+## Tickets
+* i1126_anenx: When deploying, configure API to be able to write to annex
+* i1135: Set up shiny server
+* i1190: Store stochastic estimates in stochastic table in annex
+* i1190_annex: Store stochastic estimates in stochastic table in annex
+* i1301: Hide parameters section for applicant touchstone
+* i423: Try out full Disaster Recovery process
+
+## Other branches merged in this release
+
