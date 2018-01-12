@@ -246,7 +246,6 @@ def get_annex_settings(settings):
             "type": settings["db_annex_type"]}
 
 
-
 def setup_user(db, user):
     print(" - " + user.name)
     create_user(db, user)
