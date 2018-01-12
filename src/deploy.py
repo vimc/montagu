@@ -20,6 +20,7 @@ from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
 
+
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -111,6 +112,7 @@ def configure_montagu(service, is_first_time):
 
     if service.settings["include_template_reports"]:
         configure_contrib_portal(service)
+
 
 def deploy():
     try:
