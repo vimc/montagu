@@ -242,7 +242,8 @@ def get_annex_settings(settings):
             "port_from_deploy": port_from_deploy,
             "server_name": server_name,
             "migrate": migrate,
-            "users": users}
+            "users": users,
+            "type": settings["db_annex_type"]}
 
 
 def setup_user(db, user):
