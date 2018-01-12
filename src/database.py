@@ -12,6 +12,7 @@ from settings import get_secret
 
 root_user = "vimc"
 
+
 def user_configs(password_group):
     # Later, read these from a yml file?
     return [
@@ -49,13 +50,14 @@ class VaultPassword:
             return "annex/users/{}".format(self.username)
         else:
             return "database/{password_group}/users/{username}".format(
-                password_group = self.password_group, username = self.username)
+                password_group=self.password_group, username=self.username)
 
     def __str__(self):
         if self.password_group is None:
             return "Using default password value"
         else:
             return "From vault at " + self._path()
+
 
 class UserConfig:
     def __init__(self, name, permissions, password_source):
@@ -70,6 +72,7 @@ class UserConfig:
         if self._password is None:
             self._password = self.password_source.get()
         return self._password
+
 
 def set_root_password(service, password):
     query = "ALTER USER {user} WITH PASSWORD '{password}'".format(user=root_user, password=password)
@@ -88,12 +91,14 @@ def connect(user, password, host="localhost", port=5432):
     conn_string = conn_string_template.format(**conn_settings)
     return psycopg2.connect(conn_string)
 
+
 def connect_annex(annex_settings):
     root = annex_settings['users']['root']
     return connect(root.name,
                    root.password,
                    annex_settings["host_from_deploy"],
                    annex_settings["port_from_deploy"])
+
 
 def create_user(db, user):
     sql = """DO
@@ -123,6 +128,7 @@ def revoke_all(db, user):
 def grant_all(db, user):
     def grant_all_on(what):
         db.execute("GRANT ALL PRIVILEGES ON ALL {what} IN SCHEMA public TO {name}".format(name=user.name, what=what))
+
     print("  - Granting all permissions to {name}".format(name=user.name))
     grant_all_on("tables")
     grant_all_on("sequences")
@@ -133,21 +139,23 @@ def grant_readonly(db, user):
     print("  - Granting readonly permissions to {name}".format(name=user.name))
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
+
 def grant_readonly_annex(db, user, annex_settings):
     print(" - annex: mapping {} -> readonly".format(user.name))
     annex_readonly = annex_settings['users']['readonly']
     sql1 = "DROP USER MAPPING IF EXISTS FOR {name} " \
-           "SERVER montagu_db_annex;".format(name = user.name)
+           "SERVER montagu_db_annex;".format(name=user.name)
     sql2 = "CREATE USER MAPPING FOR {name} " \
            "SERVER {annex_server_name} " \
            "OPTIONS (user '{annex_readonly_user}', " \
            "password '{annex_readonly_password}');".format(
-               name = user.name,
-               annex_server_name = annex_settings['server_name'],
-               annex_readonly_user = annex_readonly.name,
-               annex_readonly_password = annex_readonly.password)
+        name=user.name,
+        annex_server_name=annex_settings['server_name'],
+        annex_readonly_user=annex_readonly.name,
+        annex_readonly_password=annex_readonly.password)
     db.execute(sql1)
     db.execute(sql2)
+
 
 def set_permissions(db, user):
     revoke_all(db, user)
@@ -158,6 +166,7 @@ def set_permissions(db, user):
     else:
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
+
 
 def migrate_schema_core(service, root_password, annex_settings):
     network_name = service.network_name
@@ -173,6 +182,7 @@ def migrate_schema_core(service, root_password, annex_settings):
           ["-user=vimc", "-password=" + root_password, "migrate"]
     run(cmd, check=True)
 
+
 def migrate_schema_annex(service, annex_settings):
     network_name = service.network_name
     print("- migrating annex schema")
@@ -186,6 +196,7 @@ def migrate_schema_annex(service, annex_settings):
            "-configFile=" + config_file,
            "-user=" + root.name, "-password=" + root.password, "migrate"]
     run(cmd, check=True)
+
 
 def get_annex_settings(settings):
     # This is not the name of the host, but the name used in the postgres
@@ -206,15 +217,15 @@ def get_annex_settings(settings):
     #     annex" mode this will be localhost and the port that is
     #     exposed via the supplementary docker compose file
     if settings["db_annex_type"] == "fake":
-        host = "db_annex" # docker container name in compose
+        host = "db_annex"  # docker container name in compose
         port = 5432
-        host_from_deploy = "localhost" # from host
+        host_from_deploy = "localhost"  # from host
         port_from_deploy = 15432
         migrate = True
         group = None
     else:
-        host = "annex.montagu.dide.ic.ac.uk" # address of our real server
-        port = 15432 # port of our real server
+        host = "annex.montagu.dide.ic.ac.uk"  # address of our real server
+        port = 15432  # port of our real server
         host_from_deploy = host
         port_from_deploy = port
         migrate = settings["db_annex_type"] == "real"
@@ -234,6 +245,7 @@ def get_annex_settings(settings):
             "users": users,
             "type": settings["db_annex_type"]}
 
+
 def setup_user(db, user):
     print(" - " + user.name)
     create_user(db, user)
@@ -252,7 +264,6 @@ def for_each_user(root_password, users, operation):
 
 
 def setup(service, annex_settings):
-
     password_group = service.settings["password_group"]
     print("Setting up database users")
     print("- Scrambling root password")
@@ -287,10 +298,11 @@ def setup(service, annex_settings):
     for_each_user(root_password, users, set_permissions)
 
     grant_readonly_annex_root(root_password, service.settings, annex_settings)
-    for_each_user(root_password, users, lambda d, u :
-                  grant_readonly_annex(d, u, annex_settings))
+    for_each_user(root_password, users, lambda d, u:
+    grant_readonly_annex(d, u, annex_settings))
 
     return passwords
+
 
 def setup_annex(service):
     print("Setting up annex")
@@ -302,6 +314,7 @@ def setup_annex(service):
         setup_annex_users(annex_settings)
     return annex_settings
 
+
 def setup_annex_users(annex_settings):
     print("Setting up annex users")
     readonly = annex_settings['users']['readonly']
@@ -309,13 +322,15 @@ def setup_annex_users(annex_settings):
         with conn.cursor() as cur:
             setup_user(cur, readonly)
 
+
 # NOTE: workaround because grant_readonly_annex requires a UserConfig
 # object - or rather something with a 'name' field
 def grant_readonly_annex_root(root_password, settings, annex_settings):
-    root = SimpleNamespace(name = root_user)
+    root = SimpleNamespace(name=root_user)
     with connect(root_user, root_password) as conn:
         with conn.cursor() as cur:
             grant_readonly_annex(cur, root, annex_settings)
+
 
 def prepare_db_for_import(service):
     print("Preparing databse for import")
