@@ -482,3 +482,10 @@
 
 ## Other branches merged in this release
 
+# v0.10.5
+
+## Tickets
+* i1314: Cannot upload parameter set, error on parameter page for all groups: Unexpected error occurred
+
+## Other branches merged in this release
+
