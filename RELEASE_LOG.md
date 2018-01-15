@@ -489,3 +489,14 @@
 
 ## Other branches merged in this release
 
+# v0.10.6
+
+## Tickets
+* i1262: Endpoint to download a model run param set
+* i1286: arch diagram does not show 5432 exposed out of production machine
+* i1309: Only connect to annex before writing to it
+* i1326: Add onetime link for GET model run parameter set
+* i1327: Add new GET model run param set to spec
+
+## Other branches merged in this release
+
