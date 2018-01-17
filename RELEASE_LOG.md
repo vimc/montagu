@@ -500,3 +500,13 @@
 
 ## Other branches merged in this release
 
+# v0.10.7
+
+## Tickets
+* i1045: Remove deprecated burden estimate endpoints
+* i1112: Streamed endpoints do not respect Accept-Encoding headers
+* i1338: Bug - we are still using the deprecated endpoint to populate burden estimate sets!
+* i1343: Add "hepb_infections_acute" to database
+
+## Other branches merged in this release
+
