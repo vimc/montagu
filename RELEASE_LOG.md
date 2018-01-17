@@ -510,3 +510,13 @@
 
 ## Other branches merged in this release
 
+# v0.10.8
+
+## Tickets
+* i1216: BurdenEstimatesController
+* i1216_prune: BurdenEstimatesController
+* i1326: Add onetime link for GET model run parameter set
+* i1339: include infections into Hep B output templates
+
+## Other branches merged in this release
+
