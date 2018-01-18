@@ -520,3 +520,16 @@
 
 ## Other branches merged in this release
 
+# v0.11.0
+
+## Tickets
+* i1295: Endpoint to set shiny cookie with claim, 'allowed_shiny'
+* i1321: Allow population of burden estimates split over multiple calls to API
+* i1321_logic_fix: Allow population of burden estimates split over multiple calls to API
+* i1321_repository: Allow population of burden estimates split over multiple calls to API
+* i1321_spec: Allow population of burden estimates split over multiple calls to API
+* i1329: Error when uploading central estimates (Hep B - ICL) 
+* i1362: Refactor user repo methods
+
+## Other branches merged in this release
+
