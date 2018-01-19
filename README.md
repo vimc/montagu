@@ -7,8 +7,10 @@
 * Your machine needs to trust our Docker Registry. See 
   ["Configuring docker clients to use the registry"](https://github.com/vimc/montagu-ci#configuring-docker-clients-to-use-the-registry)
 
-## Release process
-See [release process](ReleaseProcess.md)
+## Other docs process
+* [Release process](ReleaseProcess.md)
+* [Disaster recovery](docs/DisasterRecovery.md)
+* Upgrading and rebooting servers: [docs](docs/)
 
 ## Deploy
 As root:
@@ -86,9 +88,6 @@ This can be setup as a cron job to run every night (as is on `science`) by addin
 as `/etc/cron.d/montagu-restore-db`.
 
 However, care should be taken here because if the schema has been migrated in the production database the montagu api may not be able to talk to the database.  In practice this is probably not that much of a problem as we can just redeploy (and often will have deployed on science before deploying on production).
-
-## Disaster recovery
-See [here](docs/DisasterRecovery.md)
 
 ## Passwords
 
