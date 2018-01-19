@@ -34,6 +34,13 @@ important that the port you configure Montagu with matches the eventual port
 that users will be navigating to. So the port that Vagrant exposes the outside
 world must match.
 
+## Access the stage instances
+From within the VM you can browse to:
+
+UAT: https://support.montagu.dide.ic.ac.uk:10443
+
+Science: https://support.montagu.dide.ic.ac.uk:11443
+
 ## To rebuild a VM
 
 ```
