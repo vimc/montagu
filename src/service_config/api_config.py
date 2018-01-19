@@ -74,6 +74,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
     api_name = service.container_name("api")
 
     with open(config_file_path, "w") as file:
+        print("allow.localhost=false")
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
         print("app.url={}".format(public_url), file=file)
