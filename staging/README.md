@@ -1,18 +1,24 @@
 # Montagu staging
-First, SSH to the support machine and become the vagrant user
-
+First, SSH to the support machine
 ```
 ssh support.montagu.dide.ic.ac.uk
-sudo su vagrant
-cd ~/staging/staging
 ```
 
 ## To run the VMs
 ```
-vagrant up uat science
+sudo su vagrant
+cd ~/staging/staging
+vagrant up
 ```
 
-will bring up two VMs; one called `uat` and one called `science`.
+This will bring up two VMs; one called `uat` and one called `science`.
+
+## To stop the VMs
+```
+sudo su vagrant
+cd ~/staging/staging
+vagrant halt
+```
 
 ## To deploy on to a VM
 To deploy onto the stage VM of your choice:
