@@ -137,6 +137,8 @@ def tag_tickets(tickets, tag):
         return problems
 
     for ticket in tickets:
+        if ticket == NOT_FOUND:
+            pass
         success, response = yt.modify_ticket(ticket.id, "Fixed in build " + tag)
         if not success:
             template = "Failed to tag {id}. {status}: {text}"
