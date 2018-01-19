@@ -20,7 +20,7 @@ To deploy onto the stage VM of your choice:
 ```
 vagrant ssh uat            # or vagrant ssh science
 cd montagu
-./deploy.py
+./deploy.py                # or sudo deploy.py on science
 ```
 
 You will be asked a series of interactive configuration questions. It's 
