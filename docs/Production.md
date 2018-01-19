@@ -1,4 +1,4 @@
-# Support machine
+# Production machine
 production.montagu.dide.ic.ac.uk (also montagu.vaccineimpact.org)
 
 ## Services
