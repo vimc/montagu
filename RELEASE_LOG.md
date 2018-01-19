@@ -533,3 +533,15 @@
 
 ## Other branches merged in this release
 
+# v0.11.1
+
+## Tickets
+* i1135: Set up shiny server
+* i1296: Call cookie endpoint from webapps
+* i1322_split_tests: Add clear partial burden estimate set endpoint
+* i1367: Disable allowlocalhost in deploy
+
+## Other branches merged in this release
+* hotfixcookie
+* revert-11-i1135
+
