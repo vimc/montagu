@@ -545,3 +545,17 @@
 * hotfixcookie
 * revert-11-i1135
 
+# v0.11.2
+
+## Tickets
+* i1159: Rewrite Page with header without inheritance
+* i1322: Add clear partial burden estimate set endpoint
+* i1322_annex_database_tests: Add clear partial burden estimate set endpoint
+* i1322_refactor_estimate_writer: Add clear partial burden estimate set endpoint
+* i1322_repository: Add clear partial burden estimate set endpoint
+* i1322_status: Add clear partial burden estimate set endpoint
+* i1370: make release fails to update tix if branch without ticket merged in
+* i1372: Duplicate row exception thrown during inserting via COPY is not shown to user
+
+## Other branches merged in this release
+
