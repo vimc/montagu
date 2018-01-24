@@ -559,3 +559,15 @@
 
 ## Other branches merged in this release
 
+# v0.11.3
+
+## Tickets
+* i1272: Order responsibilities consistently
+* i1328: Link to get model run param set in portal
+* i1363: Do we check that the set ID belongs to the responsibility path?
+* i1369: Expire shiny cookie endpoint
+* i748: Don't show edit users link for non admins
+* i748_rename_components: Don't show edit users link for non admins
+
+## Other branches merged in this release
+
