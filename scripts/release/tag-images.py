@@ -39,6 +39,7 @@ container_repo_map = {
     "montagu-report-portal": "report-portal",
     "montagu-reporting-api": "reporting-api",
     "montagu-reverse-proxy": "proxy",
+    "montagu-shiny": "shiny",
     "montagu-shiny-proxy": "shiny"
 }
 
