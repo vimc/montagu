@@ -20,9 +20,14 @@ def get_past_submodule_version(path, master_repo_version):
     # <mode> SPACE <type> SPACE <object> TAB <file>
     # e.g. 160000 commit 6df8dcb6fb7b3d114552252782a4788f3349c6f9	src/models
     parts = re.split(r"\s+", result)
-    if len(parts) >= 4 and parts[1] == "commit":
-        version = parts[2]
-        return version[:7]
+    if result:
+        if len(parts) >= 4 and parts[1] == "commit":
+            version = parts[2]
+            return version[:7]
+    else:
+        print("Warning: Unable to find past version for submodule '{}'".format(
+            path))
+        return None
 
     template = "Unable to understand past Git status for submodule '{}': {}"
     raise Exception(template.format(path, result))

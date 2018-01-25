@@ -53,8 +53,11 @@ class Difference:
         current_version = get_submodule_version(submodule)
         previous_version = get_past_submodule_version(submodule,
                                                       past_main_repo_version)
-        d = Difference.get_branch_diff(current_version, previous_version,
-                                       working_dir=full_path)
+        if previous_version:
+            d = Difference.get_branch_diff(current_version, previous_version,
+                                           working_dir=full_path)
+        else:
+            d = []
         self.add(d, submodule)
 
     @classmethod
