@@ -571,3 +571,17 @@
 
 ## Other branches merged in this release
 
+# v0.11.4
+
+## Tickets
+* i1135: Set up shiny server
+* i1218: OnetimeLinkController
+* i1272: Order responsibilities consistently
+* i1308: Test annex restore
+* i1379: Call clear-shiny-token on logout
+* i1385: Add role for stochastic ingest tool
+* i355: Automatically convert URL parameters into structured data requirements
+* i652: If user is a member of non-existent modelling group, the modelling group portal will not load
+
+## Other branches merged in this release
+
