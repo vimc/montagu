@@ -28,3 +28,6 @@
 [submodule "submodules/orderly"]
 	path = submodules/orderly
 	url = https://github.com/vimc/montagu-orderly
+[submodule "submodules/shiny"]
+	path = submodules/shiny
+	url = https://github.com/vimc/montagu-shiny

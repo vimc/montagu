@@ -51,10 +51,18 @@ services:
     image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
     volumes:
       - orderly_volume:/orderly
+      - shiny_volume:/shiny
     command: --port 8321 --go-signal /orderly_go /orderly
+  shiny:
+    image: ${MONTAGU_REGISTRY}/montagu-shiny:${MONTAGU_SHINY_VERSION}
+    volumes:
+      - shiny_volume:/srv/shiny-server/apps
+  shiny_proxy:
+    image: ${MONTAGU_REGISTRY}/montagu-shiny-proxy:${MONTAGU_SHINY_VERSION}
 
 volumes:
   db_volume:
   orderly_volume:
   template_volume:
+  shiny_volume:
   emails:

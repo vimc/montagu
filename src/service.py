@@ -15,7 +15,9 @@ components = {
         "admin_portal": "admin",
         "reporting_portal": "report",
         "proxy": "proxy",
-        "orderly": "orderly"
+        "orderly": "orderly",
+        "shiny": "shiny",
+        "shiny_proxy": "shiny_proxy"
     },
     "volumes": {
         "db": "db_volume",
@@ -107,6 +109,10 @@ class MontaguService:
     @property
     def orderly(self):
         return self._get("orderly")
+
+    @property
+    def shiny_proxy(self):
+        return self._get("shiny_proxy")
 
     @property
     def db_volume_present(self):
