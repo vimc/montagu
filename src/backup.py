@@ -51,7 +51,7 @@ def schedule(service):
 
 def restore(service):
     print("Restoring from remote backup")
-    setup(service.settings)
+    setup(service)
     ## Because of the annex work we need to ensure that users *exist*
     ## here at this point and do that just before restoring the
     ## database.  This is all a bit nasty really.

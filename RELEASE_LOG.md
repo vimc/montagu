@@ -404,3 +404,158 @@
 ## Other branches merged in this release
 * hotfix
 
+# v0.9.15
+
+## Tickets
+* i1253: Return disease with model run parameter sets
+* i1253_updateintegrationtests: Return disease with model run parameter sets
+* i1265: Only return touchstones with open responsibilities for a group
+
+## Other branches merged in this release
+
+# v0.9.16
+
+## Tickets
+* i1185: Integration tests should clean up even if they fail
+* i1186: Dropdowns have squashed buttons in Firefox
+* i1209: Allow user to download metadata blob that uniquely identifies model run parameter set
+* i1215_formchanges: Redesign model run parameter sets page
+* i1254: Replace guidance for modeller applicants & hide stochastic parameters template
+
+## Other branches merged in this release
+* templatelinks
+* templatelinks2
+
+# v0.9.17
+
+## Tickets
+
+## Other branches merged in this release
+
+# v0.10.0
+
+## Tickets
+* i1128_password: Refactor all controllers to use new pattern
+* i1179: Link users to model run parameter upload page in portal
+* i1215_page]: Redesign model run parameter sets page
+* i1227: Large estimates are not streamed properly
+* i1273: Page should update model run param sets after successful upload
+
+## Other branches merged in this release
+
+# v0.10.1
+
+## Tickets
+* i1274: Update model outputs guidance page
+
+## Other branches merged in this release
+
+# v0.10.2
+
+## Tickets
+* i1217: ModellingGroupController
+* i1217_coverage: ModellingGroupController
+* i1217_model_run_parameters: ModellingGroupController
+* i1217_responsibility: ModellingGroupController
+* i1261: API is not following spec for model run params endpoint
+* i1290: submodule update needs to be recursive
+* i1291: staging machines too small to hold db
+* i1294: backup setup is broken
+
+## Other branches merged in this release
+
+# v0.10.3
+
+## Tickets
+* i1126_anenx: When deploying, configure API to be able to write to annex
+* i1135: Set up shiny server
+* i1190: Store stochastic estimates in stochastic table in annex
+* i1190_annex: Store stochastic estimates in stochastic table in annex
+* i1301: Hide parameters section for applicant touchstone
+* i423: Try out full Disaster Recovery process
+
+## Other branches merged in this release
+
+# v0.10.4
+
+## Tickets
+
+## Other branches merged in this release
+
+# v0.10.5
+
+## Tickets
+* i1314: Cannot upload parameter set, error on parameter page for all groups: Unexpected error occurred
+
+## Other branches merged in this release
+
+# v0.10.6
+
+## Tickets
+* i1262: Endpoint to download a model run param set
+* i1286: arch diagram does not show 5432 exposed out of production machine
+* i1309: Only connect to annex before writing to it
+* i1326: Add onetime link for GET model run parameter set
+* i1327: Add new GET model run param set to spec
+
+## Other branches merged in this release
+
+# v0.10.7
+
+## Tickets
+* i1045: Remove deprecated burden estimate endpoints
+* i1112: Streamed endpoints do not respect Accept-Encoding headers
+* i1338: Bug - we are still using the deprecated endpoint to populate burden estimate sets!
+* i1343: Add "hepb_infections_acute" to database
+
+## Other branches merged in this release
+
+# v0.10.8
+
+## Tickets
+* i1216: BurdenEstimatesController
+* i1216_prune: BurdenEstimatesController
+* i1326: Add onetime link for GET model run parameter set
+* i1339: include infections into Hep B output templates
+
+## Other branches merged in this release
+
+# v0.11.0
+
+## Tickets
+* i1295: Endpoint to set shiny cookie with claim, 'allowed_shiny'
+* i1321: Allow population of burden estimates split over multiple calls to API
+* i1321_logic_fix: Allow population of burden estimates split over multiple calls to API
+* i1321_repository: Allow population of burden estimates split over multiple calls to API
+* i1321_spec: Allow population of burden estimates split over multiple calls to API
+* i1329: Error when uploading central estimates (Hep B - ICL) 
+* i1362: Refactor user repo methods
+
+## Other branches merged in this release
+
+# v0.11.1
+
+## Tickets
+* i1135: Set up shiny server
+* i1296: Call cookie endpoint from webapps
+* i1322_split_tests: Add clear partial burden estimate set endpoint
+* i1367: Disable allowlocalhost in deploy
+
+## Other branches merged in this release
+* hotfixcookie
+* revert-11-i1135
+
+# v0.11.2
+
+## Tickets
+* i1159: Rewrite Page with header without inheritance
+* i1322: Add clear partial burden estimate set endpoint
+* i1322_annex_database_tests: Add clear partial burden estimate set endpoint
+* i1322_refactor_estimate_writer: Add clear partial burden estimate set endpoint
+* i1322_repository: Add clear partial burden estimate set endpoint
+* i1322_status: Add clear partial burden estimate set endpoint
+* i1370: make release fails to update tix if branch without ticket merged in
+* i1372: Duplicate row exception thrown during inserting via COPY is not shown to user
+
+## Other branches merged in this release
+

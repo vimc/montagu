@@ -21,6 +21,7 @@ from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
 
+
 def _deploy():
     print_ascii_art()
     print("Beginning Montagu deploy")
@@ -95,21 +96,24 @@ def configure_montagu(service, is_first_time):
         data_import.do(service)
     orderly.configure_orderly(service, not data_exists)
 
-    passwords = database.setup(service)
+    annex_settings = database.setup_annex(service)
+    passwords = database.setup(service, annex_settings)
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
     send_emails = service.settings["password_group"] == 'production'
+    add_annex = service.settings["db_annex_type"] != 'readonly'
     configure_api(service, passwords['api'], token_keypair_paths,
-                  service.settings["hostname"], send_emails)
+                  service.settings["hostname"], send_emails, annex_settings)
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
     configure_shiny_proxy(service, token_keypair_paths)
 
     if service.settings["include_template_reports"]:
         configure_contrib_portal(service)
+
 
 def deploy():
     try:

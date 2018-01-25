@@ -1,18 +1,24 @@
 # Montagu staging
-First, SSH to the support machine and become the vagrant user
-
+First, SSH to the support machine
 ```
 ssh support.montagu.dide.ic.ac.uk
-sudo su vagrant
-cd ~/staging/staging
 ```
 
 ## To run the VMs
 ```
-vagrant up uat science
+sudo su vagrant
+cd ~/staging/staging
+vagrant up
 ```
 
-will bring up two VMs; one called `uat` and one called `science`.
+This will bring up two VMs; one called `uat` and one called `science`.
+
+## To stop the VMs
+```
+sudo su vagrant
+cd ~/staging/staging
+vagrant halt
+```
 
 ## To deploy on to a VM
 To deploy onto the stage VM of your choice:
@@ -20,13 +26,20 @@ To deploy onto the stage VM of your choice:
 ```
 vagrant ssh uat            # or vagrant ssh science
 cd montagu
-./deploy.py
+./deploy.py                # or sudo deploy.py on science
 ```
 
 You will be asked a series of interactive configuration questions. It's 
 important that the port you configure Montagu with matches the eventual port
 that users will be navigating to. So the port that Vagrant exposes the outside
 world must match.
+
+## Access the stage instances
+From within the VM you can browse to:
+
+UAT: https://support.montagu.dide.ic.ac.uk:10443
+
+Science: https://support.montagu.dide.ic.ac.uk:11443
 
 ## To rebuild a VM
 
