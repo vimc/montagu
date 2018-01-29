@@ -54,7 +54,7 @@ def webapp_integration_tests():
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--run-tests":
         # Imitate a reboot of the system
-        print("Restarting Docker")
+        print("Restarting Docker", flush=True)
         run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
         api_blackbox_tests()
         webapp_integration_tests()
