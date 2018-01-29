@@ -585,3 +585,14 @@
 
 ## Other branches merged in this release
 
+# v0.12.0
+
+## Tickets
+* i1218_prune: OnetimeLinkController
+* i1389_teamcity_integration: Tidy up spec
+* i1391: Add shiny to proxy
+* i1398: Create burden estimate endpoint does not use `model_run_parameter_set` parameter
+
+## Other branches merged in this release
+* caddy
+

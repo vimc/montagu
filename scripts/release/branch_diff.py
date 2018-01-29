@@ -49,6 +49,7 @@ class Difference:
         self.add(Difference.get_branch_diff(past=past_version), "main")
 
     def add_submodule_diff(self, submodule, past_main_repo_version):
+        print("Checking {}".format(submodule))
         full_path = join("submodules", submodule)
         current_version = get_submodule_version(submodule)
         previous_version = get_past_submodule_version(submodule,
