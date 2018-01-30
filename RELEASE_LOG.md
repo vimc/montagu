@@ -596,3 +596,17 @@
 ## Other branches merged in this release
 * caddy
 
+# v0.12.1
+
+## Tickets
+* i1366: Restart Montagu on reboot
+* i1388: Only allow through users with claim 'allowed_shiny' set to true
+* i1389: Tidy up spec
+* i1405_compose: Bring over code that generates onetime tokens
+* i1405_optional_auth: Bring over code that generates onetime tokens
+* i1405_reformat_code: Bring over code that generates onetime tokens
+
+## Other branches merged in this release
+* hotfix
+* reformat_code
+
