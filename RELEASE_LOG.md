@@ -610,3 +610,12 @@
 * hotfix
 * reformat_code
 
+# v0.12.2
+
+## Tickets
+* i1418_failing_test: In certain conditions, non-validated data gets written to database, breaking transaction guarantees
+* i1418_fix: In certain conditions, non-validated data gets written to database, breaking transaction guarantees
+
+## Other branches merged in this release
+* allowlocalhostcookie
+
