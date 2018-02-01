@@ -619,3 +619,12 @@
 ## Other branches merged in this release
 * allowlocalhostcookie
 
+# v0.12.3
+
+## Tickets
+* i1418_fix: In certain conditions, non-validated data gets written to database, breaking transaction guarantees
+* i1419: Error message when applicant group uploads estimates
+
+## Other branches merged in this release
+* weird_branch
+
