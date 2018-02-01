@@ -26,6 +26,7 @@ services:
       - api
     volumes:
       - template_volume:/usr/share/nginx/html/templates
+      - guidance_volume:/usr/share/nginx/html/guidance
   admin:
     image: ${MONTAGU_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     depends_on:
@@ -64,5 +65,6 @@ volumes:
   db_volume:
   orderly_volume:
   template_volume:
+  guidance_volume:
   shiny_volume:
   emails:
