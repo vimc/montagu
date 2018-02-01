@@ -8,6 +8,7 @@ certs = '../certs'
 config = '../config'
 orderly = "../orderly"
 
+
 def delete_safely(path):
     try:
         shutil.rmtree(path)

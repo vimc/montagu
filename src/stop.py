@@ -5,7 +5,6 @@ from os.path import abspath, dirname
 # NOTE: if you remove 'import backup' here, then running this script
 # will fail for mysterious reasons - it looks like a circular
 # dependency but it seems weird that this would break it.
-import backup
 from service import MontaguService
 from settings import get_settings
 

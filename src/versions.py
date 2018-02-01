@@ -1,9 +1,9 @@
-import re
 from os.path import join
 from pathlib import Path
 from subprocess import run, PIPE
 
 montagu_root = str(Path(__file__).parent.parent)
+
 
 def get_submodule_version(path):
     full_path = join(montagu_root, "submodules", path)

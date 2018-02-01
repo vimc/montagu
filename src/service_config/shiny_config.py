@@ -1,4 +1,6 @@
 from docker_helpers import docker_cp
+
+
 def configure_shiny_proxy(service, keypair_paths):
     container = service.shiny_proxy
     print("Configuring shiny proxy API")

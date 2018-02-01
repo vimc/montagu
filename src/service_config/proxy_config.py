@@ -1,4 +1,3 @@
-import shutil
 from os.path import join
 from typing import Dict
 
@@ -17,5 +16,6 @@ def add_certificate_to_proxy(service, cert_paths: Dict[str, str]):
 
 def add_certificate(container, cert_paths, path):
     container.exec_run("mkdir -p {}".format(path))
-    docker_cp(cert_paths['certificate'], container.name, join(path, "certificate.pem"))
+    docker_cp(cert_paths['certificate'], container.name,
+              join(path, "certificate.pem"))
     docker_cp(cert_paths['key'], container.name, join(path, "ssl_key.pem"))

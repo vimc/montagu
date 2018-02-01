@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 import sys
 from os import chdir, makedirs
-
-from subprocess import run
 from os.path import abspath, dirname, join
+from subprocess import run
 
 import paths
 import versions
 from database import user_configs
 from docker_helpers import get_image_name
-from settings import get_settings
 from service import MontaguService
-
 from service_config import api_db_user
+from settings import get_settings
 
 
 def add_secure_config(password_group):
     makedirs(paths.config, exist_ok=True)
     path = join(paths.config, "cli.config.properties")
-    user = next(u for u in user_configs(password_group) if u.name == api_db_user)
+    user = next(
+        u for u in user_configs(password_group) if u.name == api_db_user)
 
     print("(Connecting to database as db user '{}')".format(user.name))
     with open(path, 'w') as f:
@@ -61,7 +60,8 @@ def add_test_user():
         command += add_secure_config(password_group)
 
     name = get_image_name("montagu-cli", versions.api)
-    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
+    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk",
+            "password"]
     run(command + [name] + args)
 
     args = ["addRole", "test.user", "user"]

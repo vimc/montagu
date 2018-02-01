@@ -31,6 +31,7 @@ components = {
 db_annex_container_name = "db_annex"
 db_annex_volume_name = "db_annex_volume"
 
+
 class MontaguService:
     def __init__(self, settings):
         self.client = docker.from_env()
@@ -54,11 +55,13 @@ class MontaguService:
     @property
     def status(self):
         expected = self.container_names
-        actual = dict((c.name, c) for c in self.client.containers.list(all=True))
+        actual = dict(
+            (c.name, c) for c in self.client.containers.list(all=True))
         unexpected = list(x for x in actual.keys() - expected
                           if x.startswith(self.docker_prefix + "_"))
         if any(unexpected):
-            raise Exception("There are unexpected Montagu-related containers running: {}".format(unexpected))
+            msg = "There are unexpected Montagu-related containers running: {}"
+            raise Exception(msg.format(unexpected))
 
         services = list(c for c in actual.values() if c.name in expected)
         statuses = set(c.status for c in services)
@@ -69,8 +72,9 @@ class MontaguService:
             return None
         else:
             status_map = dict((c.name, c.status) for c in services)
-            raise Exception("Montagu service is in a indeterminate state. "
-                            "Manual intervention is required.\nStatus: {}".format(status_map))
+            message = "Montagu service is in a indeterminate state. "
+            "Manual intervention is required.\nStatus: {}"
+        raise Exception(message.format(status_map))
 
     def container_name(self, name):
         return "{}_{}_1".format(self.docker_prefix, self.containers[name])
@@ -158,6 +162,8 @@ class MontaguService:
         print("- Checking Montagu has started successfully")
         sleep(2)
         if self.status != "running":
-            raise Exception("Failed to start Montagu. Service status is {}".format(self.status))
+            message = "Failed to start Montagu. Service status is {}"
+            raise Exception(message.format(self.status))
+
 
 __all__ = ["MontaguService"]

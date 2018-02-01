@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import os
 import pprint
-from os.path import join
 from subprocess import run
 
 import versions

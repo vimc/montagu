@@ -1,5 +1,6 @@
-from docker_helpers import copy_between_volumes
 from os.path import join
+
+from docker_helpers import copy_between_volumes
 
 
 def configure_contrib_portal(service):
@@ -13,7 +14,8 @@ def configure_contrib_portal(service):
 
 def add_templates_to_contrib_portal(service, path_to_templates):
     print("- Copying burden estimate templates from orderly to contrib portal")
-    copy_between_volumes(service.volume_name("orderly"), service.volume_name("templates"), path_to_templates)
+    copy_between_volumes(service.volume_name("orderly"),
+                         service.volume_name("templates"), path_to_templates)
 
 
 def get_template_report_versions():

@@ -1,7 +1,7 @@
 from subprocess import Popen
-from docker_helpers import montagu_registry
 
 import versions
+from docker_helpers import montagu_registry
 
 
 def start(settings):
@@ -29,7 +29,8 @@ def run(args, settings):
     p = Popen(cmd, env=get_env(settings), shell=True)
     p.wait()
     if p.returncode != 0:
-        raise Exception("An error occurred: docker-compose returned {}".format(p.returncode))
+        raise Exception("An error occurred: docker-compose returned {}".format(
+            p.returncode))
 
 
 def get_env(settings):

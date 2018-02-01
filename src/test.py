@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-from subprocess import run
-
 import sys
+from subprocess import run
 
 import versions
 from docker_helpers import get_image_name, pull
@@ -38,15 +37,17 @@ def webapp_integration_tests():
             "docker", "run",
             "--rm",
             "--network", "montagu_default",
-            "-v", "/opt/teamcity-agent/.docker/config.json:/root/.docker/config.json",
+            "-v",
+            "/opt/teamcity-agent/.docker/config.json:/root/.docker/config.json",
             "-v", "/var/run/docker.sock:/var/run/docker.sock",
             image,
-            portal.title()  # Tests expect capitalized first letter, e.g. "Admin"
+            portal.title()
+            # Tests expect capitalized first letter, e.g. "Admin"
         ], check=True)
 
     def work():
         run_suite("admin", versions.admin_portal)
-        run_suite("contrib", versions.contrib_portal)        
+        run_suite("contrib", versions.contrib_portal)
 
     run_in_teamcity_block("webapp_integration_tests", work)
 
@@ -56,6 +57,7 @@ if __name__ == "__main__":
         api_blackbox_tests()
         webapp_integration_tests()
     else:
-        print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
+        print(
+            "Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")
         exit(-1)

@@ -30,7 +30,8 @@ class SettingDefinition:
             except Exception as e:
                 print("Unable to get value for {}".format(self.name))
                 raise
-            if (answer is None or str(answer).strip() == "") and (self.default_value is not None):
+            if (answer is None or str(answer).strip() == "") and (
+                    self.default_value is not None):
                 answer = self.default_value
 
         return answer

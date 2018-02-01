@@ -1,12 +1,9 @@
 from os import makedirs
-from os.path import join, isfile, abspath
+from os.path import join, isfile
 from shutil import copy
-from subprocess import run, PIPE
 
 import paths
-import versions
 from cert_tool import run_cert_tool
-from docker_helpers import get_image_name
 from settings import save_secret
 
 
@@ -26,7 +23,8 @@ def get_ssl_certificate(certificate_type: str):
         raise Exception("Unsupported certificate type: " + certificate_type)
 
     if (not isfile(result['certificate'])) or (not isfile(result['key'])):
-        raise Exception("Obtaining certificate failed: Missing file(s) in " + paths.ssl)
+        raise Exception(
+            "Obtaining certificate failed: Missing file(s) in " + paths.ssl)
     return result
 
 
@@ -55,7 +53,8 @@ def self_signed():
 
 def production():
     print("- Using production certificate (montagu.vaccineimpact.org)")
-    return real_certificate("production", "montagu.vaccineimpact.org.crt", "ssl/production")
+    return real_certificate("production", "montagu.vaccineimpact.org.crt",
+                            "ssl/production")
 
 
 def support():

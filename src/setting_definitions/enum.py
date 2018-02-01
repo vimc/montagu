@@ -4,7 +4,8 @@ from .definition import SettingDefinition
 
 
 class EnumSettingDefinition(SettingDefinition):
-    def __init__(self, name: str, question: str, options: List[Tuple[str, str]], default_value=None,
+    def __init__(self, name: str, question: str, options: List[Tuple[str, str]],
+                 default_value=None,
                  first_time_only=False):
         super().__init__(name, question, "", default_value, first_time_only)
         self.full_options = options
@@ -20,4 +21,5 @@ class EnumSettingDefinition(SettingDefinition):
     def print_guidance(self):
         print("Options:")
         for key, description in self.full_options:
-            print("- {key}: {description}".format(key=key, description=description))
+            print("- {key}: {description}".format(key=key,
+                                                  description=description))

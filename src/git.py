@@ -1,5 +1,6 @@
 from subprocess import run, PIPE
 
+
 # The idea here is to prevent deploying into production a system that
 # is untagged and/or has a dirty git status (the latter is most
 # commonly triggered by a submodule being out of date - seen with the
@@ -19,6 +20,7 @@ from subprocess import run, PIPE
 # machine, so it would be good if that did not happen.
 def git_check(settings):
     strict = settings["require_clean_git"]
+
     def report(msg):
         if strict:
             raise Exception(msg)
@@ -33,7 +35,6 @@ def git_check(settings):
 
     is_clean = git_is_clean()
 
-
     if not is_clean:
         report("git status reports directory is unclean")
 
@@ -44,26 +45,29 @@ def git_check(settings):
     else:
         tag_str = tag
 
-    print("This is montagu {tag} ({sha})".format(tag = tag_str, sha = sha))
+    print("This is montagu {tag} ({sha})".format(tag=tag_str, sha=sha))
     return {'sha': sha, 'tag': tag, 'clean': is_clean}
 
+
 def git_is_clean():
-    p = run(["git", "status", "-s"], stdout = PIPE, stderr = PIPE,
-            check = True)
+    p = run(["git", "status", "-s"], stdout=PIPE, stderr=PIPE,
+            check=True)
     return len(p.stdout) == 0
+
 
 def git_get_tag(ref):
     args = ["git", "describe", "--tags", "--exact-match", ref]
-    p = run(args, stdout = PIPE, stderr = PIPE)
+    p = run(args, stdout=PIPE, stderr=PIPE)
     if p.returncode == 0:
         tag = p.stdout.decode("utf-8").strip()
     else:
         tag = None
     return tag
 
+
 def git_sha():
     args = ["git", "rev-parse", "HEAD"]
-    p = run(args, stdout = PIPE, stderr = PIPE)
+    p = run(args, stdout=PIPE, stderr=PIPE)
     code = p.returncode
     # Emprically, on teamcity, when this is run out of the git tree
     # git returns error code 128.  Unfortunately this seems to be a

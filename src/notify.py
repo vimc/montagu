@@ -1,6 +1,9 @@
-from settings import get_secret
-import requests
 import json
+
+import requests
+
+from settings import get_secret
+
 
 class Notifier:
     def __init__(self, channel):
@@ -12,6 +15,7 @@ class Notifier:
             self.username = "montagu-bot"
             self.icon = ":robot_face:"
             self.headers = {'Content-Type': 'application/json'}
+
     def post(self, message):
         if not self.enabled:
             return

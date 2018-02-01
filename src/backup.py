@@ -2,7 +2,6 @@ from os import makedirs
 from subprocess import run, DEVNULL
 
 import pystache as pystache
-from os.path import isdir
 
 from database import prepare_db_for_import
 from last_deploy import last_restore_update
@@ -24,7 +23,8 @@ def configure(service):
 
 
 def needs_setup():
-    return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
+    return run("../backup/needs-setup.sh", stdout=DEVNULL,
+               stderr=DEVNULL).returncode == 1
 
 
 def setup(service):

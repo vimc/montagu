@@ -25,13 +25,15 @@ def load_settings():
 
     return settings
 
+
 def prepare_for_vault_access(address, quiet=False):
     os.environ["VAULT_ADDR"] = address
     if "VAULT_AUTH_GITHUB_TOKEN" in os.environ:
         if not quiet:
             print("Already authenticated with Vault")
     else:
-        token = getpass("Please enter your Vault GitHub personal access token: ")
+        token = getpass(
+            "Please enter your Vault GitHub personal access token: ")
         os.environ["VAULT_AUTH_GITHUB_TOKEN"] = token
         run(["vault", "auth", "-method=github"], check=True)
 
@@ -46,8 +48,10 @@ def get_settings(quiet=False):
             if d.is_required(settings):
                 if not showed_prompt:
                     showed_prompt = True
-                    print("I'm going to ask you some questions to determine how Montagu should be deployed.\n"
-                          "Your answers will be stored in {}.".format(abspath(path)))
+                    print(
+                        "I'm going to ask you some questions to determine how Montagu should be deployed.\n"
+                        "Your answers will be stored in {}.".format(
+                            abspath(path)))
 
                 key = d.name
                 value = d.ask()
@@ -77,17 +81,21 @@ def save_settings(settings):
 
 def get_secret(secret_path, field="value"):
     secret_path = "secret/{}".format(secret_path)
-    return check_output(["vault", "read", "-field=" + field, secret_path]).decode('utf-8')
+    return check_output(
+        ["vault", "read", "-field=" + field, secret_path]).decode('utf-8')
+
 
 def set_secret(secret_path, value, field="value"):
     secret_path = "secret/{}".format(secret_path)
-    pair = "{field}={value}".format(field = field, value = value)
+    pair = "{field}={value}".format(field=field, value=value)
     check_output(["vault", "write", secret_path, pair])
+
 
 def list_secrets(secret_path):
     secret_path = "secret/{}".format(secret_path)
     x = check_output(["vault", "list", "-format=json", secret_path])
     return json.loads(x.decode("utf-8"))
+
 
 def save_secret(secret_path, output, field="value"):
     secret = get_secret(secret_path, field)

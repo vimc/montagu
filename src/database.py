@@ -16,16 +16,22 @@ root_user = "vimc"
 def user_configs(password_group):
     # Later, read these from a yml file?
     return [
-        UserConfig(api_db_user, 'all', VaultPassword(password_group, api_db_user)),
-        UserConfig('import', 'all', VaultPassword(password_group, 'import')),
-        UserConfig('orderly', 'all', VaultPassword(password_group, 'orderly')),
-        UserConfig('readonly', 'readonly', VaultPassword(password_group, 'readonly')),
+        UserConfig(api_db_user, 'all',
+                   VaultPassword(password_group, api_db_user)),
+        UserConfig('import', 'all',
+                   VaultPassword(password_group, 'import')),
+        UserConfig('orderly', 'all',
+                   VaultPassword(password_group, 'orderly')),
+        UserConfig('readonly', 'readonly',
+                   VaultPassword(password_group, 'readonly')),
     ]
 
 
 class GeneratePassword:
     def get(self):
-        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(50))
+        chars = string.ascii_uppercase + string.digits
+        choice = random.SystemRandom().choice
+        return ''.join(choice(chars) for _ in range(50))
 
     def __str__(self):
         return "Generated"
@@ -75,8 +81,10 @@ class UserConfig:
 
 
 def set_root_password(service, password):
-    query = "ALTER USER {user} WITH PASSWORD '{password}'".format(user=root_user, password=password)
-    service.db.exec_run('psql -U {user} -d postgres -c "{query}"'.format(user=root_user, query=query))
+    query = "ALTER USER {user} WITH PASSWORD '{password}'"
+    query = query.format(user=root_user, password=password)
+    cmd = 'psql -U {user} -d postgres -c "{query}"'
+    service.db.exec_run(cmd.format(user=root_user, query=query))
 
 
 def connect(user, password, host="localhost", port=5432):
@@ -113,12 +121,15 @@ $body$""".format(name=user.name, password=user.password)
 
 
 def set_password(db, user):
-    db.execute("ALTER USER {name} WITH PASSWORD '{password}'".format(name=user.name, password=user.password))
+    query = "ALTER USER {name} WITH PASSWORD '{password}'"
+    db.execute(query.format(name=user.name, password=user.password))
 
 
 def revoke_all(db, user):
+    query = "REVOKE ALL PRIVILEGES ON ALL {what} IN SCHEMA public FROM {name}"
+
     def revoke_all_on(what):
-        db.execute("REVOKE ALL PRIVILEGES ON ALL {what} IN SCHEMA public FROM {name}".format(name=user.name, what=what))
+        db.execute(query.format(name=user.name, what=what))
 
     revoke_all_on("tables")
     revoke_all_on("sequences")
@@ -126,8 +137,10 @@ def revoke_all(db, user):
 
 
 def grant_all(db, user):
+    query = "GRANT ALL PRIVILEGES ON ALL {what} IN SCHEMA public TO {name}"
+
     def grant_all_on(what):
-        db.execute("GRANT ALL PRIVILEGES ON ALL {what} IN SCHEMA public TO {name}".format(name=user.name, what=what))
+        db.execute(query.format(name=user.name, what=what))
 
     print("  - Granting all permissions to {name}".format(name=user.name))
     grant_all_on("tables")
@@ -137,7 +150,8 @@ def grant_all(db, user):
 
 def grant_readonly(db, user):
     print("  - Granting readonly permissions to {name}".format(name=user.name))
-    db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
+    query = "GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}"
+    db.execute(query.format(name=user.name))
 
 
 def grant_readonly_annex(db, user, annex_settings):
@@ -165,7 +179,8 @@ def set_permissions(db, user):
         grant_readonly(db, user)
     else:
         template = "Unhandled permission type '{permissions}' for user '{name}'"
-        raise Exception(template.format(name=user.name, permissions=user.permissions))
+        raise Exception(
+            template.format(name=user.name, permissions=user.permissions))
 
 
 def migrate_schema_core(service, root_password, annex_settings):
@@ -279,7 +294,8 @@ def setup(service, annex_settings):
     print("- Getting user passwords")
     passwords = {}
     for user in users:
-        print(" - {name}: {source}".format(name=user.name, source=user.password_source))
+        print(" - {name}: {source}".format(name=user.name,
+                                           source=user.password_source))
         passwords[user.name] = user.password
 
     # NOTE: As I work through this - why not set up users *after* the
