@@ -1,5 +1,20 @@
 #!/usr/bin/env python3
+
+"""
+Run integration tests on a deployed Montagu instance
+
+Usage:
+  test.py --run-tests [--simulate-restart]
+
+Options:
+  --run-tests         Required. This is included to prevent accidentally
+                      running the tests in a live environment.
+  --simulate-restart  Restart the Docker daemon before running the tests,
+                      to simulate recovery from a system reboot.
+"""
+
 from subprocess import run
+from docopt import docopt
 
 import sys
 
@@ -52,7 +67,12 @@ def webapp_integration_tests():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--run-tests":
+    args = docopt(__doc__)
+    if args["--run-tests"]:
+        if args["--simulate-restart"]:
+            # Imitate a reboot of the system
+            print("Restarting Docker", flush=True)
+            run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
         api_blackbox_tests()
         webapp_integration_tests()
     else:
