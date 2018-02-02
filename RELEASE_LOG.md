@@ -628,3 +628,18 @@
 ## Other branches merged in this release
 * weird_branch
 
+# v0.12.4
+
+## Tickets
+* i1366: Restart Montagu on reboot
+* i1405: Bring over code that generates onetime tokens
+* i1417: schema links are broken
+* i1427: Post to create burden estimate endpoint returns incorrect URL
+* i1429: Duplicate row exceptions in stochastic burden estimates are not bubbled out to API response
+* i1433: Non-deterministic test failure relating to burden estimate writer
+* i1437: DB import image needs tidyr
+* i1442: Unique constraint on burden_estimate_stochastic does not take into account run_id
+* i372: Fix country metadata
+
+## Other branches merged in this release
+
