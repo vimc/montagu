@@ -34,8 +34,8 @@ world must match.
 vagrant ssh uat -c '/vagrant/record-montagu-configuration'
 vagrant destroy uat
 vboxmanage closemedium disk disk/uat.vdi --delete
-vagrant up uat
 ./restore-prepare.sh
+vagrant up uat
 vagrant ssh uat -c '/vagrant/restore'
 ```
 
@@ -44,8 +44,8 @@ vagrant ssh uat -c '/vagrant/restore'
 ```
 vagrant destroy -f restore-test
 vboxmanage closemedium disk disk/restore-test.vdi --delete
-vagrant up restore-test
 ./restore-prepare.sh
+vagrant up restore-test
 vagrant ssh restore-test -c '/vagrant/restore'
 ```
 
