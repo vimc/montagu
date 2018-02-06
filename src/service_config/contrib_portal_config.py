@@ -21,9 +21,9 @@ def add_templates_to_contrib_portal(service, path_to_templates):
     copy_between_volumes(service.volume_name("orderly"), service.volume_name("templates"), path_to_templates)
 
 
-def add_guidance_to_contrib_portal(service, path_to_templates):
+def add_guidance_to_contrib_portal(service, path_to_reports):
     print("- Copying burden estimate templates from orderly to contrib portal")
-    copy_between_volumes(service.volume_name("orderly"), service.volume_name("guidance"), path_to_templates)
+    copy_between_volumes(service.volume_name("orderly"), service.volume_name("guidance"), path_to_reports)
 
 
 def get_template_report_versions():
