@@ -22,7 +22,8 @@ components = {
     "volumes": {
         "db": "db_volume",
         "orderly": "orderly_volume",
-        "templates": "template_volume"
+        "templates": "template_volume",
+        "guidance": "guidance_volume"
     },
     "network": "default"
 }

@@ -12,7 +12,7 @@ def configure_contrib_portal(service):
             add_templates_to_contrib_portal(service, path_to_templates)
     for p in guidance_paths:
         if len(p) > 0:
-            path_to_artefacts = join("archive", p, "*.csv")
+            path_to_artefacts = join("archive", p, "*.html")
             add_guidance_to_contrib_portal(service, path_to_artefacts)
 
 
