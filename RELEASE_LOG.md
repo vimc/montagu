@@ -643,3 +643,13 @@
 
 ## Other branches merged in this release
 
+# v0.12.5
+
+## Tickets
+* i1315: cloning montagu-reports and montagu-data requires ssh keys but they don't exist on staging machines
+* i1420: Need to alphabetize user drop-down list in admin portal 
+* i1449: Upgrade portals Dockerfile to use node 8
+* i1456: Compilation errors with Typescript 2.7.1
+
+## Other branches merged in this release
+
