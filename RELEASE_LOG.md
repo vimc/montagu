@@ -628,3 +628,28 @@
 ## Other branches merged in this release
 * weird_branch
 
+# v0.12.4
+
+## Tickets
+* i1366: Restart Montagu on reboot
+* i1405: Bring over code that generates onetime tokens
+* i1417: schema links are broken
+* i1427: Post to create burden estimate endpoint returns incorrect URL
+* i1429: Duplicate row exceptions in stochastic burden estimates are not bubbled out to API response
+* i1433: Non-deterministic test failure relating to burden estimate writer
+* i1437: DB import image needs tidyr
+* i1442: Unique constraint on burden_estimate_stochastic does not take into account run_id
+* i372: Fix country metadata
+
+## Other branches merged in this release
+
+# v0.12.5
+
+## Tickets
+* i1315: cloning montagu-reports and montagu-data requires ssh keys but they don't exist on staging machines
+* i1420: Need to alphabetize user drop-down list in admin portal 
+* i1449: Upgrade portals Dockerfile to use node 8
+* i1456: Compilation errors with Typescript 2.7.1
+
+## Other branches merged in this release
+

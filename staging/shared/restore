@@ -48,21 +48,14 @@ cp $MONTAGU_SETTINGS $MONTAGU_PATH/src/montagu-deploy.json
 sudo mkdir -p /etc/montagu/backup
 pip3 install --user -r $MONTAGU_PATH/src/requirements.txt
 
+$MONTAGU_PATH/scripts/setup_ssh_keys.sh
+
 (cd $MONTAGU_PATH && sudo -E ./src/deploy.py)
 
 if [ ! -e ${MONTAGU_ORDERLY_PATH} ]; then
     git clone https://github.com/vimc/montagu-orderly.git $MONTAGU_ORDERLY_PATH
 fi
 if [ ! -e ${MONTAGU_DATA_PATH} ]; then
-    SSH_PATH=`mktemp -d`
-    SSH_KEY="$SSH_PATH/id_rsa"
-    function cleanup {
-        rm -rf $SSH_PATH
-    }
-    trap cleanup EXIT
-    vault read -field=value secret/vimc-robot/id_rsa > $SSH_KEY
-    chmod 600 $SSH_KEY
-    export GIT_SSH_COMMAND="ssh -i $SSH_KEY"
     mkdir -p ~/.ssh/
     ssh-keyscan github.com > ~/.ssh/known_hosts
     git clone git@github.com:vimc/montagu-data.git $MONTAGU_DATA_PATH

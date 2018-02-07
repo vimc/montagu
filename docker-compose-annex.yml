@@ -2,6 +2,7 @@ version: '2'
 services:
   db_annex:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
+    restart: always
     ports:
       - "15432:5432"
     volumes:
