@@ -76,3 +76,6 @@ volumes:
   template_volume:
   shiny_volume:
   emails:
+
+logging:
+  driver: journald
