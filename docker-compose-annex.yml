@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   db_annex:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
