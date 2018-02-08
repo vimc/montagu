@@ -1,5 +1,20 @@
 version: '2.1'
 
+# This is the recommended way of injecting common blocks into a docker
+# compose file, see:
+#
+# https://docs.docker.com/compose/compose-file/#extension-fields
+# https://github.com/docker/compose/issues/3231
+#
+# &log-journald defines a yaml anchor and *log-journald elsewhere
+# references it - it must come early in the file.  The leading 'x-' in
+# the definition is important to mark this field as an extension
+# field.
+x-logging: &log-journald
+  driver: journald
+  options:
+    tag: montagu
+
 services:
   api:
     image: ${MONTAGU_REGISTRY}/montagu-api:${MONTAGU_API_VERSION}
@@ -87,18 +102,3 @@ volumes:
   template_volume:
   shiny_volume:
   emails:
-
-# This is the recommended way of injecting common blocks into a docker
-# compose file, see:
-#
-# https://docs.docker.com/compose/compose-file/#extension-fields
-# https://github.com/docker/compose/issues/3231
-#
-# &log-journald defines a yaml anchor and *log-journald elsewhere
-# references it.  The leading 'x-' in the definition is important to
-# mark this field as an extensionm field.
-x-logging:
-  &log-journald
-  driver: journald
-  options:
-    tag: montagu
