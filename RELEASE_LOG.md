@@ -653,3 +653,13 @@
 
 ## Other branches merged in this release
 
+# v0.12.6
+
+## Tickets
+* i1412: Add shiny to arch diagram
+* i1422: Check file extension is .csv before submitting estimate form
+* i1422_move_files: Check file extension is .csv before submitting estimate form
+* i1470_2: Return past touchstones with responsibilities closed or open
+
+## Other branches merged in this release
+
