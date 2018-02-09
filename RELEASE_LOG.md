@@ -663,3 +663,16 @@
 
 ## Other branches merged in this release
 
+# v0.13.6
+
+## Tickets
+* i1325: New endpoint to mark burden estimate set as complete
+* i1325_check_non_empty: New endpoint to mark burden estimate set as complete
+* i1325_diagram: New endpoint to mark burden estimate set as complete
+* i1409: Remove 'description' of model run parameter set
+* i1426: Post to create burden estimate set with missing or null `type` results in server error
+* i1475: remove description column from model run parameter set
+* i1475_updatejooq: remove description column from model run parameter set
+
+## Other branches merged in this release
+
