@@ -663,7 +663,7 @@
 
 ## Other branches merged in this release
 
-# v0.13.6
+# v0.13.0
 
 ## Tickets
 * i1325: New endpoint to mark burden estimate set as complete
