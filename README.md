@@ -1,7 +1,7 @@
 # Montagu
 ## Prerequisites
 * [Docker Community Edition](https://docs.docker.com/engine/installation/) 
-* [Docker Compose](https://docs.docker.com/compose/install/)
+* [Docker Compose](https://docs.docker.com/compose/install/) - at least version 0.17.0
 * Python 3 and pip (Python 3 is included with Ubunti. For pip, use `apt install python3-pip`)
 * [Vault](https://www.vaultproject.io/downloads.html) available on the command line as `vault`, with the address set via `export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200`
 * Your machine needs to trust our Docker Registry. See 
@@ -145,3 +145,12 @@ which generates a new set of passwords for the same users as the group specified
 ## Development
 To update `src/versions.py` to the latest master of each sub repo, use 
 `src/update_versions_to_latest_master.py`.
+
+## Logging
+
+We log to systemd.  All logs will have the tag `DOCKER_TAG=montagu` which allows for filtering with
+
+```
+journalctl --since=today CONTAINER_TAG=montagu
+journalctl --since=today CONTAINER_NAME=montagu_db_1
+```
