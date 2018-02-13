@@ -676,3 +676,16 @@
 
 ## Other branches merged in this release
 
+# v0.14.0
+
+## Tickets
+* i1423: Check Content-Type of file part is text/csv
+* i1423_refactor: Check Content-Type of file part is text/csv
+* i1432: Serve guidance reports in a way that doesnt require them to be committed to the webapps repo
+* i1434: Add guidance reports to contrib container
+* i1436: orderly.server dockerfile should expose 8321
+* i1466: Better logging
+* i1486: fix pg package error related to update
+
+## Other branches merged in this release
+
