@@ -1,8 +1,25 @@
-version: '2'
+version: '2.1'
+
+# This is the recommended way of injecting common blocks into a docker
+# compose file, see:
+#
+# https://docs.docker.com/compose/compose-file/#extension-fields
+# https://github.com/docker/compose/issues/3231
+#
+# &log-journald defines a yaml anchor and *log-journald elsewhere
+# references it - it must come early in the file.  The leading 'x-' in
+# the definition is important to mark this field as an extension
+# field.
+x-logging: &log-journald
+  driver: journald
+  options:
+    tag: montagu
+
 services:
   api:
     image: ${MONTAGU_REGISTRY}/montagu-api:${MONTAGU_API_VERSION}
     restart: always
+    logging: *log-journald
     depends_on:
       - db
     volumes:
@@ -12,6 +29,7 @@ services:
   reporting_api:
     image: ${MONTAGU_REGISTRY}/montagu-reporting-api:${MONTAGU_REPORTING_API_VERSION}
     restart: always
+    logging: *log-journald
     volumes:
       - orderly_volume:/orderly
     depends_on:
@@ -19,6 +37,7 @@ services:
   db:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     restart: always
+    logging: *log-journald
     ports:
       - "5432:5432"
     volumes:
@@ -26,6 +45,7 @@ services:
   contrib:
     image: ${MONTAGU_REGISTRY}/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     restart: always
+    logging: *log-journald
     depends_on:
       - api
     volumes:
@@ -34,17 +54,20 @@ services:
   admin:
     image: ${MONTAGU_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     restart: always
+    logging: *log-journald
     depends_on:
       - api
   report:
     image: ${MONTAGU_REGISTRY}/montagu-report-portal:${MONTAGU_REPORT_PORTAL_VERSION}
     restart: always
+    logging: *log-journald
     depends_on:
       - api
       - reporting_api
   proxy:
     image: ${MONTAGU_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     restart: always
+    logging: *log-journald
     ports:
       - "${MONTAGU_PORT}:${MONTAGU_PORT}"
       - 80:80
@@ -58,6 +81,7 @@ services:
   orderly:
     image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
     restart: always
+    logging: *log-journald
     volumes:
       - orderly_volume:/orderly
       - shiny_volume:/shiny
@@ -65,11 +89,13 @@ services:
   shiny:
     image: ${MONTAGU_REGISTRY}/montagu-shiny:${MONTAGU_SHINY_VERSION}
     restart: always
+    logging: *log-journald
     volumes:
       - shiny_volume:/srv/shiny-server/apps
   shiny_proxy:
     image: ${MONTAGU_REGISTRY}/montagu-shiny-proxy:${MONTAGU_SHINY_VERSION}
     restart: always
+    logging: *log-journald
 
 volumes:
   db_volume:
