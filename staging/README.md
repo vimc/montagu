@@ -4,7 +4,19 @@ First, SSH to the support machine
 ssh support.montagu.dide.ic.ac.uk
 ```
 
-## To run the VMs
+## To set up the staging VMs to run as a systemd service
+```
+sudo ./scripts/start-on-boot.sh
+```
+The VMs will then automatically start on boot. You can remove them again using
+`./scripts/remove-start-on-boot.sh`. You can monitor log output using:
+
+```
+systemctl status montagu-staging         # short status, run as ordinary user
+sudo journalctl --unit montagu-staging   # full log, needs root
+```
+
+## To start the VMs
 ```
 sudo su vagrant
 cd ~/staging/staging

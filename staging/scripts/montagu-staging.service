@@ -1,0 +1,15 @@
+[Unit]
+Description=Montagu staging VMs
+Wants=network-online.target
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+WorkingDirectory=__PATH__
+User=__USER__
+ExecStart=__PATH__/scripts/start.sh
+ExecStop=__PATH__/scripts/stop.sh
+Type=oneshot
+RemainAfterExit=yes
