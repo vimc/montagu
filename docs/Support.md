@@ -2,7 +2,7 @@
 support.montagu.dide.ic.ac.uk
 
 ## Services
-* [TeamCity](https://github.com/vimc/montagu-ci) (via vagrant)
+* [TeamCity](https://github.com/vimc/montagu-ci) (via vagrant, installed as a systemd service as `montagu-ci`)
 * [Staging](https://github.com/vimc/montagu/tree/master/staging) (via vagrant)
 * [Docker registry](https://github.com/vimc/montagu-registry) 
   (as Docker container)
