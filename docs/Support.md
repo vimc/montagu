@@ -26,12 +26,11 @@ sudo reboot now   # if needed
 ```
 
 ### Resume
-Docker registry comes back automatically.
+Docker registry and TeamCity come back automatically.
 
 All except the Vault should be scriptable to start on boot.
 
 1. Start Vault: [Instructions](https://github.com/vimc/montagu-vault#restarting-andor-restoring-the-vault)
-1. Start TeamCity: [Instructions](https://github.com/vimc/montagu-ci/blob/master/README.md#restarting-teamcity-server)
 1. Start stage VMs: [Instructions](https://github.com/vimc/montagu/blob/master/staging/README.md#to-run-the-vms)
 1. Unseal the Vault: [Instructions](https://github.com/vimc/montagu-vault#unsealing-the-vault)
 1. Redeploy to stage VMs: [Instructions](https://github.com/vimc/montagu/tree/master/staging#to-deploy-on-to-a-vm)
