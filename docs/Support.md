@@ -2,8 +2,10 @@
 support.montagu.dide.ic.ac.uk
 
 ## Services
-* [TeamCity](https://github.com/vimc/montagu-ci) (via vagrant)
-* [Staging](https://github.com/vimc/montagu/tree/master/staging) (via vagrant)
+* [TeamCity](https://github.com/vimc/montagu-ci) 
+  (via vagrant, installed as a systemd service as `montagu-ci`)
+* [Staging](https://github.com/vimc/montagu/tree/master/staging)
+  (via vagrant, installed as a systemd service as `montagu-staging`)
 * [Docker registry](https://github.com/vimc/montagu-registry) 
   (as Docker container)
 * [Vault](https://github.com/vimc/montagu-vault) (as Docker container)
@@ -23,12 +25,12 @@ sudo reboot now   # if needed
 ```
 
 ### Resume
-Docker registry comes back automatically.
+Docker registry, TeamCity, and stage VMs come back automatically.
 
 All except the Vault should be scriptable to start on boot.
 
-1. Start Vault: [Instructions](https://github.com/vimc/montagu-vault#restarting-andor-restoring-the-vault)
 1. Unseal the Vault: [Instructions](https://github.com/vimc/montagu-vault#unsealing-the-vault)
+1. Start Vault: [Instructions](https://github.com/vimc/montagu-vault#restarting-andor-restoring-the-vault)
 
 You can check things are working by:
 
