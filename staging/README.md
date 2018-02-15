@@ -4,7 +4,27 @@ First, SSH to the support machine
 ssh support.montagu.dide.ic.ac.uk
 ```
 
-## To run the VMs
+## To set up the staging VMs to run as a systemd service
+```
+sudo ./scripts/start-on-boot.sh
+```
+The VMs will then start automatically on boot, and shutdown gracefully when the
+host system shuts down.
+
+### Managing the service
+* To start `sudo systemctl start montagu-staging.service`
+* To stop `sudo systemctl stop montagu-staging.service`
+* To uninstall the service (and disable auto start on boot): 
+  `sudo ./scripts/remove-start-on-boot.sh`
+
+### Service logging
+```
+systemctl status montagu-staging         # short status, run as ordinary user
+sudo journalctl --unit montagu-staging   # full log, needs root
+```
+
+## Managing the staging VMs without installing them as a service
+### To start the VMs
 ```
 sudo su vagrant
 cd ~/staging/staging
@@ -13,7 +33,7 @@ vagrant up
 
 This will bring up two VMs; one called `uat` and one called `science`.
 
-## To stop the VMs
+### To stop the VMs
 ```
 sudo su vagrant
 cd ~/staging/staging
@@ -47,7 +67,7 @@ Science: https://support.montagu.dide.ic.ac.uk:11443
 vagrant ssh uat -c '/vagrant/record-montagu-configuration'
 vagrant destroy uat
 vboxmanage closemedium disk disk/uat.vdi --delete
-./restore-prepare.sh
+./scripts/restore-prepare.sh
 vagrant up uat
 vagrant ssh uat -c '/vagrant/restore'
 ```
@@ -57,7 +77,7 @@ vagrant ssh uat -c '/vagrant/restore'
 ```
 vagrant destroy -f restore-test
 vboxmanage closemedium disk disk/restore-test.vdi --delete
-./restore-prepare.sh
+./scripts/restore-prepare.sh
 vagrant up restore-test
 vagrant ssh restore-test -c '/vagrant/restore'
 ```

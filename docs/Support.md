@@ -2,22 +2,20 @@
 support.montagu.dide.ic.ac.uk
 
 ## Services
-* [TeamCity](https://github.com/vimc/montagu-ci) (via vagrant, installed as a systemd service as `montagu-ci`)
-* [Staging](https://github.com/vimc/montagu/tree/master/staging) (via vagrant)
+* [TeamCity](https://github.com/vimc/montagu-ci) 
+  (via vagrant, installed as a systemd service as `montagu-ci`)
+* [Staging](https://github.com/vimc/montagu/tree/master/staging)
+  (via vagrant, installed as a systemd service as `montagu-staging`)
 * [Docker registry](https://github.com/vimc/montagu-registry) 
   (as Docker container)
 * [Vault](https://github.com/vimc/montagu-vault) (as Docker container)
 
 ## Upgrading and rebooting
 ### Graceful shutdown
-This could be automated:
-
-1. Stop staging: [Instructions](https://github.com/vimc/montagu/blob/master/staging/README.md#to-stop-the-vms)
-
-Docker will automatically stop containers on shutdown, and in any case we're
-confident the Vault and the Registry will handle an unexpected termination.
-Because TeamCity is being managed by systemd, this will also automatically
-stop gracefully.
+Everything will shutdown gracefully on host system shutdown. The Vagrant VMs
+are installed as a service (once 
+https://vimc.myjetbrains.com/youtrack/issue/VIMC-1477 is deployed) and Docker
+will automatically stop containers on shutdown.
 
 ### Upgrade
 ```
@@ -27,13 +25,12 @@ sudo reboot now   # if needed
 ```
 
 ### Resume
-Docker registry and TeamCity come back automatically.
+Docker registry, TeamCity, and staging VMs come back automatically.
 
 All except the Vault should be scriptable to start on boot.
 
 1. Unseal the Vault: [Instructions](https://github.com/vimc/montagu-vault#unsealing-the-vault)
 1. Start Vault: [Instructions](https://github.com/vimc/montagu-vault#restarting-andor-restoring-the-vault)
-1. Start stage VMs: [Instructions](https://github.com/vimc/montagu/blob/master/staging/README.md#to-run-the-vms)
 
 You can check things are working by:
 
