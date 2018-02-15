@@ -67,7 +67,7 @@ Science: https://support.montagu.dide.ic.ac.uk:11443
 vagrant ssh uat -c '/vagrant/record-montagu-configuration'
 vagrant destroy uat
 vboxmanage closemedium disk disk/uat.vdi --delete
-./restore-prepare.sh
+./scripts/restore-prepare.sh
 vagrant up uat
 vagrant ssh uat -c '/vagrant/restore'
 ```
@@ -77,7 +77,7 @@ vagrant ssh uat -c '/vagrant/restore'
 ```
 vagrant destroy -f restore-test
 vboxmanage closemedium disk disk/restore-test.vdi --delete
-./restore-prepare.sh
+./scripts/restore-prepare.sh
 vagrant up restore-test
 vagrant ssh restore-test -c '/vagrant/restore'
 ```
