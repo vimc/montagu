@@ -25,7 +25,7 @@ sudo reboot now   # if needed
 ```
 
 ### Resume
-Docker registry, TeamCity, and stage VMs come back automatically.
+Docker registry, TeamCity, and staging VMs come back automatically.
 
 All except the Vault should be scriptable to start on boot.
 
