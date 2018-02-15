@@ -10,13 +10,10 @@ support.montagu.dide.ic.ac.uk
 
 ## Upgrading and rebooting
 ### Graceful shutdown
-This could be automated:
-
-1. Stop TeamCity: [Instructions](https://github.com/vimc/montagu-ci/blob/master/README.md#stopping-teamcity)
-1. Stop staging: [Instructions](https://github.com/vimc/montagu/blob/master/staging/README.md#to-stop-the-vms)
-
-Docker will automatically stop containers on shutdown, and in any case we're
-confident the Vault and the Registry will handle an unexpected termination.
+Everything will shutdown gracefully on host system shutdown. The Vagrant VMs
+are installed as a service (once 
+https://vimc.myjetbrains.com/youtrack/issue/VIMC-1477 is deployed) and Docker
+will automatically stop containers on shutdown.
 
 ### Upgrade
 ```
@@ -31,11 +28,7 @@ Docker registry comes back automatically.
 All except the Vault should be scriptable to start on boot.
 
 1. Start Vault: [Instructions](https://github.com/vimc/montagu-vault#restarting-andor-restoring-the-vault)
-1. Start TeamCity: [Instructions](https://github.com/vimc/montagu-ci/blob/master/README.md#restarting-teamcity-server)
-1. Start stage VMs: [Instructions](https://github.com/vimc/montagu/blob/master/staging/README.md#to-run-the-vms)
 1. Unseal the Vault: [Instructions](https://github.com/vimc/montagu-vault#unsealing-the-vault)
-1. Redeploy to stage VMs: [Instructions](https://github.com/vimc/montagu/tree/master/staging#to-deploy-on-to-a-vm)
-   This will stop being necessary if we implement [VIMC-1366](https://vimc.myjetbrains.com/youtrack/issue/VIMC-1366)
 
 You can check things are working by:
 
