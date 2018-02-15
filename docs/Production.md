@@ -24,7 +24,4 @@ sudo reboot now   # if needed
 ```
 
 ### Resume
-This will stop being necessary if we implement 
-[VIMC-1366](https://vimc.myjetbrains.com/youtrack/issue/VIMC-1366):
-
-Redeploy, as described [here](https://github.com/vimc/montagu/blob/master/README.md#deploy)
+Montagu should resume automatically.
