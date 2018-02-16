@@ -12,19 +12,22 @@ permanent = [
     :hostname => 'uat',
     :ip => '192.168.81.11',
     :port => 10443,
-    :dbport => 15432
+    :dbport => 15432,
+    :autostart => true
   },
   { 
     :hostname => 'science', 
     :ip => '192.168.81.12', 
     :port => 11443,
-    :dbport => 5432
+    :dbport => 5432,
+    :autostart => true
   },
   {
     :hostname => 'restore-test',
     :ip => '192.168.81.13',
     :port => 20443,
-    :dbport => 25432
+    :dbport => 25432,
+    :autostart => false
   }
 ]
 
@@ -50,7 +53,7 @@ Vagrant.configure(2) do |config|
   end
 
   permanent.each do |machine|
-    config.vm.define machine[:hostname] do |machine_config|
+    config.vm.define machine[:hostname], autostart: machine[:autostart] do |machine_config|
       machine_config.vm.provider :virtualbox do | vbox |
         vbox.gui = false
         vbox.memory = ram_size_mb
