@@ -695,3 +695,155 @@
 
 ## Other branches merged in this release
 
+# v0.14.2
+
+## Tickets
+* i1005: Breadcrumb on report page should show version 
+* i1006: Make 'Responsibilities' breadcrumb more informative
+* i1007_v2: Can't link directly to user details page in admin portal
+* i1025: NetworkError popup on successful report download from support
+* i1065: remove old templates
+* i1073: stochastic params template should have 200 rows
+* i1080: Find all instances of 'deterministic' and change to 'central' 
+* i1083: Bug - run-development-apis.sh fails
+* i1084: Embed guidance within Montagu contribution portal
+* i1091: Add help pages with Demographic data FAQs and link them from responsibility model outputs help page
+* i1105: Error 404 downloading Resources where sub-folders 2 levels deep
+* i1111: Delete DALYs column from Rota-JHU-Tam burden estimate templates (central & stochastic)?
+* i1113: Move docker (/var/run/docker) onto the large annex disk
+* i1119: Re-enable download demographics button if user switches to a different data set
+* i1149: Remove redundant TeamCity scripts from webapps
+* i1151: fix warnings in tests caused by components
+* i1153: update enzyme
+* i1159: Rewrite Page with header without inheritance
+* i1172: Allow multiple open touchstones in the contrib portal
+* i1173: If modelling group has no responsibilities in touchstone, API returns 'null' status
+* i1177: Show more descriptive message depending on responsibility set status
+* i1179: Link users to model run parameter upload page in portal
+* i1181: Commit a lint to the webapps and apply to whole project
+* i1182_removetemplates: Copy templates from orderly store to running contrib portal container
+* i1185: Integration tests should clean up even if they fail
+* i1186: Dropdowns have squashed buttons in Firefox
+* i1190_annex: Store stochastic estimates in stochastic table in annex
+* i1192: Use bootstrap sass files 
+* i1208_component: Create page that lists model run parameter sets
+* i1208_reorganize_files: Create page that lists model run parameter sets
+* i1208_store_actions_source: Create page that lists model run parameter sets
+* i1209: Allow user to download metadata blob that uniquely identifies model run parameter set
+* i1210: Add more descriptive label to 'details' field of the create burden estimate set form
+* i1212: Use bootstrap table styling throughout
+* i1212_alex_suggestions: Use bootstrap table styling throughout
+* i1215_formchanges: Redesign model run parameter sets page
+* i1215_page]: Redesign model run parameter sets page
+* i1221: Change terminology on burden estimate set upload page
+* i1238: Bug - close button styling missing
+* i1241: Update deadlines on model outputs guidance page
+* i1242: tweaks to burden estimate upload page
+* i1243: Bug: stochastic params template missing
+* i1246: hardcode new template links
+* i1253_updateintegrationtests: Return disease with model run parameter sets
+* i1254: Replace guidance for modeller applicants & hide stochastic parameters template
+* i1261: API is not following spec for model run params endpoint
+* i1268: Clean up templates
+* i1273: Page should update model run param sets after successful upload
+* i1274: Update model outputs guidance page
+* i1279_rename_methods: Refactor onetime links to onetime tokens, reporting API style
+* i1279_strongly_typed_profile: Refactor onetime links to onetime tokens, reporting API style
+* i1279_token_type: Refactor onetime links to onetime tokens, reporting API style
+* i1279_verify: Refactor onetime links to onetime tokens, reporting API style
+* i1296: Call cookie endpoint from webapps
+* i1301: Hide parameters section for applicant touchstone
+* i1328: Link to get model run param set in portal
+* i1333: Streaming replication for postgres
+* i1338: Bug - we are still using the deprecated endpoint to populate burden estimate sets!
+* i1379: Call clear-shiny-token on logout
+* i1383: Switch from Alt.js to Redux
+* i1383-service-as-middleware: Switch from Alt.js to Redux
+* i1409: Remove 'description' of model run parameter set
+* i1420: Need to alphabetize user drop-down list in admin portal 
+* i1422: Check file extension is .csv before submitting estimate form
+* i1422_move_files: Check file extension is .csv before submitting estimate form
+* i1434: Add guidance reports to contrib container
+* i1441: API access log does not included failed requests
+* i1449: Upgrade portals Dockerfile to use node 8
+* i1456: Compilation errors with Typescript 2.7.1
+* i1477: Restart staging VMs on boot
+* i1486: fix pg package error related to update
+* i1487: Remove salt from db interface
+* i1494: Katy was not able to upload CSV file during UX experiment
+* i1496: Use lighter postgres settings by default
+* i1497: Use reflection to get controllers
+* i1498: Add more metadata to get all reports endpoint
+* i1517: Render default artefact in iframe
+* i1518: Create basic sidebar menu
+* i1522: Switch Report List to Redux
+* i161: Edit global user roles
+* i18: Button for modeller to upload burden estimates
+* i208_integration_test: Check if gavi start/stop year need retaining
+* i355: Automatically convert URL parameters into structured data requirements
+* i359: Modelling group details endpoint returns all members of the group instead of just admins
+* i374: remove salt field from user table
+* i397_better_tests: Add breadcrumb links
+* i397_new_tests: Add breadcrumb links
+* i502: In portals, the top left logo should link back to the root
+* i562: Only show touchstones where selected modelling group has a responsibility
+* i586: add loading state to download data set button
+* i615-stacking-error-messages: Error messages stack and persist
+* i619: Make burden estimate templates available in portal
+* i633: Run webapp integration tests against Montagu repository
+* i635: Add reporting portal integration tests
+* i652: If user is a member of non-existent modelling group, the modelling group portal will not load
+* i684: Portal should show whether there is a current burden estimate, and when it was uploaded
+* i689: reporting portal not displaying all artefacts
+* i700: hook up upload UI to onetime endpoint
+* i702: Request redirect back to app when POST-ing burden estimates
+* i732: UI to remove user from modelling group
+* i748: Don't show edit users link for non admins
+* i748_rename_components: Don't show edit users link for non admins
+* i755: serve bootstrap css in document head
+* i771: update output template for Xi Li's Hep B model
+* i781_upload_disclaimer: Ensure that contrib portal can handle large data sets for 96 countries
+* i796: Yvonne (JHU) - Should we provide separate Hib and SP burden files? / DALY calculations
+* i799: Resolve ambiguity in reporting API routes
+* i807: Update portals to use new data structure
+* i808: Remove unusued fields from DemographicDataset model
+* i825: Give csv format option for data downloads
+* i835: Update reporting portal body font
+* i863: Default to latest version of report
+* i864: Create dropdown of report versions
+* i865: Visual indication of published status
+* i867: List reports by descriptive name rather than id
+* i868_display_name: Re-organise report version page
+* i868_rename_components: Re-organise report version page
+* i868_report_page_redesign: Re-organise report version page
+* i917: Update reporting portal to accept more metadata from /reports/
+* i919_newtemplates: Add new 96 country templates to portal
+* i919_templates: Add new 96 country templates to portal
+* i920: use sass instead of css
+* i924: Report burden estimate set status
+* i924_dates: Report burden estimate set status
+* i924_models: Report burden estimate set status
+* i925: In the portal, get the user to first create the burden estimate set and then upload against it
+* i925_form: In the portal, get the user to first create the burden estimate set and then upload against it
+* i941_component: UI to upload model run parameter set
+* i941_tidyup: UI to upload model run parameter set
+* i941_token: UI to upload model run parameter set
+* i955: Notify on success
+* i978: Display name is not rendered in title on report page
+* i984: give docker auth to containers that need it
+* i997: Deploy is broken for me
+
+## Other branches merged in this release
+* 1100
+* alex
+* bugfix
+* hotfix
+* increase_disk_size
+* latest_db_version
+* reorganisestyles
+* stochasticparams
+* templatelinks
+* templatelinks2
+* templates
+* typescript_update
+
