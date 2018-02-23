@@ -715,3 +715,22 @@ of VIMC-1268.
 * i1498: Add more metadata to get all reports endpoint
 * i1518: Create basic sidebar menu
 * i374: remove salt field from user table
+# v0.15.0
+
+## Tickets
+* i1504: Bring styling over to new colour scheme
+* i1517: Render default artefact in iframe
+* i1518: Create basic sidebar menu
+* i1518_sidebar: Create basic sidebar menu
+* i1519: New version switcher
+* i1520: Publish widget
+* i1520_helpers: Publish widget
+* i1520_styles: Publish widget
+* i1523: Switch Report Details Page to Redux
+* i1523---caching: Switch Report Details Page to Redux
+* i1524: Add new user group tables
+* i1539_refreshdbinterface: Add group for user on user creation
+* i1541: Move inline report to own tab
+
+## Other branches merged in this release
+
