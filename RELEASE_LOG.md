@@ -734,3 +734,10 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.15.1
+
+## Tickets
+
+## Other branches merged in this release
+* breadcrumbstyles
+
