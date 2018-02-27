@@ -741,3 +741,14 @@ of VIMC-1268.
 ## Other branches merged in this release
 * breadcrumbstyles
 
+# v0.15.2
+
+## Tickets
+* i1527: Implement caching for redux stores
+* i1539_refreshdb: Add group for user on user creation
+* i1539_updateroles: Add group for user on user creation
+* i1540: Migrate existing roles into user_group_membership table
+* i1542: Lookup role against user_group_role table instead of user_role table
+
+## Other branches merged in this release
+
