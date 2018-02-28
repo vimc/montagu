@@ -123,6 +123,10 @@ definitions = [
                              "and tagged before deploying.  This is the desired setting on production machines, but "
                              "will be annoying for development",
                              default_value=False),
+    BooleanSettingDefinition("enable_db_replication",
+                             "Should we enable database replication for streaming backups to the annex?",
+                             "Only needed on production, or for testing the backup",
+                             default_value=False),
     BooleanSettingDefinition("add_test_user",
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
