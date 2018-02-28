@@ -301,6 +301,8 @@ def setup(service, annex_settings):
     for_each_user(root_password, users, lambda d, u:
     grant_readonly_annex(d, u, annex_settings))
 
+    setup_streaming_replication(service)
+
     return passwords
 
 
@@ -321,6 +323,23 @@ def setup_annex_users(annex_settings):
     with connect_annex(annex_settings) as conn:
         with conn.cursor() as cur:
             setup_user(cur, readonly)
+
+
+# NOTE: it might be worth revisiting this to not run this script
+# directly (that requires corresponding changes in montagu-db to move
+# the inline sql into a standalone .sql file and then getting psql to
+# run it via docker exec - it must run as the vimc user).  The
+# passwords might move directly under control here using set_password
+# (but these are special users so we'd not want to use the rest of the
+# user machinery).  But I suggest waiting until the restore is done
+# VIMC-1560) because that is likely to affect how we deal with users
+def setup_streaming_replication(service):
+    if service.settings['enable_db_replication']:
+        print("Setting up streaming replication")
+        password_group = service.settings['password_group']
+        pw_barman = VaultPassword(password_group, "barman").get()
+        pw_stream = VaultPassword(password_group, "streaming_barman").get()
+        service.db.exec_run(["enable-replication.sh", pw_barman, pw_stream])
 
 
 # NOTE: workaround because grant_readonly_annex requires a UserConfig
