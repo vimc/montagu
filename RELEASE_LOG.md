@@ -752,3 +752,21 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.16.0
+
+## Tickets
+* i1108: Remove deprecated methods
+* i1530: Lock down report endpoints to scoped permission
+* i1530_moretests: Lock down report endpoints to scoped permission
+* i1530_updatecontext: Lock down report endpoints to scoped permission
+* i1538: Convert `OneTimeLinkContext` to higher-order component
+* i1546: Show list of users who can see the current report
+* i1547: Return list of users who can view a report
+* i1548: Add new scoped report reading role
+* i1555: Delete deprecated user_role table 
+* i1556: Remove user_role from db interface
+* i1567: Distinguish global from local report readers in /users/report-readers/
+
+## Other branches merged in this release
+* update_kotlin
+
