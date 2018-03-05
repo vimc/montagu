@@ -770,3 +770,12 @@ of VIMC-1268.
 ## Other branches merged in this release
 * update_kotlin
 
+# v0.16.1
+
+## Tickets
+* i1568: Track latest openjdk
+* i1569: Update API dependencies (March 2018)
+* i1569_regen_jooq: Update API dependencies (March 2018)
+
+## Other branches merged in this release
+
