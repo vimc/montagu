@@ -779,3 +779,14 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.17.0
+
+## Tickets
+* i1510: Sort report list
+* i1511: Filter results options
+* i1511_styling: Filter results options
+* i1562: Switch router to react-router
+
+## Other branches merged in this release
+* hotfix
+
