@@ -790,3 +790,9 @@ of VIMC-1268.
 ## Other branches merged in this release
 * hotfix
 
+# v0.17.1
+
+## Tickets
+
+## Other branches merged in this release
+
