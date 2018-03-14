@@ -802,3 +802,13 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.18.0
+
+## Tickets
+* i1563: Ability to delete users from report readers
+* i1599: Show readers full names in readers list
+* i1600: Interface to add new report reader
+* i1601: Ensure user has role should only check for modelling group if scope prefix is modelling-group
+
+## Other branches merged in this release
+
