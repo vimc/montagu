@@ -824,3 +824,9 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.19.1
+
+## Tickets
+
+## Other branches merged in this release
+
