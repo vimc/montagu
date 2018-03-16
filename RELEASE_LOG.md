@@ -812,3 +812,16 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.19.0
+
+## Tickets
+* i1430: Release script doesn't always tag in YouTrack
+* i1550: redux breadcrumb and got rid of page with header on report
+* i1582: HOC auth
+* i1602: name actions vs action creators clearly
+* i1604: Inline artefacts on downloads page
+* i1604_downloadbutton: Inline artefacts on downloads page
+* i1612: download all as button rather than section
+
+## Other branches merged in this release
+
