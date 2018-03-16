@@ -830,3 +830,5 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+### Other changes
+Minor css change
