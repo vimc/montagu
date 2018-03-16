@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import psycopg2
 
 import versions
-from docker_helpers import get_image_name, pull
+from docker_helpers import get_image_name, pull, exec_safely
 from service_config import api_db_user
 from settings import get_secret
 
@@ -60,10 +60,11 @@ class VaultPassword:
 
 
 class UserConfig:
-    def __init__(self, name, permissions, password_source):
+    def __init__(self, name, permissions, password_source, option=None):
         self.name = name
         self.permissions = permissions  # Currently, this can only be 'all', but the idea is to extend this config later
         self.password_source = password_source
+        self.option = option.upper() if option else ""
         self._password = None
 
     # Lazy password resolution
@@ -72,6 +73,11 @@ class UserConfig:
         if self._password is None:
             self._password = self.password_source.get()
         return self._password
+
+    @classmethod
+    def create(self, name, permissions, password_group, option):
+        password = VaultPassword(password_group, name)
+        return UserConfig(name, permissions, password, option)
 
 
 def set_root_password(service, password):
@@ -100,15 +106,15 @@ def connect_annex(annex_settings):
                    annex_settings["port_from_deploy"])
 
 
-def create_user(db, user):
+def create_user(db, user, option=None):
     sql = """DO
 $body$
 BEGIN
    IF NOT EXISTS (SELECT FROM pg_catalog.pg_user WHERE usename = '{name}') THEN
-      CREATE ROLE {name} LOGIN PASSWORD '{password}';
+      CREATE ROLE {name} {option} LOGIN PASSWORD '{password}';
    END IF;
 END
-$body$""".format(name=user.name, password=user.password)
+$body$""".format(name=user.name, password=user.password, option=user.option)
     db.execute(sql)
 
 
@@ -163,6 +169,8 @@ def set_permissions(db, user):
         grant_all(db, user)
     elif user.permissions == 'readonly':
         grant_readonly(db, user)
+    elif user.permissions == 'pass':
+        pass
     else:
         template = "Unhandled permission type '{permissions}' for user '{name}'"
         raise Exception(template.format(name=user.name, permissions=user.permissions))
@@ -301,7 +309,7 @@ def setup(service, annex_settings):
     for_each_user(root_password, users, lambda d, u:
     grant_readonly_annex(d, u, annex_settings))
 
-    setup_streaming_replication(service)
+    setup_streaming_replication(root_password, service)
 
     return passwords
 
@@ -333,13 +341,23 @@ def setup_annex_users(annex_settings):
 # (but these are special users so we'd not want to use the rest of the
 # user machinery).  But I suggest waiting until the restore is done
 # VIMC-1560) because that is likely to affect how we deal with users
-def setup_streaming_replication(service):
+def setup_streaming_replication(root_password, service):
     if service.settings['enable_db_replication']:
         print("Setting up streaming replication")
         password_group = service.settings['password_group']
+        barman = UserConfig.create("barman", "pass",
+                                   password_group, "superuser")
+        streaming_barman = UserConfig.create("streaming_barman", "pass",
+                                             password_group, "replication")
+        with connect(root_user, root_password) as conn:
+            with conn.cursor() as db:
+                create_user(db, barman)
+                create_user(db, streaming_barman)
+
         pw_barman = VaultPassword(password_group, "barman").get()
         pw_stream = VaultPassword(password_group, "streaming_barman").get()
-        service.db.exec_run(["enable-replication.sh", pw_barman, pw_stream])
+        cmd = ["enable-replication.sh", pw_barman, pw_stream]
+        exec_safely(service.db, cmd, check=True)
 
 
 # NOTE: workaround because grant_readonly_annex requires a UserConfig
