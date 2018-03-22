@@ -752,3 +752,83 @@ of VIMC-1268.
 
 ## Other branches merged in this release
 
+# v0.16.0
+
+## Tickets
+* i1108: Remove deprecated methods
+* i1530: Lock down report endpoints to scoped permission
+* i1530_moretests: Lock down report endpoints to scoped permission
+* i1530_updatecontext: Lock down report endpoints to scoped permission
+* i1538: Convert `OneTimeLinkContext` to higher-order component
+* i1546: Show list of users who can see the current report
+* i1547: Return list of users who can view a report
+* i1548: Add new scoped report reading role
+* i1555: Delete deprecated user_role table 
+* i1556: Remove user_role from db interface
+* i1567: Distinguish global from local report readers in /users/report-readers/
+
+## Other branches merged in this release
+* update_kotlin
+
+# v0.16.1
+
+## Tickets
+* i1568: Track latest openjdk
+* i1569: Update API dependencies (March 2018)
+* i1569_regen_jooq: Update API dependencies (March 2018)
+
+## Other branches merged in this release
+
+# v0.17.0
+
+## Tickets
+* i1510: Sort report list
+* i1511: Filter results options
+* i1511_styling: Filter results options
+* i1562: Switch router to react-router
+
+## Other branches merged in this release
+* hotfix
+
+# v0.17.1
+
+## Tickets
+
+## Other branches merged in this release
+
+# v0.17.2
+
+## Tickets
+
+## Other branches merged in this release
+
+# v0.18.0
+
+## Tickets
+* i1563: Ability to delete users from report readers
+* i1599: Show readers full names in readers list
+* i1600: Interface to add new report reader
+* i1601: Ensure user has role should only check for modelling group if scope prefix is modelling-group
+
+## Other branches merged in this release
+
+# v0.19.0
+
+## Tickets
+* i1430: Release script doesn't always tag in YouTrack
+* i1550: redux breadcrumb and got rid of page with header on report
+* i1602: name actions vs action creators clearly
+* i1604: Inline artefacts on downloads page
+* i1604_downloadbutton: Inline artefacts on downloads page
+* i1612: download all as button rather than section
+
+## Other branches merged in this release
+
+# v0.19.1
+
+## Tickets
+
+## Other branches merged in this release
+
+### Other changes
+Minor css change
