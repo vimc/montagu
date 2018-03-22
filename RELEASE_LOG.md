@@ -832,3 +832,10 @@ of VIMC-1268.
 
 ### Other changes
 Minor css change
+# v0.19.2
+
+## Tickets
+* i1624: update Xi Li's output template
+
+## Other branches merged in this release
+
