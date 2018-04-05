@@ -106,7 +106,7 @@ def connect_annex(annex_settings):
                    annex_settings["port_from_deploy"])
 
 
-def create_user(db, user, option=None):
+def create_user(db, user):
     sql = """DO
 $body$
 BEGIN
