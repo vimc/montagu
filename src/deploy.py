@@ -49,6 +49,9 @@ def _deploy():
 
     notifier.post("*Starting* deploy of " + deploy_str)
 
+    # Pull images
+    service.pull()
+
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:
         backup.backup(service)
