@@ -152,9 +152,12 @@ class MontaguService:
                 pass
         compose.stop(self.settings)
 
+    def pull(self):
+        print("Pulling images for Montagu", flush=True)
+        compose.pull(self.settings)
+
     def start(self):
         print("Starting Montagu...", flush=True)
-        compose.pull(self.settings)
         compose.start(self.settings)
         print("- Checking Montagu has started successfully")
         sleep(2)
