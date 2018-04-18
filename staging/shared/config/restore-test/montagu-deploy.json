@@ -8,6 +8,7 @@
     "require_clean_git": false,
     "db_annex_type": "readonly",
     "initial_data_source": "restore",
+    "include_template_reports": true,
     "clone_reports": true,
     "persist_data": false,
     "instance_name": "restore-test",
