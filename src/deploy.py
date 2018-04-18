@@ -14,7 +14,8 @@ from certificates import get_ssl_certificate
 from cli import add_test_user
 from git import git_check
 from service import MontaguService
-from service_config import configure_api, configure_proxy, configure_contrib_portal
+from service_config import configure_api, configure_proxy, \
+    configure_contrib_portal
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from service_config.shiny_config import configure_shiny_proxy
 from settings import get_settings
@@ -34,7 +35,8 @@ def _deploy():
     if is_first_time:
         print("Montagu not detected: Beginning new deployment")
     else:
-        print("Montagu status: {}. Data volume present: {}".format(status, volume_present))
+        print("Montagu status: {}. "
+              "Data volume present: {}".format(status, volume_present))
 
     notifier = Notifier(settings['notify_channel'])
 
@@ -47,14 +49,18 @@ def _deploy():
 
     notifier.post("*Starting* deploy of " + deploy_str)
 
+    # Pull images
+    service.pull()
+
     # If Montagu is running, back it up before tampering with it
     if (status == "running") and settings["backup"]:
         backup.backup(service)
 
-    # Stop Montagu if it is running (and delete data volume if persist_data is False)
+    # Stop Montagu if it is running
+    # (and delete data volume if persist_data is False)
     if not is_first_time:
-        notifier.post("*Stopping* previous montagu on `{}` :hand:".format(
-            settings['instance_name']))
+        notifier.post("*Stopping* previous montagu "
+                      "on `{}` :hand:".format(settings['instance_name']))
         service.stop()
 
     # Schedule backups
@@ -66,7 +72,8 @@ def _deploy():
     try:
         configure_montagu(service, is_first_time)
     except Exception as e:
-        print("An error occurred before deployment could be completed. Stopping Montagu")
+        print("An error occurred before deployment could be completed. "
+              "Stopping Montagu")
         print(e)
         service.stop()
         try:
@@ -91,7 +98,8 @@ def configure_montagu(service, is_first_time):
     # Do things to the database
     data_exists = (not is_first_time) and service.settings["persist_data"]
     if data_exists:
-        print("Skipping data import: 'persist_data' is set, and this is not a first-time deployment")
+        print("Skipping data import: 'persist_data' is set, "
+              "and this is not a first-time deployment")
     else:
         data_import.do(service)
     orderly.configure_orderly(service, not data_exists)

@@ -839,3 +839,18 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.19.3
+
+## Tickets
+* i1445: Comply with EU cookie law
+* i1536_alex: Make wireframes for contrib portal changes for 2018 annual meeting
+* i1536_wireframes: Make wireframes for contrib portal changes for 2018 annual meeting
+* i1570: During deploy, pull new images before stopping old version
+* i1605: Rewrite Forgot password page on report with redux and redux form
+* i1636: Update hard-coded logic with new RFP touchstone id
+* i1650: Set `is_open` to true as default for responsibilities
+
+## Other branches merged in this release
+* libsodium1.0.16
+* node_latest
+
