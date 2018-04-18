@@ -13,5 +13,6 @@
     "db_annex_type": "fake",
     "instance_name": "teamcity",
     "notify_channel": "",
+    "enable_db_replication": false,
     "include_template_reports":false
 }

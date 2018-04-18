@@ -36,3 +36,34 @@ def copy_between_volumes(source_volume, destination_volume, path_to_copy):
              "cd /to ; cp -a /from/{} .".format(path_to_copy)
              ], check=True)
 
+
+# Somewhat surprisingly, the `container.exec_run` method does not
+# support a `check=True` like option, nor does it let you inspect
+# anything about the process that was run except for the outoput.  The
+# lower-level docker api supports getting this information though.
+#
+#     exec_safely(container, cmd)
+#
+# is roughly equivalent to
+#
+#     container.exec_run(cmd)
+#
+# except the return value is a dict (with output as the element
+# 'Output').  If `check=True`, then if the command returns a nonzero
+# exit code then raise a python exception.
+#
+# This will be fixed docker python sdk (> 3.0.0), which will also
+# break backward compatibility with exec_run
+#
+#     https://github.com/docker/docker-py/pull/1797
+#     https://github.com/docker/docker-py/releases/tag/3.0.0
+def exec_safely(container, cmd, check=False):
+    api = container.client.api
+    exec_id = api.exec_create(container.id, cmd)['Id']
+    out = api.exec_start(exec_id)
+    dat = api.exec_inspect(exec_id)
+    dat['Output'] = out
+    if check and dat['ExitCode'] != 0:
+        msg = out.decode("UTF-8").strip()
+        raise Exception("Exec failed with message '{}'".format(msg))
+    return dat
