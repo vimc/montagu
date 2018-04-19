@@ -142,7 +142,8 @@ definitions = [
                              "This must set to False on production!",
                              default_value=False),
     BooleanSettingDefinition("include_template_reports",
-                             "Should we copy burden estimate templates from orderly into the contrib portal container?",
-                             "",
+                             "Should we copy burden estimate templates from "
+                             "orderly into the contrib portal container?",
+                             "This can only be true if data source is restore",
                              default_value=False)
 ]
