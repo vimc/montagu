@@ -9,6 +9,7 @@ from os.path import abspath, dirname
 from os import chdir
 from cli import add_test_user
 
+
 def restore_db():
     settings = get_settings()
     service = MontaguService(settings)
@@ -30,6 +31,7 @@ def restore_db():
                           settings['instance_name'])
         except:
             raise
+
 
 if __name__ == "__main__":
     abspath = abspath(__file__)
