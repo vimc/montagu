@@ -854,3 +854,18 @@ Minor css change
 * libsodium1.0.16
 * node_latest
 
+# v0.19.4
+
+## Tickets
+* i1135: Set up shiny server
+* i1371: Postgres upgrade path
+* i1411: More packages for montagu-orderly
+* i1480: Tighten up data types on burden_estimate tables
+* i1480_parsefloat: Tighten up data types on burden_estimate tables
+* i1559: Deploy barman server onto annex
+* i1672: Store date of confidentiality agreement signature in db
+* i1675: Increase size of staging VM RAM
+* i1676: montagu-db build fails because of pip failure
+
+## Other branches merged in this release
+
