@@ -111,7 +111,7 @@ def check_tickets(latest_tag):
     pairs = list(yt.get_tickets(diff.branches))
     problems = False
 
-    print("\nSince then, the following branches have been merged in:")
+    print(f"\nSince {latest_tag}, the following branches have been merged in:")
     for (branch, ticket) in pairs:
         had_problem = check_ticket(branch, ticket)
         problems = problems or had_problem
