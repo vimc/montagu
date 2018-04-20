@@ -11,13 +11,15 @@ def requires_bb8_setup(func):
         if not finished_setup:
             setup()
         return func(*args, **kwargs)
+
     return decorated
 
 
 def setup():
     global finished_setup
-    print("- Configuring and installing bb8 backup service with these "
-          f"targets: {targets}")
+    template = "- Configuring and installing bb8 backup service with these " \
+               "targets: {}"
+    print(template.format(targets))
     args = ["./setup.sh", "../config.json"] + targets
     run(args, cwd=bb8_dir, check=True)
     finished_setup = True
