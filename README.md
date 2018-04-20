@@ -157,4 +157,4 @@ journalctl --since=today CONTAINER_NAME=montagu_db_1
 
 ## Release
 
-See [`ReleaseProcess.md`(ReleaseProcess.md) for details on releasing
+See [`ReleaseProcess.md`](ReleaseProcess.md) for details on releasing
