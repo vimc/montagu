@@ -32,7 +32,7 @@ def backup():
 @requires_bb8_setup
 def schedule():
     print("Scheduling bb8 backup")
-    run("./schedule.sh", cwd=bb8_dir, check=True)
+    run("./schedule", cwd=bb8_dir, check=True)
 
 
 @requires_bb8_setup
