@@ -869,3 +869,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.19.5
+
+## Tickets
+* i1671: Endpoint to save confidentiality agreement signature date
+
+## Other branches merged in this release
+* cleanup_orderly.py
+* fixordering
+* python_3_5_templating
+* update_release_notes
+
