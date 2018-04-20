@@ -154,3 +154,7 @@ We log to systemd.  All logs will have the tag `DOCKER_TAG=montagu` which allows
 journalctl --since=today CONTAINER_TAG=montagu
 journalctl --since=today CONTAINER_NAME=montagu_db_1
 ```
+
+## Release
+
+See [`ReleaseProcess.md`](ReleaseProcess.md) for details on releasing
