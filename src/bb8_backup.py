@@ -22,7 +22,7 @@ def setup():
                "targets: {}"
     print(template.format(targets))
     config_path = abspath("../montagu-bb8/config.json")
-    args = ["./setup.sh", config_path] + targets
+    args = ["./setup", config_path] + targets
     run(args, cwd=bb8_dir, check=True)
     finished_setup = True
 
