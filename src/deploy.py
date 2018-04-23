@@ -5,6 +5,7 @@ from os.path import abspath, dirname
 from time import sleep
 
 import backup
+import bb8_backup
 import data_import
 import database
 import orderly
@@ -53,8 +54,11 @@ def _deploy():
     service.pull()
 
     # If Montagu is running, back it up before tampering with it
-    if (status == "running") and settings["backup"]:
-        backup.backup(service)
+    if status == "running":
+        if settings["backup"]:
+            backup.backup(service)
+        if settings["bb8_backup"]:
+            bb8_backup.backup()
 
     # Stop Montagu if it is running
     # (and delete data volume if persist_data is False)
@@ -66,6 +70,8 @@ def _deploy():
     # Schedule backups
     if settings["backup"]:
         backup.schedule(service)
+    if settings["bb8_backup"]:
+        bb8_backup.schedule()
 
     # Start Montagu again
     service.start()
