@@ -16,7 +16,7 @@ def configure_orderly(service, initialise_volume):
     configure_orderly_ssh(service)
     # Then this requires an empty directory:
     source_setting = service.settings["initial_data_source"]
-    if initialise_volume and source_setting != "restore":
+    if initialise_volume and source_setting not in ["restore", "bb8_restore"]:
         print("Setting up orderly store")
         initialise_orderly_store(service)
     # Then set up some passwords

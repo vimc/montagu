@@ -29,7 +29,7 @@ def needs_setup():
 
 def setup(service):
     if needs_setup():
-        print("- Configuring and installing backup service")
+        print("- Configuring and installing Duplicati backup service")
         configure(service)
         run("../backup/setup.sh", check=True)
 
@@ -38,19 +38,19 @@ def backup(service):
     # Note, it is safe to run the backup on a running system, as pg_dump uses TRANSACTION ISOLATION LEVEL SERIALIZABLE
     # i.e. The backup will only see transactions that were committed before the isolation level was set.
     # So we will get a consistent backup, even if changes are being made.
-    print("Performing backup")
+    print("Performing Duplicati backup")
     setup(service)
     run("../backup/backup.py", check=True)
 
 
 def schedule(service):
-    print("Scheduling backup")
+    print("Scheduling Duplicati backup")
     setup(service)
     run(["../backup/schedule.py", "--no-immediate-backup"], check=True)
 
 
 def restore(service):
-    print("Restoring from remote backup")
+    print("Restoring from remote Duplicati backup")
     setup(service)
     ## Because of the annex work we need to ensure that users *exist*
     ## here at this point and do that just before restoring the

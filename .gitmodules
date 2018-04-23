@@ -31,3 +31,6 @@
 [submodule "submodules/shiny"]
 	path = submodules/shiny
 	url = https://github.com/vimc/montagu-shiny
+[submodule "montagu-bb8"]
+	path = montagu-bb8
+	url = https://github.com/vimc/montagu-bb8

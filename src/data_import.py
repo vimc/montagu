@@ -1,6 +1,7 @@
 from subprocess import check_output
 
 import backup
+import bb8_backup
 import versions
 from docker_helpers import docker_cp
 from teamcity import save_artifact
@@ -19,6 +20,8 @@ def do(service):
         import_dump(service.db, local_path)
     elif source == "restore":
         backup.restore(service)
+    elif source == "bb8_restore":
+        bb8_backup.restore()
     else:
         raise Exception("Unknown mode '{}'".format(source))
 
