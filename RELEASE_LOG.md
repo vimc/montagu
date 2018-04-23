@@ -888,3 +888,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.20.1
+
+## Tickets
+* i1431: Migrate burden_estimate.id to BIGSERIAL
+* i1682: Install and schedule bb8 during deploy
+
+## Other branches merged in this release
+
