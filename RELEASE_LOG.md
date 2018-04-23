@@ -880,3 +880,11 @@ Minor css change
 * python_3_5_templating
 * update_release_notes
 
+# v0.20.0
+
+## Tickets
+* i1431: Migrate burden_estimate.id to BIGSERIAL
+* i1668: Add confidentiality sign-up feature for new RfP (applicant) groups only
+
+## Other branches merged in this release
+
