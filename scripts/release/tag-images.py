@@ -54,7 +54,7 @@ class DockerTag:
         self.version = version
 
     def __str__(self):
-        if version:
+        if self.version:
             return "{}/{}:{}".format(self.registry, self.name, self.version)
         else:
             return "{}/{}".format(self.registry, self.name)
