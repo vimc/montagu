@@ -85,20 +85,13 @@ def set_image_tags(version):
         set_image_tag(name, version)
 
 
+
 def publish_images(version):
     d = docker.client.from_env()
     print("Pushing release to docker hub")
     for name in container_repo_map.keys():
         img = d.images.get(str(DockerTag(registry_local, name, version)))
-        publish_image(img, name)
-
-
-def publish_image(img, name):
-    tags = [DockerTag.parse(x) for x in img.tags]
-    published = [t.version for t in tags if t.registry == registry_hub]
-    existing = [t.version for t in tags if t.registry == registry_local]
-    for tag in set(existing) - set(published):
-        tag_and_push(img, registry_hub, name, tag)
+        tag_and_push(img, registry_hub, name, version)
 
 
 # NOTE: Using subprocess here and not the python docker module because
