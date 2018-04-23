@@ -1,3 +1,4 @@
+from os.path import abspath
 from subprocess import run
 
 targets = ["orderly"]
@@ -20,7 +21,8 @@ def setup():
     template = "- Configuring and installing bb8 backup service with these " \
                "targets: {}"
     print(template.format(targets))
-    args = ["./setup.sh", "../config.json"] + targets
+    config_path = abspath("../montagu-bb8/config.json")
+    args = ["./setup.sh", config_path] + targets
     run(args, cwd=bb8_dir, check=True)
     finished_setup = True
 
