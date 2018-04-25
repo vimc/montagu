@@ -1,6 +1,8 @@
 # Production machine
 production.montagu.dide.ic.ac.uk (also montagu.vaccineimpact.org)
 
+Host fingerprint (ECDSA): `SHA256:Rq6floLvejnfcukkQKXbfcOqggg9/pnscwIBakY092s`
+
 ## Services
 * [Montagu](https://github.com/vimc/montagu)
 
