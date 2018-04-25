@@ -1,7 +1,7 @@
 # Support machine
 support.montagu.dide.ic.ac.uk
 
-Host key fingerprint: `SHA256:etgLOXa8brU/0SsfYfoFwsNW3ljbkLPd3okPJlICN6A root@fi--didevimc02 (ECDSA)`
+Host fingerprint (ECDSA): `SHA256:etgLOXa8brU/0SsfYfoFwsNW3ljbkLPd3okPJlICN6A`
 
 ## Services
 * [TeamCity](https://github.com/vimc/montagu-ci) 
