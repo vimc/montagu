@@ -1,6 +1,8 @@
 # Annex machine
 annex.montagu.dide.ic.ac.uk
 
+Host key fingerprint (ECDSA): `SHA256:lYJUME+1ATyTvzcFvs8K+aSOBfX/Xv3mpz3kKeYdzM4`
+
 ## Services
 * Annex database (in docker container)
 
