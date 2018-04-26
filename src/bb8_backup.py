@@ -1,7 +1,7 @@
 from os.path import abspath
 from subprocess import run
 
-targets = ["orderly"]
+targets = ["orderly", "main_db_restore"]
 finished_setup = False
 bb8_dir = "../montagu-bb8/bb8"
 
