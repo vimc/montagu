@@ -277,9 +277,9 @@ def setup(service, annex_settings):
     print("- Scrambling root password")
     if password_group is not None:
         root_password = GeneratePassword().get()
-        set_root_password(service, root_password)
     else:
         root_password = 'changeme'
+    set_root_password(service, root_password)
 
     print("- Getting user configurations")
     users = user_configs(password_group)
