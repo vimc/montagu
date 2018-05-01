@@ -896,3 +896,22 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.21.0
+
+## Tickets
+* i1560: Support database restore from barman backup in deploy
+* i1618: Rewrite contrib with redux
+* i1618-unit-tests: Rewrite contrib with redux
+* i1618-unit-tests-master-merge: Rewrite contrib with redux
+* i1634: Create new modelling groups and users
+* i1666: Update architecture diagram
+* i1695: Push libsodium image to registry and pull everywhere
+* i1701: Only push version numbered tags to docker hub
+* i1710: barman restore periodic job
+* i1711: Fix docs for barman deploy
+* i1719: Security vulnerability in hapijs / hoek 2.16.3
+* i1724: Set root password on restore
+
+## Other branches merged in this release
+* minor-update
+
