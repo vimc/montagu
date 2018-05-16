@@ -6,22 +6,12 @@ from setting_definitions.enum import EnumSettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
-
-## NOTE: This duplicates the code in backup.py in order to break a
-## circular dependency.  It would be good to factor that out but I
-## can't see a really obvious decent spot for it.
-def backup_needs_setup():
-    return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
-
-
 def vault_required(settings):
     data_source = settings["initial_data_source"]
-    uses_duplicati = settings["backup"] is True or data_source == "restore"
     uses_bb8 = settings["bb8_backup"] is True or data_source == "bb8_restore"
     uses_vault_passwords = settings["password_group"] is not None and \
                            settings['password_group'] != "fake"
     return data_source in teamcity_sources \
-           or (uses_duplicati and backup_needs_setup()) \
            or uses_bb8 \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
