@@ -27,11 +27,6 @@ definitions = [
                              "If you answer no all data will be deleted from the database when Montagu is stopped. Data"
                              " should be persisted for live systems, and not persisted for testing systems.",
                              default_value=True),
-    BooleanSettingDefinition("backup",
-                             "Should data be backed up remotely using "
-                             "Duplicati?",
-                             "This should be enabled for the production environment.",
-                             default_value=True),
     BooleanSettingDefinition("bb8_backup",
                              "Should data be backed up remotely using BB8?",
                              "This should be enabled for the production "
@@ -45,16 +40,9 @@ definitions = [
                                           "permissions)"),
                               ("test_data", "Fake data, useful for testing"),
                               ("legacy", "Imported data from SDF versions 6, 7, 8 and 12"),
-                              ("restore", "Restore from Duplicati backup"),
                               ("bb8_restore", "Restore from BB8 backup")
                           ],
                           default_value="restore"),
-    SettingDefinition("backup_bucket",
-                      "Which S3 bucket should be used for backup?",
-                      "This is where data will be restored from, if you specified that a restore should happen for the"
-                      "initial data import, and it's where data will be backed up to if you enabled backups.",
-                      default_value="montagu-live",
-                      is_required=lambda x: x["backup"] is True or x["initial_data_source"] == "restore"),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
                              "If you answer yes, Montagu will be opened after deployment",
