@@ -21,7 +21,7 @@ def do(service):
     elif source == "restore":
         backup.restore(service)
     elif source == "bb8_restore":
-        bb8_backup.restore()
+        print("Nothing to do: Already ran bb8 before starting services")
     else:
         raise Exception("Unknown mode '{}'".format(source))
 
