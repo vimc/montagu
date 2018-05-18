@@ -73,6 +73,12 @@ def _deploy():
     if settings["bb8_backup"]:
         bb8_backup.schedule()
 
+    # BB8 restore
+    data_exists = (not is_first_time) and service.settings["persist_data"]
+    if settings["initial_data_source"] == "bb8_restore" and not data_exists:
+        print("Restoring BB8 (while service is stopped)")
+        bb8_backup.restore()
+
     # Start Montagu again
     service.start()
     try:
