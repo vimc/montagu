@@ -78,10 +78,9 @@ def _deploy():
     try:
         configure_montagu(service, is_first_time)
     except Exception as e:
-        print("An error occurred before deployment could be completed. "
-              "Stopping Montagu")
+        print("An error occurred before deployment could be completed:")
         print(e)
-        service.stop()
+        print("\nYou may need to call ./stop.py before redeploying.")
         try:
             notifier.post("*Failed* deploy of " + deploy_str + " :bomb:")
         except:
