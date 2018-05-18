@@ -939,3 +939,11 @@ Minor css change
 * audit
 * hotfix
 
+# v0.22.1
+
+## Tickets
+* i1725: bb8 should set the permissions on the restored volume correctly
+* i568_sortbydate: Show more metadata about reports in report list
+
+## Other branches merged in this release
+
