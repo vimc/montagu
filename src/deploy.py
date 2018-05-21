@@ -68,15 +68,24 @@ def _deploy():
     if settings["bb8_backup"]:
         bb8_backup.schedule()
 
+    # BB8 restore
+    data_exists = (not is_first_time) and service.settings["persist_data"]
+    if settings["initial_data_source"] == "bb8_restore":
+        if data_exists:
+            print("Skipping bb8 restore: 'persist_data' is set, "
+                  "and this is not a first-time deployment")
+        else:
+            print("Running bb8 restore (while service is stopped)")
+            bb8_backup.restore()
+
     # Start Montagu again
     service.start()
     try:
-        configure_montagu(service, is_first_time)
+        configure_montagu(service, data_exists)
     except Exception as e:
-        print("An error occurred before deployment could be completed. "
-              "Stopping Montagu")
+        print("An error occurred before deployment could be completed:")
         print(e)
-        service.stop()
+        print("\nYou may need to call ./stop.py before redeploying.")
         try:
             notifier.post("*Failed* deploy of " + deploy_str + " :bomb:")
         except:
@@ -95,9 +104,8 @@ def _deploy():
         webbrowser.open("https://localhost:{}/".format(settings["port"]))
 
 
-def configure_montagu(service, is_first_time):
+def configure_montagu(service, data_exists):
     # Do things to the database
-    data_exists = (not is_first_time) and service.settings["persist_data"]
     if data_exists:
         print("Skipping data import: 'persist_data' is set, "
               "and this is not a first-time deployment")

@@ -18,7 +18,7 @@ def do(service):
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
         import_dump(service.db, local_path)
     elif source == "bb8_restore":
-        bb8_backup.restore()
+        print("Nothing to do: Already ran bb8 before starting services")
     else:
         raise Exception("Unknown mode '{}'".format(source))
 

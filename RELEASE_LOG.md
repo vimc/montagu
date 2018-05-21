@@ -922,3 +922,28 @@ Minor css change
 ## Other branches merged in this release
 * params
 
+# v0.22.0
+
+## Tickets
+* i1729: switch admin groups to redux
+* i1744: Install officer on orderly container
+* i1752: Add more metadata to reports endpoint
+* i1762: update bootstrap
+* i568_basic: Show more metadata about reports in report list
+* i568_customfiltering: Show more metadata about reports in report list
+* i568_preliminary_refactor: Show more metadata about reports in report list
+* i568_responsive: Show more metadata about reports in report list
+* i568_switch: Show more metadata about reports in report list
+
+## Other branches merged in this release
+* audit
+* hotfix
+
+# v0.22.1
+
+## Tickets
+* i1725: bb8 should set the permissions on the restored volume correctly
+* i568_sortbydate: Show more metadata about reports in report list
+
+## Other branches merged in this release
+

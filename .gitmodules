@@ -1,6 +1,3 @@
-[submodule "backup"]
-	path = backup
-	url = https://github.com/vimc/montagu-backup
 [submodule "submodules/api"]
 	path = submodules/api
 	url = https://github.com/vimc/montagu-api
