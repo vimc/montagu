@@ -947,3 +947,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.22.2
+
+## Tickets
+* i1775: Both/Male/Female selection always returns "Both" gender demographic data
+
+## Other branches merged in this release
+
