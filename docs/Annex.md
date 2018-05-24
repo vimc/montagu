@@ -13,6 +13,8 @@ Host key fingerprint (ECDSA): `SHA256:lYJUME+1ATyTvzcFvs8K+aSOBfX/Xv3mpz3kKeYdzM
 sudo apt update
 sudo apt upgrade
 sudo reboot now
+
+# As Montagu user
 barman-montagu setup production.montagu.dide.ic.ac.uk
 ```
 
