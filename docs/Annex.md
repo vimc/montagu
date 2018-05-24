@@ -5,6 +5,8 @@ Host key fingerprint (ECDSA): `SHA256:lYJUME+1ATyTvzcFvs8K+aSOBfX/Xv3mpz3kKeYdzM
 
 ## Services
 * Annex database (in docker container)
+* Barman
+* (Starport - this is just a folder than can be SSH'd to by bb8 from other machines)
 
 ## Upgrading and rebooting
 ```
