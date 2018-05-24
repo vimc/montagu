@@ -13,7 +13,11 @@ Host key fingerprint (ECDSA): `SHA256:lYJUME+1ATyTvzcFvs8K+aSOBfX/Xv3mpz3kKeYdzM
 sudo apt update
 sudo apt upgrade
 sudo reboot now
+barman-montagu setup production.montagu.dide.ic.ac.uk
 ```
+
+Once https://vimc.myjetbrains.com/youtrack/issue/VIMC-1785 is merged in barman
+will restart automatically.
 
 We couldn't upgrade because VirtualBox was running. If so, you may find this
 untested script that should hibernate all VirtualBox VMs that are running. You
