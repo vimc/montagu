@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import backup
 import database
 from notify import Notifier
 from service import MontaguService
@@ -8,7 +7,7 @@ from settings import get_settings
 from os.path import abspath, dirname
 from os import chdir
 from cli import add_test_user
-
+import bb8_backup
 
 def restore_db():
     settings = get_settings()
@@ -18,7 +17,7 @@ def restore_db():
         ok = service.status == 'running' and service.db_volume_present
         if not ok:
             raise Exception('montagu not in a state we can restore')
-        backup.restore(service)
+        bb8_backup.restore(service)
         database.setup(service)
         if settings["add_test_user"] is True:
             add_test_user()

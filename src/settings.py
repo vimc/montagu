@@ -23,7 +23,11 @@ def load_settings():
         if key in data:
             settings[key] = data[key]
 
+    # now re-write file to make sure only the settings used are persisted
+    with open(path, 'w') as f:
+        json.dump(settings, f)
     return settings
+
 
 def prepare_for_vault_access(address, quiet=False):
     os.environ["VAULT_ADDR"] = address

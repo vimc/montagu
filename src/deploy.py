@@ -4,7 +4,6 @@ from os import chdir
 from os.path import abspath, dirname
 from time import sleep
 
-import backup
 import bb8_backup
 import data_import
 import database
@@ -55,8 +54,6 @@ def _deploy():
 
     # If Montagu is running, back it up before tampering with it
     if status == "running":
-        if settings["backup"]:
-            backup.backup(service)
         if settings["bb8_backup"]:
             bb8_backup.backup()
 
@@ -68,8 +65,6 @@ def _deploy():
         service.stop()
 
     # Schedule backups
-    if settings["backup"]:
-        backup.schedule(service)
     if settings["bb8_backup"]:
         bb8_backup.schedule()
 

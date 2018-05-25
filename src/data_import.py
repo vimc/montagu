@@ -1,6 +1,5 @@
 from subprocess import check_output
 
-import backup
 import bb8_backup
 import versions
 from docker_helpers import docker_cp
@@ -18,8 +17,6 @@ def do(service):
     elif source == "legacy":
         local_path = get_artifact("montagu_MontaguLegacyData_Build", "montagu.dump", "legacy-data.dump")
         import_dump(service.db, local_path)
-    elif source == "restore":
-        backup.restore(service)
     elif source == "bb8_restore":
         print("Nothing to do: Already ran bb8 before starting services")
     else:

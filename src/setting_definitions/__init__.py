@@ -6,22 +6,12 @@ from setting_definitions.enum import EnumSettingDefinition
 
 teamcity_sources = ["test_data", "legacy"]
 
-
-## NOTE: This duplicates the code in backup.py in order to break a
-## circular dependency.  It would be good to factor that out but I
-## can't see a really obvious decent spot for it.
-def backup_needs_setup():
-    return run("../backup/needs-setup.sh", stdout=DEVNULL, stderr=DEVNULL).returncode == 1
-
-
 def vault_required(settings):
     data_source = settings["initial_data_source"]
-    uses_duplicati = settings["backup"] is True or data_source == "restore"
     uses_bb8 = settings["bb8_backup"] is True or data_source == "bb8_restore"
     uses_vault_passwords = settings["password_group"] is not None and \
                            settings['password_group'] != "fake"
     return data_source in teamcity_sources \
-           or (uses_duplicati and backup_needs_setup()) \
            or uses_bb8 \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
@@ -37,11 +27,6 @@ definitions = [
                              "If you answer no all data will be deleted from the database when Montagu is stopped. Data"
                              " should be persisted for live systems, and not persisted for testing systems.",
                              default_value=True),
-    BooleanSettingDefinition("backup",
-                             "Should data be backed up remotely using "
-                             "Duplicati?",
-                             "This should be enabled for the production environment.",
-                             default_value=True),
     BooleanSettingDefinition("bb8_backup",
                              "Should data be backed up remotely using BB8?",
                              "This should be enabled for the production "
@@ -55,16 +40,9 @@ definitions = [
                                           "permissions)"),
                               ("test_data", "Fake data, useful for testing"),
                               ("legacy", "Imported data from SDF versions 6, 7, 8 and 12"),
-                              ("restore", "Restore from Duplicati backup"),
                               ("bb8_restore", "Restore from BB8 backup")
                           ],
                           default_value="restore"),
-    SettingDefinition("backup_bucket",
-                      "Which S3 bucket should be used for backup?",
-                      "This is where data will be restored from, if you specified that a restore should happen for the"
-                      "initial data import, and it's where data will be backed up to if you enabled backups.",
-                      default_value="montagu-live",
-                      is_required=lambda x: x["backup"] is True or x["initial_data_source"] == "restore"),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
                              "If you answer yes, Montagu will be opened after deployment",
