@@ -954,3 +954,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.22.3
+
+## Tickets
+* i1746: Remove Duplicati from production
+
+## Other branches merged in this release
+
