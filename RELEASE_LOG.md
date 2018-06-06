@@ -961,3 +961,19 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v0.22.4
+
+## Tickets
+* i1658: Report search returns no reports if "from" date is same as "to" date
+* i1737_createuser: Switch the users section of admin portal to Redux
+* i1737_createusersection: Switch the users section of admin portal to Redux
+* i1737_userdetails: Switch the users section of admin portal to Redux
+* i1737_userlist: Switch the users section of admin portal to Redux
+* i1744: Install officer on orderly container
+* i1771_new_barman_options: Run barman on AWS
+* i1771_new_slot: Run barman on AWS
+* i1800: Upgrade orderly components
+* i1812: orderly container needs orderly >= 0.4.3
+
+## Other branches merged in this release
+
