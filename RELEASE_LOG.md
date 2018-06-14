@@ -977,3 +977,17 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.0.0
+
+## Tickets
+* i1224: Avoid adding quotes in error messages about uploads
+* i1623: Session time-out (?) while uploading returns to login screen instead of upload success screen
+* i1825: Restructure touchstone endpoints to reflect touchstone/touchstone version distinction
+* i1825_endpoint: Restructure touchstone endpoints to reflect touchstone/touchstone version distinction
+* i1826: Mode to generate root token for use with ebola reporting portal
+
+## Other branches merged in this release
+* createuser_feedback
+* update_gradle
+* upgrade_gradle
+
