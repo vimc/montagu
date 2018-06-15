@@ -7,7 +7,7 @@ import paths
 import versions
 from cert_tool import run_cert_tool
 from docker_helpers import get_image_name
-from settings import save_secret
+from settings import save_secret_to_file
 
 
 def get_ssl_certificate(certificate_type: str):
@@ -25,7 +25,7 @@ def get_ssl_certificate(certificate_type: str):
     else:
         raise Exception("Unsupported certificate type: " + certificate_type)
 
-    if (not isfile(result['certificate'])) or (not isfile(result['key'])):
+    if (not isfile(result['certificate'])) or (not isfile(result['key']) or (not isfile(result['dhparam']))):
         raise Exception("Obtaining certificate failed: Missing file(s) in " + paths.ssl)
     return result
 
@@ -39,7 +39,8 @@ def self_signed_fresh():
     run_cert_tool("gen-self-signed", paths.ssl, args=["/working"])
     return {
         "certificate": join(paths.ssl, "certificate.pem"),
-        "key": join(paths.ssl, "ssl_key.pem")
+        "key": join(paths.ssl, "ssl_key.pem"),
+        "dhparam": join(paths.ssl, "dhparam.pem")
     }
 
 
@@ -47,29 +48,35 @@ def self_signed():
     print("- Using self-signed certificate from repository")
     copy(cert_path("self_signed", "certificate.pem"), paths.ssl)
     copy(cert_path("self_signed", "ssl_key.pem"), paths.ssl)
+    copy(cert_path("self_signed", "dhparam.pem"), paths.ssl)
     return {
         "certificate": join(paths.ssl, "certificate.pem"),
-        "key": join(paths.ssl, "ssl_key.pem")
+        "key": join(paths.ssl, "ssl_key.pem"),
+        "dhparam": join(paths.ssl, "dhparam.pem")
     }
 
 
 def production():
     print("- Using production certificate (montagu.vaccineimpact.org)")
-    return real_certificate("production", "montagu.vaccineimpact.org.crt", "ssl/production")
+    return real_certificate("production", "montagu.vaccineimpact.org.crt", "ssl/v2/production/")
 
 
 def support():
     print("- Using support certificate (support.montagu.dide.ic.ac.uk)")
-    return real_certificate("support", "support.montagu.crt", "ssl/support")
+    return real_certificate("support", "support.montagu.crt", "ssl/v2/support/")
 
 
 def real_certificate(local_folder, local_name, vault_path):
     copy(cert_path(local_folder, local_name), paths.ssl)
 
     key_path = join(paths.ssl, "ssl.key")
-    save_secret(vault_path, field="key", output=key_path)
+    save_secret_to_file(vault_path + "key", field="key", output=key_path)
+
+    dhparam_path = join(paths.ssl, "dhparam.pem")
+    save_secret_to_file(vault_path + "dhparam", field="key", output=dhparam_path)
 
     return {
         "certificate": join(paths.ssl, local_name),
-        "key": key_path
+        "key": key_path,
+        "dhparam": dhparam_path
     }

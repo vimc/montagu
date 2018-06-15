@@ -19,3 +19,4 @@ def add_certificate(container, cert_paths, path):
     container.exec_run("mkdir -p {}".format(path))
     docker_cp(cert_paths['certificate'], container.name, join(path, "certificate.pem"))
     docker_cp(cert_paths['key'], container.name, join(path, "ssl_key.pem"))
+    docker_cp(cert_paths['dhparam'], container.name, join(path, "dhparam.pem"))

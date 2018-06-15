@@ -5,7 +5,7 @@ from subprocess import run
 import paths
 from database import VaultPassword
 from docker_helpers import docker_cp
-from settings import save_secret
+from settings import save_secret_to_file
 
 orderly_ssh_keypath = ""
 
@@ -52,8 +52,8 @@ def configure_orderly_ssh(service):
     if not os.path.exists(ssh):
         print("preparing orderly ssh")
         os.makedirs(ssh)
-        save_secret("vimc-robot/id_rsa.pub", ssh + "/id_rsa.pub")
-        save_secret("vimc-robot/id_rsa", ssh + "/id_rsa")
+        save_secret_to_file("vimc-robot/id_rsa.pub", ssh + "/id_rsa.pub")
+        save_secret_to_file("vimc-robot/id_rsa", ssh + "/id_rsa")
         os.chmod(ssh + "/id_rsa", 0o600)
         with open(ssh + "/known_hosts", 'w') as output:
             run(["ssh-keyscan", "github.com"], stdout=output, check=True)
