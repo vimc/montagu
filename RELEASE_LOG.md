@@ -991,3 +991,16 @@ Minor css change
 * update_gradle
 * upgrade_gradle
 
+# v1.1.0
+
+## Tickets
+* i148: View list of touchstones
+* i148_preliminary_refactor: View list of touchstones
+* i1838: Endpoint to get responsibilities for touchstone
+* i1840: Endpoint to create new modelling group
+* i1845: UserDetailsContent component
+* i1848: SSL / TLS potential vulnerability on production
+
+## Other branches merged in this release
+* update_kotlin_1.2.50
+
