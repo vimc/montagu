@@ -1004,3 +1004,11 @@ Minor css change
 ## Other branches merged in this release
 * update_kotlin_1.2.50
 
+# v1.1.1
+
+## Tickets
+* i1841_service: Create new modelling group page
+
+## Other branches merged in this release
+* userroles
+
