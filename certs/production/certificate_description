@@ -1,0 +1,114 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 5915089926027600322 (0x52169ef2bf5de1c2)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = US, ST = Arizona, L = Scottsdale, O = "GoDaddy.com, Inc.", OU = http://certs.godaddy.com/repository/, CN = Go Daddy Secure Certificate Authority - G2
+        Validity
+            Not Before: Jun 22 12:36:07 2018 GMT
+            Not After : Jul 12 10:58:01 2020 GMT
+        Subject: OU = Domain Control Validated, CN = montagu.vaccineimpact.org
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:b4:94:44:c0:7c:aa:99:ca:e7:e3:2d:b3:9c:f9:
+                    24:c0:2a:0a:dc:26:f6:21:23:5b:3d:4a:d4:74:94:
+                    5e:a1:c1:a9:eb:87:1e:b6:9a:1c:2f:09:f3:26:4f:
+                    64:9d:e9:bd:3c:d2:4f:4a:6a:64:0f:8d:fe:ec:47:
+                    a1:6e:a7:b1:1c:87:4b:09:60:a2:55:2a:e1:d9:91:
+                    4d:ee:68:e9:8d:cf:1a:ee:e0:3b:7a:07:6f:6a:ae:
+                    0b:2a:bd:19:2e:09:bd:02:60:63:ce:4a:dd:29:38:
+                    56:a4:f9:f5:c7:1f:bf:18:21:d7:2a:c0:d4:07:6d:
+                    15:d8:c2:44:05:2f:36:ec:bf:dd:fa:c2:4e:37:cb:
+                    51:12:53:3b:fd:6b:58:a0:a3:cd:ef:be:47:f0:a6:
+                    43:c1:2c:25:ae:b3:9c:73:8e:b4:e0:07:65:6a:cb:
+                    53:f8:bc:70:fc:ca:0e:37:d8:df:65:8a:b4:86:f2:
+                    e1:7c:05:8a:26:92:cb:fb:5b:ec:14:c0:99:8d:92:
+                    42:e5:e6:96:5d:b1:8c:41:11:e5:13:92:c5:43:d9:
+                    d6:42:e0:15:3a:e0:54:a0:d9:0b:1a:52:cb:0a:1d:
+                    e8:12:08:90:2b:e3:20:08:f2:b2:72:64:99:1a:08:
+                    7a:d4:8e:6b:8e:dd:bb:2f:bd:41:ef:00:92:fd:e1:
+                    c3:97
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 CRL Distribution Points: 
+
+                Full Name:
+                  URI:http://crl.godaddy.com/gdig2s1-840.crl
+
+            X509v3 Certificate Policies: 
+                Policy: 2.16.840.1.114413.1.7.23.1
+                  CPS: http://certificates.godaddy.com/repository/
+                Policy: 2.23.140.1.2.1
+
+            Authority Information Access: 
+                OCSP - URI:http://ocsp.godaddy.com/
+                CA Issuers - URI:http://certificates.godaddy.com/repository/gdig2.crt
+
+            X509v3 Authority Key Identifier: 
+                keyid:40:C2:BD:27:8E:CC:34:83:30:A2:33:D7:FB:6C:B3:F0:B4:2C:80:CE
+
+            X509v3 Subject Alternative Name: 
+                DNS:montagu.vaccineimpact.org, DNS:www.montagu.vaccineimpact.org
+            X509v3 Subject Key Identifier: 
+                8C:65:22:7E:7A:E3:84:D2:69:35:B8:C1:C1:50:79:45:3A:FC:B9:D2
+            CT Precertificate SCTs: 
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : A4:B9:09:90:B4:18:58:14:87:BB:13:A2:CC:67:70:0A:
+                                3C:35:98:04:F9:1B:DF:B8:E3:77:CD:0E:C8:0D:DC:10
+                    Timestamp : Jun 22 12:37:01.567 2018 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:45:02:20:6B:A5:E7:ED:18:7C:56:D7:81:63:62:93:
+                                8E:D1:BE:DF:0C:B9:0B:6C:6B:7F:31:FA:81:9F:DC:A2:
+                                7E:00:89:89:02:21:00:AD:DB:67:C1:50:94:A6:2F:57:
+                                87:A8:06:66:2F:2C:5A:4A:91:DE:FB:09:09:C9:90:29:
+                                EA:2F:C4:7D:1E:89:C0
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : EE:4B:BD:B7:75:CE:60:BA:E1:42:69:1F:AB:E1:9E:66:
+                                A3:0F:7E:5F:B0:72:D8:83:00:C4:7B:89:7A:A8:FD:CB
+                    Timestamp : Jun 22 12:37:02.702 2018 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:45:02:20:5B:74:94:F2:20:34:95:C6:3C:63:D5:67:
+                                4D:27:16:06:47:5E:A8:5C:F6:84:9D:66:D1:3B:5C:79:
+                                9E:E7:F5:10:02:21:00:D0:A9:37:B2:65:DF:D9:D6:2C:
+                                30:7B:77:8E:C1:2D:51:E2:7C:A5:D8:3E:85:2A:2D:8E:
+                                6A:6B:D2:E1:9D:62:42
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : 5E:A7:73:F9:DF:56:C0:E7:B5:36:48:7D:D0:49:E0:32:
+                                7A:91:9A:0C:84:A1:12:12:84:18:75:96:81:71:45:58
+                    Timestamp : Jun 22 12:37:02.935 2018 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:45:02:21:00:E9:E6:DB:B7:A7:D1:26:C1:C9:A9:86:
+                                5E:15:D7:E4:93:A7:B5:CC:E0:5D:E8:19:A5:59:47:FB:
+                                B6:2A:70:94:6E:02:20:09:F9:8E:4B:6F:0E:D3:A8:61:
+                                BA:82:E1:2C:52:F6:6E:14:9A:30:E8:99:1D:E3:1C:FA:
+                                1D:AA:4F:57:73:30:08
+    Signature Algorithm: sha256WithRSAEncryption
+         06:c2:eb:5f:f4:26:00:0d:3b:f7:82:79:4c:19:4b:4f:9b:7b:
+         43:8d:27:a1:1f:65:c3:d9:09:38:f7:28:bb:a6:74:84:46:7e:
+         94:48:68:31:d8:9e:ff:1e:30:8c:4f:28:9c:b3:87:ae:ca:d7:
+         51:90:4d:20:75:f5:26:71:38:a9:72:43:38:b9:6a:cb:c1:86:
+         7f:6b:9d:98:76:63:85:5d:7b:31:41:9e:f7:fe:f9:01:14:04:
+         14:cd:a4:c9:46:05:72:58:dc:61:a4:c8:d5:2e:af:30:de:80:
+         37:48:52:3b:ae:20:d0:91:9c:52:53:db:60:da:1c:d4:5b:9d:
+         5d:49:71:06:56:7a:60:07:20:7c:b0:3e:23:19:fa:6a:ad:ab:
+         11:97:b3:ce:1e:01:24:2a:19:df:95:9a:f0:19:d2:a8:d6:90:
+         07:89:9c:6b:a6:ed:c1:29:bf:78:05:a5:68:c7:99:31:5c:db:
+         8a:1a:58:04:1a:10:b0:a9:39:1e:26:12:9d:29:38:a8:18:5e:
+         fc:f8:5a:a2:10:77:8e:dd:ce:a6:89:5d:0a:9e:ea:94:5f:80:
+         0a:55:85:c4:74:7d:cb:63:8c:02:80:2c:1b:2e:5c:c2:e3:71:
+         08:b2:1e:c7:a1:cb:e9:24:66:bd:48:17:37:3a:e7:75:57:d0:
+         b7:6b:0e:d2
