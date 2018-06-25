@@ -1012,3 +1012,22 @@ Minor css change
 ## Other branches merged in this release
 * userroles
 
+# v1.2.0
+
+## Tickets
+* i1807: Set timezone in the orderly docker container to match host
+* i1839: Page to view responsibilities for touchstone
+* i1839_actions: Page to view responsibilities for touchstone
+* i1839_refactor: Page to view responsibilities for touchstone
+* i1841: Create new modelling group page
+* i1851: Migrate admin login page to redux
+* i1852: Migrate admin no route found page to redux
+* i1873: Restore ability to run individual blackbox tests on API
+* i1883: convert Dan's graphs into an orderly report
+* i1884: montagu-wait.sh should accept a number of seconds to wait
+* i1885: Add touchstone details page
+
+## Other branches merged in this release
+* reorder_page_action_process
+* reorder_page_action_tests
+
