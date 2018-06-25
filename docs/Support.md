@@ -15,9 +15,8 @@ Host fingerprint (ECDSA): `SHA256:etgLOXa8brU/0SsfYfoFwsNW3ljbkLPd3okPJlICN6A`
 ## Upgrading and rebooting
 ### Graceful shutdown
 Everything will shutdown gracefully on host system shutdown. The Vagrant VMs
-are installed as a service (once 
-https://vimc.myjetbrains.com/youtrack/issue/VIMC-1477 is deployed) and Docker
-will automatically stop containers on shutdown.
+are installed as a service and Docker will automatically stop containers on 
+shutdown.
 
 ### Upgrade
 ```
