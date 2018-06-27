@@ -1031,3 +1031,13 @@ Minor css change
 * reorder_page_action_process
 * reorder_page_action_tests
 
+# v1.2.1
+
+## Tickets
+* i1849: Renew production SSL certificate by 12th July 2018
+* i1866: Consider gzipping the bearer token
+* i1866_second_approach: Consider gzipping the bearer token
+* i1898: Upgrade Gradle in reporting API
+
+## Other branches merged in this release
+
