@@ -11,7 +11,7 @@ if [ ! -f ~/.vault-token ]; then
     fi
     env | grep -E '^(VAULT_ADDR|VAULT_AUTH_GITHUB_TOKEN)' > shared/vault_config
     echo "Authenticating with vault"
-    vault auth -method=github
+    vault login -method=github
 fi
 
 mkdir -p ~/.ssh/
