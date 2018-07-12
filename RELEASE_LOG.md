@@ -1045,6 +1045,8 @@ Minor css change
 
 ## Tickets
 * i1681: Replace calls to `vault auth` with `vault login`
+* i1905: Add npm to docker container
+* i1907: Update to use r-ver image
 
 ## Other branches merged in this release
 
