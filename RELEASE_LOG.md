@@ -1041,3 +1041,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.2.2
+
+## Tickets
+* i1681: Replace calls to `vault auth` with `vault login`
+
+## Other branches merged in this release
+
