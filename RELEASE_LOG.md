@@ -1050,3 +1050,28 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.2.3
+
+## Tickets
+* i1842: UI for new touchstone creation
+* i1890: Move responsibilities to sub-url
+* i1917: Unpin RPostgres version
+* i1942: Actually pass compressed token back to API requests
+* i1944: Report onetime tokens are not compressed
+* i1946: Compressed token not being saved in local storage
+* i1949: Define schema for output expectations and write migrations
+* i1951: Generate CSV template for responsibility
+* i1951_refactor: Generate CSV template for responsibility
+* i1952: Pull data that defines output expectations
+* i1955_cleanup: Migrate new-style onetime tokens to redux
+* i1955_onetimecontext: Migrate new-style onetime tokens to redux
+* i1955_reducer_and_service: Migrate new-style onetime tokens to redux
+* i1959: Regenerate model
+* i1965: Return expectations when getting individual responsibility object
+* i1965_refactor: Return expectations when getting individual responsibility object
+* i1965_schema: Return expectations when getting individual responsibility object
+* i1966: Add many to many table to allow reusing expectations across multiple scenarios
+
+## Other branches merged in this release
+* backwardscompatability
+
