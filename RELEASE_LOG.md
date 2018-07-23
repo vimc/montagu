@@ -1075,3 +1075,16 @@ Minor css change
 ## Other branches merged in this release
 * backwardscompatability
 
+# v1.2.4
+
+## Tickets
+* i1950: Endpoint to generate CSV template for responsibility
+* i1953: Add fake output expectations to test data generator
+* i1954_reorganise: Add download generated template to contrib portal
+* i1969: Return expectations when getting list of responsibilities
+* i1969_refactor: Return expectations when getting list of responsibilities
+* i1969_schema: Return expectations when getting list of responsibilities
+
+## Other branches merged in this release
+* hotfix
+
