@@ -1103,3 +1103,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.2.6
+
+## Tickets
+* i1955_invalidatetoken: Migrate new-style onetime tokens to redux
+* i2010: Add attachment header to template endpoints
+* i2010_return_disease_and_scenario: Add attachment header to template endpoints
+
+## Other branches merged in this release
+
