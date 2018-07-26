@@ -1088,3 +1088,18 @@ Minor css change
 ## Other branches merged in this release
 * hotfix
 
+# v1.2.5
+
+## Tickets
+* i1771: Run barman on AWS
+* i1888: Add info about accept headers to docs
+* i1954: Add download generated template to contrib portal
+* i1972: Logging onto reporting portal does not take you to your intended destination
+* i1982: UI to display info about expecations
+* i1983: Button to download auto-generated template
+* i1983_refactor_onetime_tokens: Button to download auto-generated template
+* i1990: Refactor contrib portal to use new AbstractPageActionCreators
+* i1991: If an image has been displayed in an iframe, the corresponding download link doesn't work
+
+## Other branches merged in this release
+
