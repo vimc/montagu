@@ -1118,3 +1118,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.2.8
+
+## Tickets
+* i1639: Text is confusing on file input on upload estimates page
+* i1992: Burden estimate templates should be pre-populated with rows
+* i2012: Console error on templates page
+* i2014: Make onetime tokens in main API query string sensitive
+
+## Other branches merged in this release
+
