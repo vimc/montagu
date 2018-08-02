@@ -1118,3 +1118,28 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.2.8
+
+## Tickets
+* i1639: Text is confusing on file input on upload estimates page
+* i1992: Burden estimate templates should be pre-populated with rows
+* i2012: Console error on templates page
+* i2014: Make onetime tokens in main API query string sensitive
+
+## Other branches merged in this release
+
+# v1.2.9
+
+## Tickets
+* i1850: Migrate admin set password page to redux
+* i1853: Remove any orphaned alt js code
+* i1853_redux_notifications: Remove any orphaned alt js code
+* i1853_refactor_admin_forgotten_password: Remove any orphaned alt js code
+* i1853_simplify_names: Remove any orphaned alt js code
+* i1900: Release tool only tags images with the version tag
+* i1989: Import expectations data to database
+* i2013: Add stochastic download button
+* i2015: VIMC logo link should return user to Montagu homepage
+
+## Other branches merged in this release
+
