@@ -1143,3 +1143,17 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.2.10
+
+## Tickets
+* i2020: Move `AdminPageHeader` and equivalent to `Router`
+* i2023: Re-use forgotten password page in all 3 routers
+* i2023_autofill_email: Re-use forgotten password page in all 3 routers
+* i2026: use description as title and list scenarios
+* i2026_db: use description as title and list scenarios
+* i2037: Turn off old templates temporarily
+
+## Other branches merged in this release
+* 2021
+* speedup_typescript_compilation
+
