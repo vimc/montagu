@@ -1157,3 +1157,28 @@ Minor css change
 * 2021
 * speedup_typescript_compilation
 
+# v1.3.0
+
+## Tickets
+* i1637-Update-ResponsibilityGuidanceModelInputsPage: Give guidance on coverage data format
+* i1990_b: Refactor contrib portal to use new AbstractPageActionCreators
+* i1990_tests: Refactor contrib portal to use new AbstractPageActionCreators
+* i2042: Change downloads in contrib portal to use new-style one time links
+* i2042_alex_suggestions: Change downloads in contrib portal to use new-style one time links
+* i2042_disable_button_after_click: Change downloads in contrib portal to use new-style one time links
+* i2042_model_run_parameters: Change downloads in contrib portal to use new-style one time links
+* i2042_query_param_order: Change downloads in contrib portal to use new-style one time links
+* i2050: access coverage data via admin portal
+* i2056: Change uploads in contrib portal to use new-style one time tokens
+* i2057:  LiST error clicking on touchstone - UAT ONLY
+* i2057_require_expectation_fields:  LiST error clicking on touchstone - UAT ONLY
+* i2061: Create new funders role in db
+* i2062_adminpagecomponent: Create touchstone version page in admin portal
+* i2063: Create download demographics page in admin
+* i2079: Include scenario description on expectations page
+
+## Other branches merged in this release
+* increase_wait_duration
+* kimwoodruff-patch-1
+* weirdbug
+
