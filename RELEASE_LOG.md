@@ -1182,3 +1182,11 @@ Minor css change
 * kimwoodruff-patch-1
 * weirdbug
 
+# v1.3.1
+
+## Tickets
+* i1637_again: Give guidance on coverage data format
+
+## Other branches merged in this release
+* deploy
+
