@@ -1,4 +1,4 @@
-from os import mkdir
+from os import makedirs
 from os.path import join, isfile
 
 import paths
@@ -68,7 +68,7 @@ def get_token_keypair():
 
 def generate_api_config_file(service, config_path, db_password: str, hostname: str, send_emails: bool,
                              annex_settings):
-    mkdir(paths.config)
+    makedirs(paths.config, exist_ok=True)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
     print(" - Public URL: " + public_url)
@@ -86,7 +86,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
 
 
 def generate_reporting_api_config_file(service, config_path, orderly_path):
-    mkdir(paths.config)
+    makedirs(paths.config, exist_ok=True)
     config_file_path = join(paths.config, "config.properties")
     container_name = service.container_name("reporting_api")
 
