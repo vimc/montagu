@@ -36,8 +36,8 @@ def configure_reporting_api(service, keypair_paths):
     print("Configuring reporting API")
     container.exec_run("mkdir -p " + config_path)
 
-    print("- Setting Orderly volume location")
-    add_property(container, config_path, "orderly.root", "/orderly/")
+    print("- Injecting settings into container")
+    generate_reporting_api_config_file(service, config_path, orderly_path="/orderly/")
 
     print("- Injecting public key for token verification into container")
     container.exec_run("mkdir -p " + join(config_path, "token_key"))
@@ -83,6 +83,18 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         configure_email(file, send_emails)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
+
+
+def generate_reporting_api_config_file(service, config_path, orderly_path):
+    mkdir(paths.config)
+    config_file_path = join(paths.config, "config.properties")
+    container_name = service.container_name("reporting_api")
+
+    with open(config_file_path, "w") as file:
+        print("allow.localhost=false", file=file)
+        print("orderly.root={}".format(orderly_path), file=file)
+
+    docker_cp(config_file_path, container_name, join(config_path, "config.properties"))
 
 
 def configure_annex(file, annex_settings):
