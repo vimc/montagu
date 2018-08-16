@@ -1190,3 +1190,35 @@ Minor css change
 ## Other branches merged in this release
 * deploy
 
+# v1.3.2
+
+## Tickets
+* i1637-Update-ResponsibilityGuidanceModelInputsPage: Give guidance on coverage data format
+* i1990_b: Refactor contrib portal to use new AbstractPageActionCreators
+* i1990_tests: Refactor contrib portal to use new AbstractPageActionCreators
+* i2020: Move `AdminPageHeader` and equivalent to `Router`
+* i2023: Re-use forgotten password page in all 3 routers
+* i2023_autofill_email: Re-use forgotten password page in all 3 routers
+* i2026: use description as title and list scenarios
+* i2037: Turn off old templates temporarily
+* i2042: Change downloads in contrib portal to use new-style one time links
+* i2042_alex_suggestions: Change downloads in contrib portal to use new-style one time links
+* i2042_disable_button_after_click: Change downloads in contrib portal to use new-style one time links
+* i2042_model_run_parameters: Change downloads in contrib portal to use new-style one time links
+* i2056: Change uploads in contrib portal to use new-style one time tokens
+* i2062_adminpagecomponent: Create touchstone version page in admin portal
+* i2063: Create download demographics page in admin
+* i2079: Include scenario description on expectations page
+* i2080_spec: Endpoint to retrieve coverage data by scenario id, not qualified by modelling group
+* i2086: Using onetime token for splitdata downloads returns splitdata instead of csv
+* i2087: Onetime tokens for uploads cant be stored in the database
+* i2088: Regression - upload button should be disabled until a file is selected
+* i2090: Coverage data portal download returning splitdata in some browsers
+
+## Other branches merged in this release
+* 2021
+* i12087
+* kimwoodruff-patch-1
+* speedup_typescript_compilation
+* weirdbug
+
