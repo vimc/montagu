@@ -1222,3 +1222,15 @@ Minor css change
 * speedup_typescript_compilation
 * weirdbug
 
+# v1.3.3
+
+## Tickets
+* i1906: Montagu deploy fails if Slack integration is enabled and Slack is down
+* i2073_b: Issue cookie on login
+* i2073_logout: Issue cookie on login
+* i2074: reporting API should support cookie authentication
+* i2075: main API should allow cookie authentication
+* i2093: Copy allow.localhost setting into reporting API container during deploy
+
+## Other branches merged in this release
+
