@@ -1234,3 +1234,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.3.4
+
+## Tickets
+* i2076: remove onetime token from artefact iframe
+* i2077: Add fullscreen link to artefact iframe
+* i2080: Retrieve coverage data by scenario id, not qualified by modelling group
+
+## Other branches merged in this release
+
