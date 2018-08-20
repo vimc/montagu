@@ -1259,3 +1259,16 @@ Minor css change
 ## Other branches merged in this release
 * refactor_local_service_tests
 
+# v1.4.0
+
+## Tickets
+* i2081: Page to list scenarios for touchstone
+* i2096: Change set password email to use onetime token
+* i2097: Admin app depends on DemographicService and FormatControl
+* i2102: Service to get scenarios for touchstone
+* i2106: Migrate cov controller logic into coverage logic
+* i2107: Give full scenario details
+* i2107_make_diseases_available_to_all_apps: Give full scenario details
+
+## Other branches merged in this release
+
