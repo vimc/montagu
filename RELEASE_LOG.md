@@ -1250,3 +1250,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.3.6
+
+## Tickets
+* i2095: Link from touchstone list to latest version should go to version overview
+* i2098: Expose endpoint to get coverage for touchstone
+
+## Other branches merged in this release
+* refactor_local_service_tests
+
