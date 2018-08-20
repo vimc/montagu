@@ -1243,3 +1243,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.3.5
+
+## Tickets
+* i2080_fix: Retrieve coverage data by scenario id, not qualified by modelling group
+
+## Other branches merged in this release
+
