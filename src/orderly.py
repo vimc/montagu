@@ -5,7 +5,7 @@ from subprocess import run
 import paths
 from database import VaultPassword
 from docker_helpers import docker_cp
-from settings import save_secret_to_file
+from settings import save_secret_to_file, get_secret
 
 orderly_ssh_keypath = ""
 
@@ -30,9 +30,13 @@ def configure_orderly(service, initialise_volume):
 def configure_orderly_envir(service):
     password_group = service.settings['password_group']
     api_server = service.settings['instance_name'].lower()
-    if api_server == "(unknown)":
+    if api_server == "(unknown)" or api_server == "teamcity":
         api_server = "~"
-    envir = orderly_prepare_envir(password_group, api_server)
+        slack_url = "~"
+    else:
+        slack_url = '"{}"'.format(
+            get_secret("slack/orderly-webhook", field="url"))
+    envir = orderly_prepare_envir(password_group, api_server, slack_url)
     docker_cp(envir, service.orderly.name, "/orderly")
 
 
@@ -64,7 +68,7 @@ def configure_orderly_ssh(service):
     docker_cp(ssh, service.orderly.name, "/root/.ssh")
 
 
-def orderly_prepare_envir(password_group, orderly_api_server):
+def orderly_prepare_envir(password_group, orderly_api_server, slack_url):
     print("preparing orderly configuration")
     dest = paths.orderly + "/orderly_envir.yml"
     user = "orderly"
@@ -74,7 +78,8 @@ def orderly_prepare_envir(password_group, orderly_api_server):
         "MONTAGU_HOST: db",
         "MONTAGU_PORT: 5432",
         "MONTAGU_USER: {user}".format(user=user),
-        "ORDERLY_API_SERVER: {server}".format(server=orderly_api_server)]
+        "ORDERLY_API_SERVER: {server}".format(server=orderly_api_server),
+        "SLACK_URL: {url}".format(slack_url)]
     if not os.path.exists(paths.orderly):
         os.makedirs(paths.orderly)
     with open(dest, 'w') as output:
