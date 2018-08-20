@@ -78,8 +78,9 @@ def orderly_prepare_envir(password_group, orderly_api_server, slack_url):
         "MONTAGU_HOST: db",
         "MONTAGU_PORT: 5432",
         "MONTAGU_USER: {user}".format(user=user),
-        "ORDERLY_API_SERVER: {server}".format(server=orderly_api_server),
-        "SLACK_URL: {url}".format(slack_url)]
+        "ORDERLY_API_SERVER_IDENTITY: {server}".format(
+            server=orderly_api_server),
+        "SLACK_URL: {url}".format(url=slack_url)]
     if not os.path.exists(paths.orderly):
         os.makedirs(paths.orderly)
     with open(dest, 'w') as output:
