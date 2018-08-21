@@ -1272,3 +1272,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.4.1
+
+## Tickets
+* i2092: Use cookie instead of header token for normal API interactions in webapps
+
+## Other branches merged in this release
+
