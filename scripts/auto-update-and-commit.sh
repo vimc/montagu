@@ -5,6 +5,7 @@ set -ex
 git diff-index --quiet HEAD -- && echo "No changes detected" && exit 0;
 echo "Changes detected"
 
+git remote set-url origin git@github.com:vimc/montagu
 git push --delete origin latest
 git branch -d latest
 git checkout -b latest
