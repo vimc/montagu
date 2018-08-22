@@ -1279,3 +1279,20 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.0
+
+## Tickets
+* i2082: Links to download coverage for scenarios
+* i2083: Remove old onetime link code from API
+* i2084: Remove clear shiny cookie endpoint
+* i2085: Use `logout` endpoint instead of `clear-shiny-cookie`
+* i2090: Coverage data portal download returning splitdata in some browsers
+* i2091: Add integration tests to contrib download components
+* i2110: Add admin and developer roles
+* i2110_spec: Add admin and developer roles
+* i2112: Create new methods to get scenarios without coverage sets for touchstone
+* i2114: Filter scenarios to only ones in viewed touchstone version
+* i2115: Do not add trailing slash to URL when path ends with file extension
+
+## Other branches merged in this release
+
