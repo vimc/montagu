@@ -6,8 +6,8 @@ git diff-index --quiet HEAD -- && echo "No changes detected" && exit 0;
 echo "Changes detected"
 
 git remote set-url origin git@github.com:vimc/montagu
-git push --delete origin latest
-git branch -d latest
+git push --delete origin latest || true
+git branch -d latest || true
 git checkout -b latest
 
 git commit -m "Auto: Update versions to latest"
