@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 ./src/update_versions_to_latest_master.py
-git status --porcelain && echo "No changes detected" && exit 0;
+# https://stackoverflow.com/a/3879077/777939
+git diff-index --quiet HEAD -- && echo "No changes detected" && exit 0;
 echo "Changes detected"
 
 git push --delete origin latest
