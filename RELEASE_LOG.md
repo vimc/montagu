@@ -1296,3 +1296,19 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.1
+
+## Tickets
+* i2060: Remove all old-style onetime link code
+* i2101: Don't return coverage set metadata from scenario endpoint if user does not have permission
+* i2111: Basic auth pop-up shows on failed login
+* i2117: Hide diseases for which there are no scenarios in scenario lst
+* i2118: Remove `/set-shiny-cookie/` endpoint
+* i2122: Improve output from update_versions_to_latest_master.py
+* i2124: Improve commit message for auto-update tool
+* i2125: Get rid of test suite as in main API
+
+## Other branches merged in this release
+* auto_update
+* latest
+
