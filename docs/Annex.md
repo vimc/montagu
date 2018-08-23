@@ -31,3 +31,6 @@ vboxmanage list runningvms \
     | sed -r 's/.*\{(.*)\}/\1/' \
     | xargs -L1 -I {} VBoxManage controlvm {} savestate
 ```
+### Check things are back up and running
+* Annex database: `docker exec -it db_annex psql -U vimc -d montagu`
+* Barman (as user `montagu`): `barman-montagu status`

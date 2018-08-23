@@ -1259,3 +1259,56 @@ Minor css change
 ## Other branches merged in this release
 * refactor_local_service_tests
 
+# v1.4.0
+
+## Tickets
+* i2081: Page to list scenarios for touchstone
+* i2096: Change set password email to use onetime token
+* i2097: Admin app depends on DemographicService and FormatControl
+* i2102: Service to get scenarios for touchstone
+* i2106: Migrate cov controller logic into coverage logic
+* i2107: Give full scenario details
+* i2107_make_diseases_available_to_all_apps: Give full scenario details
+
+## Other branches merged in this release
+
+# v1.4.1
+
+## Tickets
+* i2092: Use cookie instead of header token for normal API interactions in webapps
+
+## Other branches merged in this release
+
+# v1.5.0
+
+## Tickets
+* i2082: Links to download coverage for scenarios
+* i2083: Remove old onetime link code from API
+* i2084: Remove clear shiny cookie endpoint
+* i2085: Use `logout` endpoint instead of `clear-shiny-cookie`
+* i2090: Coverage data portal download returning splitdata in some browsers
+* i2091: Add integration tests to contrib download components
+* i2110: Add admin and developer roles
+* i2110_spec: Add admin and developer roles
+* i2112: Create new methods to get scenarios without coverage sets for touchstone
+* i2114: Filter scenarios to only ones in viewed touchstone version
+* i2115: Do not add trailing slash to URL when path ends with file extension
+
+## Other branches merged in this release
+
+# v1.5.1
+
+## Tickets
+* i2060: Remove all old-style onetime link code
+* i2101: Don't return coverage set metadata from scenario endpoint if user does not have permission
+* i2111: Basic auth pop-up shows on failed login
+* i2117: Hide diseases for which there are no scenarios in scenario lst
+* i2118: Remove `/set-shiny-cookie/` endpoint
+* i2122: Improve output from update_versions_to_latest_master.py
+* i2124: Improve commit message for auto-update tool
+* i2125: Get rid of test suite as in main API
+
+## Other branches merged in this release
+* auto_update
+* latest
+
