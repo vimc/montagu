@@ -10,5 +10,6 @@ git push --delete origin latest || true
 git branch -d latest || true
 git checkout -b latest
 
+git add submodules
 git commit -m "Auto: Update versions to latest"
 git push -u origin
