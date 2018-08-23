@@ -12,5 +12,6 @@ git checkout -b latest
 
 git add submodules
 git commit -m "Auto: Update versions to latest
+
 $message"
 git push -u origin latest
