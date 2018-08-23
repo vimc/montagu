@@ -7,7 +7,7 @@ echo "Changes detected"
 
 git remote set-url origin git@github.com:vimc/montagu
 git push --delete origin latest || true
-git branch -d latest || true
+git branch -D latest || true
 git checkout -b latest
 
 git add submodules
