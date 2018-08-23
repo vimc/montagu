@@ -12,4 +12,4 @@ git checkout -b latest
 
 git add submodules
 git commit -m "Auto: Update versions to latest"
-git push -u origin
+git push -u origin latest
