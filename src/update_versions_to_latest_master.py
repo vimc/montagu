@@ -1,12 +1,23 @@
 #!/usr/bin/env python3
-import os
-import pprint
-from os.path import join
-from subprocess import run
+from subprocess import run, DEVNULL
 
 import versions
 
 if __name__ == "__main__":
-    run(["git", "submodule", "update", "--remote"])
-    print("\nNew versions:")
-    pprint.pprint(versions.as_dict())
+    previous = versions.as_dict()
+    run(["git", "submodule", "update", "--remote"], stdout=DEVNULL)
+    new = versions.as_dict()
+
+    changed = dict()
+    for submodule in previous.keys():
+        if new[submodule] != previous[submodule]:
+            changed[submodule] = (previous[submodule], new[submodule])
+
+    if changed:
+        print("The following submodules were updated:")
+        width = max(len(s) for s in changed.keys())
+        for submodule, versions in changed.items():
+            old, new = versions
+            print("{}: {} -> {}".format(submodule.ljust(width), old, new))
+    else:
+        print("No submodules needed to update")
