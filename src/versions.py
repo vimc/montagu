@@ -28,15 +28,10 @@ cert_tool = get_submodule_version("cert-tool")
 
 
 def as_dict():
-    return {
-        'db': db,
-        'orderly': orderly,
-        'shiny': shiny,
-        'api': api,
-        'reporting_api': api,
-        'contrib_portal': contrib_portal,
-        'admin_portal': admin_portal,
-        'report_portal': report_portal,
-        'proxy': proxy,
-        'cert_tool': cert_tool
-    }
+    submodules = [
+        'db', 'orderly', 'shiny',
+        'api', 'reporting-api',
+        'contrib-portal', 'admin-portal', 'report-portal',
+        'proxy', 'cert-tool'
+    ]
+    return dict((k, get_submodule_version(k)) for k in submodules)
