@@ -1312,3 +1312,12 @@ Minor css change
 * auto_update
 * latest
 
+# v1.5.2
+
+## Tickets
+* i1931: Ability to discover which machine a report is running on
+* i2103: Update orderly containers
+* i2128: Compress main token in cookie
+
+## Other branches merged in this release
+
