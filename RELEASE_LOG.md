@@ -1321,3 +1321,16 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.3
+
+## Tickets
+* i2111_do_not_allow_cookies_on_login: Basic auth pop-up shows on failed login
+* i2120: return all report versions from reporting API
+* i2120_martin: return all report versions from reporting API
+* i2132: Stop re-pushing the latest branch if it doesn't change
+* i2135: orderly_rebuild fails on modup2-201807-IHME-coverage
+* i2136: Change template link on burden estimate upload page
+
+## Other branches merged in this release
+* latest
+
