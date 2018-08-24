@@ -11,7 +11,6 @@ git add submodules
 git diff --quiet origin/latest -- submodules && \
     echo "origin/latest contains submodule updates already" && exit 0
 echo "Changes detected relative to origin/latest"
-git reset
 
 git remote set-url origin git@github.com:vimc/montagu
 git push --delete origin latest || true
