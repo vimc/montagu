@@ -1334,3 +1334,10 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v1.5.4
+
+## Tickets
+* i2138: Serve css with correct content type header
+
+## Other branches merged in this release
+
