@@ -1341,3 +1341,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.5
+
+## Tickets
+* i1882: Optionally update data volumes on deploy
+* i2173: Split out vault code into submodule
+
+## Other branches merged in this release
+
