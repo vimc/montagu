@@ -71,7 +71,9 @@ def _deploy():
     # BB8 restore
     data_exists = (not is_first_time) and service.settings["persist_data"]
     if settings["initial_data_source"] == "bb8_restore":
-        if data_exists:
+        data_update = service.settings["update_on_deploy"] and \
+                      not service.settings["bb8_backup"]
+        if data_exists and not data_update:
             print("Skipping bb8 restore: 'persist_data' is set, "
                   "and this is not a first-time deployment")
         else:

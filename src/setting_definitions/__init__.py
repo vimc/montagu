@@ -43,6 +43,12 @@ definitions = [
                               ("bb8_restore", "Restore from BB8 backup")
                           ],
                           default_value="restore"),
+    BooleanSettingDefinition("update_on_deploy",
+                             "Should data be updated on deploy?",
+                             "Only has an effect if 'persist_data' is true, "
+                             "'bb8_backup' is false and "
+                             "'initial_data_source' is 'bb8_restore'",
+                             default_value=False),
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
                              "If you answer yes, Montagu will be opened after deployment",
