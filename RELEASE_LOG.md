@@ -1012,3 +1012,332 @@ Minor css change
 ## Other branches merged in this release
 * userroles
 
+# v1.2.0
+
+## Tickets
+* i1807: Set timezone in the orderly docker container to match host
+* i1839: Page to view responsibilities for touchstone
+* i1839_actions: Page to view responsibilities for touchstone
+* i1839_refactor: Page to view responsibilities for touchstone
+* i1841: Create new modelling group page
+* i1851: Migrate admin login page to redux
+* i1852: Migrate admin no route found page to redux
+* i1873: Restore ability to run individual blackbox tests on API
+* i1883: convert Dan's graphs into an orderly report
+* i1884: montagu-wait.sh should accept a number of seconds to wait
+* i1885: Add touchstone details page
+
+## Other branches merged in this release
+* reorder_page_action_process
+* reorder_page_action_tests
+
+# v1.2.1
+
+## Tickets
+* i1849: Renew production SSL certificate by 12th July 2018
+* i1866: Consider gzipping the bearer token
+* i1866_second_approach: Consider gzipping the bearer token
+* i1898: Upgrade Gradle in reporting API
+
+## Other branches merged in this release
+
+# v1.2.2
+
+## Tickets
+* i1681: Replace calls to `vault auth` with `vault login`
+* i1905: Add npm to docker container
+* i1907: Update to use r-ver image
+
+## Other branches merged in this release
+
+# v1.2.3
+
+## Tickets
+* i1842: UI for new touchstone creation
+* i1890: Move responsibilities to sub-url
+* i1917: Unpin RPostgres version
+* i1942: Actually pass compressed token back to API requests
+* i1944: Report onetime tokens are not compressed
+* i1946: Compressed token not being saved in local storage
+* i1949: Define schema for output expectations and write migrations
+* i1951: Generate CSV template for responsibility
+* i1951_refactor: Generate CSV template for responsibility
+* i1952: Pull data that defines output expectations
+* i1955_cleanup: Migrate new-style onetime tokens to redux
+* i1955_onetimecontext: Migrate new-style onetime tokens to redux
+* i1955_reducer_and_service: Migrate new-style onetime tokens to redux
+* i1959: Regenerate model
+* i1965: Return expectations when getting individual responsibility object
+* i1965_refactor: Return expectations when getting individual responsibility object
+* i1965_schema: Return expectations when getting individual responsibility object
+* i1966: Add many to many table to allow reusing expectations across multiple scenarios
+
+## Other branches merged in this release
+* backwardscompatability
+
+# v1.2.4
+
+## Tickets
+* i1950: Endpoint to generate CSV template for responsibility
+* i1953: Add fake output expectations to test data generator
+* i1954_reorganise: Add download generated template to contrib portal
+* i1969: Return expectations when getting list of responsibilities
+* i1969_refactor: Return expectations when getting list of responsibilities
+* i1969_schema: Return expectations when getting list of responsibilities
+
+## Other branches merged in this release
+* hotfix
+
+# v1.2.5
+
+## Tickets
+* i1771: Run barman on AWS
+* i1888: Add info about accept headers to docs
+* i1954: Add download generated template to contrib portal
+* i1972: Logging onto reporting portal does not take you to your intended destination
+* i1982: UI to display info about expecations
+* i1983: Button to download auto-generated template
+* i1983_refactor_onetime_tokens: Button to download auto-generated template
+* i1990: Refactor contrib portal to use new AbstractPageActionCreators
+* i1991: If an image has been displayed in an iframe, the corresponding download link doesn't work
+
+## Other branches merged in this release
+
+# v1.2.6
+
+## Tickets
+* i1955_invalidatetoken: Migrate new-style onetime tokens to redux
+* i2010: Add attachment header to template endpoints
+* i2010_return_disease_and_scenario: Add attachment header to template endpoints
+
+## Other branches merged in this release
+
+# v1.2.7
+
+## Tickets
+
+## Other branches merged in this release
+
+# v1.2.8
+
+## Tickets
+* i1639: Text is confusing on file input on upload estimates page
+* i1992: Burden estimate templates should be pre-populated with rows
+* i2012: Console error on templates page
+* i2014: Make onetime tokens in main API query string sensitive
+
+## Other branches merged in this release
+
+# v1.2.9
+
+## Tickets
+* i1850: Migrate admin set password page to redux
+* i1853: Remove any orphaned alt js code
+* i1853_redux_notifications: Remove any orphaned alt js code
+* i1853_refactor_admin_forgotten_password: Remove any orphaned alt js code
+* i1853_simplify_names: Remove any orphaned alt js code
+* i1900: Release tool only tags images with the version tag
+* i1989: Import expectations data to database
+* i2013: Add stochastic download button
+* i2015: VIMC logo link should return user to Montagu homepage
+
+## Other branches merged in this release
+
+# v1.2.10
+
+## Tickets
+* i2020: Move `AdminPageHeader` and equivalent to `Router`
+* i2023: Re-use forgotten password page in all 3 routers
+* i2023_autofill_email: Re-use forgotten password page in all 3 routers
+* i2026: use description as title and list scenarios
+* i2026_db: use description as title and list scenarios
+* i2037: Turn off old templates temporarily
+
+## Other branches merged in this release
+* 2021
+* speedup_typescript_compilation
+
+# v1.3.0
+
+## Tickets
+* i1637-Update-ResponsibilityGuidanceModelInputsPage: Give guidance on coverage data format
+* i1990_b: Refactor contrib portal to use new AbstractPageActionCreators
+* i1990_tests: Refactor contrib portal to use new AbstractPageActionCreators
+* i2042: Change downloads in contrib portal to use new-style one time links
+* i2042_alex_suggestions: Change downloads in contrib portal to use new-style one time links
+* i2042_disable_button_after_click: Change downloads in contrib portal to use new-style one time links
+* i2042_model_run_parameters: Change downloads in contrib portal to use new-style one time links
+* i2042_query_param_order: Change downloads in contrib portal to use new-style one time links
+* i2050: access coverage data via admin portal
+* i2056: Change uploads in contrib portal to use new-style one time tokens
+* i2057:  LiST error clicking on touchstone - UAT ONLY
+* i2057_require_expectation_fields:  LiST error clicking on touchstone - UAT ONLY
+* i2061: Create new funders role in db
+* i2062_adminpagecomponent: Create touchstone version page in admin portal
+* i2063: Create download demographics page in admin
+* i2079: Include scenario description on expectations page
+
+## Other branches merged in this release
+* increase_wait_duration
+* kimwoodruff-patch-1
+* weirdbug
+
+# v1.3.1
+
+## Tickets
+* i1637_again: Give guidance on coverage data format
+
+## Other branches merged in this release
+* deploy
+
+# v1.3.2
+
+## Tickets
+* i1637-Update-ResponsibilityGuidanceModelInputsPage: Give guidance on coverage data format
+* i1990_b: Refactor contrib portal to use new AbstractPageActionCreators
+* i1990_tests: Refactor contrib portal to use new AbstractPageActionCreators
+* i2020: Move `AdminPageHeader` and equivalent to `Router`
+* i2023: Re-use forgotten password page in all 3 routers
+* i2023_autofill_email: Re-use forgotten password page in all 3 routers
+* i2026: use description as title and list scenarios
+* i2037: Turn off old templates temporarily
+* i2042: Change downloads in contrib portal to use new-style one time links
+* i2042_alex_suggestions: Change downloads in contrib portal to use new-style one time links
+* i2042_disable_button_after_click: Change downloads in contrib portal to use new-style one time links
+* i2042_model_run_parameters: Change downloads in contrib portal to use new-style one time links
+* i2056: Change uploads in contrib portal to use new-style one time tokens
+* i2062_adminpagecomponent: Create touchstone version page in admin portal
+* i2063: Create download demographics page in admin
+* i2079: Include scenario description on expectations page
+* i2080_spec: Endpoint to retrieve coverage data by scenario id, not qualified by modelling group
+* i2086: Using onetime token for splitdata downloads returns splitdata instead of csv
+* i2087: Onetime tokens for uploads cant be stored in the database
+* i2088: Regression - upload button should be disabled until a file is selected
+* i2090: Coverage data portal download returning splitdata in some browsers
+
+## Other branches merged in this release
+* 2021
+* i12087
+* kimwoodruff-patch-1
+* speedup_typescript_compilation
+* weirdbug
+
+# v1.3.3
+
+## Tickets
+* i1906: Montagu deploy fails if Slack integration is enabled and Slack is down
+* i2073_b: Issue cookie on login
+* i2073_logout: Issue cookie on login
+* i2074: reporting API should support cookie authentication
+* i2075: main API should allow cookie authentication
+* i2093: Copy allow.localhost setting into reporting API container during deploy
+
+## Other branches merged in this release
+
+# v1.3.4
+
+## Tickets
+* i2076: remove onetime token from artefact iframe
+* i2077: Add fullscreen link to artefact iframe
+* i2080: Retrieve coverage data by scenario id, not qualified by modelling group
+
+## Other branches merged in this release
+
+# v1.3.5
+
+## Tickets
+* i2080_fix: Retrieve coverage data by scenario id, not qualified by modelling group
+
+## Other branches merged in this release
+
+# v1.3.6
+
+## Tickets
+* i2095: Link from touchstone list to latest version should go to version overview
+* i2098: Expose endpoint to get coverage for touchstone
+
+## Other branches merged in this release
+* refactor_local_service_tests
+
+# v1.4.0
+
+## Tickets
+* i2081: Page to list scenarios for touchstone
+* i2096: Change set password email to use onetime token
+* i2097: Admin app depends on DemographicService and FormatControl
+* i2102: Service to get scenarios for touchstone
+* i2106: Migrate cov controller logic into coverage logic
+* i2107: Give full scenario details
+* i2107_make_diseases_available_to_all_apps: Give full scenario details
+
+## Other branches merged in this release
+
+# v1.4.1
+
+## Tickets
+* i2092: Use cookie instead of header token for normal API interactions in webapps
+
+## Other branches merged in this release
+
+# v1.5.0
+
+## Tickets
+* i2082: Links to download coverage for scenarios
+* i2083: Remove old onetime link code from API
+* i2084: Remove clear shiny cookie endpoint
+* i2085: Use `logout` endpoint instead of `clear-shiny-cookie`
+* i2090: Coverage data portal download returning splitdata in some browsers
+* i2091: Add integration tests to contrib download components
+* i2110: Add admin and developer roles
+* i2110_spec: Add admin and developer roles
+* i2112: Create new methods to get scenarios without coverage sets for touchstone
+* i2114: Filter scenarios to only ones in viewed touchstone version
+* i2115: Do not add trailing slash to URL when path ends with file extension
+
+## Other branches merged in this release
+
+# v1.5.1
+
+## Tickets
+* i2060: Remove all old-style onetime link code
+* i2101: Don't return coverage set metadata from scenario endpoint if user does not have permission
+* i2111: Basic auth pop-up shows on failed login
+* i2117: Hide diseases for which there are no scenarios in scenario lst
+* i2118: Remove `/set-shiny-cookie/` endpoint
+* i2122: Improve output from update_versions_to_latest_master.py
+* i2124: Improve commit message for auto-update tool
+* i2125: Get rid of test suite as in main API
+
+## Other branches merged in this release
+* auto_update
+* latest
+
+# v1.5.2
+
+## Tickets
+* i1931: Ability to discover which machine a report is running on
+* i2103: Update orderly containers
+* i2128: Compress main token in cookie
+
+## Other branches merged in this release
+
+# v1.5.3
+
+## Tickets
+* i2111_do_not_allow_cookies_on_login: Basic auth pop-up shows on failed login
+* i2120: return all report versions from reporting API
+* i2120_martin: return all report versions from reporting API
+* i2132: Stop re-pushing the latest branch if it doesn't change
+* i2135: orderly_rebuild fails on modup2-201807-IHME-coverage
+* i2136: Change template link on burden estimate upload page
+
+## Other branches merged in this release
+* latest
+
+# v1.5.4
+
+## Tickets
+* i2138: Serve css with correct content type header
+
+## Other branches merged in this release
+
