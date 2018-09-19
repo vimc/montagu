@@ -11,6 +11,7 @@ Host fingerprint (ECDSA): `SHA256:etgLOXa8brU/0SsfYfoFwsNW3ljbkLPd3okPJlICN6A`
 * [Docker registry](https://github.com/vimc/montagu-registry) 
   (as Docker container)
 * [Vault](https://github.com/vimc/montagu-vault) (as Docker container)
+* [Montagu-Monitor](https://github.com/vimc/montagu-monitor)
 
 ## Upgrading and rebooting
 ### Graceful shutdown

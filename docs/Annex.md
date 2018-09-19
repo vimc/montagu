@@ -7,6 +7,7 @@ Host key fingerprint (ECDSA): `SHA256:lYJUME+1ATyTvzcFvs8K+aSOBfX/Xv3mpz3kKeYdzM
 * Annex database (in docker container)
 * Barman
 * Cron job to nightly dump data from barman and ferry it to the starport
+* Cron job to nightly back up starport to AWS using duplicati
 * (Starport - this is just a folder than can be SSH'd to by bb8 from other machines)
 
 ## Upgrading and rebooting
