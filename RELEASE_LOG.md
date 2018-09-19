@@ -1349,3 +1349,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.6
+
+## Tickets
+* i2175: Prevent AWS barman from dropping SSH tunnel
+* i2184: Update documentation to include Prometheus
+
+## Other branches merged in this release
+
