@@ -1357,3 +1357,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.7
+
+## Tickets
+* i2111_custom_header: Basic auth pop-up shows on failed login
+* i2176: Add metrics endpoint to barman montagu
+* i2194: Add cohort size to expectations page
+* i2197: Deal with latest webapps security alerts
+* i2199: Update packages that have drifted
+
+## Other branches merged in this release
+
