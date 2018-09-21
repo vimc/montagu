@@ -1368,3 +1368,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.8
+
+## Tickets
+* i2208: option to skip initial backup on barman restart
+
+## Other branches merged in this release
+* latest
+
