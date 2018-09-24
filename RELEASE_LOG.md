@@ -1376,3 +1376,11 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v1.5.9
+
+## Tickets
+* i2218: Increase max_wal_senders to 3N + 1
+
+## Other branches merged in this release
+* latest
+
