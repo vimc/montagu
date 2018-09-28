@@ -27,9 +27,7 @@ sudo reboot now   # if needed
 ```
 
 ### Resume
-Docker registry, TeamCity, and staging VMs come back automatically.
-
-All except the Vault should be scriptable to start on boot.
+All services exept the Vault restart automatically on boot. So you need to:
 
 1. Start Vault: [Instructions](https://github.com/vimc/montagu-vault#restarting-andor-restoring-the-vault)
 1. Unseal the Vault: [Instructions](https://github.com/vimc/montagu-vault#unsealing-the-vault)
@@ -41,4 +39,5 @@ You can check things are working by:
 1. Registry: Running `docker pull docker.montagu.dide.ic.ac.uk:5000/montagu-db:master`
 1. Staging: Browsing to the instances: [URLs](https://github.com/vimc/montagu/blob/master/staging/README.md#access-the-stage-instances)
 1. Vault: If you were able to unseal it, then it's up
+1. Monitor: Go to http://support.montagu.dide.ic.ac.uk:9090/
 
