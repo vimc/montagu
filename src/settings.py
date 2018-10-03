@@ -76,7 +76,7 @@ def get_settings(quiet=False):
 
 def save_settings(settings):
     with open(path, 'w') as f:
-        json.dump(settings, f, indent=4)
+        json.dump(settings, f, indent="  ", sort_keys=True)
 
 
 def get_secret(secret_path, field="value"):

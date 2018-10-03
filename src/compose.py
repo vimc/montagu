@@ -35,7 +35,7 @@ def run(args, settings):
 def get_env(settings):
     port = settings["port"]
     hostname = settings["hostname"]
-    return {
+    env = {
         'MONTAGU_REGISTRY': montagu_registry,
 
         'MONTAGU_PORT': str(port),
@@ -54,3 +54,6 @@ def get_env(settings):
         'MONTAGU_ORDERLY_VERSION': versions.orderly,
         'MONTAGU_SHINY_VERSION': versions.shiny
     }
+    if settings["use_production_db_config"]:
+        env["MONTAGU_DB_CONF"] = "/etc/montagu/postgresql.production.conf"
+    return env

@@ -52,7 +52,7 @@ definitions = [
     BooleanSettingDefinition("open_browser",
                              "Open the browser after deployment?",
                              "If you answer yes, Montagu will be opened after deployment",
-                             default_value=True),
+                             default_value=False),
     SettingDefinition("port",
                       "What port should Montagu listen on?",
                       "Note that this port must be the one that users browsers will be connecting to. In other words, "
@@ -64,8 +64,8 @@ definitions = [
                       "This hostname should match the SSL certificate. Likely values:"
                       "\n- localhost (for local dev)"
                       "\n- support.montagu.dide.ic.ac.uk (for stage)"
-                      "\n- montagu.vaccineimpact.org (for production)"
-                      ),
+                      "\n- montagu.vaccineimpact.org (for production)",
+                      default_value="localhost"),
     EnumSettingDefinition("certificate",
                           "What SSL certificate should Montagu use?",
                           [
@@ -73,23 +73,24 @@ definitions = [
                               ("self_signed_fresh", "Generate a new, non-secure self-signed certificate every deploy"),
                               ("production", "Certificate for montagu.vaccineimpact.org"),
                               ("support", "Certificate for support.montagu.dide.ic.ac.uk")
-                          ]
-                          ),
+                          ],
+                          default_value="self_signed"),
     EnumSettingDefinition("password_group",
                           "Which password group should montagu use to retrieve database passwords from the vault?",
                           [
                               ("production", "Passwords for production"),
                               ("science", "Passwords for science"),
                               ("fake", "Do not use passwords from the vault")
-                          ]
-                          ),
+                          ],
+                          default_value="fake"),
     EnumSettingDefinition("db_annex_type",
                           "How do we treat the annex database?",
                           [
                               ("fake", "Add a totally safe, but empty, version to the constellation"),
                               ("readonly", "Read-only access to the real annex"),
                               ("real", "Full access to the real annex: PRODUCTION ONLY")
-                          ]),
+                          ],
+                          default_value="fake"),
     SettingDefinition("notify_channel",
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",
@@ -129,5 +130,10 @@ definitions = [
                              "Should we copy burden estimate templates from "
                              "orderly into the contrib portal container?",
                              "This can only be true if data source is restore",
+                             default_value=False),
+    BooleanSettingDefinition("use_production_db_config",
+                             "Should we use the high-performance database "
+                             "config?",
+                             "This uses more memory",
                              default_value=False)
 ]
