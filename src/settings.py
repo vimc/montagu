@@ -24,8 +24,7 @@ def load_settings():
             settings[key] = data[key]
 
     # now re-write file to make sure only the settings used are persisted
-    with open(path, 'w') as f:
-        json.dump(settings, f)
+    save_settings(settings)
     return settings
 
 
