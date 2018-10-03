@@ -19,8 +19,8 @@ sudo reboot now
 # As Montagu user
 barman-montagu setup production.montagu.dide.ic.ac.uk
 ```
-Barman and Annex will resume automatically. Cron job will continue running as per
-usual.
+Annex database will resume automatically. Cron job will continue running as per
+usual. Our goal is to have Barman resuming automatically also, but as yet this does not work. See https://vimc.myjetbrains.com/youtrack/issue/VIMC-2116
 
 We couldn't upgrade because VirtualBox was running. If so, you may find this
 untested script that should hibernate all VirtualBox VMs that are running. You
