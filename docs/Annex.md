@@ -16,8 +16,10 @@ sudo apt update
 sudo apt upgrade
 sudo reboot now
 
-# As Montagu user
-barman-montagu setup production.montagu.dide.ic.ac.uk
+sudo su montagu
+docker start barman-montagu
+docker exec barman-montagu setup-barman --no-initial-backup
+
 ```
 Annex database will resume automatically. Cron job will continue running as per
 usual. Our goal is to have Barman resuming automatically also, but as yet this does not work. See https://vimc.myjetbrains.com/youtrack/issue/VIMC-2116
