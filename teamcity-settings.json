@@ -16,5 +16,6 @@
     "notify_channel": "",
     "enable_db_replication": false,
     "update_on_deploy": false,
-    "include_template_reports":false
+    "include_template_reports": false,
+    "use_production_db_config": false
 }

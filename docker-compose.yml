@@ -38,6 +38,7 @@ services:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     restart: always
     logging: *log-journald
+    command: ${MONTAGU_DB_CONF}
     ports:
       - "5432:5432"
     volumes:
