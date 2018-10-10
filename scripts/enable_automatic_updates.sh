@@ -1,26 +1,29 @@
 #!/usr/bin/env bash
 
-apt-get install unattended-upgrades curl
+set -e
 
-echo '
+apt-get update
+apt-get install -y unattended-upgrades curl
+
+tee /etc/apt/apt.conf.d/20auto-upgrades <<EOF > /dev/null
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
-' >/etc/apt/apt.conf.d/20auto-upgrades
+EOF
 
-sed -i.bak 's|//Unattended-Upgrade::Remove-Unused-Dependencies "false"|Unattended-Upgrade::Remove-Unused-Dependencies "true"|' /etc/apt/apt.conf.d/50unattended-upgrades
+sed -i 's|//Unattended-Upgrade::Remove-Unused-Dependencies "false"|Unattended-Upgrade::Remove-Unused-Dependencies "true"|' /etc/apt/apt.conf.d/50unattended-upgrades
 
-sed -i.bak 's|//Unattended-Upgrade::Automatic-Reboot "false"|Unattended-Upgrade::Automatic-Reboot "false"|' /etc/apt/apt.conf.d/50unattended-upgrades
+sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false"|Unattended-Upgrade::Automatic-Reboot "false"|' /etc/apt/apt.conf.d/50unattended-upgrades
 
-rm /etc/apt/apt.conf.d/50unattended-upgrades.bak
+# See https://help.ubuntu.com/community/AutomaticSecurityUpdates for documentation:
 
-echo '
+tee /etc/apt/apt.conf.d/10periodic <<EOF > /dev/null
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "1";
 APT::Periodic::AutocleanInterval "1";
 APT::Periodic::Unattended-Upgrade "1";
 APT::Periodic::Verbose 2;
 APT::Periodic::RandomSleep 1;
-'> /etc/apt/apt.conf.d/10periodic
+EOF
 
 export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200
 if [ "$VAULT_AUTH_GITHUB_TOKEN" = "" ]; then
@@ -32,24 +35,25 @@ fi
 vault login -method=github
 SLACK_WEBHOOK=$(vault read -field=password secret/slack/autoupdate-webhook)
 
-echo '#!/bin/sh
+tee /usr/local/sbin/check_reboot_required.sh <<EOF > /dev/null
+#!/bin/sh
 
 if [ -f /var/run/reboot-required ]; then
 
-  hostname=$(uname -n)
-  if [ $hostname = "fi--didevimc01" ]; then
+  hostname=\$(uname -n)
+  if [ \$hostname = "fi--didevimc01" ]; then
     hostname="production"
-  elif [ $hostname = "fi--didevimc02" ]; then
+  elif [ \$hostname = "fi--didevimc02" ]; then
     hostname="support"
-  elif [ $hostname = "wpia-didess1" ]; then
+  elif [ \$hostname = "wpia-didess1" ]; then
     hostname="annex"
   fi
 
-  curl -X POST -H '"'"'Content-type: application/json'"'"' -d "{ \"text\":\"A reboot is required on "${hostname}".montagu.dide.ic.ac.uk following automatic updates.\"}" https://hooks.slack.com/services/'"$SLACK_WEBHOOK"'
+  curl -X POST -H 'Content-type: application/json' -d "{ \"text\":\"A reboot is required on "\${hostname}".montagu.dide.ic.ac.uk following automatic updates.\"}" https://hooks.slack.com/services/$SLACK_WEBHOOK
 
 fi
 
-' > /usr/local/sbin/check_reboot_required.sh
+EOF
 
 chmod 744 /usr/local/sbin/check_reboot_required.sh
 
