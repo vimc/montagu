@@ -10,8 +10,11 @@ APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 EOF
 
-sed -i 's|//Unattended-Upgrade::Remove-Unused-Dependencies "false"|Unattended-Upgrade::Remove-Unused-Dependencies "true"|' /etc/apt/apt.conf.d/50unattended-upgrades
+# In /etc/apt/apt.conf.d/50unattended-upgrades, change two lines from defaults:-
+# Uncomment  //Unattended-Upgrade::Remove-Unused-Dependencies "false"   and change value to "true"
+# Uncomment  //Unattended-Upgrade::Automatic-Reboot "false"
 
+sed -i 's|//Unattended-Upgrade::Remove-Unused-Dependencies "false"|Unattended-Upgrade::Remove-Unused-Dependencies "true"|' /etc/apt/apt.conf.d/50unattended-upgrades
 sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false"|Unattended-Upgrade::Automatic-Reboot "false"|' /etc/apt/apt.conf.d/50unattended-upgrades
 
 # See https://help.ubuntu.com/community/AutomaticSecurityUpdates for documentation:
