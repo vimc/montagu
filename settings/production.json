@@ -1,0 +1,20 @@
+{
+  "db_annex_type": "real",
+  "password_group": "production",
+  "vault_address": "https://support.montagu.dide.ic.ac.uk:8200",
+  "instance_name": "Production",
+  "require_clean_git": false,
+  "notify_channel": "montagu-deploy",
+  "port": 443,
+  "initial_data_source": "restore",
+  "update_on_deploy": false,
+  "bb8_backup": true,
+  "certificate": "production",
+  "include_template_reports": true,
+  "clone_reports": true,
+  "persist_data": true,
+  "add_test_user": false,
+  "hostname": "montagu.vaccineimpact.org",
+  "open_browser": false,
+  "enable_db_replication": true
+}
