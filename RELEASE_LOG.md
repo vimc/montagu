@@ -1384,3 +1384,27 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v1.5.10
+
+## Tickets
+* i2160: Automatic updates on production
+* i2205: Add `janitor` package to montagu docker container
+* i2216: Duplicate rows in burden estimate upload cause 504 gateway timeout
+* i2219: Montagu is not using the production config
+* i2219_enable_production_db_config: Montagu is not using the production config
+* i2219_remove_duplicated_settings: Montagu is not using the production config
+* i2232: AWS Barman configuration updates
+* i2233: make sure flask app code is null safe
+* i2240: Make it easier to regenerate the orderly jooq mapping
+* i2242: Update docs for Annex reboot
+* i2244: Add machine metrics to EC2 instance
+* i2244_docs: Add machine metrics to EC2 instance
+* i2260: Pull out barman metrics Flask app into own container
+* i2264: Write out barman status to a file in a mounted volume every 5 minutes, with timestamp
+* i2274: Prevent kubelet starting on the aws machine
+
+## Other branches merged in this release
+* extra_requirements
+* flask_tests
+* remove_jsdom
+
