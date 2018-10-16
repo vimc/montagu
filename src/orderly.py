@@ -21,6 +21,10 @@ def configure_orderly(service, initialise_volume):
         initialise_orderly_store(service)
     # Then set up some passwords
     configure_orderly_envir(service)
+    # Ensure the orderly db is in a reasonable state
+    args = ["docker", "exec", service.orderly.name,
+            "orderly", "rebuild", "--if-schema-changed"]
+    run(args, check=True)
     # And we're off
     print("Sending orderly go signal")
     args = ["docker", "exec", service.orderly.name, "touch", "/orderly_go"]
