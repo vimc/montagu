@@ -9,8 +9,7 @@
 
 ## Other docs process
 * [Release process](ReleaseProcess.md)
-* [Disaster recovery](docs/DisasterRecovery.md)
-* Upgrading and rebooting servers: [docs](docs/)
+* Upgrading and rebooting servers, disaster recovery: [docs](https://github.com/vimc/montagu-machine/tree/master/docs/)
 
 ## Deploy
 As root:
