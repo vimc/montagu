@@ -1408,3 +1408,18 @@ Minor css change
 * flask_tests
 * remove_jsdom
 
+# v1.5.11
+
+## Tickets
+* i1472: Store montagu-deploy.json files for production, science, uat in the repo
+* i2182: Country metadata migrations
+* i2245: 'View list' on burden estimate templates page takes you back to the top of the page
+* i2262: Split out montagu-db repo
+* i2271: Split out provisioning from the main montagu repo
+* i2273: Make cached-metrics take a path to the config file
+* i2275: Make machine-metrics less dependent on go path details
+* i2278: Update orderly containers to 0.5.3
+* i2285: Icons not rendering in the reportle
+
+## Other branches merged in this release
+
