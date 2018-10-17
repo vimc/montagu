@@ -1,0 +1,20 @@
+{
+  "add_test_user": true,
+  "db_annex_type": "readonly",
+  "clone_reports": true,
+  "bb8_backup": false,
+  "open_browser": false,
+  "hostname": "support.montagu.dide.ic.ac.uk",
+  "enable_db_replication": false,
+  "include_template_reports": true,
+  "vault_address": "https://support.montagu.dide.ic.ac.uk:8200",
+  "port": 11443,
+  "require_clean_git": false,
+  "instance_name": "science",
+  "certificate": "support",
+  "password_group": "science",
+  "initial_data_source": "bb8_restore",
+  "notify_channel": "montagu-deploy",
+  "update_on_deploy": true,
+  "persist_data": true
+}
