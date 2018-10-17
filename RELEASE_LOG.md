@@ -1423,3 +1423,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.5.12
+
+## Tickets
+* i2278: Update orderly containers to 0.5.3
+
+## Other branches merged in this release
+
