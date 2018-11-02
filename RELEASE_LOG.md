@@ -1430,3 +1430,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.6.0
+
+## Tickets
+* i1899: Sort touchstones in some sensible way
+* i2257: Only return coverage for countries we're expecting burden estimates for
+* i2276: Option to download all coverage or just for expected countries
+* i2321: Reduce permissions for 'user' in admin portal
+* i2325: Update montagu-db-docs
+
+## Other branches merged in this release
+
