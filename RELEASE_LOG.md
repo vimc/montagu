@@ -1447,3 +1447,21 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.8.0
+
+## Tickets
+* i2265: re-write /versions/ endpoint to use new db schema
+* i2326: De-montaguise montagu-db-docs
+* i2332: Logic to retrieve expected row number for given burden estimate set
+* i2333: Check rows on upload of central estimates and compare with expected rows
+* i2340: Reporting API can serve orderly changelog
+* i2340_regenerate_db_interface: Reporting API can serve orderly changelog
+* i2341: "Latest" should be supported in lieu of a report version for `changelog` endpoint
+* i2355: BUG: Fix failing integration tests
+* i2362: Update orderly container to include connection
+* i2367: Validate estimates against expected rows when closing a set
+* i2368: Update orderly to 0.5.7 for changelog
+* i2378: Upgrade requests
+
+## Other branches merged in this release
+
