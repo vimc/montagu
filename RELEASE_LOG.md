@@ -1465,3 +1465,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.0
+
+## Tickets
+* i2337: UI to display pinned report(s) in the reportle homepage
+* i2354: Searches on reporting portal should not be case sensitive
+* i2394: Update webapps README file
+
+## Other branches merged in this release
+
