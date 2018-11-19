@@ -1480,3 +1480,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.2
+
+## Tickets
+* i2359: Add integration tests to reporting API that rely on orderly demo data
+
+## Other branches merged in this release
+
