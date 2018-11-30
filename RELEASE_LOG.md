@@ -1487,3 +1487,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.3
+
+## Tickets
+* i2367: Validate estimates against expected rows when closing a set
+* i2390: Endpoint to get estimates for deaths for a single scenario, aggregated over countries, as json
+* i2402: Thin down Report model to original spec
+* i2406: Create integration test that checks expected properties from /versions/
+* i2411: Add a second active touchstone version to test data
+
+## Other branches merged in this release
+
