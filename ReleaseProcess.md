@@ -21,17 +21,16 @@
 
 ## Deploying to UAT
 
-1. `ssh support.montagu`
-2. Become the vagrant user and cd into their home directory `sudo su vagrant && cd`
-3. Run `./uat.sh` which will give you a shell inside the virtual machine.
-4. `cd montagu`
-5.  2 options here:
+1. Connect as the vagrant user: `ssh vagrant@support.montagu` (or `ssh support.montagu` and then `sudo su vagrant && cd`)
+2. Run `./uat.sh` which will give you a shell inside the virtual machine.
+3. `cd montagu`
+4.  2 options here:
 
     i) To deploy the latest tagged release, run `sudo -E ./deploy.py`
 
-    ii) To run a specific branch, for example to run the latest master branch:
+    ii) To run a specific branch:
     ```
-    sudo git checkout master && git pull && git submodule update --recursive
+    sudo git fetch && git checkout <branchname> && git merge && git submodule update --recursive
     sudo -E ./src/deploy.py
     ```
     
