@@ -1498,3 +1498,17 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.4
+
+## Tickets
+* i2345: further standardise 201710 impact/impact rates
+* i2387: Expose wide format coverage data in admin portal
+* i2389: UI to report when a set is marked as invalid, and explain what to do next
+* i2399: Support touchstone specific guidance pages in Contrib portal
+* i2429: Support new GAVI support levels
+* i2431: Remove stochastic guidance outputs for 2018 touchstone
+* i2432: Hide 'Download stochastic template' buttons for 2018 touchstone
+
+## Other branches merged in this release
+* documentation
+
