@@ -16,10 +16,10 @@ root_user = "vimc"
 def user_configs(password_group):
     # Later, read these from a yml file?
     return [
-        UserConfig(api_db_user, 'all', VaultPassword(password_group, api_db_user)),
-        UserConfig('import', 'all', VaultPassword(password_group, 'import')),
-        UserConfig('orderly', 'all', VaultPassword(password_group, 'orderly')),
-        UserConfig('readonly', 'readonly', VaultPassword(password_group, 'readonly')),
+        UserConfig(api_db_user, 'all', [], VaultPassword(password_group, api_db_user)),
+        UserConfig('import', 'all', ["gavi_support_type", "activity_type"], VaultPassword(password_group, 'import')),
+        UserConfig('orderly', 'all', [], VaultPassword(password_group, 'orderly')),
+        UserConfig('readonly', 'readonly', [], VaultPassword(password_group, 'readonly')),
     ]
 
 
@@ -60,9 +60,10 @@ class VaultPassword:
 
 
 class UserConfig:
-    def __init__(self, name, permissions, password_source, option=None):
+    def __init__(self, name, permissions, exclude, password_source, option=None):
         self.name = name
         self.permissions = permissions  # Currently, this can only be 'all', but the idea is to extend this config later
+        self.exclude = exclude  # Array of table, sequence or function names to revoke edit privileges on
         self.password_source = password_source
         self.option = option.upper() if option else ""
         self._password = None
@@ -131,6 +132,14 @@ def revoke_all(db, user):
     revoke_all_on("functions")
 
 
+def revoke_specific(db, user):
+    def revoke_specific_on(what):
+        db.execute("REVOKE INSERT, UPDATE, DELETE ON {what} FROM {name}".format(name=user.name, what=what))
+
+    for exclusion in user.exclude:
+        revoke_specific_on(exclusion)
+
+
 def grant_all(db, user):
     def grant_all_on(what):
         db.execute("GRANT ALL PRIVILEGES ON ALL {what} IN SCHEMA public TO {name}".format(name=user.name, what=what))
@@ -167,6 +176,7 @@ def set_permissions(db, user):
     revoke_all(db, user)
     if user.permissions == 'all':
         grant_all(db, user)
+        revoke_specific(db, user)
     elif user.permissions == 'readonly':
         grant_readonly(db, user)
     elif user.permissions == 'pass':
