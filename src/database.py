@@ -134,7 +134,7 @@ def revoke_all(db, user):
 
 def revoke_specific(db, user):
     def revoke_specific_on(what):
-        db.execute("REVOKE INSERT, UPDATE, DELETE ON {what} FROM {name}".format(name=user.name, what=what))
+        db.execute("REVOKE INSERT, UPDATE, DELETE ON {what} IN SCHEMA public FROM {name}".format(name=user.name, what=what))
 
     for exclusion in user.exclude:
         revoke_specific_on(exclusion)
