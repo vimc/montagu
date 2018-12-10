@@ -76,6 +76,10 @@ def add_test_user():
 
     run(command + [name] + args)
 
+    args = ["addRole", "test.user", "modeller"]
+
+    run(command + [name] + args)
+
 
 if __name__ == "__main__":
     try:
