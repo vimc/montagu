@@ -17,7 +17,7 @@ def user_configs(password_group):
     # Later, read these from a yml file?
     return [
         UserConfig(api_db_user, 'all', [], VaultPassword(password_group, api_db_user)),
-        UserConfig('import', 'all', ["gavi_support_type", "activity_type"], VaultPassword(password_group, 'import')),
+        UserConfig('import', 'all', ["gavi_support_level", "activity_type"], VaultPassword(password_group, 'import')),
         UserConfig('orderly', 'all', [], VaultPassword(password_group, 'orderly')),
         UserConfig('readonly', 'readonly', [], VaultPassword(password_group, 'readonly')),
     ]
