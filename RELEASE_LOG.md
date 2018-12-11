@@ -1512,3 +1512,11 @@ Minor css change
 ## Other branches merged in this release
 * documentation
 
+# v1.9.5
+
+## Tickets
+* i2437: Remove Parameters section, and text changes to remove references to stochastic, from Responsibilities page for 2018
+* i2439: Add modeller role to test user
+
+## Other branches merged in this release
+
