@@ -1520,3 +1520,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.6
+
+## Tickets
+* i2369: Document error conventions in Montagu API
+* i2448: Put open touchstones into reverse alphabetical order (of id) in group page
+
+## Other branches merged in this release
+
