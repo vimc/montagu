@@ -1528,3 +1528,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.7
+
+## Tickets
+* i2452: Methods to get chart data
+
+## Other branches merged in this release
+
