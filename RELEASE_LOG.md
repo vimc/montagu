@@ -1535,3 +1535,6 @@ Minor css change
 
 ## Other branches merged in this release
 
+* fix API model to support null citation
+
+
