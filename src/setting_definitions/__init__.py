@@ -126,11 +126,6 @@ definitions = [
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
                              default_value=False),
-    BooleanSettingDefinition("include_template_reports",
-                             "Should we copy burden estimate templates from "
-                             "orderly into the contrib portal container?",
-                             "This can only be true if data source is restore",
-                             default_value=False),
     BooleanSettingDefinition("use_production_db_config",
                              "Should we use the high-performance database "
                              "config?",

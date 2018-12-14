@@ -3,13 +3,8 @@ from os.path import join
 
 
 def configure_contrib_portal(service):
-    template_report_paths = get_report_versions("template_report_versions")
     guidance_paths = get_report_versions("guidance_report_versions")
     print("Configuring contrib portal")
-    for p in template_report_paths:
-        if len(p) > 0:
-            path_to_templates = join("archive", p, "*.csv")
-            add_reports_to_contrib_portal(service, path_to_templates, "templates")
     for p in guidance_paths:
         if len(p) > 0:
             path_to_artefacts = join("archive", p, "*.html")
