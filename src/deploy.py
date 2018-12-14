@@ -130,7 +130,7 @@ def configure_montagu(service, data_exists):
     configure_proxy(service, cert_paths)
     configure_shiny_proxy(service, token_keypair_paths)
 
-    if service.settings["include_template_reports"]:
+    if service.settings["include_guidance_reports"]:
         configure_contrib_portal(service)
 
 
