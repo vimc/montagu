@@ -10,7 +10,6 @@
   "update_on_deploy": false,
   "bb8_backup": true,
   "certificate": "production",
-  "include_template_reports": true,
   "clone_reports": true,
   "persist_data": true,
   "add_test_user": false,

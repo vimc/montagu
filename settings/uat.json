@@ -6,7 +6,6 @@
   "db_annex_type": "fake",
   "enable_db_replication": false,
   "hostname": "support.montagu.dide.ic.ac.uk",
-  "include_template_reports": true,
   "initial_data_source": "bb8_restore",
   "instance_name": "uat",
   "notify_channel": "montagu-deploy",
