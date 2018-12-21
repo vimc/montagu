@@ -80,6 +80,14 @@ class MontaguService:
     def volume_name(self, name):
         return "{}_{}".format(self.docker_prefix, self.volumes[name])
 
+    def start_metrics(self):
+        # Metrics container has to be started last, after proxy has its SSL cert and is able to serve basic_status
+        self.docker.containers.run('nginx/nginx-prometheus-exporter:0.2.0',
+                                    restart_policy = {"Name": "Always"},
+                                    ports = {'9113/tcp': 9113},
+                                    command = '-nginx.scrape-uri "http://montagu_proxy_1/basic_status"',
+                                    network = 'montagu_default')
+
     @property
     def api(self):
         return self._get("api")

@@ -79,14 +79,6 @@ services:
       - contrib
       - report
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
-  metrics:
-    image: nginx/nginx-prometheus-exporter:0.2.0
-    restart: always
-    ports:
-      - 9113:9113
-    command: -nginx.scrape-uri "http://montagu_proxy_1/basic_status"
-    depends_on:
-      - "proxy"
   orderly:
     image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
     restart: always
