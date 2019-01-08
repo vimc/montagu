@@ -10,6 +10,7 @@
 ## Other docs process
 * [Release process](ReleaseProcess.md)
 * Upgrading and rebooting servers, disaster recovery: [docs](https://github.com/vimc/montagu-machine/tree/master/docs/)
+* [Troubleshooting](Troubleshooting.md) - potential issues and their solutions, particularly for getting Montagu running on a local dev environment. 
 
 ## Deploy
 As root:
