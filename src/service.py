@@ -90,6 +90,13 @@ class MontaguService:
                                     name = self.container_name("metrics"),
                                     detach = True)
 
+    def stop_metrics(self):
+        # Since we now start the metrics container outside of compose, we need to tear it down separately too
+        container_name = self.container_name("metrics")
+        print ("Stopping Montagu metrics container {}".format(container_name))
+        metrics_container = self.client.containers.get(container_name)
+        metrics_container.remove(force=True)
+
     @property
     def api(self):
         return self._get("api")
@@ -145,6 +152,15 @@ class MontaguService:
             return None
 
     def stop(self):
+        try:
+            self.stop_metrics()
+        except Exception as e:
+            print("Error when stopping Metrics container: {}".format(str(e)))
+
+        print("Stopping Montagu...({}: {})".format(
+            self.settings["instance_name"], self.settings["docker_prefix"]),
+              flush=True)
+
         # As documented in VIMC-805, the orderly container will
         # respond quickly to an interrupt, but not to whatever docker
         # stop (via docker-compose stop) is sending. This is
@@ -152,9 +168,6 @@ class MontaguService:
         # see how to work around at the R level. So instead we send an
         # interrupt signal (SIGINT) just before the stop, and that
         # seems to bring things down much more quicky.
-        print("Stopping Montagu...({}: {})".format(
-            self.settings["instance_name"], self.settings["docker_prefix"]),
-            flush=True)
         if self.orderly:
             try:
                 self.orderly.kill("SIGINT")
