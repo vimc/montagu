@@ -89,7 +89,7 @@ def _deploy():
         print("Starting Montagu metrics")
         service.start_metrics()
 
-        print("Montage metrics started")
+        print("Montagu metrics started")
     except Exception as e:
         print("An error occurred before deployment could be completed:")
         print(e)
