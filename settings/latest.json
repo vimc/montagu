@@ -4,7 +4,7 @@
   "persist_data": false,
   "port": "8443",
   "hostname": "localhost",
-  "certificate": "self_signed",
+  "certificate": "support",
   "backup": false,
   "bb8_backup": false,
   "password_group": "fake",
