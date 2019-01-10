@@ -9,7 +9,7 @@
   "bb8_backup": false,
   "password_group": "fake",
   "clone_reports": false,
-  "require_clean_git": false,git stat
+  "require_clean_git": false,
   "add_test_user": false,
   "db_annex_type": "fake",
   "instance_name": "teamcity",
