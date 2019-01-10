@@ -17,5 +17,6 @@
   "enable_db_replication": false,
   "update_on_deploy": false,
   "include_guidance_reports": false,
-  "use_production_db_config": false
+  "use_production_db_config": false,
+  "vault_address": "https://support.montagu.dide.ic.ac.uk:8200"
 }
