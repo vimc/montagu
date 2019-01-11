@@ -10,7 +10,7 @@
   "password_group": "fake",
   "clone_reports": false,
   "require_clean_git": false,
-  "add_test_user": false,
+  "add_test_user": true,
   "db_annex_type": "fake",
   "instance_name": "teamcity",
   "notify_channel": "",
