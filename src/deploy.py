@@ -83,7 +83,13 @@ def _deploy():
     # Start Montagu again
     service.start()
     try:
+        print("Configuring Montagu")
         configure_montagu(service, data_exists)
+
+        print("Starting Montagu metrics")
+        service.start_metrics()
+
+        print("Montagu metrics started")
     except Exception as e:
         print("An error occurred before deployment could be completed:")
         print(e)
