@@ -1,0 +1,21 @@
+{
+  "open_browser": false,
+  "initial_data_source": "minimal",
+  "persist_data": false,
+  "port": "8443",
+  "hostname": "localhost",
+  "certificate": "self_signed",
+  "backup": false,
+  "bb8_backup": false,
+  "password_group": "fake",
+  "clone_reports": false,
+  "require_clean_git": false,
+  "add_test_user": true,
+  "db_annex_type": "fake",
+  "instance_name": "teamcity",
+  "notify_channel": "",
+  "enable_db_replication": false,
+  "update_on_deploy": false,
+  "include_guidance_reports": false,
+  "use_production_db_config": false
+}
