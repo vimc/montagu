@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+
+import os
+from subprocess import run, DEVNULL, PIPE
+
+# We *probably* won't change any of these, but at least it means we
+# could if we wanted to.
+LATEST = "latest"
+ORIGIN = "origin"
+MASTER = "master"
+UPDATE = "./src/update_versions_to_latest_master.py"
+
+def subprocess_output(x):
+    return x.stdout.decode("utf-8").rstrip().split("\n")
+
+
+def submodule_status():
+    res = run(["git", "submodule", "status"], stdout=PIPE, check=True)
+    lines = subprocess_output(res)
+    parsed = [[x[0] != " "] + x[1:].strip().split(" ")[:2] for x in lines]
+    versions = {x[2]: x[1] for x in parsed}
+    changed = [x[2] for x in parsed if x[0]]
+    return [versions, changed]
+
+
+def get_remote_status():
+    ref = "{}/{}".format(ORIGIN, LATEST)
+    res = run(["git", "rev-parse", ref, "--"], stdout=PIPE, stderr=DEVNULL)
+    if res.returncode != 0:
+        return {"sha_latest": None, "sha_parent": None, "versions": None}
+    sha_remote = subprocess_output(res)[0]
+    sha_parent = subprocess_output(
+        run(["git", "rev-parse", sha_remote + "^"],
+            stdout=PIPE, check=True))[0]
+    # Find out what position we were in on the last version of the
+    # latest branch:
+    print("Finding status of the previous {}".format(LATEST))
+    try:
+        print("...checking out previous {}".format(LATEST))
+        run(["git", "checkout", sha_remote], stdout=DEVNULL, stderr=DEVNULL)
+        run(["git", "submodule", "update", "--recursive"], stdout=DEVNULL)
+        versions, changed = submodule_status()
+    finally:
+        print("...restoring our {}".format(MASTER))
+        run(["git", "checkout", MASTER], stdout=DEVNULL, stderr=DEVNULL)
+        run(["git", "submodule", "update", "--recursive"], stdout=DEVNULL)
+    return {"sha_latest": sha_remote, "sha_parent": sha_parent,
+            "versions": versions}
+
+
+def get_local_status():
+    sha = subprocess_output(
+        run(["git", "rev-parse", MASTER], stdout=PIPE, check=True))[0]
+    versions, changed = submodule_status()
+    return {"sha": sha, "versions": versions, "changed": changed}
+
+
+def update_latest():
+    remote_status = get_remote_status()
+    print("Testing if any submodules need updating...")
+    res = run(UPDATE, stdout=PIPE, check=True)
+    message = "Auto: Update versions to latest\n\n" + \
+              "\n".join(subprocess_output(res))
+    local_status = get_local_status()
+    if remote_status["sha_parent"] != local_status["sha"]:
+        print("\n** New build because base commit has been updated ** \n")
+        new_build = True
+    elif remote_status["versions"] != local_status["versions"]:
+        print("\n** New build because submodules has been updated ** \n")
+        new_build = True
+    else:
+        print("\n** {}/{} is up to date ** \n".format(ORIGIN, LATEST))
+        new_build = False
+    if new_build:
+        print("Creating new {}...".format(LATEST))
+        run(["git", "branch", "-D", LATEST], check=False)
+        run(["git", "checkout", "-b", LATEST], check=True)
+        if local_status["changed"]:
+            print("Creating commit with submodule changes...")
+            run(["git", "add"] + local_status["changed"], check=True)
+            run(["git", "commit", "-m", message], check=True, stdout=DEVNULL)
+        print("Updating remote...")
+        url = "git@github.com:vimc/montagu"
+        run(["git", "remote", "set-url", ORIGIN, url], check=True)
+        run(["git", "push", "--force", ORIGIN, LATEST], check=True)
+    else:
+        print("Restoring previous {}".format(MASTER))
+        run(["git", "submodule", "update", "--recursive"], stdout=DEVNULL)
+
+
+def preflight():
+    print("checking working directory")
+    if not os.path.isfile(UPDATE):
+        raise Exception("Not being run from the montagu root")
+    print("checking base branch is {}".format(MASTER))
+    branch = subprocess_output(
+        run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            stdout=PIPE, check=True))[0]
+    if branch != MASTER:
+        raise Exception("repo is not on branch '{}' (was '{}')".format(
+            MASTER, branch))
+    print("checking up to date with remote")
+    ref = "{}/{}".format(ORIGIN, MASTER)
+    sha_local = subprocess_output(
+        run(["git", "rev-parse", MASTER], stdout=PIPE, check=True))[0]
+    sha_remote = subprocess_output(
+        run(["git", "rev-parse", ref], stdout=PIPE, check=True))[0]
+    if sha_local != sha_remote:
+        raise Exception("repos somehow out of sync")
+
+
+if __name__ == "__main__":
+    preflight()
+    update_latest()
