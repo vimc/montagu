@@ -10,6 +10,7 @@ ORIGIN = "origin"
 MASTER = "master"
 UPDATE = "./src/update_versions_to_latest_master.py"
 
+
 def subprocess_output(x):
     return x.stdout.decode("utf-8").rstrip().split("\n")
 
