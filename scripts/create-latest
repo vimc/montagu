@@ -18,6 +18,16 @@ def subprocess_output(x):
 def submodule_status():
     res = run(["git", "submodule", "status"], stdout=PIPE, check=True)
     lines = subprocess_output(res)
+    # submodule status looks like, if updated:
+    #
+    #    "+<sha> <path> (ref)"
+    #
+    # if unchanged:
+    #
+    #    " <sha> <path> (ref)"
+    #
+    # we return the dict {<path>: <sha>}... and a vector of paths that
+    # are updated.
     parsed = [[x[0] != " "] + x[1:].strip().split(" ")[:2] for x in lines]
     versions = {x[2]: x[1] for x in parsed}
     changed = [x[2] for x in parsed if x[0]]
@@ -26,6 +36,9 @@ def submodule_status():
 
 def get_remote_status():
     ref = "{}/{}".format(ORIGIN, LATEST)
+    # The -- is necessary for git to disambiguate references from
+    # paths. Because the reference is on the lhs of the -- git knows
+    # its a reference even when it does not exist
     res = run(["git", "rev-parse", ref, "--"], stdout=PIPE, stderr=DEVNULL)
     if res.returncode != 0:
         return {"sha_latest": None, "sha_parent": None, "versions": None}
@@ -63,6 +76,10 @@ def update_latest():
     message = "Auto: Update versions to latest\n\n" + \
               "\n".join(subprocess_output(res))
     local_status = get_local_status()
+    # We expect the parent of the remote origin/latest to be same
+    # commit as the local master if nothing has changed? Because
+    # latest always branches afresh from the latest master, so if
+    # these are different, it means master has moved on...
     if remote_status["sha_parent"] != local_status["sha"]:
         print("\n** New build because base commit has been updated ** \n")
         new_build = True
@@ -77,10 +94,17 @@ def update_latest():
         run(["git", "branch", "-D", LATEST], check=False)
         run(["git", "checkout", "-b", LATEST], check=True)
         if local_status["changed"]:
+            # This adds all the paths to the submodules that have
+            # changed, originally reported by 'git submodules status'
             print("Creating commit with submodule changes...")
             run(["git", "add"] + local_status["changed"], check=True)
             run(["git", "commit", "-m", message], check=True, stdout=DEVNULL)
         print("Updating remote...")
+        # Url needs rewriting because TeamCity uses the https url and
+        # is not authenticated (it's a public repo) but we need to
+        # write to the repo and so we need use the ssh address.  We
+        # could update teamcity to use ssh urls but everything else is
+        # working at the moment.
         url = "git@github.com:vimc/montagu"
         run(["git", "remote", "set-url", ORIGIN, url], check=True)
         run(["git", "push", "--force", ORIGIN, LATEST], check=True)
@@ -92,6 +116,8 @@ def update_latest():
 def preflight():
     print("checking working directory")
     if not os.path.isfile(UPDATE):
+        # if this is false it means that the script is being run from
+        # the wrong place which could leave git in an awkward state.
         raise Exception("Not being run from the montagu root")
     print("checking base branch is {}".format(MASTER))
     branch = subprocess_output(
