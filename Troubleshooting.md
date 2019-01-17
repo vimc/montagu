@@ -19,17 +19,15 @@ If you've been running montagu applications at all this *should* all be set up, 
 Run:
 ```
 docker stop $(docker ps -aq)
-docker rm $(docker ps -aq)
-docker network prune --force
+docker system prune --force
 ```
 
 This script is present in some repos as `clear-docker.sh`.
 
-You can also run
-```
-docker volume prune --force
-```
-to get rid of old volumes. 
+To get rid of old volumes, you can run
+```docker volume prune --force```
+
+To remove (but not stop) containers and volumes in one line, use ```docker system prune --force --volumes```. 
 
 
 **A container isn't starting or seems otherwise broken. How do I see its logs?**
@@ -42,9 +40,16 @@ docker logs [CONTAINER NAME]
 
 **How can I run a support VM locally?**
 
-From montagu-machine, run  `sudo vagrant up uat` or `sudo vagrant up science`
+From montagu-machine, run  `vagrant up <machine name>`
 
-Run `sudo vagrant ssh uat` (or other machine name) to log into the VM.
+You'll probably want to use the machine name `dev`, whose configuration provides a minimal data set-up (similar to that used by
+TeamCity) in order to test code.
+
+The other machine names you can use are `uat`, `science` and `latest` which are the configurations for the main support
+VMs. Be careful with these, as these configurations may cause sizable data transfers - you can check the settings 
+values for each in /montagu/settings.
+
+Run `vagrant ssh <machine name>` to log into the VM.
 
 
 **And how do I tear it down again?**
@@ -52,20 +57,17 @@ Run `sudo vagrant ssh uat` (or other machine name) to log into the VM.
 If you want to destroy the machine entirely, so that it is rebuilt next time you run it, use e.g.:
 
 ```
-sudo vagrant destroy uat
+vagrant destroy uat
 ```
+
+You should also destroy the machine's disk by running `/scripts/destroy-disk <machine name>`
+
 If you just want to stop the machine so that it reboots as it is next time, use `halt` instead of `destroy`. 
-
-
-**Vagrant is erroring with "Vagrant failed to initialize at a very early stage: The home directory you specified is not accessible..." etc**
-
-Remember to run as sudo. 
 
 
 **I'm trying to run montagu on UAT or Science locally, and it's failing to set up the database / clone reports / other data gremlins.**
 
-Running UAT configuration locally is somewhat broken. Consider running from your VM with the montagu/src/montagu-deploy.json settings used by TeamCity:
-https://github.com/vimc/montagu/blob/master/settings/teamcity.json
+Running UAT configuration locally may be glitchy . Consider running the dev configuration instead. 
 
 
 **I'm trying to run montagu on UAT or Science locally, and it's complaining about the api server name when setting up orderly.**
