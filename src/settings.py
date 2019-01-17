@@ -6,10 +6,10 @@ from subprocess import check_output, run
 
 from setting_definitions import definitions, vault_required
 
-path = 'montagu-deploy.json'
+default_path = 'montagu-deploy.json'
 
 
-def load_settings():
+def load_settings(path=default_path):
     settings = {}
 
     try:
@@ -39,8 +39,8 @@ def prepare_for_vault_access(address, quiet=False):
         run(["vault", "login", "-method=github"], check=True)
 
 
-def get_settings(quiet=False):
-    settings = load_settings()
+def get_settings(quiet=False, path=default_path):
+    settings = load_settings(path)
     missing = list(d for d in definitions if d.name not in settings)
 
     showed_prompt = False
@@ -73,7 +73,7 @@ def get_settings(quiet=False):
     return settings
 
 
-def save_settings(settings):
+def save_settings(settings, path=default_path):
     with open(path, 'w') as f:
         json.dump(settings, f, indent="  ", sort_keys=True)
 
