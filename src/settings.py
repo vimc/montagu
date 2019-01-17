@@ -39,6 +39,30 @@ def prepare_for_vault_access(address, quiet=False):
         run(["vault", "login", "-method=github"], check=True)
 
 
+def validate_settings(path=default_path):
+    settings = load_settings(path)
+    missing = list(d for d in definitions if d.name not in settings)
+    ret = []
+    for d in missing:
+        if d.is_required(settings):
+            ret.append(d.name)
+    return ret
+
+
+def validate_settings_directory(montagu_root):
+    files = os.listdir("{}/settings".format(montagu_root))
+    files.sort()
+
+    errs = []
+    for f in files:
+        p = "{}/settings/{}".format(montagu_root, f)
+        errs += ["  - settings/{}: {}".format(f, x)
+                 for x in validate_settings(p)]
+    if errs:
+        msg = "Missing configuration entries:\n" + "\n".join(errs)
+        raise Exception(msg)
+
+
 def get_settings(quiet=False, path=default_path):
     settings = load_settings(path)
     missing = list(d for d in definitions if d.name not in settings)
