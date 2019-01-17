@@ -60,7 +60,7 @@ If you want to destroy the machine entirely, so that it is rebuilt next time you
 vagrant destroy uat
 ```
 
-You should also destroy the machine's disk by running `/scripts/destroy-disk <machine name>`
+You should also destroy the machine's disk by running `/staging/scripts/destroy-disk <machine name>`
 
 If you just want to stop the machine so that it reboots as it is next time, use `halt` instead of `destroy`. 
 
@@ -70,7 +70,7 @@ If you just want to stop the machine so that it reboots as it is next time, use 
 Running UAT configuration locally may be glitchy . Consider running the dev configuration instead. 
 
 
-**I'm trying to run montagu on UAT or Science locally, and it's complaining about the api server name when setting up orderly.**
+**I'm trying to deploy montagu on UAT or Science locally, and it's complaining about the api server name when setting up orderly.**
 
 Try changing the instance_name setting in montagu-deploy.json on the VM to 'teamcity'.
 
