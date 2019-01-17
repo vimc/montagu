@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+# This feels like a real fight, unfortunately: we need to import some
+# code from a module in 'src' that is not really set up for relative
+# imports.  Eventually this should be packaged up nicely but I think
+# that should wait until we do a big refactor on the deploy code.  For
+# now there's an awkward boostrap phase here.
+from pathlib import Path
+import os
+import sys
+montagu_root = os.path.abspath(str(Path(__file__).parent.parent))
+sys.path.insert(1, "{}/src".format(montagu_root))
+import settings
+
+
+if __name__ == "__main__":
+    settings.validate_settings_directory(montagu_root)
