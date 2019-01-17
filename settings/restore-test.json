@@ -16,5 +16,6 @@
   "initial_data_source": "bb8_restore",
   "notify_channel": "montagu-deploy",
   "update_on_deploy": true,
+  "use_production_db_config": true,
   "persist_data": true
 }
