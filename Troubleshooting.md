@@ -47,9 +47,13 @@ TeamCity) in order to test code.
 
 The other machine names you can use are `uat`, `science` and `latest` which are the configurations for the main support
 VMs. Be careful with these, as these configurations may cause sizable data transfers - you can check the settings 
-values for each in /montagu/settings.
+values for each in /montagu/settings. 
 
 Run `vagrant ssh <machine name>` to log into the VM.
+
+You can modify the montagu settings for deployment once you've logged in by editing `~/montagu/src/montagu-deploy.json`,
+e.g. change `initial_data_source` to `minimal`. (The values in this file have been copied from the relevant file in /montagu/settings during VM
+provisioning.)
 
 
 **And how do I tear it down again?**
@@ -65,11 +69,6 @@ You should also destroy the machine's disk by running `/staging/scripts/destroy-
 If you just want to stop the machine so that it reboots as it is next time, use `halt` instead of `destroy`. 
 
 
-**I'm trying to run montagu on UAT or Science locally, and it's failing to set up the database / clone reports / other data gremlins.**
-
-Running UAT configuration locally may be glitchy . Consider running the dev configuration instead. 
-
-
 **I'm trying to deploy montagu on UAT or Science locally, and it's complaining about the api server name when setting up orderly.**
 
 Try changing the instance_name setting in montagu-deploy.json on the VM to 'teamcity'.
@@ -80,12 +79,3 @@ Try changing the instance_name setting in montagu-deploy.json on the VM to 'team
 **Argh, it's killed my machine with a data avalanche!** 
 
 Data is pulled from production if the 'update_on_deploy' flag in montagu/src/montagu-deploy.json is set to true. So you need to make sure that's false whether locally or in the VM (depending on where you're installing montagu) or it will absolutely murder your puny machine (~1TB I think).
-
-
- 
- 
-
-
-
-
-
