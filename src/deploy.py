@@ -83,7 +83,13 @@ def _deploy():
     # Start Montagu again
     service.start()
     try:
+        print("Configuring Montagu")
         configure_montagu(service, data_exists)
+
+        print("Starting Montagu metrics")
+        service.start_metrics()
+
+        print("Montagu metrics started")
     except Exception as e:
         print("An error occurred before deployment could be completed:")
         print(e)
@@ -130,7 +136,7 @@ def configure_montagu(service, data_exists):
     configure_proxy(service, cert_paths)
     configure_shiny_proxy(service, token_keypair_paths)
 
-    if service.settings["include_template_reports"]:
+    if service.settings["include_guidance_reports"]:
         configure_contrib_portal(service)
 
 

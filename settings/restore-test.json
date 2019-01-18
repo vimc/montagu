@@ -6,7 +6,7 @@
   "open_browser": false,
   "hostname": "support.montagu.dide.ic.ac.uk",
   "enable_db_replication": false,
-  "include_template_reports": true,
+  "include_guidance_reports": true,
   "vault_address": "https://support.montagu.dide.ic.ac.uk:8200",
   "port": 11443,
   "require_clean_git": false,
@@ -16,5 +16,6 @@
   "initial_data_source": "bb8_restore",
   "notify_channel": "montagu-deploy",
   "update_on_deploy": true,
+  "use_production_db_config": true,
   "persist_data": true
 }

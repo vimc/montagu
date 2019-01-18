@@ -10,11 +10,12 @@
   "update_on_deploy": false,
   "bb8_backup": true,
   "certificate": "production",
-  "include_template_reports": true,
+  "include_guidance_reports": true,
   "clone_reports": true,
   "persist_data": true,
   "add_test_user": false,
   "hostname": "montagu.vaccineimpact.org",
   "open_browser": false,
+  "use_production_db_config": true,
   "enable_db_replication": true
 }
