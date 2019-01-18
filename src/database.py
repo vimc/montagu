@@ -176,7 +176,6 @@ def set_permissions(db, user):
     revoke_all(db, user)
     if user.permissions == 'all':
         grant_all(db, user)
-        revoke_specific(db, user)
     elif user.permissions == 'readonly':
         grant_readonly(db, user)
     elif user.permissions == 'pass':
@@ -316,6 +315,9 @@ def setup(service, annex_settings):
     # The migrations may have added new tables, so we should set the permissions
     # again, in case users need to have permissions on these new tables
     for_each_user(root_password, users, set_permissions)
+
+    # Revoke specific permissions now that all tables have been created.
+    for_each_user(root_password, users, revoke_specific)
 
     grant_readonly_annex_root(root_password, service.settings, annex_settings)
     for_each_user(root_password, users, lambda d, u:
