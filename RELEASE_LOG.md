@@ -1538,3 +1538,22 @@ Minor css change
 * fix API model to support null citation
 
 
+# v1.9.8
+
+## Tickets
+* i1287: Wide format does not support subnational campaigns
+* i1287-serializer: Wide format does not support subnational campaigns
+* i1957: Remove template copying logic from deploy tool
+* i2253: Update submodules build config is broken
+* i2405: Changelog UI
+* i2438-proxy: Monitor basic status of montagu
+* i2455: Restyle upload section
+* i2467: Order burden estimate data
+* i2474: TeamCity build config that deploys latest Montagu to a staging VM on a nightly schedule
+* i2483: Script to provision a dev VM
+* i2486: Test that montagu configurations are valid
+* i2509: Add jenner to the orderly container
+* i988: Explain long vs. wide format within the contribution portal, and also in admin
+
+## Other branches merged in this release
+
