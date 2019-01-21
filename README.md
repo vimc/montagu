@@ -12,10 +12,10 @@
 * Upgrading and rebooting servers, disaster recovery: [docs](https://github.com/vimc/montagu-machine/tree/master/docs/)
 
 ## Deploy
-As root:
 
-1. `(cd src && pip3 install --user -r requirements.txt)`
-2. `./src/deploy.py`
+1. Install python packages with `pip3 install --user -r src/requirements.txt`
+2. If restoring from backup (or making backups) prepare bb8 with `sudo montagu-bb8/bb8/bb8_link_write`
+3. `./src/deploy.py`
 
 ### Deploy a specific version
 
@@ -52,41 +52,11 @@ When deploying to a testing environment using real data restored from live,
 setting the `add_test_user` option to true adds the above user with permissions 
 to all modelling groups and reports.
 
-### Root privileges
-When deploying to the live server, make sure to first become the root user by 
-running `sudo su`. This is neccessary to have the correct environment variables 
-for the backup to run.
+### The montagu user
 
-### Backup
-If you set the initial data source to "restore", or you enable backups, the 
-deploy tool will automatically configure our 
-[backup tool](https://github.com/vimc/montagu-backup). To do so, it needs to
-obtain an encryption key from the Vault. Once this has run once, the encryption
-key and backup settings are saved to `/etc/montagu/backup`. Upon future runs of
-the deploy tool, backup configuration will be skipped (using 
-`backup/needs-setup.sh` as the test). If you know something has changed and you
-want to force a rerun, delete the existing configuration 
-(`sudo rm -r /etc/montagu/backup`).
-
-### Database restore
-
-The database can be restored without redeploying all of montagu.
-
-```
-sudo -E ./src/restore_db.py
-```
-
-(The `sudo` is required because the backup scripts require it, and the `-E` allows the `sudo` shell to read your vault credentials.)
-
-This can be setup as a cron job to run every night (as is on `science`) by adding a file containing
-
-```
-0 6 * * * root /home/vagrant/montagu/restore_db.py
-```
-
-as `/etc/cron.d/montagu-restore-db`.
-
-However, care should be taken here because if the schema has been migrated in the production database the montagu api may not be able to talk to the database.  In practice this is probably not that much of a problem as we can just redeploy (and often will have deployed on science before deploying on production).
+When deploying to the production server, make sure to first become the
+`montagu` user by connecting to production as
+`montagu@production.montagu.dide.ic.ac.uk`
 
 ## Passwords
 
