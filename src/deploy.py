@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import webbrowser
-from os import chdir
+from os import chdir, geteuid
 from os.path import abspath, dirname
 from time import sleep
 
@@ -151,6 +151,8 @@ def deploy():
 
 
 if __name__ == "__main__":
+    if geteuid() == 0:
+        raise Exception("Please do not run deploy as root user")
     abspath = abspath(__file__)
     chdir(dirname(abspath))
     deploy()

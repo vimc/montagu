@@ -30,6 +30,8 @@ def get_version_from_user():
     return tag
 
 if __name__ == "__main__":
+    if os.geteuid() == 0:
+        raise Exception("Please do not run deploy as root user")
     args = docopt.docopt(__doc__)
     version = args["<version>"] or get_version_from_user()
     if args["--docker-hub"]:
