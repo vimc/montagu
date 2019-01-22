@@ -43,10 +43,6 @@ def configure_orderly_envir(service):
     else:
         api_server = "~"
         slack_url = "~"
-
-    if api_server == "(unknown)" or api_server == "teamcity":
-        api_server = "~"
-        slack_url = "~"
     envir = orderly_prepare_envir(password_group, api_server, slack_url)
     docker_cp(envir, service.orderly.name, "/orderly")
 
