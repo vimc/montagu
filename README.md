@@ -14,7 +14,7 @@
 ## Deploy
 
 1. Install python packages with `pip3 install --user -r src/requirements.txt`
-2. If restoring from backup (or making backups) prepare bb8 with `sudo montagu-bb8/bb8/bb8_link_write`
+2. If restoring from backup (or making backups) prepare bb8 with `sudo ./montagu-bb8/bb8/bb8_link_write`
 3. `./src/deploy.py`
 
 ### Deploy a specific version
