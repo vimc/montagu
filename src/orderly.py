@@ -34,12 +34,15 @@ def configure_orderly(service, initialise_volume):
 def configure_orderly_envir(service):
     password_group = service.settings['password_group']
     api_server = service.settings['instance_name'].lower()
-    if api_server == "(unknown)" or api_server == "teamcity":
-        api_server = "~"
-        slack_url = "~"
-    else:
+    # These are the entries in montagu-reports/orderly_config.yml:
+    # update here if more are added.
+    known = ["science", "uat", "production"]
+    if api_server in known:
         slack_url = '"{}"'.format(
             get_secret("slack/orderly-webhook", field="url"))
+    else:
+        api_server = "~"
+        slack_url = "~"
     envir = orderly_prepare_envir(password_group, api_server, slack_url)
     docker_cp(envir, service.orderly.name, "/orderly")
 
