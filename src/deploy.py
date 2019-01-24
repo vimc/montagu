@@ -17,7 +17,6 @@ from service import MontaguService
 from service_config import configure_api, configure_proxy, \
     configure_contrib_portal
 from service_config.api_config import get_token_keypair, configure_reporting_api
-from service_config.shiny_config import configure_shiny_proxy
 from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
@@ -134,7 +133,6 @@ def configure_montagu(service, data_exists):
                   service.settings["hostname"], send_emails, annex_settings)
     configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
-    configure_shiny_proxy(service, token_keypair_paths)
 
     if service.settings["include_guidance_reports"]:
         configure_contrib_portal(service)
