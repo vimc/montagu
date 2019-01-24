@@ -1557,3 +1557,18 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.9
+
+## Tickets
+* i1747: Remove need for sudo from deploy
+* i2451: Implement diagnostic section on upload estimate page
+* i2484: Troubleshooting doc for montagu deployment
+* i2516: Orderly deploy configuration is fragile with instance name
+* i2537: Update instance names in settings
+* i2544: Remove shiny from orderly
+* i2546: Remove shiny from deploy
+* i2549: API call to /models/YFIC/ query returns data different to what is documented
+* i2549_2: API call to /models/YFIC/ query returns data different to what is documented
+
+## Other branches merged in this release
+
