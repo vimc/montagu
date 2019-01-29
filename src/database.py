@@ -259,9 +259,9 @@ def get_annex_settings(settings):
         migrate = settings["db_annex_type"] == "real"
         group = settings['password_group']
     users = {
-        "root": UserConfig("vimc", "all", [],
+        "root": UserConfig("vimc", "all",
                            VaultPassword(group, "vimc", annex=True)),
-        "readonly": UserConfig("readonly", "readonly", [],
+        "readonly": UserConfig("readonly", "readonly",
                                VaultPassword(group, "readonly", annex=True))
     }
     return {"host": host,
