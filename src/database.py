@@ -11,15 +11,27 @@ from service_config import api_db_user
 from settings import get_secret
 
 root_user = "vimc"
+# these tables should only be modified via sql migrations
+protected_tables = ["gavi_support_level", "activity_type",
+                    "burden_outcome",
+                    "gender",
+                    "responsibility_set_status",
+                    "impact_outcome",
+                    "gavi_support_level",
+                    "support_type",
+                    "touchstone_status",
+                    "permission",
+                    "role",
+                    "role_permission"]
 
 
 def user_configs(password_group):
     # Later, read these from a yml file?
     return [
-        UserConfig(api_db_user, 'all', [], VaultPassword(password_group, api_db_user)),
-        UserConfig('import', 'all', ["gavi_support_level", "activity_type"], VaultPassword(password_group, 'import')),
-        UserConfig('orderly', 'all', [], VaultPassword(password_group, 'orderly')),
-        UserConfig('readonly', 'readonly', [], VaultPassword(password_group, 'readonly')),
+        UserConfig(api_db_user, 'all', VaultPassword(password_group, api_db_user)),
+        UserConfig('import', 'all', VaultPassword(password_group, 'import')),
+        UserConfig('orderly', 'all', VaultPassword(password_group, 'orderly')),
+        UserConfig('readonly', 'readonly', VaultPassword(password_group, 'readonly')),
     ]
 
 
@@ -60,10 +72,9 @@ class VaultPassword:
 
 
 class UserConfig:
-    def __init__(self, name, permissions, exclude, password_source, option=None):
+    def __init__(self, name, permissions, password_source, option=None):
         self.name = name
         self.permissions = permissions  # Currently, this can only be 'all', but the idea is to extend this config later
-        self.exclude = exclude  # Array of table, sequence or function names to revoke edit privileges on
         self.password_source = password_source
         self.option = option.upper() if option else ""
         self._password = None
@@ -132,12 +143,12 @@ def revoke_all(db, user):
     revoke_all_on("functions")
 
 
-def revoke_specific(db, user):
+def revoke_write_on_protected_tables(db, user):
     def revoke_specific_on(what):
         db.execute("REVOKE INSERT, UPDATE, DELETE ON {what} FROM {name}".format(name=user.name, what=what))
 
-    for exclusion in user.exclude:
-        revoke_specific_on(exclusion)
+    for table in protected_tables:
+        revoke_specific_on(table)
 
 
 def grant_all(db, user):
@@ -248,9 +259,9 @@ def get_annex_settings(settings):
         migrate = settings["db_annex_type"] == "real"
         group = settings['password_group']
     users = {
-        "root": UserConfig("vimc", "all",[],
+        "root": UserConfig("vimc", "all", [],
                            VaultPassword(group, "vimc", annex=True)),
-        "readonly": UserConfig("readonly", "readonly",[],
+        "readonly": UserConfig("readonly", "readonly", [],
                                VaultPassword(group, "readonly", annex=True))
     }
     return {"host": host,
@@ -317,7 +328,7 @@ def setup(service, annex_settings):
     for_each_user(root_password, users, set_permissions)
 
     # Revoke specific permissions now that all tables have been created.
-    for_each_user(root_password, users, revoke_specific)
+    for_each_user(root_password, users, revoke_write_on_protected_tables)
 
     grant_readonly_annex_root(root_password, service.settings, annex_settings)
     for_each_user(root_password, users, lambda d, u:
