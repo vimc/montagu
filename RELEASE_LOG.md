@@ -1578,3 +1578,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.9.11
+
+## Tickets
+* i2525: Wide format coverage data should distinguish age_range_verbatim values
+* i2548: Ignore failing CloseBurdenEstimateSet Tests
+* i2558: Changelog tab shouldn't jump to anchor
+* i2566: Documentation of Burden estimate template endpoint
+
+## Other branches merged in this release
+
