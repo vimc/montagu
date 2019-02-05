@@ -28,3 +28,9 @@
 [submodule "montagu-bb8"]
 	path = montagu-bb8
 	url = https://github.com/vimc/montagu-bb8
+[submodule "montagu-static"]
+	path = montagu-static
+	url = https://github.com/vimc/montagu-static
+[submodule "submodules/static"]
+	path = submodules/static
+	url = https://github.com/vimc/montagu-static

@@ -25,6 +25,7 @@ report_portal = get_submodule_version("report-portal")
 proxy = get_submodule_version("proxy")
 cert_tool = get_submodule_version("cert-tool")
 
+static = get_submodule_version("static")
 
 def as_dict():
     submodules = [

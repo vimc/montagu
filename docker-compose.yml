@@ -86,8 +86,15 @@ services:
     volumes:
       - orderly_volume:/orderly
     command: --port 8321 --go-signal /orderly_go /orderly
+  static:
+    image: ${MONTAGU_REGISTRY}/montagu-static:${MONTAGU_STATIC_VERSION}
+    restart: always
+    logging: *log-journald
+    volumes:
+      - static_volume:/www
 
 volumes:
+  static_volume:
   db_volume:
   orderly_volume:
   template_volume:

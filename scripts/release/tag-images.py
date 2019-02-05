@@ -38,7 +38,8 @@ container_repo_map = {
     "montagu-orderly": "orderly",
     "montagu-report-portal": "report-portal",
     "montagu-reporting-api": "reporting-api",
-    "montagu-reverse-proxy": "proxy"
+    "montagu-reverse-proxy": "proxy",
+    "montagu-static": "static"
 }
 
 registry_local = "docker.montagu.dide.ic.ac.uk:5000"
