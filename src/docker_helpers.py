@@ -26,14 +26,14 @@ def pull(image):
     run(["docker", "pull", image], check=True)
 
 
-def copy_between_volumes(source_volume, destination_volume, path_to_copy):
+def copy_between_volumes(source_volume, destination_volume, path_to_copy, destination_path="."):
         run(["docker", "run", "--rm", "-i", "-t",
              "-v", "{}:/from".format(source_volume),
              "-v", "{}:/to".format(destination_volume),
              "alpine",
              "ash",
              "-c",
-             "cd /to ; cp -a /from/{} .".format(path_to_copy)
+             "cd /to ; cp -a /from/{} {}".format(path_to_copy, destination_path)
              ], check=True)
 
 
