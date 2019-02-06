@@ -33,7 +33,7 @@ def copy_between_volumes(source_volume, destination_volume, path_to_copy, destin
              "alpine",
              "ash",
              "-c",
-             "cd /to ; cp -a /from/{} {}".format(path_to_copy, destination_path)
+             "cd /to ; find ./ -name {} -exec cp -a /from/{{}} {} \;".format(path_to_copy, destination_path)
              ], check=True)
 
 

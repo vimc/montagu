@@ -14,7 +14,7 @@ def configure_static_server(service, keypair_paths):
 
 
 def add_artefact_to_static_volume(service, artefact):
-    artefact = artefact.split(" ")
+    artefact = artefact.split(",")
     pattern = artefact[0]
     destination = artefact[1]
     path_to_artefacts = join("archive", pattern)
