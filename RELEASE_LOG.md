@@ -1588,3 +1588,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.10.0
+
+## Tickets
+* i2434: Import user should not be able to write to enum tables
+* i2559: Make publish/unpublish toggle work for report reviewers
+
+## Other branches merged in this release
+
