@@ -136,7 +136,7 @@ def configure_montagu(service, data_exists):
 
     if service.settings["include_guidance_reports"]:
         configure_contrib_portal(service)
-        configure_static_server(service)
+        configure_static_server(service, token_keypair_paths)
 
 
 def deploy():
