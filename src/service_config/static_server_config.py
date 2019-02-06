@@ -15,9 +15,8 @@ def configure_static_server(service, keypair_paths):
 
 def add_artefact_to_static_volume(service, artefact):
     artefact = artefact.split(",")
-    path_glob = artefact[0]
-    destination = artefact[1]
-    path_to_artefacts = join("archive", path_glob)
+    path_to_artefacts = join("archive", artefact[0])
+    destination = join("model-review", "2019", artefact[1])
     print("- Copying artefacts from orderly at {path_to_artefacts} to static server at {destination}"
           .format(path_to_artefacts=path_to_artefacts, destination=destination))
     copy_between_volumes(service.volume_name("orderly"), service.volume_name("static"), path_to_artefacts,
