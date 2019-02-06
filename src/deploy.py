@@ -15,7 +15,7 @@ from cli import add_test_user
 from git import git_check
 from service import MontaguService
 from service_config import configure_api, configure_proxy, \
-    configure_contrib_portal
+    configure_contrib_portal, configure_static_server
 from service_config.api_config import get_token_keypair, configure_reporting_api
 from settings import get_settings
 from last_deploy import last_deploy_update
@@ -136,6 +136,7 @@ def configure_montagu(service, data_exists):
 
     if service.settings["include_guidance_reports"]:
         configure_contrib_portal(service)
+        configure_static_server(service)
 
 
 def deploy():
