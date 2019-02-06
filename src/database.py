@@ -11,6 +11,18 @@ from service_config import api_db_user
 from settings import get_secret
 
 root_user = "vimc"
+# these tables should only be modified via sql migrations
+protected_tables = ["gavi_support_level", "activity_type",
+                    "burden_outcome",
+                    "gender",
+                    "responsibility_set_status",
+                    "impact_outcome",
+                    "gavi_support_level",
+                    "support_type",
+                    "touchstone_status",
+                    "permission",
+                    "role",
+                    "role_permission"]
 
 
 def user_configs(password_group):
@@ -129,6 +141,14 @@ def revoke_all(db, user):
     revoke_all_on("tables")
     revoke_all_on("sequences")
     revoke_all_on("functions")
+
+
+def revoke_write_on_protected_tables(db, user):
+    def revoke_specific_on(what):
+        db.execute("REVOKE INSERT, UPDATE, DELETE ON {what} FROM {name}".format(name=user.name, what=what))
+
+    for table in protected_tables:
+        revoke_specific_on(table)
 
 
 def grant_all(db, user):
@@ -306,6 +326,9 @@ def setup(service, annex_settings):
     # The migrations may have added new tables, so we should set the permissions
     # again, in case users need to have permissions on these new tables
     for_each_user(root_password, users, set_permissions)
+
+    # Revoke specific permissions now that all tables have been created.
+    for_each_user(root_password, users, revoke_write_on_protected_tables)
 
     grant_readonly_annex_root(root_password, service.settings, annex_settings)
     for_each_user(root_password, users, lambda d, u:
