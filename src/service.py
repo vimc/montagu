@@ -157,7 +157,9 @@ class MontaguService:
             self.stop_metrics()
         except Exception as e:
             print("Error when stopping Metrics container: {}".format(str(e)))
-
+        print("Wiping static file volume")
+        static_volume = self.client.volumes.get(self.volumes["static"])
+        static_volume.remove(force=True)
         print("Stopping Montagu...({}: {})".format(
             self.settings["instance_name"], self.settings["docker_prefix"]),
               flush=True)
