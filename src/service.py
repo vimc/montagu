@@ -20,6 +20,7 @@ components = {
         "static": "static"
     },
     "volumes": {
+        "static_logs": "static_logs",
         "static": "static_volume",
         "db": "db_volume",
         "orderly": "orderly_volume",

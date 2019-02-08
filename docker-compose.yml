@@ -92,8 +92,10 @@ services:
     logging: *log-journald
     volumes:
       - static_volume:/www
+      - static_logs:/var/log/caddy
 
 volumes:
+  static_logs:
   static_volume:
   db_volume:
   orderly_volume:
