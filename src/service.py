@@ -16,9 +16,12 @@ components = {
         "reporting_portal": "report",
         "proxy": "proxy",
         "metrics": "metrics",
-        "orderly": "orderly"
+        "orderly": "orderly",
+        "static": "static"
     },
     "volumes": {
+        "static_logs": "static_logs",
+        "static": "static_volume",
         "db": "db_volume",
         "orderly": "orderly_volume",
         "templates": "template_volume",
@@ -126,6 +129,10 @@ class MontaguService:
     @property
     def orderly(self):
         return self._get("orderly")
+
+    @property
+    def static(self):
+        return self._get("static")
 
     @property
     def db_volume_present(self):

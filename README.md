@@ -53,6 +53,21 @@ When deploying to a testing environment using real data restored from live,
 setting the `add_test_user` option to true adds the above user with permissions 
 to all modelling groups and reports.
 
+### Static files
+To copy file artefacts from the orderly volume into the static volume where
+they can be served by the `montagu-static` file server, add a config file to 
+the `./static` directory in this repository. File artefacts will be copied into place
+following the directory structure of the config file, i.e. artefacts listed in a 
+config file placed in `./static/model-review/2019` will be served from
+ `/www/model-review/2019`. The config file itself must be a csv where each row contains
+ 2 entries, the first being a glob identifying file artefacts within the orderly archive,
+ the second being the directory to serve matching artefacts from.
+ 
+So if a file at `./static/model-review/2019/config.csv` contains
+row ```native-diagnostics-burden-report-drafts/20190131-123847-53fe189e/*,IC-Hallett```
+the result is that all files matching the `native-diagnostics-burden-report-drafts/20190131-123847-53fe189e/*` glob
+will be served at `model-review/2019/IC-Hallett`
+
 ### The montagu user
 
 When deploying to the production server, make sure to first become the

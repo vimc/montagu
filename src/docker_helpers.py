@@ -13,6 +13,7 @@ except KeyError:
 
 montagu_registry = montagu_registry_hub if use_docker_hub else montagu_registry_local
 
+
 def get_image_name(name, version):
     return "{url}/{name}:{version}".format(url=montagu_registry, name=name, version=version)
 
@@ -26,15 +27,16 @@ def pull(image):
     run(["docker", "pull", image], check=True)
 
 
-def copy_between_volumes(source_volume, destination_volume, path_to_copy):
-        run(["docker", "run", "--rm", "-i", "-t",
-             "-v", "{}:/from".format(source_volume),
-             "-v", "{}:/to".format(destination_volume),
-             "alpine",
-             "ash",
-             "-c",
-             "cd /to ; cp -a /from/{} .".format(path_to_copy)
-             ], check=True)
+def copy_between_volumes(source_volume, destination_volume, path_to_copy, destination_path="."):
+    run(["docker", "run", "--rm", "-i", "-t",
+         "-v", "{}:/from".format(source_volume),
+         "-v", "{}:/to".format(destination_volume),
+         "alpine",
+         "ash",
+         "-c",
+         "cd /to ; mkdir -p {} && find /from/{} -exec cp -a {{}} {} \;".format(destination_path, path_to_copy,
+                                                                               destination_path)
+         ], check=True)
 
 
 # Somewhat surprisingly, the `container.exec_run` method does not
