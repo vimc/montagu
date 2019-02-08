@@ -63,7 +63,7 @@ config file placed in `./static/model-review/2019` will be served from
  2 entries, the first being a glob identifying file artefacts within the orderly archive,
  the second being the directory to serve matching artefacts from.
  
-So if a file at `./static/model-review/2019/config.csv` contains
+So if a file at `./static/model-review-2019/config.csv` contains
 row ```native-diagnostics-burden-report-drafts/20190131-123847-53fe189e/*,IC-Hallett```
 the result is that all files matching the `native-diagnostics-burden-report-drafts/20190131-123847-53fe189e/*` glob
 will be served at `model-review/2019/IC-Hallett`
