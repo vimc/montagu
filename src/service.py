@@ -176,6 +176,12 @@ class MontaguService:
                 print("Killing orderly container failed - continuing")
                 pass
         compose.stop(self.settings)
+        print("Wiping static file volume")
+        try:
+            static_volume = self.client.volumes.get(self.volume_name("static"))
+            static_volume.remove(force=True)
+        except docker.errors.NotFound:
+            return None
 
     def pull(self):
         print("Pulling images for Montagu", flush=True)
