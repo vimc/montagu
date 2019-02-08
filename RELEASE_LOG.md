@@ -1596,3 +1596,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.11.0
+
+## Tickets
+* i2606: Update deploy tool to copy model documentation and model diagnostic artefacts into  caddy volume for serving statically
+* i2608: Drop cookies on login to identify which modelling group a user can review
+* i2608_revision: Drop cookies on login to identify which modelling group a user can review
+* i2611: Add new route in proxy to pass to static file server
+
+## Other branches merged in this release
+
