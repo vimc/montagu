@@ -132,7 +132,7 @@ definitions = [
                              "orderly into the contrib portal container?",
                              "This can only be true if data source is restore",
                              default_value=False),
-    BooleanSettingDefinition("include_static_files",
+    BooleanSettingDefinition("copy_static_files",
                              "Should we copy configured static files from "
                              "into the static server container?",
                              "This can only be true if data source is restore",
