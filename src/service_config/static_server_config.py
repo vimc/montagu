@@ -78,8 +78,8 @@ def initialise_static_volume(service):
     run(["docker", "run", "--rm", "-i", "-t",
          "-v", "{}:/root/.ssh:ro".format(ssh_path),
          "-v", "{}:/www".format(service.volume_name("static")),
+         "--entrypoint", "ash",
          "alpine/git",
-         "ash",
          "-c",
          " && ".join(cmd)
          ], check=True)
