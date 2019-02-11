@@ -16,6 +16,7 @@
   "port": 10443,
   "require_clean_git": false,
   "update_on_deploy": false,
+  "copy_static_files": true,
   "use_production_db_config": false,
   "vault_address": "https://support.montagu.dide.ic.ac.uk:8200"
 }
