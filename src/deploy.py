@@ -147,6 +147,7 @@ def deploy():
         paths.delete_safely(paths.token_keypair)
         paths.delete_safely(paths.config)
         paths.delete_safely(paths.orderly)
+        paths.delete_safely(paths.static)
 
 
 if __name__ == "__main__":

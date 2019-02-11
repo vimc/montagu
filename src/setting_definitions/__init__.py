@@ -12,6 +12,7 @@ def vault_required(settings):
     uses_vault_passwords = settings["password_group"] is not None and \
                            settings['password_group'] != "fake"
     return data_source in teamcity_sources \
+           or settings["copy_static_files"] is True \
            or uses_bb8 \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
@@ -129,6 +130,11 @@ definitions = [
     BooleanSettingDefinition("include_guidance_reports",
                              "Should we copy guidance reports from "
                              "orderly into the contrib portal container?",
+                             "This can only be true if data source is restore",
+                             default_value=False),
+    BooleanSettingDefinition("copy_static_files",
+                             "Should we copy configured static files from "
+                             "into the static server container?",
                              "This can only be true if data source is restore",
                              default_value=False),
     BooleanSettingDefinition("use_production_db_config",

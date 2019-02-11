@@ -7,6 +7,8 @@ token_keypair = '../token_keypair'
 certs = '../certs'
 config = '../config'
 orderly = "../orderly"
+static = "../static-ssh"
+
 
 def delete_safely(path):
     try:
