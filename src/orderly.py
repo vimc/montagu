@@ -36,7 +36,7 @@ def configure_orderly_envir(service):
     api_server = service.settings['instance_name'].lower()
     # These are the entries in montagu-reports/orderly_config.yml:
     # update here if more are added.
-    known = ["science", "uat", "production"]
+    known = ["science", "uat", "production", "latest"]
     if api_server in known:
         slack_url = '"{}"'.format(
             get_secret("slack/orderly-webhook", field="url"))
