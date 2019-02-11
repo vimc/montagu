@@ -1606,3 +1606,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.11.1
+
+## Tickets
+* i2573: BUG: Changing report version from dropdown while on Changelog tab never loads new version changelog
+* i2616: Just serve model documentation via caddy
+* i2623: Add montgu-static-files to deploy tool
+
+## Other branches merged in this release
+
