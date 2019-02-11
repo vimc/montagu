@@ -3,6 +3,7 @@ from os import chdir
 from settings import get_settings
 from service import MontaguService
 from service_config.static_server_config import configure_static_files
+import paths
 
 
 def update_static_files():
@@ -11,7 +12,10 @@ def update_static_files():
     ok = service.status == 'running' and settings["copy_static_files"] is True
     if not ok:
         raise Exception('montagu not in a state we can update static files')
-    configure_static_files(service)
+    try:
+        configure_static_files(service)
+    finally:
+        paths.delete_safely(paths.static)
 
 
 if __name__ == "__main__":
