@@ -18,7 +18,11 @@ def configure_static_server(service, keypair_paths):
 
 
 def configure_static_files(service):
-    initialise_static_volume(service)
+    initialise_static_volume_from_github(service)
+    copy_static_files_from_orderly(service)
+
+
+def copy_static_files_from_orderly(service):
     static_file_configs = get_static_file_configs(join(montagu_root, "static"))
     for config in static_file_configs:
         print("Found static file config at {}".format(config["file_path"]))
@@ -29,7 +33,7 @@ def configure_static_files(service):
 
 
 def add_artefact_to_static_volume(service, artefact, path_prefix):
-    artefact = artefact.split(",")
+    artefact = artefact.split(" ,")
     path_to_artefacts = join("archive", artefact[0])
     destination = join(path_prefix, artefact[1])
     print("- Copying artefacts from orderly at {path_to_artefacts} to static server at {destination}"
@@ -70,7 +74,7 @@ def configure_static_ssh(service):
     return os.path.abspath(ssh)
 
 
-def initialise_static_volume(service):
+def initialise_static_volume_from_github(service):
     cmd = ["rm -rf /www/*",
            "git clone --depth=1 git@github.com:vimc/montagu-static-files.git",
            "mv montagu-static-files/www/* /www"]
