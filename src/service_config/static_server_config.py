@@ -33,7 +33,7 @@ def copy_static_files_from_orderly(service):
 
 
 def add_artefact_to_static_volume(service, artefact, path_prefix):
-    artefact = artefact.split(" ,")
+    artefact = artefact.split(",")
     path_to_artefacts = join("archive", artefact[0])
     destination = join(path_prefix, artefact[1])
     print("- Copying artefacts from orderly at {path_to_artefacts} to static server at {destination}"
