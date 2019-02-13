@@ -1615,3 +1615,15 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.11.2
+
+## Tickets
+* i2574: Publish report needs to update new schema
+* i2582: Refactor methods to get artefacts and resources
+* i2602: Changelog UI - date/version should be link
+* i2603: Changelog UI - group changelog items by date/version
+* i2620: Logic to filter through only artefacts and resources when downloading zipped report
+
+## Other branches merged in this release
+* latest
+
