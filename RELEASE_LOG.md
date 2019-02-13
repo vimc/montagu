@@ -1625,5 +1625,3 @@ Minor css change
 * i2620: Logic to filter through only artefacts and resources when downloading zipped report
 
 ## Other branches merged in this release
-* latest
-
