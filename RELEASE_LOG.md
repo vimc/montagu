@@ -1625,3 +1625,18 @@ Minor css change
 * i2620: Logic to filter through only artefacts and resources when downloading zipped report
 
 ## Other branches merged in this release
+# v1.12.0
+
+## Tickets
+* i2550: Bug: API request with invalid model_id causes Error 500
+* i2560: Portal user should be able to run existing reports if they have sufficient permissions
+* i2578: Bug: CSV coverage endpoint only returns data when accept header = JSON
+* i2635: Get model run parameter set data ignores modelling group and touchstone id if model_run_parameter_set id is valid
+* i2638: Give modellers access to their own model documentation
+* i2643: add diagnostic reports to portal
+* i2645: Add more permissions for modellers
+* i2647: Add missing model documentation groups
+* i2657: rename burden report 2-0 output files.
+
+## Other branches merged in this release
+
