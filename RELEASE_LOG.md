@@ -1640,3 +1640,9 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.12.1
+
+## Tickets
+
+## Other branches merged in this release
+
