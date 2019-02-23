@@ -1652,3 +1652,23 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.13.1
+
+## Tickets
+* i2385: Changelogs for published version should be accessible for users with read permissions on the report
+* i2443: Enable changelog tab for all users
+* i2517: Increase report run timeout, and error msg when report does timeout
+* i2600: Bug: Get single estimate set endpoint fails
+* i2601: Add report_version_public column to changelog table
+* i2630: Upgrade to react 16
+* i2631: Bug: Incorrect error when calling clear burden-estimate-set endpoint with wrong id
+* i2652: Endpoint to get burden estimate data as csv
+* i2653_populate: Accept chunked data in the API
+* i2653_refactor: Accept chunked data in the API
+* i2653_uploadfile: Accept chunked data in the API
+* i2653_uploadtoken: Accept chunked data in the API
+* i2677: Bug: null pointer exception when setting cookies
+
+## Other branches merged in this release
+* teeny_refactor
+
