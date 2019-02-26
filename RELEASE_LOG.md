@@ -1672,3 +1672,10 @@ Minor css change
 ## Other branches merged in this release
 * teeny_refactor
 
+# v1.13.2
+
+## Tickets
+* i2702: Bug: routing not working in Montagu deploy
+
+## Other branches merged in this release
+
