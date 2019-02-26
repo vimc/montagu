@@ -68,6 +68,10 @@ def add_test_user():
 
     run(command + [name] + args)
 
+    args = ["addUserToGroup", "test.user", "IC-Garske"]
+
+    run(command + [name] + args)
+
 
 if __name__ == "__main__":
     try:
