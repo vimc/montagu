@@ -1679,3 +1679,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.13.3
+
+## Tickets
+* i2628: Throw an error for erroneous scenario id on estimate-set endpoint
+* i2652_header: Endpoint to get burden estimate data as csv
+* i2686: Refactor data methods to use new schema
+* i2687: Deprecate remaining old schema methods
+
+## Other branches merged in this release
+* hotfix
+
