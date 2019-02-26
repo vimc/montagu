@@ -64,19 +64,11 @@ def add_test_user():
     args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
     run(command + [name] + args)
 
-    args = ["addRole", "test.user", "user"]
+    args = ["addAlGlobalRoles", "test.user"]
 
     run(command + [name] + args)
-
-    args = ["addRole", "test.user", "reports-reviewer"]
-
-    run(command + [name] + args)
-
+    
     args = ["addUserToGroup", "test.user", "ALL"]
-
-    run(command + [name] + args)
-
-    args = ["addRole", "test.user", "modeller"]
 
     run(command + [name] + args)
 
