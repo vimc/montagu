@@ -1690,3 +1690,17 @@ Minor css change
 ## Other branches merged in this release
 * hotfix
 
+# v1.13.4
+
+## Tickets
+* i2558_returns: Changelog tab shouldn't jump to anchor
+* i2584: Bug: No error thrown on get coverage data for invalid modelling group
+* i2689: Drop old schema!
+* i2698: Update API to use new schema
+* i2698_spec: Update API to use new schema
+* i2699: Update portal to accept new endpoint format
+* i2705: Throw an `unknown scenario` error when getting individual burden estimate set metadata for non-existent scenario.
+
+## Other branches merged in this release
+* latest
+
