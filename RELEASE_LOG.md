@@ -1704,3 +1704,10 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v1.13.5
+
+## Tickets
+* i2650: Checking of model run parameter set when adding burden_estimate set
+
+## Other branches merged in this release
+
