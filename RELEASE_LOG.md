@@ -1711,3 +1711,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.13.6
+
+## Tickets
+* i2656: Close Burden Estimate Set that's already closed
+* i2714: Burden-estimate-set id error reported when calling burden estimate set with incorrect group
+* i2730: Endpoint to get modelling groups for user
+* i2731: Contrib portal to call new endpoint to get modelling groups for user
+
+## Other branches merged in this release
+
