@@ -1721,3 +1721,25 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.13.7
+
+## Tickets
+* i2495: Update montagu-reports orderly_config file to include 'latest'
+* i2654_actions: Create UI with progress bar
+* i2654_component: Create UI with progress bar
+* i2728-latest: Bug: resource files with spaces in names can't be downloaded from reportle
+* i2732: Deprecate modeller role
+* i2764: Add login form to Montagu homepage
+* i2764_use_build_env: Add login form to Montagu homepage
+* i2770: Save incomplete estimate set with status "incomplete"
+* i2772: Webapps should use orderly.server not montagu-orderly for testing
+* i2787: Implement /user endpoint in Montagu that gets basic user details for the logged in user
+* i2796: Use errors from global state instead of expecting them in a query string
+* i2798: Add script for testing proxy which puts all apps into same docker network
+* i2811: Proxy login form shows duplicate error if fail during setCookies
+
+## Other branches merged in this release
+* VIMC-2810
+* VIMC-2813
+* VIMC-2818
+
