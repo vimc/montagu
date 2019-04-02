@@ -4,7 +4,8 @@ import requests
 
 from branch_diff import Difference
 
-branch_pattern = re.compile(r"^i(\d+)($|[_-])")
+old_branch_pattern = re.compile(r"^i(\d+)($|[_-])")
+new_branch_pattern = re.compile(r"^(.+-\d+)($|[_-])")
 NOT_FOUND = "NOT FOUND"
 
 
@@ -48,9 +49,12 @@ class YouTrackHelper:
     def get_tickets(self, branch_names):
         branch_names = sorted(branch_names)
         for branch in branch_names:
-            match = branch_pattern.match(branch)
-            if match:
-                yield self.get_ticket(branch, match.group(1))
+            match_old = old_branch_pattern.match(branch)
+            match_new = new_branch_pattern.match(branch)
+            if match_old:
+                yield self.get_ticket(branch, match_old.group(1))
+            elif match_new:
+                yield self.get_ticket(branch, match_new.group(1))
             else:
                 yield branch, NOT_FOUND
 
