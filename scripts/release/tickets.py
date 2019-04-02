@@ -52,14 +52,14 @@ class YouTrackHelper:
             match_old = old_branch_pattern.match(branch)
             match_new = new_branch_pattern.match(branch)
             if match_old:
-                yield self.get_ticket(branch, match_old.group(1))
+                full_id = "VIMC-" + match_old.group(1)
+                yield self.get_ticket(branch, full_id)
             elif match_new:
                 yield self.get_ticket(branch, match_new.group(1))
             else:
                 yield branch, NOT_FOUND
 
-    def get_ticket(self, branch, id):
-        full_id = "VIMC-" + id
+    def get_ticket(self, branch, full_id):
         r = self.request("issue/" + full_id)
         if r.status_code == 200:
             return branch, Ticket(r.json())
