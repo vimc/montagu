@@ -79,5 +79,3 @@ if __name__ == "__main__":
         print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")
         exit(-1)
-
-# test comment
