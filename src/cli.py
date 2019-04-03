@@ -61,7 +61,7 @@ def add_test_user():
         command += add_secure_config(password_group)
 
     name = get_image_name("montagu-cli", versions.api)
-    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password"]
+    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"]
     run(command + [name] + args)
 
     args = ["addRole", "test.user", "user"]
@@ -73,10 +73,6 @@ def add_test_user():
     run(command + [name] + args)
 
     args = ["addUserToGroup", "test.user", "ALL"]
-
-    run(command + [name] + args)
-
-    args = ["addRole", "test.user", "modeller"]
 
     run(command + [name] + args)
 
