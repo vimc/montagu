@@ -1743,3 +1743,16 @@ Minor css change
 * VIMC-2813
 * VIMC-2818
 
+# v1.13.8
+
+## Tickets
+* VIMC-2821: Make release script doesn't recognise 'VIMC-' branches
+* i2814: Implement redirects from Montagu login
+* i2822: Test User should not be given deprecated 'modeller' role
+* i2826: Add mapproj package to orderly container
+* i2827: Bug: regression: reports no longer sorted by date
+* i2829: Give funders permission to static file server
+
+## Other branches merged in this release
+* latest
+
