@@ -1756,3 +1756,13 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v1.13.9
+
+## Tickets
+* VIMC-2786-proxy: Montagu homepage to offer reset password feature
+* VIMC-2797: Deploy webhook
+* VIMC-2866: Update pinned report to point to Oct 2018 interim update
+
+## Other branches merged in this release
+* mrc-233
+
