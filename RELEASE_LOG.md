@@ -1766,3 +1766,10 @@ Minor css change
 ## Other branches merged in this release
 * mrc-233
 
+# v1.13.10
+
+## Tickets
+* VIMC-2867: Syntax Error in Firefox caused by static var
+
+## Other branches merged in this release
+
