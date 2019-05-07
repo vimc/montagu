@@ -1773,3 +1773,16 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.13.11
+
+## Tickets
+* VIMC-2786: Montagu homepage to offer reset password feature
+* VIMC-2864: Get user info in proxy from /user/ rather than local storage
+* VIMC-2865: Get user info from /user/ rather than local storage in portals
+* VIMC-2868: Fix Firefox warnings
+* VIMC-2889: Update orderly containers to 0.6.0
+* VIMC-2890: Update to use new Orderly mult-db schema
+
+## Other branches merged in this release
+* latest
+
