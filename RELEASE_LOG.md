@@ -1786,3 +1786,10 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v1.13.12
+
+## Tickets
+* VIMC-2902: Fix Reporting API tests for new Orderly demo data
+
+## Other branches merged in this release
+
