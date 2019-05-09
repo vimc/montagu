@@ -1793,3 +1793,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.13.13
+
+## Tickets
+* VIMC-2865: Get user info from /user/ rather than local storage in portals
+* VIMC-2906: ANNEX_PASSWORD needed for orderly (from vault)
+
+## Other branches merged in this release
+
