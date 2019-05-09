@@ -84,7 +84,7 @@ def orderly_prepare_envir(password_group, orderly_api_server, slack_url,
     user = "orderly"
     password = VaultPassword(password_group, user).get()
     if fake_annex:
-        annex_host = "annex_db"
+        annex_host = "db_annex"
         annex_port = 5432
     else:
         annex_host = "annex.montagu.dide.ic.ac.uk"
