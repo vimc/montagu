@@ -43,7 +43,9 @@ def configure_orderly_envir(service):
     else:
         api_server = "~"
         slack_url = "~"
-    envir = orderly_prepare_envir(password_group, api_server, slack_url)
+    fake_annex = service.settings["db_annex_type"] == "fake"
+    envir = orderly_prepare_envir(password_group, api_server, slack_url,
+                                  fake_annex)
     docker_cp(envir, service.orderly.name, "/orderly")
 
 
@@ -75,11 +77,19 @@ def configure_orderly_ssh(service):
     docker_cp(ssh, service.orderly.name, "/root/.ssh")
 
 
-def orderly_prepare_envir(password_group, orderly_api_server, slack_url):
+def orderly_prepare_envir(password_group, orderly_api_server, slack_url,
+                          fake_annex):
     print("preparing orderly configuration")
     dest = paths.orderly + "/orderly_envir.yml"
     user = "orderly"
     password = VaultPassword(password_group, user).get()
+    if fake_annex:
+        annex_host = "db_annex"
+        annex_port = 5432
+    else:
+        annex_host = "annex.montagu.dide.ic.ac.uk"
+        annex_port = 15432
+    annex_password = VaultPassword(password_group, "readonly", True).get()
     envir = [
         "MONTAGU_PASSWORD: {password}".format(password=password),
         "MONTAGU_HOST: db",
@@ -87,7 +97,10 @@ def orderly_prepare_envir(password_group, orderly_api_server, slack_url):
         "MONTAGU_USER: {user}".format(user=user),
         "ORDERLY_API_SERVER_IDENTITY: {server}".format(
             server=orderly_api_server),
-        "SLACK_URL: {url}".format(url=slack_url)]
+        "SLACK_URL: {url}".format(url=slack_url),
+        "ANNEX_HOST: {host}".format(host=annex_host),
+        "ANNEX_PORT: {port}".format(port=annex_port),
+        "ANNEX_PASSWORD: {password}".format(password=annex_password)]
     if not os.path.exists(paths.orderly):
         os.makedirs(paths.orderly)
     with open(dest, 'w') as output:
