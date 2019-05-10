@@ -5,7 +5,7 @@
    of master using `update_versions_to_latest_master.py` (or manually update
    versions.py to specific versions).
 2. Stage changes with `git add .` and commit and push these changes. At this point, `git status` may show some submodules as 
-   having modified content, not staged for commit. (This will happen if submodules, e.g. models, have changed.) 
+   having modified content, not staged for commit. (This will happen if submodules of submodules, e.g. models, have changed.) 
    Fix this by running `git submodule update --recursive`. 
 3. Tag the release and build the release log by running 
    `./scripts/release/make-release.py`
