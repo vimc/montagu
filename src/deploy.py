@@ -61,7 +61,7 @@ def _deploy():
     if not is_first_time:
         notifier.post("*Stopping* previous montagu "
                       "on `{}` :hand:".format(settings['instance_name']))
-        service.stop()
+        #service.stop()
 
     # Schedule backups
     if settings["bb8_backup"]:
