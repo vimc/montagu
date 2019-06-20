@@ -100,6 +100,7 @@ def _deploy():
         raise
 
     if settings["add_test_user"] is True:
+        print("Adding tests users")
         add_test_user()
 
     last_deploy_update(version)

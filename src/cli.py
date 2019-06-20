@@ -46,7 +46,7 @@ def cli():
 
 
 def add_test_user():
-    settings = get_settings(quiet=True)
+    settings = get_settings()
     service = MontaguService(settings)
     network = service.network_name
 
@@ -62,12 +62,14 @@ def add_test_user():
 
     name = get_image_name("montagu-cli", versions.api)
 
+    print("Adding test user")
     run_cmd(command, name, ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.user", "user"])
     run_cmd(command, name, ["addRole", "test.user", "reports-reviewer"])
     run_cmd(command, name, ["addRole", "test.user", "touchstone-reviewer"])
     run_cmd(command, name, ["addUserToGroup", "test.user", "ALL"])
 
+    print("Adding test user")
     run_cmd(command, name, ["add", "Test Modeller", "test.modeller", "test.modeller@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.modeller", "user"])
     run_cmd(command, name, ["addRole", "test.modeller", "reports-reader"])
