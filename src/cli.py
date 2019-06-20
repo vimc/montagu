@@ -61,19 +61,22 @@ def add_test_user():
         command += add_secure_config(password_group)
 
     name = get_image_name("montagu-cli", versions.api)
-    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"]
-    run(command + [name] + args)
 
-    args = ["addRole", "test.user", "user"]
+    run_cmd(command, name, ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"])
+    run_cmd(command, name, ["addRole", "test.user", "user"])
+    run_cmd(command, name, ["addRole", "test.user", "reports-reviewer"])
+    run_cmd(command, name, ["addRole", "test.user", "touchstone-reviewer"])
+    run_cmd(command, name, ["addUserToGroup", "test.user", "ALL"])
 
-    run(command + [name] + args)
+    run_cmd(command, name, ["add", "Test Modeller", "test.modeller", "test.modeller@imperial.ac.uk", "password", "--if-not-exists"])
+    rum_cmd(command, name, ["addRole", "test.modeller", "user"])
+    run_cmd(command, name, ["addRole", "test.modeller", "reports-reader"])
+    run_cmd(command, name, ["addRole", "test.modeller", "member", "modelling-group:IC-Garske"])
+    run_cmd(command, name, ["addRole", "test.modeller", "member", "modelling-group:Harvard-Sweet"])
+    run_cmd(command, name, ["addUserToGroup", "test.modeller", "ALL"])
 
-    args = ["addRole", "test.user", "reports-reviewer"]
 
-    run(command + [name] + args)
-
-    args = ["addUserToGroup", "test.user", "ALL"]
-
+def run_cmd(command, name, args):
     run(command + [name] + args)
 
 
