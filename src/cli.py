@@ -62,18 +62,16 @@ def add_test_users():
 
     name = get_image_name("montagu-cli", versions.api)
 
-    run_cmd(command, name, ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"])
-    run_cmd(command, name, ["addRole", "test.user", "user"])
-    run_cmd(command, name, ["addRole", "test.user", "reports-reviewer"])
-    run_cmd(command, name, ["addRole", "test.user", "touchstone-reviewer"])
-    run_cmd(command, name, ["addUserToGroup", "test.user", "ALL"])
+    run_cmd(command, name, ["add", "Test Admin", "test.admin", "test.admin@imperial.ac.uk", "password", "--if-not-exists"])
+    run_cmd(command, name, ["addRole", "test.admin", "user"])
+    run_cmd(command, name, ["addRole", "test.admin", "reports-reviewer"])
+    run_cmd(command, name, ["addRole", "test.admin", "touchstone-reviewer"])
 
     run_cmd(command, name, ["add", "Test Modeller", "test.modeller", "test.modeller@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.modeller", "user"])
     run_cmd(command, name, ["addRole", "test.modeller", "reports-reader"])
-    run_cmd(command, name, ["addRole", "test.modeller", "member", "modelling-group:IC-Garske"])
-    run_cmd(command, name, ["addRole", "test.modeller", "member", "modelling-group:Harvard-Sweet"])
-    run_cmd(command, name, ["addUserToGroup", "test.modeller", "ALL"])
+    run_cmd(command, name, ["addUserToGroup", "test.modeller", "IC-Garske"])
+    run_cmd(command, name, ["addUserToGroup", "test.modeller", "Harvard-Sweet"])
 
 
 def run_cmd(command, name, args):
