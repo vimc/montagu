@@ -101,7 +101,7 @@ def _deploy():
 
     if settings["add_test_user"] is True:
         print("Adding tests users")
-        add_test_user()
+        add_test_users()
 
     last_deploy_update(version)
     notifier.post("*Completed* deploy of " + deploy_str + " :shipit:")
