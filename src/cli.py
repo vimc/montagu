@@ -46,7 +46,7 @@ def cli():
 
 
 def add_test_users():
-    settings = get_settings()
+    settings = get_settings(quiet=True)
     service = MontaguService(settings)
     network = service.network_name
 
