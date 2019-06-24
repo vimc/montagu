@@ -9,7 +9,7 @@ def start(settings):
 
 
 def stop(settings):
-    command = "down" if settings["persist_data"] else "down --volumes"
+    command = "stop" if settings["persist_data"] else "rm --force --stop"
     run(command, settings)
 
 
