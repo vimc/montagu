@@ -12,5 +12,5 @@ fi
 echo "Stopping and removing all Docker containers..."
 docker stop $(docker ps -aq)
 docker rm $(docker ps -aq)
-docker volume prune
+docker volume prune --force
 exit 0
