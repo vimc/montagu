@@ -20,7 +20,7 @@ def restore_db():
         bb8_backup.restore(service)
         database.setup(service)
         if settings["add_test_user"] is True:
-            add_test_user()
+            add_test_users()
         notifier.post("*Restored* data from backup on `{}` :recycle:".format(
             settings['instance_name']))
     except Exception as e:

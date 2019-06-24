@@ -45,7 +45,7 @@ def cli():
     run(command + [name] + args)
 
 
-def add_test_user():
+def add_test_users():
     settings = get_settings(quiet=True)
     service = MontaguService(settings)
     network = service.network_name
@@ -61,19 +61,20 @@ def add_test_user():
         command += add_secure_config(password_group)
 
     name = get_image_name("montagu-cli", versions.api)
-    args = ["add", "Test User", "test.user", "test.user@imperial.ac.uk", "password", "--if-not-exists"]
-    run(command + [name] + args)
 
-    args = ["addRole", "test.user", "user"]
+    run_cmd(command, name, ["add", "Test Admin", "test.admin", "test.admin@imperial.ac.uk", "password", "--if-not-exists"])
+    run_cmd(command, name, ["addRole", "test.admin", "user"])
+    run_cmd(command, name, ["addRole", "test.admin", "reports-reviewer"])
+    run_cmd(command, name, ["addRole", "test.admin", "touchstone-reviewer"])
 
-    run(command + [name] + args)
+    run_cmd(command, name, ["add", "Test Modeller", "test.modeller", "test.modeller@imperial.ac.uk", "password", "--if-not-exists"])
+    run_cmd(command, name, ["addRole", "test.modeller", "user"])
+    run_cmd(command, name, ["addRole", "test.modeller", "reports-reader"])
+    run_cmd(command, name, ["addUserToGroup", "test.modeller", "IC-Garske"])
+    run_cmd(command, name, ["addUserToGroup", "test.modeller", "Harvard-Sweet"])
 
-    args = ["addRole", "test.user", "reports-reviewer"]
 
-    run(command + [name] + args)
-
-    args = ["addUserToGroup", "test.user", "ALL"]
-
+def run_cmd(command, name, args):
     run(command + [name] + args)
 
 
