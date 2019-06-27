@@ -1801,3 +1801,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.14.0
+
+## Tickets
+* VIMC-2895: Document need to update submodules locally during Montagu release
+* VIMC-2958: Staging test users for montagu-r tests
+* VIMC-2970: import new gavi support levels
+* VIMC-2971: Add new gavi support level values to enum
+* vimc-2901: Write flyway migration to to create log table in montagu-db
+
+## Other branches merged in this release
+
