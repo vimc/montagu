@@ -1812,3 +1812,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.14.1
+
+## Tickets
+* VIMC-2976: Make test admin user a proper admin
+
+## Other branches merged in this release
+
