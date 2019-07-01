@@ -1819,3 +1819,17 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.14.2
+
+## Tickets
+* VIMC-2815: Deprecate portal individual logins
+* VIMC-2911: BUG: success message persists after navigating away from burden estimate upload page
+* VIMC-2957: Precision of demographic data download
+* mrc-322: Add readme to filepurpose enum
+* vimc-2939: Reportle to use new changelog ordering column
+* vimc-2948: Update montagu orderly to 0.7.2
+* vimc-2966: Update orderly.server images to use new db format
+
+## Other branches merged in this release
+* upgrade
+
