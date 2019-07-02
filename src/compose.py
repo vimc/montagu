@@ -9,13 +9,13 @@ def start(settings):
 
 
 def stop(settings):
-    command = "stop" if settings["persist_data"] else "rm --force --stop"
-    run(command, settings)
-    p = Popen("docker system prune -a --volumes -f", shell=True)
-    p.wait()
-    if p.returncode != 0:
-        raise Exception("An error occurred: docker returned {}".format(
-            p.returncode))
+    run("stop", settings)
+    if not settings["persist_data"]:
+        p = Popen("docker system prune -a --volumes -f", shell=True)
+        p.wait()
+        if p.returncode != 0:
+            raise Exception("An error occurred: docker returned {}".format(
+                p.returncode))
 
 
 def pull(settings):
