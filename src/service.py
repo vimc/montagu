@@ -83,7 +83,7 @@ class MontaguService:
 
     def start_metrics(self):
         # Metrics container has to be started last, after proxy has its SSL cert and is able to serve basic_status
-        self.client.containers.run('nginx/nginx-prometheus-exporter:0.2.0',
+        self.client.containers.run('nginx/nginx-prometheus-exporter:0.4.1',
                                     restart_policy = {"Name": "always"},
                                     ports = {'9113/tcp': 9113},
                                     command = '-nginx.scrape-uri "http://montagu_proxy_1/basic_status"',
