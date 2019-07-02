@@ -161,10 +161,11 @@ class MontaguService:
         print("Stopping Montagu...({}: {})".format(
             self.settings["instance_name"], self.settings["docker_prefix"]),
               flush=True)
+        # always remove the static container
+        self.static.remove(force=True)
         compose.stop(self.settings)
         print("Wiping static file volume")
         try:
-            self.static.remove(force=True)
             static_volume = self.client.volumes.get(self.volume_name("static"))
             static_volume.remove(force=True)
         except docker.errors.NotFound:
