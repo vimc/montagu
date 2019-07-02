@@ -1833,3 +1833,10 @@ Minor css change
 ## Other branches merged in this release
 * upgrade
 
+# v1.14.3
+
+## Tickets
+* vimc-2981: orderly init script is broken
+
+## Other branches merged in this release
+
