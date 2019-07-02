@@ -1801,3 +1801,42 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v1.14.0
+
+## Tickets
+* VIMC-2895: Document need to update submodules locally during Montagu release
+* VIMC-2958: Staging test users for montagu-r tests
+* VIMC-2970: import new gavi support levels
+* VIMC-2971: Add new gavi support level values to enum
+* vimc-2901: Write flyway migration to to create log table in montagu-db
+
+## Other branches merged in this release
+
+# v1.14.1
+
+## Tickets
+* VIMC-2976: Make test admin user a proper admin
+
+## Other branches merged in this release
+
+# v1.14.2
+
+## Tickets
+* VIMC-2815: Deprecate portal individual logins
+* VIMC-2911: BUG: success message persists after navigating away from burden estimate upload page
+* VIMC-2957: Precision of demographic data download
+* mrc-322: Add readme to filepurpose enum
+* vimc-2939: Reportle to use new changelog ordering column
+* vimc-2948: Update montagu orderly to 0.7.2
+* vimc-2966: Update orderly.server images to use new db format
+
+## Other branches merged in this release
+* upgrade
+
+# v1.14.3
+
+## Tickets
+* vimc-2981: orderly init script is broken
+
+## Other branches merged in this release
+

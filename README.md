@@ -51,7 +51,10 @@ If you use the 'test_data' data set then it comes with a default username
 
 When deploying to a testing environment using real data restored from live, 
 setting the `add_test_user` option to true adds the above user with permissions 
-to all modelling groups and reports.
+to all modelling groups and reports. 
+
+It will also add a "test.modeller@imperial.ac.uk"
+user who has access only to IC-Garske and Harvard-Sweet modelling groups. 
 
 ### Static files
 To copy file artefacts from the orderly volume into the static volume where
