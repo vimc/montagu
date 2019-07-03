@@ -13,14 +13,11 @@ def get_submodule_version(path):
 
 
 db = get_submodule_version("db")
-orderly = get_submodule_version("orderly")
 
 api = get_submodule_version("api")
-reporting_api = get_submodule_version("reporting-api")
 
 contrib_portal = get_submodule_version("contrib-portal")
 admin_portal = get_submodule_version("admin-portal")
-report_portal = get_submodule_version("report-portal")
 
 proxy = get_submodule_version("proxy")
 cert_tool = get_submodule_version("cert-tool")
@@ -29,9 +26,7 @@ static = get_submodule_version("static")
 
 def as_dict():
     submodules = [
-        'db', 'orderly',
-        'api', 'reporting-api',
-        'contrib-portal', 'admin-portal', 'report-portal',
+        'db', 'api', 'contrib-portal', 'admin-portal',
         'proxy', 'cert-tool'
     ]
     return dict((k, get_submodule_version(k)) for k in submodules)

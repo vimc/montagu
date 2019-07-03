@@ -58,8 +58,7 @@ def get_artefacts(path):
 
 
 def configure_static_ssh(service):
-    needs_ssh = service.settings['clone_reports'] or \
-                service.settings['initial_data_source'] == 'restore'
+    needs_ssh = service.settings['initial_data_source'] == 'restore'
     if not needs_ssh:
         return
     ssh = paths.static + "/.ssh"

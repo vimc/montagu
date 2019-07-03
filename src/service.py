@@ -9,20 +9,20 @@ components = {
     "containers": {
         # logical name: container name in docker compose
         "api": "api",
-        "reporting_api": "reporting_api",
         "db": "db",
         "contrib_portal": "contrib",
         "admin_portal": "admin",
-        "reporting_portal": "report",
         "proxy": "proxy",
         "metrics": "metrics",
-        "orderly": "orderly",
         "static": "static"
     },
     "volumes": {
         "static_logs": "static_logs",
         "static": "static_volume",
         "db": "db_volume",
+        # NOTE: even though we've dropped orderly from the deploy we
+        # might depend on this volume for copying guidance reports
+        # into the contrib portan and the static server.
         "orderly": "orderly_volume",
         "templates": "template_volume",
         "guidance": "guidance_volume"
@@ -103,10 +103,6 @@ class MontaguService:
         return self._get("api")
 
     @property
-    def reporting_api(self):
-        return self._get("reporting_api")
-
-    @property
     def db(self):
         return self._get("db")
 
@@ -125,10 +121,6 @@ class MontaguService:
     @property
     def proxy(self):
         return self._get("proxy")
-
-    @property
-    def orderly(self):
-        return self._get("orderly")
 
     @property
     def static(self):
@@ -162,19 +154,6 @@ class MontaguService:
             self.settings["instance_name"], self.settings["docker_prefix"]),
               flush=True)
 
-        # As documented in VIMC-805, the orderly container will
-        # respond quickly to an interrupt, but not to whatever docker
-        # stop (via docker-compose stop) is sending. This is
-        # (presumably) a limitation of httpuv and not something I can
-        # see how to work around at the R level. So instead we send an
-        # interrupt signal (SIGINT) just before the stop, and that
-        # seems to bring things down much more quicky.
-        if self.orderly:
-            try:
-                self.orderly.kill("SIGINT")
-            except:
-                print("Killing orderly container failed - continuing")
-                pass
         compose.stop(self.settings)
         print("Wiping static file volume")
         try:
