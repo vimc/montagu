@@ -10,7 +10,7 @@ def start(settings):
 
 def stop(settings):
     run("stop", settings)
-    run("rm", settings)
+    run("rm -f", settings)
 
 
 def pull(settings):
