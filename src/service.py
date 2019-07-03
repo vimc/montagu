@@ -153,7 +153,6 @@ class MontaguService:
         print("Stopping Montagu...({}: {})".format(
             self.settings["instance_name"], self.settings["docker_prefix"]),
               flush=True)
-
         # always remove the static container
         self.static.remove(force=True)
         compose.stop(self.settings)
