@@ -1840,3 +1840,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.0.0
+
+## Tickets
+* VIMC-2947: Update Montagu Proxy to use OrderlyWeb instead of Reportle
+* VIMC-2947_fix: Update Montagu Proxy to use OrderlyWeb instead of Reportle
+* mrc-288: Proxy should be able to start even if OrderlyWeb is not present
+* mrc-316: Logging out of orderly should log out of Montagu
+
+## Other branches merged in this release
+
