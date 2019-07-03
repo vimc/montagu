@@ -83,7 +83,7 @@ class MontaguService:
 
     def start_metrics(self):
         # Metrics container has to be started last, after proxy has its SSL cert and is able to serve basic_status
-        self.client.containers.run('nginx/nginx-prometheus-exporter:0.2.0',
+        self.client.containers.run('nginx/nginx-prometheus-exporter:0.4.1',
                                     restart_policy = {"Name": "always"},
                                     ports = {'9113/tcp': 9113},
                                     command = '-nginx.scrape-uri "http://montagu_proxy_1/basic_status"',
@@ -161,20 +161,8 @@ class MontaguService:
         print("Stopping Montagu...({}: {})".format(
             self.settings["instance_name"], self.settings["docker_prefix"]),
               flush=True)
-
-        # As documented in VIMC-805, the orderly container will
-        # respond quickly to an interrupt, but not to whatever docker
-        # stop (via docker-compose stop) is sending. This is
-        # (presumably) a limitation of httpuv and not something I can
-        # see how to work around at the R level. So instead we send an
-        # interrupt signal (SIGINT) just before the stop, and that
-        # seems to bring things down much more quicky.
-        if self.orderly:
-            try:
-                self.orderly.kill("SIGINT")
-            except:
-                print("Killing orderly container failed - continuing")
-                pass
+        # always remove the static container
+        self.static.remove(force=True)
         compose.stop(self.settings)
         print("Wiping static file volume")
         try:
@@ -182,6 +170,10 @@ class MontaguService:
             static_volume.remove(force=True)
         except docker.errors.NotFound:
             return None
+        if not self.settings["persist_data"]:
+            for v in self.volumes:
+                name = self.volume_name(v)
+                self.client.volumes.get(name).remove(force=True)
 
     def pull(self):
         print("Pulling images for Montagu", flush=True)
