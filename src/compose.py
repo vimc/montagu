@@ -10,8 +10,7 @@ def start(settings):
 
 def stop(settings):
     run("stop", settings)
-    command = "rm" if settings["persist_data"] else "rm -v"
-    run(command, settings)
+    run("rm", settings)
 
 
 def pull(settings):
