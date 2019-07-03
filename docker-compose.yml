@@ -59,10 +59,8 @@ services:
       - 80:80
     depends_on:
       - api
-      - reporting_api
       - admin
       - contrib
-      - report
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
   static:
     image: ${MONTAGU_REGISTRY}/montagu-static:${MONTAGU_STATIC_VERSION}
