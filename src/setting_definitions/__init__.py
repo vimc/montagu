@@ -95,6 +95,11 @@ definitions = [
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",
                       default_value=""),
+    BooleanSettingDefinition("copy_static_files",
+                             "Should we copy configured static files from "
+                             "into the static server container?",
+                             "This can only be true if data source is restore",
+                             default_value=False),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
@@ -123,11 +128,6 @@ definitions = [
     BooleanSettingDefinition("include_guidance_reports",
                              "Should we copy guidance reports from "
                              "orderly into the contrib portal container?",
-                             "This can only be true if data source is restore",
-                             default_value=False),
-    BooleanSettingDefinition("copy_static_files",
-                             "Should we copy configured static files from "
-                             "into the static server container?",
                              "This can only be true if data source is restore",
                              default_value=False),
     BooleanSettingDefinition("use_production_db_config",
