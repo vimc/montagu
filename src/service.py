@@ -168,7 +168,10 @@ class MontaguService:
         if not self.settings["persist_data"]:
             for v in self.volumes:
                 name = self.volume_name(v)
-                self.client.volumes.get(name).remove(force=True)
+                try:
+                    self.client.volumes.get(name).remove(force=True)
+                except docker.errors.NotFound:
+                    pass
 
     def pull(self):
         print("Pulling images for Montagu", flush=True)
