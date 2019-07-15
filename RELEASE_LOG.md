@@ -1850,3 +1850,21 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.0.1
+
+## Tickets
+* VIMC-2450: BUG: non-deterministic failure to close burden estimate set
+* VIMC-2989: API endpoint to get model meta
+* VIMC-2989-update-db: API endpoint to get model meta
+* VIMC-2990: Add page in admin portal to show model meta
+* VIMC-2998: Add missing metadata to db
+* VIMC-3008: Delete reportle from webapps codebase
+* VIMC-3012: Endpoint to get expectations for all modelling groups
+* VIMC-3016: Add model_version_countries table, and import data
+* VIMC-3020: Flesh out model meta page
+* mrc-294: Remove Reportle submodule from Montagu deploy
+
+## Other branches merged in this release
+* latest
+* model-schema-fix
+
