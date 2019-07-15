@@ -35,9 +35,6 @@ container_repo_map = {
     "montagu-contrib-portal": "contrib-portal",
     "montagu-db": "db",
     "montagu-migrate": "db",
-    "montagu-orderly": "orderly",
-    "montagu-report-portal": "report-portal",
-    "montagu-reporting-api": "reporting-api",
     "montagu-reverse-proxy": "proxy",
     "montagu-static": "static"
 }

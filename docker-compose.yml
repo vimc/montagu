@@ -26,14 +26,6 @@ services:
       # If password_group is 'production' then emails will be really sent, and this
       # volume will remain empty. Otherwise emails are written to disk here.
       - emails:/tmp/montagu_emails
-  reporting_api:
-    image: ${MONTAGU_REGISTRY}/montagu-reporting-api:${MONTAGU_REPORTING_API_VERSION}
-    restart: always
-    logging: *log-journald
-    volumes:
-      - orderly_volume:/orderly
-    depends_on:
-      - orderly
   db:
     image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     restart: always
@@ -58,13 +50,6 @@ services:
     logging: *log-journald
     depends_on:
       - api
-  report:
-    image: ${MONTAGU_REGISTRY}/montagu-report-portal:${MONTAGU_REPORT_PORTAL_VERSION}
-    restart: always
-    logging: *log-journald
-    depends_on:
-      - api
-      - reporting_api
   proxy:
     image: ${MONTAGU_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     restart: always
@@ -74,18 +59,9 @@ services:
       - 80:80
     depends_on:
       - api
-      - reporting_api
       - admin
       - contrib
-      - report
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
-  orderly:
-    image: ${MONTAGU_REGISTRY}/montagu-orderly:${MONTAGU_ORDERLY_VERSION}
-    restart: always
-    logging: *log-journald
-    volumes:
-      - orderly_volume:/orderly
-    command: --port 8321 --go-signal /orderly_go /orderly
   static:
     image: ${MONTAGU_REGISTRY}/montagu-static:${MONTAGU_STATIC_VERSION}
     restart: always
@@ -98,7 +74,6 @@ volumes:
   static_logs:
   static_volume:
   db_volume:
-  orderly_volume:
   template_volume:
   guidance_volume:
   emails:

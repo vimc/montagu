@@ -18,8 +18,7 @@ def vault_required(settings):
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
            or settings["db_annex_type"] != "fake" \
-           or settings["notify_channel"] \
-           or ("clone_reports" in settings and settings["clone_reports"] is True)
+           or settings["notify_channel"]
 
 
 definitions = [
@@ -96,12 +95,11 @@ definitions = [
                       "What slack channel should we post in?",
                       "e.g., montagu. Leave as the empty string to not post",
                       default_value=""),
-    BooleanSettingDefinition("clone_reports",
-                             "Should montagu-reports be cloned?",
-                             "If you answer yes, then we need vault access in order to get the ssh keys for vimc-robot "
-                             "If you answer no, then we set up only an empty orderly repository, and you will not be "
-                             "able to clone the reports repository",
-                             default_value=True),
+    BooleanSettingDefinition("copy_static_files",
+                             "Should we copy configured static files from "
+                             "into the static server container?",
+                             "This can only be true if data source is restore",
+                             default_value=False),
     SettingDefinition("vault_address",
                       "What is the address of the vault?",
                       "If you have a local vault instance for testing, you probably want http://127.0.0.1:8200.\n"
@@ -130,11 +128,6 @@ definitions = [
     BooleanSettingDefinition("include_guidance_reports",
                              "Should we copy guidance reports from "
                              "orderly into the contrib portal container?",
-                             "This can only be true if data source is restore",
-                             default_value=False),
-    BooleanSettingDefinition("copy_static_files",
-                             "Should we copy configured static files from "
-                             "into the static server container?",
                              "This can only be true if data source is restore",
                              default_value=False),
     BooleanSettingDefinition("use_production_db_config",

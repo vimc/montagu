@@ -9,20 +9,20 @@ components = {
     "containers": {
         # logical name: container name in docker compose
         "api": "api",
-        "reporting_api": "reporting_api",
         "db": "db",
         "contrib_portal": "contrib",
         "admin_portal": "admin",
-        "reporting_portal": "report",
         "proxy": "proxy",
         "metrics": "metrics",
-        "orderly": "orderly",
         "static": "static"
     },
     "volumes": {
         "static_logs": "static_logs",
         "static": "static_volume",
         "db": "db_volume",
+        # NOTE: even though we've dropped orderly from the deploy we
+        # might depend on this volume for copying guidance reports
+        # into the contrib portan and the static server.
         "orderly": "orderly_volume",
         "templates": "template_volume",
         "guidance": "guidance_volume"
@@ -103,10 +103,6 @@ class MontaguService:
         return self._get("api")
 
     @property
-    def reporting_api(self):
-        return self._get("reporting_api")
-
-    @property
     def db(self):
         return self._get("db")
 
@@ -125,10 +121,6 @@ class MontaguService:
     @property
     def proxy(self):
         return self._get("proxy")
-
-    @property
-    def orderly(self):
-        return self._get("orderly")
 
     @property
     def static(self):
@@ -162,7 +154,11 @@ class MontaguService:
             self.settings["instance_name"], self.settings["docker_prefix"]),
               flush=True)
         # always remove the static container
-        self.static.remove(force=True)
+        if self.static:
+            try:
+                self.static.remove(force=True)
+            except docker.errors.NotFound:
+                pass
         compose.stop(self.settings)
         print("Wiping static file volume")
         try:
@@ -173,7 +169,10 @@ class MontaguService:
         if not self.settings["persist_data"]:
             for v in self.volumes:
                 name = self.volume_name(v)
-                self.client.volumes.get(name).remove(force=True)
+                try:
+                    self.client.volumes.get(name).remove(force=True)
+                except docker.errors.NotFound:
+                    pass
 
     def pull(self):
         print("Pulling images for Montagu", flush=True)

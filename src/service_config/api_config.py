@@ -30,23 +30,6 @@ def configure_api(service, db_password: str, keypair_paths, hostname, send_email
     service.api.exec_run("touch {}/go_signal".format(config_path))
 
 
-def configure_reporting_api(service, keypair_paths):
-    config_path = "/etc/montagu/reports_api/"
-    container = service.reporting_api
-    print("Configuring reporting API")
-    container.exec_run("mkdir -p " + config_path)
-
-    print("- Injecting settings into container")
-    generate_reporting_api_config_file(service, config_path, orderly_path="/orderly/")
-
-    print("- Injecting public key for token verification into container")
-    container.exec_run("mkdir -p " + join(config_path, "token_key"))
-    docker_cp(keypair_paths['public'], container.name, join(config_path, "token_key/public_key.der"))
-
-    print("- Sending go signal to reporting API")
-    container.exec_run("touch {}/go_signal".format(config_path))
-
-
 def add_property(container, config_path, key, value):
     path = "{}/config.properties".format(config_path)
     container.exec_run("touch {}".format(path))
@@ -83,18 +66,6 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         configure_email(file, send_emails)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
-
-
-def generate_reporting_api_config_file(service, config_path, orderly_path):
-    makedirs(paths.config, exist_ok=True)
-    config_file_path = join(paths.config, "config.properties")
-    container_name = service.container_name("reporting_api")
-
-    with open(config_file_path, "w") as file:
-        print("allow.localhost=false", file=file)
-        print("orderly.root={}".format(orderly_path), file=file)
-
-    docker_cp(config_file_path, container_name, join(config_path, "config.properties"))
 
 
 def configure_annex(file, annex_settings):

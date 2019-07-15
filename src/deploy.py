@@ -7,7 +7,6 @@ from time import sleep
 import bb8_backup
 import data_import
 import database
-import orderly
 import paths
 from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
@@ -16,7 +15,7 @@ from git import git_check
 from service import MontaguService
 from service_config import configure_api, configure_proxy, \
     configure_contrib_portal, configure_static_server
-from service_config.api_config import get_token_keypair, configure_reporting_api
+from service_config.api_config import get_token_keypair
 from settings import get_settings
 from last_deploy import last_deploy_update
 from notify import Notifier
@@ -119,7 +118,6 @@ def configure_montagu(service, data_exists):
               "and this is not a first-time deployment")
     else:
         data_import.do(service)
-    orderly.configure_orderly(service, not data_exists)
 
     annex_settings = database.setup_annex(service)
     passwords = database.setup(service, annex_settings)
@@ -132,7 +130,6 @@ def configure_montagu(service, data_exists):
     add_annex = service.settings["db_annex_type"] != 'readonly'
     configure_api(service, passwords['api'], token_keypair_paths,
                   service.settings["hostname"], send_emails, annex_settings)
-    configure_reporting_api(service, token_keypair_paths)
     configure_proxy(service, cert_paths)
 
     if service.settings["include_guidance_reports"]:
@@ -147,7 +144,6 @@ def deploy():
         paths.delete_safely(paths.ssl)
         paths.delete_safely(paths.token_keypair)
         paths.delete_safely(paths.config)
-        paths.delete_safely(paths.orderly)
         paths.delete_safely(paths.static)
 
 
