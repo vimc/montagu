@@ -56,12 +56,14 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
     public_url = "https://{}/api".format(hostname)
     print(" - Public URL: " + public_url)
     api_name = service.container_name("api")
+    slack_url = get_secret("slack/montagu-webhook")
 
     with open(config_file_path, "w") as file:
         print("allow.localhost=false", file=file)
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
         print("app.url={}".format(public_url), file=file)
+        print("slack.url={}".format(slack_url), file=file)
         configure_annex(file, annex_settings)
         configure_email(file, send_emails)
 
