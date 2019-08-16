@@ -126,10 +126,10 @@ def configure_montagu(service, data_exists):
     cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
-    send_emails = service.settings["password_group"] == 'production'
+    is_prod = service.settings["password_group"] == 'production'
     add_annex = service.settings["db_annex_type"] != 'readonly'
     configure_api(service, passwords['api'], token_keypair_paths,
-                  service.settings["hostname"], send_emails, annex_settings)
+                  service.settings["hostname"], is_prod, annex_settings)
     configure_proxy(service, cert_paths)
 
     if service.settings["include_guidance_reports"]:
