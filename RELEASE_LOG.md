@@ -1868,3 +1868,40 @@ Minor css change
 * latest
 * model-schema-fix
 
+# v2.1.0
+
+## Tickets
+* VIMC-1222: Re-write form to be a single step process
+* VIMC-1564: Bug - shouldn't update current burden estimate set until populated
+* VIMC-1654: Gavi query: OP15 vs 201710gavi number of FVPs and gavi support information
+* VIMC-2985: Remove option to provide single run as central estimates
+* VIMC-2986: Notify slack channel whenever a new estimate set is uploaded
+* VIMC-3017: Add countries to models endpoint
+* VIMC-3019: Remove Report-related webmodels from submodule
+* VIMC-3020_expectations: Flesh out model meta page
+* VIMC-3020_modeldisease: Flesh out model meta page
+* VIMC-3020_scenarios: Flesh out model meta page
+* VIMC-3020_test-data: Flesh out model meta page
+* VIMC-3020_tooltips: Flesh out model meta page
+* VIMC-3021: Combine ResearchModel and Model
+* VIMC-3027: Rollback precision change in coverage data
+* VIMC-3038: Error message is confusing, when uploading burden estimate set with incorrect rows.
+* VIMC-3061: Add original_filename to burden_estimate_set table
+* VIMC-3062: Save filename in burden_estimate_set table when uploading a new central set, and return filename when retrieving burden estimate set metadata
+* VIMC-3062_refactor: Save filename in burden_estimate_set table when uploading a new central set, and return filename when retrieving burden estimate set metadata
+* VIMC-3062_regenerate_db: Save filename in burden_estimate_set table when uploading a new central set, and return filename when retrieving burden estimate set metadata
+* VIMC-3063: Show original filename for the last uploaded estimate set in the contrib portal
+* VIMC-3071: Bug: flaky selenium tests in proxy
+* VIMC-3081: Outcomes details in Model metadata view
+* VIMC-3085: Indicate that models without expectations are obsolete on model meta page
+* VIMC-3087: Don't show empty filename on current estimate set summary
+* VIMC-3097: Alert via Slack when all scenarios have a burden estimate set
+* VIMC-3098: Sort countries in alphabetical order when reporting missing rows
+* VIMC-784: Download burden estimates from portal
+
+## Other branches merged in this release
+* fix_chrome
+* hotfix
+* revert-393-VIMC-2985
+* revert-396-VIMC-2985
+
