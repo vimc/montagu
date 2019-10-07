@@ -1905,3 +1905,13 @@ Minor css change
 * revert-393-VIMC-2985
 * revert-396-VIMC-2985
 
+# v2.2.0
+
+## Tickets
+* VIMC-3100: Downloading burden estimate sets is incredibly slow
+* VIMC-3132: Sort scenarios by description on the download templates page
+* vimc-3162: Update text on download demographic data page for 201910gavi runs
+
+## Other branches merged in this release
+* latest
+
