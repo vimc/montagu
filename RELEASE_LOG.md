@@ -1915,3 +1915,12 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v2.2.1
+
+## Tickets
+* VIMC-3100: Downloading burden estimate sets is incredibly slow
+* VIMC-3167: Order scenarios alphabetically on responsibilitites page
+
+## Other branches merged in this release
+* latest
+
