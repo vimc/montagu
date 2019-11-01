@@ -1924,3 +1924,10 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v2.2.2
+
+## Tickets
+* VIMC-3210_pdf: Update guidance on model inputs & outputs in 201910 touchstone
+
+## Other branches merged in this release
+
