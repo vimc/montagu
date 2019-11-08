@@ -1931,11 +1931,3 @@ Minor css change
 
 ## Other branches merged in this release
 
-# v2.2.3
-
-## Tickets
-* vimc-3149_tests: Add gender to all coverage downloads from 201910 touchstone onwards
-* vimc-3222: Delete 'more guidance here' links on responsibilities page
-
-## Other branches merged in this release
-
