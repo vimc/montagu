@@ -1937,3 +1937,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.2.5
+
+## Tickets
+* VIMC-3254: Hide wide format option for all campaign data
+
+## Other branches merged in this release
+* latest
+
