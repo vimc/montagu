@@ -1945,3 +1945,19 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v2.2.6
+
+## Tickets
+* VIMC-3329: Change API authorization generator to read from db instead of from JSON webtoken
+* VIMC-3330: Remove roles and permissions from web tokens
+* VIMC-3331: Update kotlin
+* VIMC-3332: Add test coverage to API
+* VIMC-3340: Update integration tests to use current auth methods
+* VIMC-3365: Bug: release tool is broken since changing youtrack url
+* mrc-1279: Setup proxy for naomi_bot
+* vimc-3209: Demography download empty if switching touchstones - needs demographic dataset dropdown force-refresh
+
+## Other branches merged in this release
+* handlebars
+* update_chromedriver
+
