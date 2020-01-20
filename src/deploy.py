@@ -129,7 +129,8 @@ def configure_montagu(service, data_exists):
     is_prod = service.settings["password_group"] == 'production'
     add_annex = service.settings["db_annex_type"] != 'readonly'
     configure_api(service, passwords['api'], token_keypair_paths,
-                  service.settings["hostname"], is_prod, annex_settings)
+                  service.settings["hostname"], is_prod, annex_settings,
+                  service.settings["orderly_web_api_url"])
     configure_proxy(service, cert_paths)
 
     if service.settings["include_guidance_reports"]:
