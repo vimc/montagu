@@ -66,6 +66,14 @@ definitions = [
                       "\n- support.montagu.dide.ic.ac.uk (for stage)"
                       "\n- montagu.vaccineimpact.org (for production)",
                       default_value="localhost"),
+    SettingDefinition("orderly_web_api_url",
+                        "What is the URL of the OrderlyWeb api, used to coordinate adding users to both Montagu and OrderlyWeb? "
+                        "Likely values:"
+                        "\n http://localhost:8888/api/v1 (for local dev)"
+                        "\n https://support.montagu.dide.ic.ac.uk:10443/reports/api/v1 (for UAT)"),
+                        "\n https://support.montagu.dide.ic.ac.uk:11443/reports/api/v1 (for Science)"
+                        "\n https://montagu.vaccineimpact.org/reports/api/v1 (for Production)",
+                        default_value="http://localhost:8888/api/v1"),
     EnumSettingDefinition("certificate",
                           "What SSL certificate should Montagu use?",
                           [
