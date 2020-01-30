@@ -67,7 +67,7 @@ def webapp_integration_tests():
 
 def start_orderly_web():
     def work():
-        ow_migrate_image = get_image_name("orderlyweb-migrate")
+        ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
         pull(ow_migrate_image)
         run([
             "docker", "run", "--rm",
