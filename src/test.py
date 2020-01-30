@@ -65,6 +65,20 @@ def webapp_integration_tests():
 
     run_in_teamcity_block("webapp_integration_tests", work)
 
+def start_orderly_web():
+    def work():
+        ow_image = get_image_name("orderly-web", "master")
+        pull(image)
+        run([
+            "docker", "run",
+            "-p", "8888:8888"
+            "--network", "montagu_default",
+            image,
+            "orderly-web"
+        ], check=True)
+
+    run_in_teamcity_block("start_orderly_web", work)
+
 
 if __name__ == "__main__":
     args = docopt(__doc__)
@@ -73,6 +87,7 @@ if __name__ == "__main__":
             # Imitate a reboot of the system
             print("Restarting Docker", flush=True)
             run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
+        start_orderly_web()
         api_blackbox_tests()
         webapp_integration_tests()
     else:
