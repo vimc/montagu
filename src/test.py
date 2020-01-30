@@ -67,13 +67,22 @@ def webapp_integration_tests():
 
 def start_orderly_web():
     def work():
+        ow_migrate_image = get_image_name("orderlyweb-migrate")
+        pull(ow_migrate_image)
+        run([
+            "docker", "run", "--rm",
+            "-v", "demo:/orderly",
+            ow_migrate_image
+        ], check=True)
+
         ow_image = get_image_name("orderly-web", "master")
-        pull(image)
+        pull(ow_image)
         run([
             "docker", "run",
             "-p", "8888:8888"
             "--network", "montagu_default",
-            image,
+            "-v", "demo:/orderly"
+            ow_image,
             "orderly-web"
         ], check=True)
 
