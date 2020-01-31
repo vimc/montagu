@@ -85,7 +85,7 @@ def start_orderly_web():
             "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant", "test.user@example.com", "*/users.manage"
         ], check=True)
 
-        #cwd =  os.getcwd()
+        cwd =  os.getcwd()
 
         ow_image = get_image_name("orderly-web", "master")
         pull(ow_image)
@@ -94,7 +94,7 @@ def start_orderly_web():
             "-p", "8888:8888",
             "--network", "montagu_default",
             "-v", "demo:/orderly",
-            "-v", "container_config/orderlyweb:/etc/orderly/web",
+            "-v", cwd+"container_config/orderlyweb:/etc/orderly/web",
             "--name", "montagu_orderly_web",
             ow_image
         ], check=True)
