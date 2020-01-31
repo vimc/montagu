@@ -79,7 +79,7 @@ def start_orderly_web():
         pull(ow_image)
         run([
             "docker", "run",
-            "-p", "8888:8888"
+            "-p", "8888:8888",
             "--network", "montagu_default",
             "-v", "demo:/orderly",
             ow_image,
