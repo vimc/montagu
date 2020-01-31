@@ -86,9 +86,6 @@ def start_orderly_web():
         ], check=True)
 
         cwd =  os.getcwd()
-        run(["print", cwd], check=True)
-
-        run(["$PWD)"], check=True)
 
         ow_image = get_image_name("orderly-web", "master")
         pull(ow_image)
@@ -97,7 +94,7 @@ def start_orderly_web():
             "-p", "8888:8888",
             "--network", "montagu_default",
             "-v", "demo:/orderly",
-            "-v", "${PWD}/container_config/orderlyweb:/etc/orderly/web"
+            "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web"
             "--name", "montagu_orderly_web",
             ow_image
         ], check=True)
