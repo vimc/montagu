@@ -92,7 +92,7 @@ def start_orderly_web():
             "--network", "montagu_default",
             "-v", "demo:/orderly",
             ow_image,
-            "orderly-web"
+            "--name", "montagu_orderly_web"
         ], check=True)
 
         run([
@@ -100,10 +100,10 @@ def start_orderly_web():
         ])
 
         run([
-            "docker", "exec", "orderly_web", "mkdir", "-p", "/etc/orderly/web"
+            "docker", "exec", "montagu_orderly_web", "mkdir", "-p", "/etc/orderly/web"
         ], check=True)
         run([
-            "docker", "exec", "orderly_web", "touch", "/etc/orderly/web/go_signal"
+            "docker", "exec", "montagu_orderly_web", "touch", "/etc/orderly/web/go_signal"
         ], check=True)
 
     run_in_teamcity_block("start_orderly_web", work)
