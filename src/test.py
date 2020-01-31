@@ -81,7 +81,7 @@ def start_orderly_web():
             "docker", "run", "-v", "demo:/orderly", ow_cli_image, "add-users", "test.user@example.com"
         ], check=True)
         run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant test.user@example.com", "*/users.manage"
+            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant", "test.user@example.com", "*/users.manage"
         ], check=True)
 
         ow_image = get_image_name("orderly-web", "master")
