@@ -17,6 +17,7 @@ from subprocess import run
 from docopt import docopt
 
 import sys
+import os
 
 import versions
 from docker_helpers import get_image_name, pull
