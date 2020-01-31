@@ -75,15 +75,31 @@ def start_orderly_web():
             ow_migrate_image
         ], check=True)
 
+        ow_cli_image = get_image_name("orderly-web-user-cli", "master")
+        pull(ow_cli_image)
+        run([
+            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "add-users", "test.user@example.com"
+        ], check=True)
+        run([
+            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant test.user@example.com", "*/users.manage"
+        ], check=True)
+
         ow_image = get_image_name("orderly-web", "master")
         pull(ow_image)
         run([
-            "docker", "run",
+            "docker", "run", "-d",
             "-p", "8888:8888",
             "--network", "montagu_default",
             "-v", "demo:/orderly",
             ow_image,
             "orderly-web"
+        ], check=True)
+
+        run([
+            "docker", "exec", "montagu_orderly_web_1", "mkdir", "-p", "/etc/orderly/web"
+        ], check=True)
+        run([
+            "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
         ], check=True)
 
     run_in_teamcity_block("start_orderly_web", work)
