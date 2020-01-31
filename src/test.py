@@ -96,10 +96,10 @@ def start_orderly_web():
         ], check=True)
 
         run([
-            "docker", "exec", "montagu_orderly_web_1", "mkdir", "-p", "/etc/orderly/web"
+            "docker", "exec", "orderly_web", "mkdir", "-p", "/etc/orderly/web"
         ], check=True)
         run([
-            "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
+            "docker", "exec", "orderly_web", "touch", "/etc/orderly/web/go_signal"
         ], check=True)
 
     run_in_teamcity_block("start_orderly_web", work)
