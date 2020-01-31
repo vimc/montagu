@@ -91,8 +91,8 @@ def start_orderly_web():
             "-p", "8888:8888",
             "--network", "montagu_default",
             "-v", "demo:/orderly",
-            ow_image,
-            "--name", "montagu_orderly_web"
+            "--name", "montagu_orderly_web",
+            ow_image
         ], check=True)
 
         run([
