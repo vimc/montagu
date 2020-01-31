@@ -96,6 +96,10 @@ def start_orderly_web():
         ], check=True)
 
         run([
+            "docker", "ps"
+        ])
+
+        run([
             "docker", "exec", "orderly_web", "mkdir", "-p", "/etc/orderly/web"
         ], check=True)
         run([
