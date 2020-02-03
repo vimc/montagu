@@ -42,6 +42,8 @@ def api_blackbox_tests():
             "-v", "montagu_emails:/tmp/montagu_emails",
             image
         ], check=True)
+        # TODO: Take this out
+        run(["docker", "logs", "montagu_orderly_web_1"], check=True)
 
     run_in_teamcity_block("api_blackbox_tests", work)
 
@@ -64,7 +66,7 @@ def webapp_integration_tests():
         run_suite("admin", versions.admin_portal)
         run_suite("contrib", versions.contrib_portal)        
 
-    run_in_teamcity_block("webapp_integration_tests", work)
+    run_in_teamcity_block("webapp_integration_tests", work)S
 
 def start_orderly_web():
     def work():
