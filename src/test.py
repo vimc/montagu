@@ -81,10 +81,10 @@ def start_orderly_web():
         ow_cli_image = get_image_name("orderly-web-user-cli", "master")
         pull(ow_cli_image)
         run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "add-users", "test.user@example.com"
+            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "add-users", "user@test.com"
         ], check=True)
         run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant", "test.user@example.com", "*/users.manage"
+            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant", "user@test.com", "*/users.manage"
         ], check=True)
 
         cwd =  os.getcwd()
