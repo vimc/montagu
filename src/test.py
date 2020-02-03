@@ -104,7 +104,7 @@ def start_orderly_web():
         #], check=True)
 
         run([
-            "docker", "exec", "montagu_orderly_web", "touch", "/etc/orderly/web/go_signal"
+            "docker", "exec", "orderly-web", "touch", "/etc/orderly/web/go_signal"
         ], check=True)
 
         #TODO: take this out!
