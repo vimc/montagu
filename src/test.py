@@ -42,8 +42,6 @@ def api_blackbox_tests():
             "-v", "montagu_emails:/tmp/montagu_emails",
             image
         ], check=True)
-        # TODO: Take this out
-        run(["docker", "logs", "montagu_orderly_web_1"], check=True)
 
     run_in_teamcity_block("api_blackbox_tests", work)
 
@@ -98,8 +96,6 @@ def start_orderly_web():
         ], check=True)
 
         cwd =  os.getcwd()
-        run(["echo", "cwd:"], check=True)
-        run(["echo", cwd], check=True)
 
         ow_image = get_image_name("orderly-web", "master")
         pull(ow_image)
@@ -113,17 +109,9 @@ def start_orderly_web():
             ow_image
         ], check=True)
 
-        #run([
-        #    "docker", "exec", "montagu_orderly_web", "mkdir", "-p", "/etc/orderly/web"
-        #], check=True)
-
         run([
             "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
         ], check=True)
-
-        #TODO: take this out!
-        run(["docker", "ps"], check=True)
-        run(["docker", "network", "ls"], check=True)
 
     run_in_teamcity_block("start_orderly_web", work)
 
