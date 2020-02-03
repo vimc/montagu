@@ -95,7 +95,7 @@ def start_orderly_web():
             "--network", "montagu_default",
             "-v", "demo:/orderly",
             "-v", cwd+"container_config/orderlyweb:/etc/orderly/web",
-            "--name", "montagu_orderly_web",
+            "--name", "orderly-web",
             ow_image
         ], check=True)
 
