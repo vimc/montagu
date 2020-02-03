@@ -107,6 +107,10 @@ def start_orderly_web():
             "docker", "exec", "montagu_orderly_web", "touch", "/etc/orderly/web/go_signal"
         ], check=True)
 
+        #TODO: take this out!
+        run(["docker", "ps"], check=True)
+        run(["docker", "network", "ls"], check=True)
+
     run_in_teamcity_block("start_orderly_web", work)
 
 
