@@ -88,6 +88,8 @@ def start_orderly_web():
         ], check=True)
 
         cwd =  os.getcwd()
+        run(["echo", "cwd:"], check=True)
+        run(["echo", cwd], check=True)
 
         ow_image = get_image_name("orderly-web", "master")
         pull(ow_image)
