@@ -66,7 +66,7 @@ def webapp_integration_tests():
         run_suite("admin", versions.admin_portal)
         run_suite("contrib", versions.contrib_portal)        
 
-    run_in_teamcity_block("webapp_integration_tests", work)S
+    run_in_teamcity_block("webapp_integration_tests", work)
 
 def start_orderly_web():
     def work():
