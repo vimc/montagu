@@ -11,7 +11,7 @@ api_annex_user = "api"
 
 
 def configure_api(service, db_password: str, keypair_paths, hostname, is_prod: bool,
-                  annex_settings):
+                  annex_settings, orderly_web_api_url):
     config_path = "/etc/montagu/api/"
     container = service.api
     print("Configuring API")
@@ -24,7 +24,7 @@ def configure_api(service, db_password: str, keypair_paths, hostname, is_prod: b
 
     print("- Injecting settings into container")
     generate_api_config_file(service, config_path, db_password, hostname,
-                             is_prod, annex_settings)
+                             is_prod, annex_settings, orderly_web_api_url)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -50,7 +50,7 @@ def get_token_keypair():
 
 
 def generate_api_config_file(service, config_path, db_password: str, hostname: str, is_prod: bool,
-                             annex_settings):
+                             annex_settings, orderly_web_api_url: str):
     makedirs(paths.config, exist_ok=True)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
@@ -62,6 +62,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         print("db.username={}".format(api_db_user), file=file)
         print("db.password={}".format(db_password), file=file)
         print("app.url={}".format(public_url), file=file)
+        print("orderlyweb.api.url={}".format(orderly_web_api_url), file=file)
         configure_annex(file, annex_settings)
         configure_email(file, is_prod)
 
