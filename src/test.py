@@ -67,6 +67,16 @@ def webapp_integration_tests():
     run_in_teamcity_block("webapp_integration_tests", work)
 
 def start_orderly_web():
+    def add_user(email, image):
+        run([
+            "docker", "run", "-v", "demo:/orderly", image, "add-users", email
+        ], check=True)
+
+    def grant_permissions(email, image):
+        run([
+            "docker", "run", "-v", "demo:/orderly", image, "grant", email, "*/users.manage"
+        ], check=True)
+
     def work():
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
         pull(ow_migrate_image)
@@ -80,20 +90,12 @@ def start_orderly_web():
         pull(ow_cli_image)
 
         #user for api blackbox tests
-        run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "add-users", "user@test.com"
-        ], check=True)
-        run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant", "user@test.com", "*/users.manage"
-        ], check=True)
+        add_user("user@test.com", ow_cli_image)
+        grant_permissions("user@test.com", ow_cli_image)
 
         #user for webapp tests
-        run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "add-users", "test.user@example.com"
-        ], check=True)
-        run([
-            "docker", "run", "-v", "demo:/orderly", ow_cli_image, "grant", "test.user@example.com", "*/users.manage"
-        ], check=True)
+        add_user("test.user@example.com", ow_cli_image)
+        grant_permissions("test.user@example.com", ow_cli_image)
 
         cwd =  os.getcwd()
 
