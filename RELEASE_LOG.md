@@ -1961,3 +1961,16 @@ Minor css change
 * handlebars
 * update_chromedriver
 
+# v2.3.0
+
+## Tickets
+* VIMC-3348: Migrate to Jest and get code cov on webapps
+* VIMC-3363: Migrate Sinon to jest
+* vimc-3230: New Montagu users to get automatically added to Orderly Web
+* vimc-3289: Request: more detail on burden upload error:  "This file has not been fully uploaded. Please correct the data and re-upload."
+
+## Other branches merged in this release
+* jest_wip
+* latest
+* tidy_up
+
