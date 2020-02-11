@@ -166,23 +166,6 @@ def grant_readonly(db, user):
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
 
-def grant_readonly_annex(db, user, annex_settings):
-    print(" - annex: mapping {} -> readonly".format(user.name))
-    annex_readonly = annex_settings['users']['readonly']
-    sql1 = "DROP USER MAPPING IF EXISTS FOR {name} " \
-           "SERVER montagu_db_annex;".format(name=user.name)
-    sql2 = "CREATE USER MAPPING FOR {name} " \
-           "SERVER {annex_server_name} " \
-           "OPTIONS (user '{annex_readonly_user}', " \
-           "password '{annex_readonly_password}');".format(
-        name=user.name,
-        annex_server_name=annex_settings['server_name'],
-        annex_readonly_user=annex_readonly.name,
-        annex_readonly_password=annex_readonly.password)
-    db.execute(sql1)
-    db.execute(sql2)
-
-
 def set_permissions(db, user):
     revoke_all(db, user)
     if user.permissions == 'all':
@@ -330,9 +313,6 @@ def setup(service, annex_settings):
     # Revoke specific permissions now that all tables have been created.
     for_each_user(root_password, users, revoke_write_on_protected_tables)
 
-    grant_readonly_annex_root(root_password, service.settings, annex_settings)
-    for_each_user(root_password, users, lambda d, u:
-    grant_readonly_annex(d, u, annex_settings))
 
     setup_streaming_replication(root_password, service)
 
@@ -383,15 +363,6 @@ def setup_streaming_replication(root_password, service):
         pw_stream = VaultPassword(password_group, "streaming_barman").get()
         cmd = ["enable-replication.sh", pw_barman, pw_stream]
         exec_safely(service.db, cmd, check=True)
-
-
-# NOTE: workaround because grant_readonly_annex requires a UserConfig
-# object - or rather something with a 'name' field
-def grant_readonly_annex_root(root_password, settings, annex_settings):
-    root = SimpleNamespace(name=root_user)
-    with connect(root_user, root_password) as conn:
-        with conn.cursor() as cur:
-            grant_readonly_annex(cur, root, annex_settings)
 
 
 def prepare_db_for_import(service):
