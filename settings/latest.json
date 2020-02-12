@@ -11,7 +11,6 @@
   "clone_reports": true,
   "require_clean_git": false,
   "add_test_user": true,
-  "db_annex_type": "readonly",
   "instance_name": "latest",
   "notify_channel": "",
   "enable_db_replication": false,

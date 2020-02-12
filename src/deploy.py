@@ -119,17 +119,15 @@ def configure_montagu(service, data_exists):
     else:
         data_import.do(service)
 
-    annex_settings = database.setup_annex(service)
-    passwords = database.setup(service, annex_settings)
+    passwords = database.setup(service)
 
     # Push secrets into containers
     cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
     is_prod = service.settings["password_group"] == 'production'
-    add_annex = service.settings["db_annex_type"] != 'readonly'
     configure_api(service, passwords['api'], token_keypair_paths,
-                  service.settings["hostname"], is_prod, annex_settings,
+                  service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
     configure_proxy(service, cert_paths)
 

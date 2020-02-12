@@ -7,11 +7,10 @@ from docker_helpers import docker_cp
 from settings import get_secret
 
 api_db_user = "api"
-api_annex_user = "api"
 
 
 def configure_api(service, db_password: str, keypair_paths, hostname, is_prod: bool,
-                  annex_settings, orderly_web_api_url):
+                  orderly_web_api_url):
     config_path = "/etc/montagu/api/"
     container = service.api
     print("Configuring API")
@@ -24,7 +23,7 @@ def configure_api(service, db_password: str, keypair_paths, hostname, is_prod: b
 
     print("- Injecting settings into container")
     generate_api_config_file(service, config_path, db_password, hostname,
-                             is_prod, annex_settings, orderly_web_api_url)
+                             is_prod, orderly_web_api_url)
 
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
@@ -50,7 +49,7 @@ def get_token_keypair():
 
 
 def generate_api_config_file(service, config_path, db_password: str, hostname: str, is_prod: bool,
-                             annex_settings, orderly_web_api_url: str):
+                             orderly_web_api_url: str):
     makedirs(paths.config, exist_ok=True)
     config_file_path = join(paths.config, "config.properties")
     public_url = "https://{}/api".format(hostname)
@@ -63,24 +62,9 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         print("db.password={}".format(db_password), file=file)
         print("app.url={}".format(public_url), file=file)
         print("orderlyweb.api.url={}".format(orderly_web_api_url), file=file)
-        configure_annex(file, annex_settings)
         configure_email(file, is_prod)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
-
-
-def configure_annex(file, annex_settings):
-    # If the annex is readonly, we want to not give the API
-    # any direct access to it at all, given that direct access is
-    # only used for writing
-    if annex_settings['type'] == 'readonly':
-        return
-
-    user = annex_settings['users']['root']
-    print("annex.username={}".format(user.name), file=file)
-    print("annex.password={}".format(user.password), file=file)
-    print("annex.host={}".format(annex_settings['host']), file=file)
-    print("annex.port={}".format(annex_settings['port']), file=file)
 
 
 def configure_email(file, is_prod: bool):

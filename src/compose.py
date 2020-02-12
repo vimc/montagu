@@ -20,11 +20,6 @@ def pull(settings):
 def run(args, settings):
     docker_prefix = settings["docker_prefix"]
     prefix = 'docker-compose --project-name {} '.format(docker_prefix)
-    if settings["db_annex_type"] == "fake":
-        # NOTE: it's surprising that the '../' is needed here, but
-        # docker-compose apparently looks like git through parent
-        # directories until it finds a docker-compose file!
-        prefix += '-f ../docker-compose.yml -f ../docker-compose-annex.yml '
     cmd = prefix + args
     p = Popen(cmd, env=get_env(settings), shell=True)
     p.wait()

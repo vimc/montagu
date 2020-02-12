@@ -30,10 +30,6 @@ components = {
     "network": "default"
 }
 
-# These are not always present so will be added above as needed
-db_annex_container_name = "db_annex"
-db_annex_volume_name = "db_annex_volume"
-
 class MontaguService:
     def __init__(self, settings):
         self.client = docker.from_env()
@@ -41,14 +37,10 @@ class MontaguService:
         ## TODO: This will eventually be lifted up to be a setting
         self.docker_prefix = "montagu"
         self.settings['docker_prefix'] = self.docker_prefix
-        self.use_fake_db_annex = settings["db_annex_type"] == "fake"
         # Our components:
         self.containers = components['containers'].copy()
         self.volumes = components['volumes'].copy()
         self.network = components['network']
-        if self.use_fake_db_annex:
-            self.containers["annex"] = db_annex_container_name
-            self.volumes["annex"] = db_annex_volume_name
 
     @property
     def container_names(self):
@@ -105,10 +97,6 @@ class MontaguService:
     @property
     def db(self):
         return self._get("db")
-
-    @property
-    def db_annex(self):
-        return self._get("db_annex")
 
     @property
     def contrib_portal(self):
