@@ -17,7 +17,6 @@ def vault_required(settings):
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
-           or settings["db_annex_type"] != "fake" \
            or settings["notify_channel"]
 
 
