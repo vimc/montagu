@@ -1974,3 +1974,17 @@ Minor css change
 * latest
 * tidy_up
 
+# v2.4.0
+
+## Tickets
+* VIMC-2670: Update permissions in static file server
+* VIMC-3229: Extend option to download burden estimates from portal to all groups
+* VIMC-3334: Get blackbox tests running on Travis so can collect code cov
+* VIMC-3421: Remove Montagu DB dependency on Annex
+* i2287: Ensure non-NULL-ness of country metadata columns
+* vimc-3430: Fix issues in the annex deploy script
+
+## Other branches merged in this release
+* latest
+* push_image
+
