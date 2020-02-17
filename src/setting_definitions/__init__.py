@@ -17,7 +17,6 @@ def vault_required(settings):
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \
            or uses_vault_passwords \
-           or settings["db_annex_type"] != "fake" \
            or settings["notify_channel"]
 
 
@@ -89,14 +88,6 @@ definitions = [
                               ("production", "Passwords for production"),
                               ("science", "Passwords for science"),
                               ("fake", "Do not use passwords from the vault")
-                          ],
-                          default_value="fake"),
-    EnumSettingDefinition("db_annex_type",
-                          "How do we treat the annex database?",
-                          [
-                              ("fake", "Add a totally safe, but empty, version to the constellation"),
-                              ("readonly", "Read-only access to the real annex"),
-                              ("real", "Full access to the real annex: PRODUCTION ONLY")
                           ],
                           default_value="fake"),
     SettingDefinition("notify_channel",

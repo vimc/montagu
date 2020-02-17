@@ -44,10 +44,9 @@ class GeneratePassword:
 
 
 class VaultPassword:
-    def __init__(self, password_group, username, annex=False):
+    def __init__(self, password_group, username):
         self.password_group = password_group
         self.username = username
-        self.annex = annex
 
     def get(self):
         if self.password_group is None:
@@ -58,8 +57,6 @@ class VaultPassword:
     def _path(self):
         if self.password_group is None:
             raise Exception("_path() is not defined without a password group")
-        elif self.annex:
-            return "annex/users/{}".format(self.username)
         else:
             return "database/{password_group}/users/{username}".format(
                 password_group=self.password_group, username=self.username)
@@ -110,14 +107,6 @@ def connect(user, password, host="localhost", port=5432):
     return psycopg2.connect(conn_string)
 
 
-def connect_annex(annex_settings):
-    root = annex_settings['users']['root']
-    return connect(root.name,
-                   root.password,
-                   annex_settings["host_from_deploy"],
-                   annex_settings["port_from_deploy"])
-
-
 def create_user(db, user):
     sql = """DO
 $body$
@@ -166,23 +155,6 @@ def grant_readonly(db, user):
     db.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO {name}".format(name=user.name))
 
 
-def grant_readonly_annex(db, user, annex_settings):
-    print(" - annex: mapping {} -> readonly".format(user.name))
-    annex_readonly = annex_settings['users']['readonly']
-    sql1 = "DROP USER MAPPING IF EXISTS FOR {name} " \
-           "SERVER montagu_db_annex;".format(name=user.name)
-    sql2 = "CREATE USER MAPPING FOR {name} " \
-           "SERVER {annex_server_name} " \
-           "OPTIONS (user '{annex_readonly_user}', " \
-           "password '{annex_readonly_password}');".format(
-        name=user.name,
-        annex_server_name=annex_settings['server_name'],
-        annex_readonly_user=annex_readonly.name,
-        annex_readonly_password=annex_readonly.password)
-    db.execute(sql1)
-    db.execute(sql2)
-
-
 def set_permissions(db, user):
     revoke_all(db, user)
     if user.permissions == 'all':
@@ -196,82 +168,14 @@ def set_permissions(db, user):
         raise Exception(template.format(name=user.name, permissions=user.permissions))
 
 
-def migrate_schema_core(service, root_password, annex_settings):
+def migrate_schema_core(service, root_password):
     network_name = service.network_name
     print("- migrating schema")
     image = get_image_name("montagu-migrate", versions.db)
     pull(image)
-    placeholders = {
-        'montagu_db_annex_host': annex_settings['host'],
-        'montagu_db_annex_port': annex_settings['port']
-    }
     cmd = ["docker", "run", "--rm", "--network=" + network_name, image] + \
-          ['-placeholders.{}={}'.format(*x) for x in placeholders.items()] + \
           ["-user=vimc", "-password=" + root_password, "migrate"]
     run(cmd, check=True)
-
-
-def migrate_schema_annex(service, annex_settings):
-    network_name = service.network_name
-    print("- migrating annex schema")
-    image = get_image_name("montagu-migrate", versions.db)
-    pull(image)
-    root = annex_settings['users']['root']
-    host = '{}:{}'.format(annex_settings['host'], annex_settings['port'])
-    config_file = "conf/flyway-annex.conf"
-    cmd = ["docker", "run", "--rm", "--network=" + network_name, image,
-           "-url=jdbc:postgresql://{}/montagu".format(host),
-           "-configFile=" + config_file,
-           "-user=" + root.name, "-password=" + root.password, "migrate"]
-    run(cmd, check=True)
-
-
-def get_annex_settings(settings):
-    # This is not the name of the host, but the name used in the postgres
-    # scripts to refer to the server (via CREATE SERVER...)
-    server_name = "montagu_db_annex"
-    # Root and readonly user *on the annex*
-
-    # Below here varies based on fake/real; the only difference within
-    # the real types (real/staging) is if we perform migrations.
-    #
-    # There are two sets of host/port information:
-
-    #   * host/port: these are from the docker containers - in the
-    #     "fake annex" mode they will be the name of the container and
-    #     the default postgres port.
-    #   * host_from_deploy/port_from_deploy: access from the deploy
-    #     script (running outside of docker compose).  In the "fake
-    #     annex" mode this will be localhost and the port that is
-    #     exposed via the supplementary docker compose file
-    if settings["db_annex_type"] == "fake":
-        host = "db_annex"  # docker container name in compose
-        port = 5432
-        host_from_deploy = "localhost"  # from host
-        port_from_deploy = 15432
-        migrate = True
-        group = None
-    else:
-        host = "annex.montagu.dide.ic.ac.uk"  # address of our real server
-        port = 15432  # port of our real server
-        host_from_deploy = host
-        port_from_deploy = port
-        migrate = settings["db_annex_type"] == "real"
-        group = settings['password_group']
-    users = {
-        "root": UserConfig("vimc", "all",
-                           VaultPassword(group, "vimc", annex=True)),
-        "readonly": UserConfig("readonly", "readonly",
-                               VaultPassword(group, "readonly", annex=True))
-    }
-    return {"host": host,
-            "port": port,
-            "host_from_deploy": host_from_deploy,
-            "port_from_deploy": port_from_deploy,
-            "server_name": server_name,
-            "migrate": migrate,
-            "users": users,
-            "type": settings["db_annex_type"]}
 
 
 def setup_user(db, user):
@@ -291,7 +195,7 @@ def for_each_user(root_password, users, operation):
         conn.commit()
 
 
-def setup(service, annex_settings):
+def setup(service):
     print("Waiting for the database to accept connections")
     exec_safely(service.db, ["montagu-wait.sh", "3600"], check=True)
     password_group = service.settings["password_group"]
@@ -320,7 +224,7 @@ def setup(service, annex_settings):
     for_each_user(root_password, users, setup_user)
 
     print("- Migrating database schema")
-    migrate_schema_core(service, root_password, annex_settings)
+    migrate_schema_core(service, root_password)
 
     print("- Refreshing permissions")
     # The migrations may have added new tables, so we should set the permissions
@@ -330,32 +234,10 @@ def setup(service, annex_settings):
     # Revoke specific permissions now that all tables have been created.
     for_each_user(root_password, users, revoke_write_on_protected_tables)
 
-    grant_readonly_annex_root(root_password, service.settings, annex_settings)
-    for_each_user(root_password, users, lambda d, u:
-    grant_readonly_annex(d, u, annex_settings))
 
     setup_streaming_replication(root_password, service)
 
     return passwords
-
-
-def setup_annex(service):
-    print("Setting up annex")
-    annex_settings = get_annex_settings(service.settings)
-    if annex_settings['migrate']:
-        # NOTE: we do this only on production.  This will mean that
-        # there are some things that it is hard to test in staging.
-        migrate_schema_annex(service, annex_settings)
-        setup_annex_users(annex_settings)
-    return annex_settings
-
-
-def setup_annex_users(annex_settings):
-    print("Setting up annex users")
-    readonly = annex_settings['users']['readonly']
-    with connect_annex(annex_settings) as conn:
-        with conn.cursor() as cur:
-            setup_user(cur, readonly)
 
 
 # NOTE: it might be worth revisiting this to not run this script
@@ -383,15 +265,6 @@ def setup_streaming_replication(root_password, service):
         pw_stream = VaultPassword(password_group, "streaming_barman").get()
         cmd = ["enable-replication.sh", pw_barman, pw_stream]
         exec_safely(service.db, cmd, check=True)
-
-
-# NOTE: workaround because grant_readonly_annex requires a UserConfig
-# object - or rather something with a 'name' field
-def grant_readonly_annex_root(root_password, settings, annex_settings):
-    root = SimpleNamespace(name=root_user)
-    with connect(root_user, root_password) as conn:
-        with conn.cursor() as cur:
-            grant_readonly_annex(cur, root, annex_settings)
 
 
 def prepare_db_for_import(service):

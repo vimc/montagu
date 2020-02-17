@@ -1,6 +1,5 @@
 {
   "add_test_user": true,
-  "db_annex_type": "readonly",
   "clone_reports": true,
   "bb8_backup": false,
   "open_browser": false,

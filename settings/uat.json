@@ -3,7 +3,6 @@
   "bb8_backup": false,
   "certificate": "support",
   "clone_reports": true,
-  "db_annex_type": "fake",
   "enable_db_replication": false,
   "hostname": "support.montagu.dide.ic.ac.uk",
   "include_guidance_reports": true,

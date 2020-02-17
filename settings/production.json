@@ -1,5 +1,4 @@
 {
-  "db_annex_type": "real",
   "password_group": "production",
   "vault_address": "https://support.montagu.dide.ic.ac.uk:8200",
   "instance_name": "Production",
