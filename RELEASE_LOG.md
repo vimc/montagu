@@ -1988,3 +1988,10 @@ Minor css change
 * latest
 * push_image
 
+# v2.4.1
+
+## Tickets
+* VIMC-3345: Return to login page when clicking on DALYs report link from guidance.
+
+## Other branches merged in this release
+
