@@ -1995,3 +1995,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.4.2
+
+## Tickets
+* VIMC-3345: Return to login page when clicking on DALYs report link from guidance.
+* VIMC-3447: Remove deprecated permissions from montagu-db
+* VIMC-3477: Update guidance text for the typhoid/cholera RfP (202002rfp touchstone)
+
+## Other branches merged in this release
+
