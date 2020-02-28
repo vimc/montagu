@@ -31,6 +31,7 @@ services:
     restart: always
     logging: *log-journald
     command: ${MONTAGU_DB_CONF}
+    shm_size: 512M
     ports:
       - "5432:5432"
     volumes:
