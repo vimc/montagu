@@ -2004,3 +2004,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.4.3
+
+## Tickets
+* VIMC-3447_fix: Remove deprecated permissions from montagu-db
+* vimc-3496: Increase shared memory
+* vimc-3497: Update Admin portal tests for report roles removed
+
+## Other branches merged in this release
+* latest
+* migration_fix
+
