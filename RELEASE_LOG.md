@@ -2015,3 +2015,11 @@ Minor css change
 * latest
 * migration_fix
 
+# v2.4.4
+
+## Tickets
+* vimc-3498: Add a link to project docs to the Montag homepage
+* vimc-3509: Increase shared memory on annex db
+
+## Other branches merged in this release
+
