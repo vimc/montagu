@@ -2023,3 +2023,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.4.5
+
+## Tickets
+* VIMC-3567: Column labels out of order downloading burden estimate set
+
+## Other branches merged in this release
+
