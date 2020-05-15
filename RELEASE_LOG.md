@@ -2030,3 +2030,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.4.6
+
+## Tickets
+* vimc-3851: Contrib portal: hide guidance for 202005covid touchstone
+
+## Other branches merged in this release
+
