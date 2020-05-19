@@ -107,7 +107,6 @@ def start_orderly_web():
         run([
             "docker", "cp", cwd + "/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
         ], check=True)
-        docker cp cwd + /demo/orderly.sqlite montagu_orderly_web_1:/orderly/orderly.sqlite
 
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
         pull(ow_migrate_image)
