@@ -78,6 +78,20 @@ def start_orderly_web():
         ], check=True)
 
     def work():
+        orderly_image = get_image_name("orderly", "master")
+        pull(orderly_image)
+
+
+        run([
+            "docker", "run", "--rm",
+            "--entrypoint", "create_orderly_demo.sh",
+            "-u", "$UID",
+            "-v", "$PWD:/orderly",
+            "-w", "\"/orderly\"",
+            orderly_image,
+            "\".\""
+          ], check=True)
+
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
         pull(ow_migrate_image)
         run([
