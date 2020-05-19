@@ -87,9 +87,9 @@ def start_orderly_web():
             "--entrypoint", "create_orderly_demo.sh",
             "-u", "$UID",
             "-v", "$PWD:/orderly",
-            "-w", "\"/orderly\"",
+            "-w", "/orderly,
             orderly_image,
-            "\".\""
+            "."
           ], check=True)
 
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
