@@ -86,7 +86,6 @@ def start_orderly_web():
         run([
             "docker", "run", "--rm",
             "--entrypoint", "create_orderly_demo.sh",
-            "-u", "$UID",
             "-v", cwd + ":/orderly",
             "-w", "/orderly",
             orderly_image,
