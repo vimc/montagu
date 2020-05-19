@@ -81,12 +81,13 @@ def start_orderly_web():
         orderly_image = get_image_name("orderly", "master")
         pull(orderly_image)
 
+        cwd =  os.getcwd()
 
         run([
             "docker", "run", "--rm",
             "--entrypoint", "create_orderly_demo.sh",
             "-u", "$UID",
-            "-v", "$PWD:/orderly",
+            "-v", cwd + ":/orderly",
             "-w", "/orderly",
             orderly_image,
             "."
