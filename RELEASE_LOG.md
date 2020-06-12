@@ -2037,3 +2037,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.4.7
+
+## Tickets
+* vimc-3864: Montagu deploy build fails when bringing up OrderlyWeb
+* vimc-3865: Reverse proxy build failing
+* vimc-3908: Add visualisation tool to proxy
+* vimc-3920: Add visualisation tool to montagu deploy
+
+## Other branches merged in this release
+* update_chrome_83
+
