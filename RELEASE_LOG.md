@@ -2048,3 +2048,12 @@ Minor css change
 ## Other branches merged in this release
 * update_chrome_83
 
+# v2.4.8
+
+## Tickets
+* vimc-4030: Add scenario_type column to scenario_description table
+* vimc-4040: Push montagu test data image to public registry
+
+## Other branches merged in this release
+* docker_compose_v3
+
