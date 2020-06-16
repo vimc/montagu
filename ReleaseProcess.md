@@ -27,7 +27,7 @@ If this is first time release then clone this repo on your local machine and run
 1. Deploy to science
 1. Deploy to live:
    1. `ssh -p 10022 montagu@production.montagu.dide.ic.ac.uk`
-   1. `cd deploy`
+   1. `cd montagu`
    1. `./deploy.py --docker-hub`
 1. Use `RELEASE_LOG.md` to know which tickets to update to the 'Deployed' status
 
