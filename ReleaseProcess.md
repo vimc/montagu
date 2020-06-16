@@ -24,6 +24,7 @@ If this is first time release then clone this repo on your local machine and run
 1. Connect to the UAT machine and deploy there (see below)
 1. You may go through multiple rounds of steps 1-3 until you have a release
    you are happy to deploy to production.
+1. Deploy to science
 1. Deploy to live:
    1. `ssh -p 10022 montagu@production.montagu.dide.ic.ac.uk`
    1. `cd deploy`
