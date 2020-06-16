@@ -56,3 +56,4 @@ Note if you are deploying to science warn science team first that it will be goi
     which takes a long time. You can skip this by changing the configuration.
     Edit `src/montagu-deploy.json` and change `update_on_deploy` field to `false`.
     Deploy and then make sure to reset to `true` when deploy has completed.
+5. If deploying science we want to make the data vis tool publicly accessible so run `./scripts/copy-vis-tool.sh` after the deploy has complete. This is temporary and we will run automatically once the public data vis tool is deployed on production.
