@@ -31,10 +31,10 @@ If this is first time release then clone this repo on your local machine and run
    1. `./deploy.py --docker-hub`
 1. Use `RELEASE_LOG.md` to know which tickets to update to the 'Deployed' status
 
-## Deploying to UAT
+## Deploying to UAT & science
 
 1. Connect as the vagrant user: `ssh vagrant@support.montagu` (or `ssh support.montagu` and then `sudo su vagrant && cd`)
-2. Run `./uat.sh` which will give you a shell inside the virtual machine.
+2. Run `./uat.sh` or `./science.sh` which will give you a shell inside the virtual machine.
 3. `cd montagu`
 4.  2 options here:
 
@@ -49,3 +49,8 @@ If this is first time release then clone this repo on your local machine and run
     Note the different deploy scripts in i) and i) : `./src/deploy.py`
     deploys the contents of the current directory, whereas the top
     level `./deploy.py` first updates things to the latest tag.
+
+    Note also when deploying science it updates the database from production
+    which takes a long time. You can skip this by changing the configuration.
+    Edit `src/montagu-deploy.json` and change `update_on_deploy` field to `false`.
+    Deploy and then make sure to reset to `true` when deploy has completed.
