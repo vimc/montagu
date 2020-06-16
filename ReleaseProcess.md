@@ -33,6 +33,8 @@ If this is first time release then clone this repo on your local machine and run
 
 ## Deploying to UAT & science
 
+Note if you are deploying to science warn science team first that it will be going down for a period as they may be actively using it
+
 1. Connect as the vagrant user: `ssh vagrant@support.montagu` (or `ssh support.montagu` and then `sudo su vagrant && cd`)
 2. Run `./uat.sh` or `./science.sh` which will give you a shell inside the virtual machine.
 3. `cd montagu`
