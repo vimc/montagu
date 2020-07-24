@@ -70,6 +70,18 @@ services:
     volumes:
       - static_volume:/www
       - static_logs:/var/log/caddy
+  mq:
+    image: rabbitmq
+    restart: always
+    logging: *log-journald
+    volumes:
+      - mq:/var/lib/rabbitmq
+  task-queue:
+    image: ${MONTAGU_REGISTRY}/montagu-task-queue:${MONTAGU_TASK_QUEUE_VERSION}
+    restart: always
+    logging: *log-journald
+    depends_on:
+      - mq
 
 volumes:
   static_logs:
@@ -78,3 +90,4 @@ volumes:
   template_volume:
   guidance_volume:
   emails:
+  mq:

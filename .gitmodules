@@ -22,3 +22,6 @@
 [submodule "submodules/static"]
 	path = submodules/static
 	url = https://github.com/vimc/montagu-static
+[submodule "submodules/task-queue"]
+    path = submodules/task-queue
+    url = https://github.com/vimc/montagu-task-queue
