@@ -48,7 +48,7 @@ def api_blackbox_tests():
 
 def webapp_integration_tests():
     def run_suite(portal, version):
-        image = get_image_name("montagu-portal-integration-tests", version)
+        image = "vimc/montagu-portal-integration-tests:{version}".format(version=version)
         pull(image)
         run([
             "docker", "run",
