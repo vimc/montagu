@@ -2071,3 +2071,11 @@ Minor css change
 ## Other branches merged in this release
 * update-deploy-docs
 
+# v2.5.1
+
+## Tickets
+
+## Other branches merged in this release
+* latest
+* retired_registry_1
+
