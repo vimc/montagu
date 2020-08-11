@@ -118,6 +118,10 @@ class MontaguService:
         return self._get("static")
 
     @property
+    def task_queue(self):
+        return self._get("task-queue")
+
+    @property
     def db_volume_present(self):
         try:
             self.client.volumes.get(self.volume_name("db"))

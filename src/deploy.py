@@ -14,7 +14,7 @@ from cli import add_test_users
 from git import git_check
 from service import MontaguService
 from service_config import configure_api, configure_proxy, \
-    configure_contrib_portal, configure_static_server
+    configure_contrib_portal, configure_static_server, configure_task_queue
 from service_config.api_config import get_token_keypair
 from settings import get_settings
 from last_deploy import last_deploy_update
@@ -122,6 +122,7 @@ def configure_montagu(service, data_exists):
     passwords = database.setup(service)
 
     # Push secrets into containers
+
     cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 
@@ -129,6 +130,9 @@ def configure_montagu(service, data_exists):
     configure_api(service, passwords['api'], token_keypair_paths,
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
+
+    configure_task_queue(service)
+
     configure_proxy(service, cert_paths)
 
     if service.settings["include_guidance_reports"]:
