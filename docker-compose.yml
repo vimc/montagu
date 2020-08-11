@@ -37,7 +37,7 @@ services:
     volumes:
       - db_volume:/pgdata
   contrib:
-    image: ${MONTAGU_REGISTRY}/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     restart: always
     logging: *log-journald
     depends_on:
@@ -46,7 +46,7 @@ services:
       - template_volume:/usr/share/nginx/html/templates
       - guidance_volume:/usr/share/nginx/html/guidance
   admin:
-    image: ${MONTAGU_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     restart: always
     logging: *log-journald
     depends_on:
@@ -77,7 +77,7 @@ services:
     volumes:
       - mq:/var/lib/rabbitmq
   task-queue:
-    image: ${VIMC_REGISTRY}/montagu-task-queue:${MONTAGU_TASK_QUEUE_VERSION}
+    image: ${VIMC_REGISTRY}/task-queue-worker:${MONTAGU_TASK_QUEUE_VERSION}
     restart: always
     logging: *log-journald
     depends_on:
