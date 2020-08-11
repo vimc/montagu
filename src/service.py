@@ -3,6 +3,7 @@ from time import sleep
 import docker
 
 import compose
+import os
 
 # These values must line up with the docker-compose file
 components = {
@@ -14,7 +15,9 @@ components = {
         "admin_portal": "admin",
         "proxy": "proxy",
         "metrics": "metrics",
-        "static": "static"
+        "static": "static",
+        "mq": "mq",
+        "task-queue": "task-queue"
     },
     "volumes": {
         "static_logs": "static_logs",
