@@ -152,7 +152,9 @@ if __name__ == "__main__":
             # Imitate a reboot of the system
             print("Restarting Docker", flush=True)
             run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
+        print("starting orderly wel")
         start_orderly_web()
+        print("starting task queue tests")
         task_queue_integration_tests()
         api_blackbox_tests()
         webapp_integration_tests()
