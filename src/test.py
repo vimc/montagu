@@ -18,6 +18,7 @@ from docopt import docopt
 
 import sys
 import os
+import celery
 
 import versions
 from docker_helpers import get_image_name, pull
@@ -65,6 +66,15 @@ def webapp_integration_tests():
         run_suite("contrib", versions.contrib_portal)        
 
     run_in_teamcity_block("webapp_integration_tests", work)
+
+def task_queue_integration_tests():
+    def work():
+        app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
+        sig = "src.task_run_diagnostic_reports.run_diagnostic_reports
+        versions = app.signature(sig, ["testGroup", "testDisease"]).delay().get()
+        assert len(versions) == 2
+
+    run_in_teamcity_block("task_queue_integration_tests", work)
 
 def start_orderly_web():
     def add_user(email, image):
@@ -143,6 +153,7 @@ if __name__ == "__main__":
         start_orderly_web()
         api_blackbox_tests()
         webapp_integration_tests()
+        task_queue_integration_tests()
     else:
         print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")
