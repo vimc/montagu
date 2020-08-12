@@ -131,7 +131,10 @@ def configure_montagu(service, data_exists):
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
 
-    configure_task_queue(service)
+    task_queue_user = "MONTAGU_TASK_QUEUE" if service.settings["add_task_queue_user"] else None
+    # TODO: Add the user if does not exist!
+    configure_task_queue(service, service.settings["hostname"], task_queue_user,
+                         service.settings["orderly_web_api_url"], is_prod)
 
     configure_proxy(service, cert_paths)
 

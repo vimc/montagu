@@ -13,6 +13,7 @@
   "clone_reports": true,
   "persist_data": true,
   "add_test_user": false,
+  "add_task_queue_user": true,
   "hostname": "montagu.vaccineimpact.org",
   "open_browser": false,
   "copy_static_files": true,

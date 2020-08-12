@@ -1,5 +1,6 @@
 {
   "add_test_user": true,
+  "add_task_queue_user": true,
   "clone_reports": true,
   "bb8_backup": false,
   "open_browser": false,

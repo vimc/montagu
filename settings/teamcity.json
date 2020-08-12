@@ -11,6 +11,7 @@
     "clone_reports": false,
     "require_clean_git": false,
     "add_test_user": false,
+    "add_task_queue_user": false,
     "instance_name": "teamcity",
     "notify_channel": "",
     "enable_db_replication": false,

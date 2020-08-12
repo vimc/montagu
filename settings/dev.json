@@ -11,6 +11,7 @@
   "clone_reports": false,
   "require_clean_git": false,
   "add_test_user": true,
+  "add_task_queue_user": false,
   "instance_name": "dev",
   "notify_channel": "",
   "enable_db_replication": false,
