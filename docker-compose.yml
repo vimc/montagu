@@ -74,6 +74,8 @@ services:
     image: rabbitmq
     restart: always
     logging: *log-journald
+    ports:
+      - "5672:5672"
     volumes:
       - mq:/var/lib/rabbitmq
   task-queue:

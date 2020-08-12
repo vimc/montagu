@@ -70,11 +70,21 @@ def webapp_integration_tests():
 def task_queue_integration_tests():
     def work():
         print('running task_queue integration tests', flush=True)
+
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
+        print('made app', flush=True)
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
-        versions = app.signature(sig, ["testGroup", "testDisease"]).delay().get()
+        print("making signature", flush=True)
+        signature = app.signature(sig, ["testGroup", "testDisease"])
+        print('running task', flush=True)
+        versions = signature.delay().get()
+        print('versions: ' + str(versions))
+        print('assert 1', flush=True)
         assert len(versions) == 2
+        print('assert 2', flush=True)
         assert version[0] != versions[1]
+        print('done with task queue', flush=True)
+
 
     run_in_teamcity_block("task_queue_integration_tests", work)
 
@@ -117,7 +127,7 @@ def start_orderly_web():
           ], check=True)
 
         run([
-            "docker", "cp", cwd + "/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
+            "docker", "cp", cwd + "/orderly_data/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
         ], check=True)
 
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
@@ -152,9 +162,9 @@ if __name__ == "__main__":
             # Imitate a reboot of the system
             print("Restarting Docker", flush=True)
             run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
-        print("starting orderly web" flush=True)
+        print("starting orderly web", flush=True)
         start_orderly_web()
-        print("starting task queue tests" flush=True)
+        print("starting task queue tests", flush=True)
         task_queue_integration_tests()
         api_blackbox_tests()
         webapp_integration_tests()

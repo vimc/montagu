@@ -4,7 +4,7 @@ from os.path import join
 from docker_helpers import docker_cp, docker_cp_from
 
 
-def configure_task_queue(service, hostname, montagu_user, orderly_web_url, is_prod):
+def configure_task_queue(service, montagu_user, orderly_web_url, is_prod):
     container = service.task_queue
 
     print("Configuring Task Queue")
@@ -18,7 +18,7 @@ def configure_task_queue(service, hostname, montagu_user, orderly_web_url, is_pr
 
     print("- adding settings to config")
     montagu = config["servers"]["montagu"]
-    montagu["url"] = "https://{}/api".format(hostname)
+    montagu["url"] = "http://montagu_api_1:8080"
     if montagu_user is not None:
         montagu["user"] = montagu_user
         # TODO: password
