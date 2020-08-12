@@ -70,7 +70,7 @@ def webapp_integration_tests():
 def task_queue_integration_tests():
     def work():
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
-        sig = "src.task_run_diagnostic_reports.run_diagnostic_reports
+        sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
         versions = app.signature(sig, ["testGroup", "testDisease"]).delay().get()
         assert len(versions) == 2
 
