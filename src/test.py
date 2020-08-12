@@ -69,7 +69,7 @@ def webapp_integration_tests():
 
 def task_queue_integration_tests():
     def work():
-        print('running task_queue integration tests')
+        print('running task_queue integration tests', flush=True)
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
         versions = app.signature(sig, ["testGroup", "testDisease"]).delay().get()
@@ -152,9 +152,9 @@ if __name__ == "__main__":
             # Imitate a reboot of the system
             print("Restarting Docker", flush=True)
             run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
-        print("starting orderly wel")
+        print("starting orderly web" flush=True)
         start_orderly_web()
-        print("starting task queue tests")
+        print("starting task queue tests" flush=True)
         task_queue_integration_tests()
         api_blackbox_tests()
         webapp_integration_tests()
