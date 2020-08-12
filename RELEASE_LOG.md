@@ -2057,3 +2057,25 @@ Minor css change
 ## Other branches merged in this release
 * docker_compose_v3
 
+# v2.5.0
+
+## Tickets
+* VIMC-4119: Fix webapps build after breaking db change
+* vimc-4072: set scenario_type to be non-nullable
+* vimc-4115: API build failing after breaking change to db
+* vimc-4117: update SSL certificates for montagu
+* vimc-4120: Add webapps build to BuildKite
+* vimc-4149: Improve access to private data vis tool for funders
+* vimc-4150: Bring down docker containers after use during buildkite build
+
+## Other branches merged in this release
+* update-deploy-docs
+
+# v2.5.1
+
+## Tickets
+
+## Other branches merged in this release
+* latest
+* retired_registry_1
+

@@ -49,7 +49,7 @@ def api_blackbox_tests():
 
 def webapp_integration_tests():
     def run_suite(portal, version):
-        image = get_image_name("montagu-portal-integration-tests", version)
+        image = "vimc/montagu-portal-integration-tests:{version}".format(version=version)
         pull(image)
         run([
             "docker", "run",
@@ -69,10 +69,12 @@ def webapp_integration_tests():
 
 def task_queue_integration_tests():
     def work():
+        print('running task_queue integration tests')
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
         versions = app.signature(sig, ["testGroup", "testDisease"]).delay().get()
         assert len(versions) == 2
+        assert version[0] != versions[1]
 
     run_in_teamcity_block("task_queue_integration_tests", work)
 
@@ -151,9 +153,9 @@ if __name__ == "__main__":
             print("Restarting Docker", flush=True)
             run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
         start_orderly_web()
+        task_queue_integration_tests()
         api_blackbox_tests()
         webapp_integration_tests()
-        task_queue_integration_tests()
     else:
         print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")
