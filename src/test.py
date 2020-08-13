@@ -140,6 +140,7 @@ def start_orderly_web():
         #    ow_migrate_image
         #], check=True)
 
+        run(["pip", "install", "--upgrade", "pip"], check=True)
         run(["pip3", "install", "orderly-web"], check=True)
         run(["orderly-web", "start", cwd+"/container_config/orderlyweb"], check=True)
 
