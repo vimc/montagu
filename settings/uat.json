@@ -1,6 +1,5 @@
 {
   "add_test_user": true,
-  "add_task_queue_user": true,
   "bb8_backup": false,
   "certificate": "support",
   "clone_reports": true,

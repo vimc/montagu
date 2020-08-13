@@ -82,7 +82,7 @@ def task_queue_integration_tests():
         print('assert 1', flush=True)
         assert len(versions) == 2
         print('assert 2', flush=True)
-        assert version[0] != versions[1]
+        assert versions[0] != versions[1]
         print('done with task queue', flush=True)
 
 
@@ -91,52 +91,57 @@ def task_queue_integration_tests():
 def start_orderly_web():
     def add_user(email, image):
         run([
-            "docker", "run", "-v", "demo:/orderly", image, "add-users", email
+            # "docker", "run", "-v", "demo:/orderly", image, "add-users", email
+            "docker", "run", "-v", "orderly_volume:/orderly", image, "add-users", email
         ], check=True)
 
-    def grant_permissions(email, image):
+    def grant_permissions(email, image, permissions="*/users.manage"):
         run([
-            "docker", "run", "-v", "demo:/orderly", image, "grant", email, "*/users.manage"
+            #"docker", "run", "-v", "demo:/orderly", image, "grant", email, permissions
+            "docker", "run", "-v", "orderly_volume:/orderly", image, "grant", email, permissions
         ], check=True)
 
     def work():
 
         cwd =  os.getcwd()
 
-        ow_image = get_image_name("orderly-web", "master")
-        pull(ow_image)
-        run([
-            "docker", "run", "-d",
-            "-p", "8888:8888",
-            "--network", "montagu_default",
-            "-v", "demo:/orderly",
-            "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web",
-            "--name", "montagu_orderly_web_1",
-            ow_image
-        ], check=True)
+        #ow_image = get_image_name("orderly-web", "master")
+        #pull(ow_image)
+        #run([
+        #    "docker", "run", "-d",
+        #    "-p", "8888:8888",
+        #    "--network", "montagu_default",
+        #    "-v", "demo:/orderly",
+        #    "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web",
+        #    "--name", "montagu_orderly_web_1",
+        #    ow_image
+        #], check=True)
 
-        orderly_image = get_image_name("orderly", "master")
-        pull(orderly_image)
-        run([
-            "docker", "run", "--rm",
-            "--entrypoint", "create_orderly_demo.sh",
-            "-v", cwd + "/orderly_data:/orderly",
-            "-w", "/orderly",
-            orderly_image,
-            "."
-          ], check=True)
+        #orderly_image = get_image_name("orderly", "master")
+        #pull(orderly_image)
+        #run([
+        #    "docker", "run", "--rm",
+        #    "--entrypoint", "create_orderly_demo.sh",
+        #    "-v", cwd + "/orderly_data:/orderly",
+        #    "-w", "/orderly",
+        #    orderly_image,
+        #    "."
+        #  ], check=True)
 
-        run([
-            "docker", "cp", cwd + "/orderly_data/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
-        ], check=True)
+        #run([
+        #    "docker", "cp", cwd + "/orderly_data/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
+        #], check=True)
 
-        ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
-        pull(ow_migrate_image)
-        run([
-            "docker", "run", "--rm",
-            "-v", "demo:/orderly",
-            ow_migrate_image
-        ], check=True)
+        #ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
+        #pull(ow_migrate_image)
+        #run([
+        #    "docker", "run", "--rm",
+        #    "-v", "demo:/orderly",
+        #    ow_migrate_image
+        #], check=True)
+
+        run(["pip3", "install", "orderly-web"], check=True)
+        run(["orderly-web", "start", cwd+"/container_config/orderlyweb"], check=True)
 
         ow_cli_image = get_image_name("orderly-web-user-cli", "master")
         pull(ow_cli_image)
@@ -148,9 +153,14 @@ def start_orderly_web():
         #user for webapp tests
         add_user("test.user@example.com", ow_cli_image)
         grant_permissions("test.user@example.com", ow_cli_image)
-        run([
-            "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
-        ], check=True)
+        #run([
+        #    "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
+        #], check=True)
+
+        #user for task-queue tests
+        add_user("test.admin@imperial.ac.uk", ow_cli_image)
+        grant_permissions("test.admin@imperial.ac.uk", ow_cli_image, "*/reports.run")
+
 
     run_in_teamcity_block("start_orderly_web", work)
 

@@ -124,10 +124,6 @@ definitions = [
                              "Should we add a test user with access to all modelling groups?",
                              "This must set to False on production!",
                              default_value=False),
-    BooleanSettingDefinition("add_task_queue_user",
-                             "Should we add a Montagu user for the task queue component?",
-                             "This requires Vault access",
-                             default_value=True),
     BooleanSettingDefinition("include_guidance_reports",
                              "Should we copy guidance reports from "
                              "orderly into the contrib portal container?",

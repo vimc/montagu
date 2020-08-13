@@ -11,7 +11,6 @@
   "clone_reports": false,
   "require_clean_git": false,
   "add_test_user": true,
-  "add_task_queue_user": false,
   "instance_name": "dev",
   "notify_channel": "",
   "enable_db_replication": false,
@@ -19,5 +18,5 @@
   "include_guidance_reports": false,
   "use_production_db_config": false,
   "copy_static_files": false,
-  "orderly_web_api_url": "http://localhost:8888/api/v1"
+  "orderly_web_api_url": "http://montagu_orderly_web:8888/api/v1"
 }
