@@ -133,5 +133,9 @@ definitions = [
                              "Should we use the high-performance database "
                              "config?",
                              "This uses more memory",
+                             default_value=False),
+    BooleanSettingDefinition("use_real_diagnostic_reports",
+                             "Should we run the real diagnostic reports when a burden estimate set is fully uploaded?",
+                             "This can be true on UAT, Science and Production.",
                              default_value=False)
 ]

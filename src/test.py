@@ -80,9 +80,9 @@ def task_queue_integration_tests():
         versions = signature.delay().get()
         print('versions: ' + str(versions))
         print('assert 1', flush=True)
-        assert len(versions) == 2
+        assert len(versions) == 1
         print('assert 2', flush=True)
-        assert versions[0] != versions[1]
+        assert len(versions[0]) == 24
         print('done with task queue', flush=True)
 
 
@@ -105,44 +105,60 @@ def start_orderly_web():
 
         cwd =  os.getcwd()
 
-        #ow_image = get_image_name("orderly-web", "master")
-        #pull(ow_image)
-        #run([
-        #    "docker", "run", "-d",
-        #    "-p", "8888:8888",
-        #    "--network", "montagu_default",
-        #    "-v", "demo:/orderly",
-        #    "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web",
-        #    "--name", "montagu_orderly_web_1",
-        #    ow_image
-        #], check=True)
+        run(["docker", "volume", "rm", "orderly_volume"], check=True)
+        run(["docker", "volume", "create", "orderly_volume"], check=True)
 
-        #orderly_image = get_image_name("orderly", "master")
-        #pull(orderly_image)
-        #run([
-        #    "docker", "run", "--rm",
-        #    "--entrypoint", "create_orderly_demo.sh",
-        #    "-v", cwd + "/orderly_data:/orderly",
-        #    "-w", "/orderly",
-        #    orderly_image,
-        #    "."
-        #  ], check=True)
+        orderly_image = get_image_name("orderly.server", "master")
+        pull(orderly_image)
+        run([
+            "docker", "run", "-d",
+            # "--entrypoint", "create_orderly_demo.sh",
+            "-p", "8321:8321",
+            "--network", "montagu_default",
+            "-v", "orderly_volume:/orderly",
+            "-w", "/orderly",
+            "--name", "montagu_orderly_orderly_1",
+            orderly_image,
+            "--port", "8321", "--go-signal", "/go_signal", "/orderly"
+        ], check=True)
+
+        run(["docker", "exec", "montagu_orderly_orderly_1", "Rscript", "-e",
+             "orderly:::create_orderly_demo('/orderly')"], check=True)
+
+       #  run(["docker", "exec", "montagu_orderly_orderly_1", "git", "clone", "https://github.com/vimc/orderly-demo", "/orderly"], check=True)
+
+        run(["docker", "exec", "montagu_orderly_orderly_1", "orderly", "rebuild", "--if-schema-changed"], check=True)
+
+        run(["docker", "exec", "montagu_orderly_orderly_1", "touch", "/go_signal"],
+            check=True)
+
+        ow_image = get_image_name("orderly-web", "master")
+        pull(ow_image)
+        run([
+            "docker", "run", "-d",
+            "-p", "8888:8888",
+            "--network", "montagu_default",
+            "-v", "orderly_volume:/orderly",
+            "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web",
+            "--name", "montagu_orderly_web_1",
+            ow_image
+        ], check=True)
 
         #run([
         #    "docker", "cp", cwd + "/orderly_data/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
         #], check=True)
 
-        #ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
-        #pull(ow_migrate_image)
-        #run([
-        #    "docker", "run", "--rm",
-        #    "-v", "demo:/orderly",
-        #    ow_migrate_image
-        #], check=True)
+        ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
+        pull(ow_migrate_image)
+        run([
+            "docker", "run", "--rm",
+            "-v", "orderly_volume:/orderly",
+            ow_migrate_image
+        ], check=True)
 
-        run(["pip3", "install", "--upgrade", "pip"], check=True)
-        run(["pip3", "install", "orderly-web"], check=True)
-        run(["orderly-web", "start", cwd+"/container_config/orderlyweb"], check=True)
+        #run(["pip3", "install", "--upgrade", "pip"], check=True)
+        #run(["pip3", "install", "orderly-web"], check=True)
+        #run(["orderly-web", "start", cwd+"/container_config/orderlyweb"], check=True)
 
         ow_cli_image = get_image_name("orderly-web-user-cli", "master")
         pull(ow_cli_image)
