@@ -4,4 +4,4 @@ pystache==0.5.4
 psycopg2==2.7.3.2
 docopt
 pyyaml
-celery
+celery==4.4.2
