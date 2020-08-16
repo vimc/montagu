@@ -131,7 +131,7 @@ def configure_montagu(service, data_exists):
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
 
-    task_queue_user = "test.admin@imperial.ac.uk" if service.settings["add_test_user"] else "MONTAGU_TASK_QUEUE"
+    task_queue_user = "MONTAGU_TASK_QUEUE" if service.settings["use_real_diagnostic_reports"] else "test.user@example.com"
     # TODO: Add the user and password if does not exist and grant required perms (run, publish)
     configure_task_queue(service, task_queue_user, "password",
                          service.settings["orderly_web_api_url"],

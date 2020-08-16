@@ -184,9 +184,8 @@ def start_orderly_web():
         #    "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
         #], check=True)
 
-        #user for task-queue tests
-        add_user("test.admin@imperial.ac.uk", ow_cli_image)
-        grant_permissions("test.admin@imperial.ac.uk", ow_cli_image, "*/reports.run")
+        #permission for task-queue tests
+        grant_permissions("test.user@example.com", ow_cli_image, "*/reports.run")
 
 
     run_in_teamcity_block("start_orderly_web", work)
@@ -201,9 +200,9 @@ if __name__ == "__main__":
             run(["sudo", "/bin/systemctl", "restart", "docker"], check=True)
         print("starting orderly web", flush=True)
         start_orderly_web()
+        api_blackbox_tests()
         print("starting task queue tests", flush=True)
         task_queue_integration_tests()
-        api_blackbox_tests()
         webapp_integration_tests()
     else:
         print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
