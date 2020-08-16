@@ -71,8 +71,10 @@ def task_queue_integration_tests():
     def work():
         print('running task_queue integration tests', flush=True)
 
-        #REMOVE THIS
+        #REMOVE THESE
         run(["docker", "ps"], check=True)
+        run(["docker", "exec", "-it", "montagu_task-queue_1", "cat", "config/config.yml"], check=True)
+
 
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         print('made app', flush=True)
