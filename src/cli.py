@@ -52,7 +52,7 @@ def add_test_users():
 
     command = [
         "docker", "run",
-        "-it",
+        #"-it",
         "--network", network
     ]
 
