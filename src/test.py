@@ -201,9 +201,9 @@ if __name__ == "__main__":
         print("starting orderly web", flush=True)
         start_orderly_web()
         api_blackbox_tests()
+        webapp_integration_tests()
         print("starting task queue tests", flush=True)
         task_queue_integration_tests()
-        webapp_integration_tests()
     else:
         print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")
