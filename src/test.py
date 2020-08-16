@@ -105,7 +105,6 @@ def start_orderly_web():
 
         cwd =  os.getcwd()
 
-        run(["docker", "volume", "rm", "orderly_volume"], check=True)
         run(["docker", "volume", "create", "orderly_volume"], check=True)
 
         orderly_image = get_image_name("orderly.server", "master")
