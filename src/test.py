@@ -71,6 +71,9 @@ def task_queue_integration_tests():
     def work():
         print('running task_queue integration tests', flush=True)
 
+        #REMOVE THIS
+        run(["docker", "ps"], check=True)
+
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         print('made app', flush=True)
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
