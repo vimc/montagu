@@ -73,7 +73,7 @@ def task_queue_integration_tests():
 
         #REMOVE THESE
         run(["docker", "ps"], check=True)
-        run(["docker", "exec", "-it", "montagu_task-queue_1", "cat", "config/config.yml"], check=True)
+        run(["docker", "exec", "montagu_task-queue_1", "cat", "config/config.yml"], check=True)
 
 
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
