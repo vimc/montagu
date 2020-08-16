@@ -74,6 +74,12 @@ def task_queue_integration_tests():
         #REMOVE THESE
         run(["docker", "ps"], check=True)
         run(["docker", "exec", "montagu_task-queue_1", "cat", "config/config.yml"], check=True)
+        run(["docker", "exec", "montagu_task-queue_1", "curl", "-d",
+        "grant_type=client_credentials", "-H",
+        'Content-Type: application/x-www-form-urlencoded', "--user",
+        "test.admin@imperial.ac.uk:password", "-X",
+        "POST",
+        "http://montagu_api_1:8080/v1/authenticate/", "-i", "-L"], check=True)
 
 
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
