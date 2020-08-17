@@ -40,8 +40,7 @@ def configure_task_queue(service, montagu_user, montagu_password,
         smtp["port"] = 587
         smtp["from"] = "montagu.notifications@imperial.ac.uk"
 
-    print("- writing config to container:")
-    print(str(config))
+    print("- writing config to container")
     with open(local_config_file, "w") as file:
         yaml.dump(config, file)
     docker_cp(local_config_file, container.name, container_config_file)

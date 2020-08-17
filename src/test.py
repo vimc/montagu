@@ -128,6 +128,9 @@ def start_orderly_web():
             ow_image
         ], check=True)
 
+        run(["docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"],
+            check=True)
+
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
         pull(ow_migrate_image)
         run([
