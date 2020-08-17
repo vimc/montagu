@@ -62,8 +62,6 @@ def add_test_users():
 
     name = get_image_name("montagu-cli", versions.api)
 
-    print("Attempting to add test user")
-    print("Network: " + network)
     run_cmd(command, name, ["add", "Test Admin", "test.admin", "test.admin@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.admin", "user"])
     run_cmd(command, name, ["addRole", "test.admin", "reports-reviewer"])
@@ -78,7 +76,7 @@ def add_test_users():
 
 
 def run_cmd(command, name, args):
-    run(command + [name] + args, check=True)
+    run(command + [name] + args)
 
 
 if __name__ == "__main__":

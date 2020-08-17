@@ -3,7 +3,6 @@ from time import sleep
 import docker
 
 import compose
-import os
 
 # These values must line up with the docker-compose file
 components = {

@@ -122,7 +122,6 @@ def configure_montagu(service, data_exists):
     passwords = database.setup(service)
 
     # Push secrets into containers
-
     cert_paths = get_ssl_certificate(service.settings["certificate"])
     token_keypair_paths = get_token_keypair()
 

@@ -146,9 +146,6 @@ def start_orderly_web():
         #user for webapp tests
         add_user("test.user@example.com", ow_cli_image)
         grant_permissions("test.user@example.com", ow_cli_image)
-        #run([
-        #    "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
-        #], check=True)
 
         #permission for task-queue tests
         grant_permissions("test.user@example.com", ow_cli_image, "*/reports.run")

@@ -9,7 +9,6 @@ def configure_task_queue(service, montagu_user, montagu_password,
     container = service.task_queue
 
     print("Configuring Task Queue")
-
     print("- reading config from container")
     local_config_file = join(paths.config, "task_queue_config.yml")
     container_config_file = "home/worker/config/config.yml"
@@ -46,6 +45,3 @@ def configure_task_queue(service, montagu_user, montagu_password,
     with open(local_config_file, "w") as file:
         yaml.dump(config, file)
     docker_cp(local_config_file, container.name, container_config_file)
-
-
-
