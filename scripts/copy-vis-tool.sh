@@ -9,8 +9,8 @@ ORDERLY_ID=20200727-143757-d6a26611
 ORDERLY_PATH="/orderly/archive/$ORDERLY_REPORT/$ORDERLY_ID"
 WWW_ROOT=/usr/share/nginx/html
 
-docker exec -it $PROXY_CONTAINER mkdir -p $WWW_ROOT/visualisation
+docker exec -it $PROXY_CONTAINER mkdir -p $WWW_ROOT/2020/visualisation
 
 mkdir -p visualisation
-docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH visualisation/2020
-docker cp visualisation/2020 $PROXY_CONTAINER:$WWW_ROOT/2020/visualisation
+docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH 2020/visualisation
+docker cp 2020/visualisation $PROXY_CONTAINER:$WWW_ROOT/2020/visualisation
