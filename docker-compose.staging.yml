@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  fake_smtp_server:
+    image: reachfive/fake-smtp-server
+    ports:
+      - "1025:1025"
+      - "1080:1080"

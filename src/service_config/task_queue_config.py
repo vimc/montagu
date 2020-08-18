@@ -5,7 +5,7 @@ from docker_helpers import docker_cp, docker_cp_from
 
 
 def configure_task_queue(service, montagu_user, montagu_password,
-                         orderly_web_url, use_real_diagnostic_reports,  is_prod):
+                         orderly_web_url, use_real_diagnostic_reports,  fake_smtp):
     container = service.task_queue
 
     print("Configuring Task Queue")
@@ -34,11 +34,14 @@ def configure_task_queue(service, montagu_user, montagu_password,
 
     config["tasks"]["diagnostic_reports"]["reports"] = diag_reports
 
-    if is_prod:
-        smtp = config["servers"]["smtp"]
+    smtp = config["servers"]["smtp"]
+    smtp["from"] = "montagu-help@imperial.ac.uk"
+    if fake_smtp:
+        smtp["host"] = "montagu_fake_smtp_server_1"
+    else:
         smtp["host"] = "smtp.cc.ic.ac.uk"
         smtp["port"] = 587
-        smtp["from"] = "montagu.notifications@imperial.ac.uk"
+
 
     print("- writing config to container")
     with open(local_config_file, "w") as file:

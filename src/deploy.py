@@ -135,7 +135,7 @@ def configure_montagu(service, data_exists):
     configure_task_queue(service, task_queue_user, "password",
                          service.settings["orderly_web_api_url"],
                          service.settings["use_real_diagnostic_reports"],
-                         is_prod)
+                         service.settings["fake_smtp"])
 
     configure_proxy(service, cert_paths)
 

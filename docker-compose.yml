@@ -84,7 +84,6 @@ services:
     logging: *log-journald
     depends_on:
       - mq
-
 volumes:
   static_logs:
   static_volume:

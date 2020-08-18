@@ -41,6 +41,9 @@ class MontaguService:
         self.settings['docker_prefix'] = self.docker_prefix
         # Our components:
         self.containers = components['containers'].copy()
+        if not settings["use_production_db_config"]: # todo: use another setting?? YES, THIS IS TRUE ON SCIENCE - USE ANOTHER SETTING AND USE IT IN THE CONFIG FOR TASK QUEUE AS WELL, AND IN COMPOSE
+            self.containers["fake_smtp_server"] = "fake_smtp_server"
+
         self.volumes = components['volumes'].copy()
         self.network = components['network']
 
