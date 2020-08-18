@@ -27,7 +27,7 @@ services:
       # volume will remain empty. Otherwise emails are written to disk here.
       - emails:/tmp/montagu_emails
   db:
-    image: ${MONTAGU_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     restart: always
     logging: *log-journald
     command: ${MONTAGU_DB_CONF}
