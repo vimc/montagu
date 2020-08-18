@@ -52,7 +52,7 @@ services:
     depends_on:
       - api
   proxy:
-    image: ${MONTAGU_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-reverse-proxy:${MONTAGU_PROXY_VERSION}
     restart: always
     logging: *log-journald
     ports:
