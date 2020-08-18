@@ -141,6 +141,8 @@ def configure_montagu(service, data_exists):
 
     if service.settings["include_guidance_reports"]:
         configure_contrib_portal(service)
+
+    if service.settings["copy_static_files"]:
         configure_static_server(service, token_keypair_paths)
 
 
