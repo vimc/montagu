@@ -24,9 +24,11 @@ cert_tool = get_submodule_version("cert-tool")
 
 static = get_submodule_version("static")
 
+task_queue = get_submodule_version("task-queue")
+
 def as_dict():
     submodules = [
         'db', 'api', 'contrib-portal', 'admin-portal',
-        'proxy', 'cert-tool'
+        'proxy', 'cert-tool', 'task-queue'
     ]
     return dict((k, get_submodule_version(k)) for k in submodules)

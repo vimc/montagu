@@ -18,6 +18,7 @@ from docopt import docopt
 
 import sys
 import os
+import celery
 
 import versions
 from docker_helpers import get_image_name, pull
@@ -66,20 +67,54 @@ def webapp_integration_tests():
 
     run_in_teamcity_block("webapp_integration_tests", work)
 
+def task_queue_integration_tests():
+    def work():
+        app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
+        sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
+        signature = app.signature(sig, ["testGroup", "testDisease"])
+        versions = signature.delay().get()
+        assert len(versions) == 1
+        assert len(versions[0]) == 24
+
+    run_in_teamcity_block("task_queue_integration_tests", work)
+
 def start_orderly_web():
     def add_user(email, image):
         run([
-            "docker", "run", "-v", "demo:/orderly", image, "add-users", email
+           "docker", "run", "-v", "orderly_volume:/orderly", image, "add-users", email
         ], check=True)
 
-    def grant_permissions(email, image):
+    def grant_permissions(email, image, permissions="*/users.manage"):
         run([
-            "docker", "run", "-v", "demo:/orderly", image, "grant", email, "*/users.manage"
+            "docker", "run", "-v", "orderly_volume:/orderly", image, "grant", email, permissions
         ], check=True)
 
     def work():
 
         cwd =  os.getcwd()
+
+        run(["docker", "volume", "create", "orderly_volume"], check=True)
+
+        orderly_image = get_image_name("orderly.server", "master")
+        pull(orderly_image)
+        run([
+            "docker", "run", "-d",
+            "-p", "8321:8321",
+            "--network", "montagu_default",
+            "-v", "orderly_volume:/orderly",
+            "-w", "/orderly",
+            "--name", "montagu_orderly_orderly_1",
+            orderly_image,
+            "--port", "8321", "--go-signal", "/go_signal", "/orderly"
+        ], check=True)
+
+        run(["docker", "exec", "montagu_orderly_orderly_1", "Rscript", "-e",
+             "orderly:::create_orderly_demo('/orderly')"], check=True)
+
+        run(["docker", "exec", "montagu_orderly_orderly_1", "orderly", "rebuild", "--if-schema-changed"], check=True)
+
+        run(["docker", "exec", "montagu_orderly_orderly_1", "touch", "/go_signal"],
+            check=True)
 
         ow_image = get_image_name("orderly-web", "master")
         pull(ow_image)
@@ -87,32 +122,20 @@ def start_orderly_web():
             "docker", "run", "-d",
             "-p", "8888:8888",
             "--network", "montagu_default",
-            "-v", "demo:/orderly",
+            "-v", "orderly_volume:/orderly",
             "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web",
             "--name", "montagu_orderly_web_1",
             ow_image
         ], check=True)
 
-        orderly_image = get_image_name("orderly", "master")
-        pull(orderly_image)
-        run([
-            "docker", "run", "--rm",
-            "--entrypoint", "create_orderly_demo.sh",
-            "-v", cwd + "/orderly_data:/orderly",
-            "-w", "/orderly",
-            orderly_image,
-            "."
-          ], check=True)
-
-        run([
-            "docker", "cp", cwd + "/demo/orderly.sqlite", "montagu_orderly_web_1:/orderly/orderly.sqlite"
-        ], check=True)
+        run(["docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"],
+            check=True)
 
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
         pull(ow_migrate_image)
         run([
             "docker", "run", "--rm",
-            "-v", "demo:/orderly",
+            "-v", "orderly_volume:/orderly",
             ow_migrate_image
         ], check=True)
 
@@ -126,9 +149,10 @@ def start_orderly_web():
         #user for webapp tests
         add_user("test.user@example.com", ow_cli_image)
         grant_permissions("test.user@example.com", ow_cli_image)
-        run([
-            "docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"
-        ], check=True)
+
+        #permission for task-queue tests
+        grant_permissions("test.user@example.com", ow_cli_image, "*/reports.run")
+
 
     run_in_teamcity_block("start_orderly_web", work)
 
@@ -143,6 +167,7 @@ if __name__ == "__main__":
         start_orderly_web()
         api_blackbox_tests()
         webapp_integration_tests()
+        task_queue_integration_tests()
     else:
         print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")

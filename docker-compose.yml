@@ -37,7 +37,7 @@ services:
     volumes:
       - db_volume:/pgdata
   contrib:
-    image: vimc/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-contrib-portal:${MONTAGU_CONTRIB_PORTAL_VERSION}
     restart: always
     logging: *log-journald
     depends_on:
@@ -46,7 +46,7 @@ services:
       - template_volume:/usr/share/nginx/html/templates
       - guidance_volume:/usr/share/nginx/html/guidance
   admin:
-    image: vimc/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-admin-portal:${MONTAGU_ADMIN_PORTAL_VERSION}
     restart: always
     logging: *log-journald
     depends_on:
@@ -70,6 +70,20 @@ services:
     volumes:
       - static_volume:/www
       - static_logs:/var/log/caddy
+  mq:
+    image: rabbitmq
+    restart: always
+    logging: *log-journald
+    ports:
+      - "5672:5672"
+    volumes:
+      - mq:/var/lib/rabbitmq
+  task-queue:
+    image: ${VIMC_REGISTRY}/task-queue-worker:${MONTAGU_TASK_QUEUE_VERSION}
+    restart: always
+    logging: *log-journald
+    depends_on:
+      - mq
 
 volumes:
   static_logs:
@@ -78,3 +92,4 @@ volumes:
   template_volume:
   guidance_volume:
   emails:
+  mq:

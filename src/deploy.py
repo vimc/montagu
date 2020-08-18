@@ -14,7 +14,7 @@ from cli import add_test_users
 from git import git_check
 from service import MontaguService
 from service_config import configure_api, configure_proxy, \
-    configure_contrib_portal, configure_static_server
+    configure_contrib_portal, configure_static_server, configure_task_queue
 from service_config.api_config import get_token_keypair
 from settings import get_settings
 from last_deploy import last_deploy_update
@@ -129,6 +129,14 @@ def configure_montagu(service, data_exists):
     configure_api(service, passwords['api'], token_keypair_paths,
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
+
+    task_queue_user = "MONTAGU_TASK_QUEUE" if service.settings["use_real_diagnostic_reports"] else "test.user@example.com"
+    # TODO: Add the user and password if does not exist and grant required perms (run, publish)
+    configure_task_queue(service, task_queue_user, "password",
+                         service.settings["orderly_web_api_url"],
+                         service.settings["use_real_diagnostic_reports"],
+                         is_prod)
+
     configure_proxy(service, cert_paths)
 
     if service.settings["include_guidance_reports"]:

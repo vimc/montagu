@@ -6,6 +6,7 @@ artifacts = '../artifacts'
 token_keypair = '../token_keypair'
 certs = '../certs'
 config = '../config'
+container_config = '../container_config'
 static = "../static-ssh"
 
 

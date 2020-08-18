@@ -1,0 +1,8 @@
+testGroup:
+  testDisease:
+    - report_name: minimal
+      success_email:
+        recipients:
+          - minimal_modeller@example.com
+          - science@example.com
+        subject: "New version of Orderly report: {report_name}"
