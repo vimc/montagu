@@ -13,4 +13,4 @@ docker exec -it $PROXY_CONTAINER mkdir -p $WWW_ROOT/visualisation
 
 mkdir -p visualisation
 docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH visualisation/2020
-docker cp visualisation/2020 $PROXY_CONTAINER:$WWW_ROOT/2020/visualisation
+docker cp visualisation/2020 $PROXY_CONTAINER:$WWW_ROOT/visualisation
