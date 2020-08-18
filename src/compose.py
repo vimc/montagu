@@ -37,6 +37,7 @@ def get_env(settings):
 
     return {
         'MONTAGU_REGISTRY': montagu_registry,
+        'VIMC_REGISTRY': "vimc",
 
         'MONTAGU_PORT': str(port),
         'MONTAGU_HOSTNAME': hostname,
@@ -51,5 +52,7 @@ def get_env(settings):
 
         'MONTAGU_PROXY_VERSION': versions.proxy,
 
-        'MONTAGU_STATIC_VERSION': versions.static
+        'MONTAGU_STATIC_VERSION': versions.static,
+
+        'MONTAGU_TASK_QUEUE_VERSION': versions.task_queue
     }

@@ -18,5 +18,6 @@
   "include_guidance_reports": false,
   "use_production_db_config": false,
   "copy_static_files": false,
-  "orderly_web_api_url": "http://localhost:8888/api/v1"
+  "orderly_web_api_url": "http://montagu_orderly_web_1:8888/api/v1",
+  "use_real_diagnostic_reports": false
 }

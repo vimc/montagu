@@ -18,5 +18,6 @@
   "copy_static_files": true,
   "use_production_db_config": false,
   "vault_address": "https://support.montagu.dide.ic.ac.uk:8200",
-  "orderly_web_api_url": "https://support.montagu.dide.ic.ac.uk:10443/reports/api/v1"
+  "orderly_web_api_url": "https://support.montagu.dide.ic.ac.uk:10443/reports/api/v1",
+  "use_real_diagnostic_reports": true
 }

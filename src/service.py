@@ -14,7 +14,9 @@ components = {
         "admin_portal": "admin",
         "proxy": "proxy",
         "metrics": "metrics",
-        "static": "static"
+        "static": "static",
+        "mq": "mq",
+        "task-queue": "task-queue"
     },
     "volumes": {
         "static_logs": "static_logs",
@@ -113,6 +115,10 @@ class MontaguService:
     @property
     def static(self):
         return self._get("static")
+
+    @property
+    def task_queue(self):
+        return self._get("task-queue")
 
     @property
     def db_volume_present(self):

@@ -23,6 +23,11 @@ def docker_cp(src, container, target_path):
     check_output(["docker", "cp", src, full_target])
 
 
+def docker_cp_from(container, src_path, target):
+    full_src = "{container}:{path}".format(container=container, path=src_path)
+    check_output(["docker", "cp", full_src, target])
+
+
 def pull(image):
     run(["docker", "pull", image], check=True)
 
