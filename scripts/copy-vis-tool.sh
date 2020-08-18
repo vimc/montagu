@@ -11,6 +11,6 @@ WWW_ROOT=/usr/share/nginx/html
 
 docker exec -it $PROXY_CONTAINER mkdir -p $WWW_ROOT/2020/visualisation
 
-mkdir -p visualisation
+mkdir -p 2020/visualisation
 docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH 2020/visualisation
 docker cp 2020/visualisation $PROXY_CONTAINER:$WWW_ROOT/2020/visualisation
