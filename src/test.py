@@ -13,7 +13,8 @@ Options:
                       to simulate recovery from a system reboot.
 """
 
-from subprocess import run
+from subprocess import run, PIPE
+from ast import literal_eval
 from docopt import docopt
 
 import sys
@@ -78,7 +79,10 @@ def task_queue_integration_tests():
         assert len(versions) == 1
         assert len(versions[0]) == 24
         # check expected notification email was sent to fake smtp server
-        emails = requests.get("http://localhost:1080/api/emails").json()
+        emailstr = run([
+            "docker", "exec", "montagu_task-queue_1", "curl", "http://montagu_fake_smtp_server_1:1080/api/emails"
+        ], stdout=PIPE, universal_newlines=True).stdout
+        emails = literal_eval(emailstr)
         assert len(emails) == 1
         assert emails[0]["subject"] == "New version of Orderly report: minimal"
         assert emails[0]["to"]["value"][0]["address"] == "minimal_modeller@example.com"
