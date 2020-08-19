@@ -64,7 +64,7 @@ services:
       - contrib
     command: ${MONTAGU_PORT} ${MONTAGU_HOSTNAME}
   static:
-    image: ${MONTAGU_REGISTRY}/montagu-static:${MONTAGU_STATIC_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-static:${MONTAGU_STATIC_VERSION}
     restart: always
     logging: *log-journald
     volumes:
