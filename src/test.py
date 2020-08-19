@@ -73,7 +73,6 @@ def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
         run(["docker", "ps"], check=True) #TODO: take this out
-        run(["docker", "logs", "montagu_fake_smtp_server_1"], check=True) #TODO: take this out
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
         signature = app.signature(sig, ["testGroup", "testDisease"])
@@ -173,6 +172,9 @@ def start_orderly_web():
 if __name__ == "__main__":
     args = docopt(__doc__)
     if args["--run-tests"]:
+        #TODO: take this out
+        print("DOCKER CONTAINERS BEFORE RESTART")
+        run(["docker", "ps"], check=True)  # TODO: take this out
         if args["--simulate-restart"]:
             # Imitate a reboot of the system
             print("Restarting Docker", flush=True)
