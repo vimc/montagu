@@ -13,8 +13,7 @@ Options:
                       to simulate recovery from a system reboot.
 """
 
-from subprocess import run, PIPE
-from ast import literal_eval
+from subprocess import run
 from docopt import docopt
 
 import sys
