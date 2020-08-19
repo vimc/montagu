@@ -72,7 +72,6 @@ def webapp_integration_tests():
 def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
-        run(["docker", "ps"], check=True) #TODO: take this out
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
         signature = app.signature(sig, ["testGroup", "testDisease"])
@@ -80,10 +79,7 @@ def task_queue_integration_tests():
         assert len(versions) == 1
         assert len(versions[0]) == 24
         # check expected notification email was sent to fake smtp server
-        emailstr = run([
-            "docker", "exec", "montagu_task-queue_1", "curl", "http://montagu_fake_smtp_server_1:1080/api/emails"
-        ], stdout=PIPE, universal_newlines=True).stdout
-        emails = literal_eval(emailstr)
+        emails = requests.get("http://localhost:1080/api/emails").json()
         assert len(emails) == 1
         assert emails[0]["subject"] == "New version of Orderly report: minimal"
         assert emails[0]["to"]["value"][0]["address"] == "minimal_modeller@example.com"
@@ -172,9 +168,6 @@ def start_orderly_web():
 if __name__ == "__main__":
     args = docopt(__doc__)
     if args["--run-tests"]:
-        #TODO: take this out
-        print("DOCKER CONTAINERS BEFORE RESTART")
-        run(["docker", "ps"], check=True)  # TODO: take this out
         if args["--simulate-restart"]:
             # Imitate a reboot of the system
             print("Restarting Docker", flush=True)
