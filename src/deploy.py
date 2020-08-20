@@ -139,7 +139,7 @@ def configure_montagu(service, data_exists):
         add_user(task_queue_user, task_queue_user, task_queue_user, task_queue_password)
         orderlyweb_cli.add_user(task_queue_user)
         perms = ["*/reports.read", "*/reports.review", "*/reports.run"]
-        orderlyweb_cli.grant_permissons(task_queue_user, perms)
+        orderlyweb_cli.grant_permissions(task_queue_user, perms)
     else:
         task_queue_user = "test.user@example.com"
         task_queue_password = "password"

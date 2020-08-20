@@ -73,7 +73,7 @@ def add_user(name, id, email, password):
     command = docker_run_cmd(network)
     image = get_image_name(montagu_cli, versions.api, True)
 
-    run_cmd(command, image, ["add", name, id, email, password])
+    run_cmd(command, image, ["add", name, id, email, password, "--if-not-exists"])
 
 
 def get_network():
