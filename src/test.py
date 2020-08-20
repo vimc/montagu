@@ -19,6 +19,7 @@ from docopt import docopt
 import sys
 import os
 import celery
+import requests
 
 import versions
 from docker_helpers import get_image_name, pull
@@ -34,7 +35,7 @@ def run_in_teamcity_block(name, work):
 
 def api_blackbox_tests():
     def work():
-        image = get_image_name("montagu-api-blackbox-tests", versions.api)
+        image = get_image_name("montagu-api-blackbox-tests", versions.api, True)
         pull(image)
         run([
             "docker", "run",
@@ -69,12 +70,18 @@ def webapp_integration_tests():
 
 def task_queue_integration_tests():
     def work():
+        print("Running task queue integration tests")
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
         sig = "src.task_run_diagnostic_reports.run_diagnostic_reports"
         signature = app.signature(sig, ["testGroup", "testDisease"])
         versions = signature.delay().get()
         assert len(versions) == 1
         assert len(versions[0]) == 24
+        # check expected notification email was sent to fake smtp server
+        emails = requests.get("http://localhost:1080/api/emails").json()
+        assert len(emails) == 1
+        assert emails[0]["subject"] == "New version of Orderly report: minimal"
+        assert emails[0]["to"]["value"][0]["address"] == "minimal_modeller@example.com"
 
     run_in_teamcity_block("task_queue_integration_tests", work)
 

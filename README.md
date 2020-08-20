@@ -134,6 +134,12 @@ which generates a new set of passwords for the same users as the group specified
 To update `src/versions.py` to the latest master of each sub repo, use 
 `src/update_versions_to_latest_master.py`.
 
+## Fake SMTP Server
+
+If the deployment setting `fake_smtp` is true, a fake SMTP server will be deployed. It provides a web interface at
+http://localhost:1080 showing the email requests it has received. It is used by the task queue component to send
+notification emails. If `fake_smtp` is false the component will be configured to use the Production SMTP server.  
+
 ## Configuration
 Configuration of diagnostic reports to run when burden estimates are completed is defined in 
 `./container_config/real_diagnostic_reports.yml` This involves a lot of repetition as we currently

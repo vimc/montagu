@@ -137,5 +137,9 @@ definitions = [
     BooleanSettingDefinition("use_real_diagnostic_reports",
                              "Should we run the real diagnostic reports when a burden estimate set is fully uploaded?",
                              "This can be true on UAT, Science and Production.",
-                             default_value=False)
+                             default_value=False),
+    BooleanSettingDefinition("fake_smtp",
+                              "Should we add a fake smtp server for notification emails?",
+                              "This should be true on all environments except Production.",
+                              default_value=True)
 ]

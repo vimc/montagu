@@ -19,5 +19,6 @@
   "use_production_db_config": true,
   "persist_data": true,
   "orderly_web_api_url": "https://support.montagu.dide.ic.ac.uk:11443/reports/api/v1",
-  "use_real_diagnostic_reports": true
+  "use_real_diagnostic_reports": true,
+  "fake_smtp": true
 }

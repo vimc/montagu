@@ -19,7 +19,8 @@ def pull(settings):
 
 def run(args, settings):
     docker_prefix = settings["docker_prefix"]
-    prefix = 'docker-compose --project-name {} '.format(docker_prefix)
+    staging_file =  "-f ../docker-compose.staging.yml" if settings["fake_smtp"] else ""
+    prefix = 'docker-compose -f ../docker-compose.yml {} --project-name {} '.format(staging_file, docker_prefix)
     cmd = prefix + args
     p = Popen(cmd, env=get_env(settings), shell=True)
     p.wait()
