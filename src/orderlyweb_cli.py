@@ -6,7 +6,7 @@ def cli(command):
     image = get_image_name("orderly-web-user-cli", "master")
     pull(image)
     run(["docker", "run", "--rm", "-v",
-         "orderly_volume:/orderly",
+         "montagu_orderly_volume:/orderly",
          "--network", "montagu_default",
          image] + command, check=True)
 
