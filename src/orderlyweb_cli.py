@@ -1,4 +1,5 @@
 from docker_helpers import get_image_name, pull
+from subprocess import run
 
 
 def cli(command):

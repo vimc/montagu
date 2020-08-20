@@ -132,8 +132,9 @@ def configure_montagu(service, data_exists):
                   service.settings["orderly_web_api_url"])
 
     if service.settings["use_real_diagnostic_reports"]:
+        print("Configuring task queue user")
         task_queue_user = "MONTAGU_TASK_QUEUE"
-        task_queue_password = get_secret("task-queue-user/{}".format(settings["instance_name"]), "password")
+        task_queue_password = get_secret("task-queue-user/{}".format(service.settings["instance_name"]), "password")
 
         add_user(task_queue_user, task_queue_user, task_queue_user, task_queue_password)
         orderlyweb_cli.add_user(task_queue_user)
