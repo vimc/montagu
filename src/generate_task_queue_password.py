@@ -15,9 +15,10 @@ def generate_password(instance):
              (instance in list_secrets(secret_root))
     if not exists:
         print("Creating password for instance: {}".format(instance))
+        set_secret(instance_path, random_password(80), password_key)
     else:
-        print("Overwriting old password for instance: {}".format(instance))
-    set_secret(instance_path, random_password(80), password_key)
+        print("Password already exists for instance: {}".format(instance))
+        exit(1)
 
 
 if __name__ == "__main__":

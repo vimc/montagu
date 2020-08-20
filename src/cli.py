@@ -46,6 +46,7 @@ def cli():
 
 def add_test_users():
     network = get_network()
+    settings = get_settings(quiet=True)
 
     command = docker_run_cmd(network)
 
