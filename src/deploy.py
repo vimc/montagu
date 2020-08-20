@@ -16,7 +16,7 @@ from service import MontaguService
 from service_config import configure_api, configure_proxy, \
     configure_contrib_portal, configure_static_server, configure_task_queue
 from service_config.api_config import get_token_keypair
-from settings import get_settings
+from settings import get_settings, get_secret
 from last_deploy import last_deploy_update
 from notify import Notifier
 
@@ -130,9 +130,15 @@ def configure_montagu(service, data_exists):
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
 
-    task_queue_user = "MONTAGU_TASK_QUEUE" if service.settings["use_real_diagnostic_reports"] else "test.user@example.com"
-    # TODO: Add the user and password if does not exist and grant required perms (run, publish)
-    configure_task_queue(service, task_queue_user, "password",
+    if service.settings["use_real_diagnostic_reports"]:
+        task_queue_user = "MONTAGU_TASK_QUEUE"
+        task_queue_password = get_secret("task-queue-user/{}".format(settings["instance_name"]), "password")
+    else:
+        task_queue_user = "test.user@example.com"
+        task_queue_password = "password"
+
+
+    configure_task_queue(service, task_queue_user, task_queue_password,
                          service.settings["orderly_web_api_url"],
                          service.settings["use_real_diagnostic_reports"],
                          is_prod)
