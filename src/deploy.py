@@ -8,15 +8,16 @@ import bb8_backup
 import data_import
 import database
 import paths
+import orderlyweb_cli
 from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
-from cli import add_test_users
+from cli import add_test_users, add_user
 from git import git_check
 from service import MontaguService
 from service_config import configure_api, configure_proxy, \
     configure_contrib_portal, configure_static_server, configure_task_queue
 from service_config.api_config import get_token_keypair
-from settings import get_settings
+from settings import get_settings, get_secret
 from last_deploy import last_deploy_update
 from notify import Notifier
 
@@ -130,9 +131,21 @@ def configure_montagu(service, data_exists):
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
 
-    task_queue_user = "MONTAGU_TASK_QUEUE" if service.settings["use_real_diagnostic_reports"] else "test.user@example.com"
-    # TODO: Add the user and password if does not exist and grant required perms (run, publish)
-    configure_task_queue(service, task_queue_user, "password",
+    if service.settings["use_real_diagnostic_reports"]:
+        print("Configuring task queue user")
+        task_queue_user = "MONTAGU_TASK_QUEUE"
+        task_queue_password = get_secret("task-queue-user/{}".format(service.settings["instance_name"]), "password")
+
+        add_user(task_queue_user, task_queue_user, task_queue_user, task_queue_password)
+        orderlyweb_cli.add_user(task_queue_user)
+        perms = ["*/reports.read", "*/reports.review", "*/reports.run"]
+        orderlyweb_cli.grant_permissions(task_queue_user, perms)
+    else:
+        task_queue_user = "test.user@example.com"
+        task_queue_password = "password"
+
+
+    configure_task_queue(service, task_queue_user, task_queue_password,
                          service.settings["orderly_web_api_url"],
                          service.settings["use_real_diagnostic_reports"],
                          service.settings["fake_smtp"])

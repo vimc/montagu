@@ -15,6 +15,8 @@ from service import MontaguService
 from service_config import api_db_user
 
 
+montagu_cli = "montagu-cli"
+
 def add_secure_config(password_group):
     makedirs(paths.config, exist_ok=True)
     path = join(paths.config, "cli.config.properties")
@@ -30,53 +32,63 @@ def add_secure_config(password_group):
 def cli():
     settings = get_settings(quiet=True)
 
-    command = [
-        "docker", "run",
-        "-it",
-        "--network", "montagu_default"
-    ]
+    command = docker_run_command("montagu_default")
+
     password_group = settings['password_group']
     if password_group is not None:
         command += add_secure_config(password_group)
 
-    name = get_image_name("montagu-cli", versions.api)
+    name = get_image_name(montagu_cli, versions.api)
     args = sys.argv[1:]
 
     run(command + [name] + args)
 
 
 def add_test_users():
+    network = get_network()
     settings = get_settings(quiet=True)
-    service = MontaguService(settings)
-    network = service.network_name
 
-    command = [
-        "docker", "run",
-        "-it",
-        "--network", network
-    ]
+    command = get_docker_run_cmd(network)
 
     password_group = settings['password_group']
     if password_group is not None:
         command += add_secure_config(password_group)
 
-    name = get_image_name("montagu-cli", versions.api)
+    name = get_image_name(montagu_cli, versions.api, True)
 
     run_cmd(command, name, ["add", "Test Admin", "test.admin", "test.admin@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.admin", "user"])
-    run_cmd(command, name, ["addRole", "test.admin", "reports-reviewer"])
     run_cmd(command, name, ["addRole", "test.admin", "touchstone-reviewer"])
     run_cmd(command, name, ["addRole", "test.admin", "admin"])
 
     run_cmd(command, name, ["add", "Test Modeller", "test.modeller", "test.modeller@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.modeller", "user"])
-    run_cmd(command, name, ["addRole", "test.modeller", "reports-reader"])
     run_cmd(command, name, ["addUserToGroup", "test.modeller", "IC-Garske"])
     run_cmd(command, name, ["addUserToGroup", "test.modeller", "Harvard-Sweet"])
 
 
+def add_user(name, id, email, password):
+    network = get_network()
+    command = get_docker_run_cmd(network)
+    image = get_image_name(montagu_cli, versions.api, True)
+
+    run_cmd(command, image, ["add", name, id, email, password, "--if-not-exists"])
+
+
+def get_network():
+    settings = get_settings(quiet=True)
+    service = MontaguService(settings)
+    return service.network_name
+
+def get_docker_run_cmd(network):
+    return [
+        "docker", "run",
+        "-it",
+        "--network", network
+    ]
+
 def run_cmd(command, name, args):
-    run(command + [name] + args)
+    run(command + [name] + args, check=True)
 
 
 if __name__ == "__main__":
