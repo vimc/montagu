@@ -1,11 +1,18 @@
-from docker_helpers import get_image_name
+from docker_helpers import get_image_name, pull
+
 
 def cli(command):
-    image =${REGISTRY} / orderly - web - user - cli:master
-    docker
-    pull $image
-    docker
-    run - -rm - v
-    orderly_volume: / orderly - -network ${NETWORK} $image $
+    image = get_image_name("orderly-web-user-cli", "master")
+    pull(image)
+    run(["docker", "run", "--rm", "-v",
+         "orderly_volume:/orderly",
+         "--network", "montagu_default",
+         image] + command, check=True)
 
-    @
+
+def add_user(user):
+    cli(["add-users", user])
+
+
+def grant_permissions(user, permissions):
+    cli(["grant", user] + permissions)

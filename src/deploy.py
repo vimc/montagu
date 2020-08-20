@@ -8,9 +8,10 @@ import bb8_backup
 import data_import
 import database
 import paths
+import orderlyweb_cli
 from ascii_art import print_ascii_art
 from certificates import get_ssl_certificate
-from cli import add_test_users
+from cli import add_test_users, add_user
 from git import git_check
 from service import MontaguService
 from service_config import configure_api, configure_proxy, \
@@ -133,6 +134,11 @@ def configure_montagu(service, data_exists):
     if service.settings["use_real_diagnostic_reports"]:
         task_queue_user = "MONTAGU_TASK_QUEUE"
         task_queue_password = get_secret("task-queue-user/{}".format(settings["instance_name"]), "password")
+
+        add_user(task_queue_user, task_queue_user, task_queue_user, task_queue_password)
+        orderlyweb_cli.add_user(task_queue_user)
+        perms = ["*/reports.read", "*/reports.review", "*/reports.run"]
+        orderlyweb_cli.grant_permissons(task_queue_user, perms)
     else:
         task_queue_user = "test.user@example.com"
         task_queue_password = "password"
