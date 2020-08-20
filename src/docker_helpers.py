@@ -14,8 +14,9 @@ except KeyError:
 montagu_registry = montagu_registry_hub if use_docker_hub else montagu_registry_local
 
 
-def get_image_name(name, version):
-    return "{url}/{name}:{version}".format(url=montagu_registry, name=name, version=version)
+def get_image_name(name, version, local_registry=False):
+    url = montagu_registry_local if local_registry else montagu_registry_hub
+    return "{url}/{name}:{version}".format(url=url, name=name, version=version)
 
 
 def docker_cp(src, container, target_path):

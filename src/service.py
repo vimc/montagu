@@ -41,6 +41,9 @@ class MontaguService:
         self.settings['docker_prefix'] = self.docker_prefix
         # Our components:
         self.containers = components['containers'].copy()
+        if settings["fake_smtp"]:
+            self.containers["fake_smtp_server"] = "fake_smtp_server"
+
         self.volumes = components['volumes'].copy()
         self.network = components['network']
 
