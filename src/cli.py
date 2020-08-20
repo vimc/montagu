@@ -48,7 +48,7 @@ def add_test_users():
     network = get_network()
     settings = get_settings(quiet=True)
 
-    command = docker_run_cmd(network)
+    command = get_docker_run_cmd(network)
 
     password_group = settings['password_group']
     if password_group is not None:
@@ -69,7 +69,7 @@ def add_test_users():
 
 def add_user(name, id, email, password):
     network = get_network()
-    command = docker_run_cmd(network)
+    command = get_docker_run_cmd(network)
     image = get_image_name(montagu_cli, versions.api, True)
 
     run_cmd(command, image, ["add", name, id, email, password, "--if-not-exists"])
@@ -80,7 +80,7 @@ def get_network():
     service = MontaguService(settings)
     return service.network_name
 
-def docker_run_cmd(network):
+def get_docker_run_cmd(network):
     return [
         "docker", "run",
         "-it",
