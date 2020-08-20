@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 
+"""
+Generate task queue password
+
+Generates a password for the montagu task queue user for a given instance name
+(e.g. uat, science, production) and saves it to the vault.
+
+Usage:
+  generate_task_queue_password.py <instance name>
+"""
+
 import sys
 from generate_passwords import random_password
 from settings import set_secret, get_secret, list_secrets
