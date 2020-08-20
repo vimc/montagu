@@ -58,13 +58,11 @@ def add_test_users():
 
     run_cmd(command, name, ["add", "Test Admin", "test.admin", "test.admin@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.admin", "user"])
-    run_cmd(command, name, ["addRole", "test.admin", "reports-reviewer"])
     run_cmd(command, name, ["addRole", "test.admin", "touchstone-reviewer"])
     run_cmd(command, name, ["addRole", "test.admin", "admin"])
 
     run_cmd(command, name, ["add", "Test Modeller", "test.modeller", "test.modeller@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.modeller", "user"])
-    run_cmd(command, name, ["addRole", "test.modeller", "reports-reader"])
     run_cmd(command, name, ["addUserToGroup", "test.modeller", "IC-Garske"])
     run_cmd(command, name, ["addUserToGroup", "test.modeller", "Harvard-Sweet"])
 
