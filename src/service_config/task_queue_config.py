@@ -2,6 +2,7 @@ import yaml
 import paths
 from os.path import join
 from docker_helpers import docker_cp, docker_cp_from
+from settings import get_secret
 
 
 def configure_task_queue(service, montagu_user, montagu_password,
@@ -35,13 +36,14 @@ def configure_task_queue(service, montagu_user, montagu_password,
     config["tasks"]["diagnostic_reports"]["reports"] = diag_reports
 
     smtp = config["servers"]["smtp"]
-    smtp["from"] = "montagu-help@imperial.ac.uk"
+    smtp["from"] = "montagu-notifications@imperial.ac.uk"
     if fake_smtp:
         smtp["host"] = "montagu_fake_smtp_server_1"
     else:
         smtp["host"] = "smtp.cc.ic.ac.uk"
         smtp["port"] = 587
-
+        smtp["user"] = "montagu"
+        smtp["password"] = get_secret("email/password")
 
     print("- writing config to container")
     with open(local_config_file, "w") as file:
