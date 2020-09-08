@@ -9,7 +9,7 @@ from os.path import abspath, dirname, join
 
 def generate():
     report = "native-diagnostics-burden-report-drafts"
-    subject = "New VIMC diagnostic report available"
+    subject = "VIMC diagnostic report: {touchstone} - {group} - {disease}"
 
     vimc_recipients = [
         "k.gaythorpe@imperial.ac.uk",
