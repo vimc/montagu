@@ -78,7 +78,7 @@ def task_queue_integration_tests():
         versions = signature.delay().get()
         assert len(versions) == 1
         # check expected notification email was sent to fake smtp server
-        emails = requests.get("http://localhost:1080/api/emails").json()
+        emails = requests.get("x    ").json()
         assert len(emails) == 1
         s = "VIMC diagnostic report: testTouchstone - testGroup - testDisease"
         assert emails[0]["subject"] == s
@@ -159,7 +159,10 @@ def start_orderly_web():
         grant_permissions("test.user@example.com", ow_cli_image)
 
         #permission for task-queue tests
-        grant_permissions("test.user@example.com", ow_cli_image, "*/reports.run")
+        grant_permissions("test.user@example.com", ow_cli_image,
+                          "*/reports.run")
+        grant_permissions("test.user@example.com", ow_cli_image,
+                          "*/reports.review")
 
 
     run_in_teamcity_block("start_orderly_web", work)
