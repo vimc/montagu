@@ -36,7 +36,7 @@ def configure_task_queue(service, montagu_user, montagu_password,
     config["tasks"]["diagnostic_reports"]["reports"] = diag_reports
 
     smtp = config["servers"]["smtp"]
-    smtp["from"] = "montagu-notifications@imperial.ac.uk"
+    smtp["from"] = "montagu-help@imperial.ac.uk"
     if fake_smtp:
         smtp["host"] = "montagu_fake_smtp_server_1"
     else:
