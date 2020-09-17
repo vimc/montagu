@@ -17,7 +17,7 @@ x-logging: &log-journald
 
 services:
   api:
-    image: ${MONTAGU_REGISTRY}/montagu-api:${MONTAGU_API_VERSION}
+    image: ${VIMC_REGISTRY}/montagu-api:${MONTAGU_API_VERSION}
     restart: always
     logging: *log-journald
     depends_on:
