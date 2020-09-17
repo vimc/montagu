@@ -2104,3 +2104,11 @@ Minor css change
 * tc_blackbox_docker
 * vimc-4321
 
+# v2.5.3
+
+## Tickets
+* vimc-4250: Configure automated emails to modellers re diagnostic reports
+
+## Other branches merged in this release
+* latest
+
