@@ -35,7 +35,7 @@ def run_in_teamcity_block(name, work):
 
 def api_blackbox_tests():
     def work():
-        image = get_image_name("montagu-api-blackbox-tests", versions.api, True)
+        image = get_image_name("montagu-api-blackbox-tests", versions.api)
         pull(image)
         run([
             "docker", "run",
