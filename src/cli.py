@@ -54,7 +54,7 @@ def add_test_users():
     if password_group is not None:
         command += add_secure_config(password_group)
 
-    name = get_image_name(montagu_cli, versions.api, True)
+    name = get_image_name(montagu_cli, versions.api)
 
     run_cmd(command, name, ["add", "Test Admin", "test.admin", "test.admin@imperial.ac.uk", "password", "--if-not-exists"])
     run_cmd(command, name, ["addRole", "test.admin", "user"])
@@ -70,7 +70,7 @@ def add_test_users():
 def add_user(name, id, email, password):
     network = get_network()
     command = get_docker_run_cmd(network)
-    image = get_image_name(montagu_cli, versions.api, True)
+    image = get_image_name(montagu_cli, versions.api)
 
     run_cmd(command, image, ["add", name, id, email, password, "--if-not-exists"])
 
