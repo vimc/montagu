@@ -38,7 +38,8 @@ Note if you are deploying to science warn science team first that it will be goi
 1. Connect as the vagrant user: `ssh vagrant@support.montagu` (or `ssh support.montagu` and then `sudo su vagrant && cd`)
 2. Run `./uat.sh` or `./science.sh` which will give you a shell inside the virtual machine.
 3. `cd montagu`
-4.  2 options here:
+4. Update the submodules `git submodule init` `git submodule update --recursive`
+5.  2 options here:
 
     i) To deploy the latest tagged release, run `./deploy.py`
 
@@ -56,4 +57,4 @@ Note if you are deploying to science warn science team first that it will be goi
     which takes a long time. You can skip this by changing the configuration.
     Edit `src/montagu-deploy.json` and change `update_on_deploy` field to `false`.
     Deploy and then make sure to reset to `true` when deploy has completed.
-5. If deploying science we want to make the data vis tool publicly accessible so run `./scripts/copy-vis-tool.sh` after the deploy has complete. This is temporary and we will run automatically once the public data vis tool is deployed on production.
+6. If deploying science we want to make the data vis tool publicly accessible so run `./scripts/copy-vis-tool.sh` after the deploy has complete. This is temporary and we will run automatically once the public data vis tool is deployed on production.
