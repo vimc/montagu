@@ -2079,3 +2079,28 @@ Minor css change
 * latest
 * retired_registry_1
 
+# v2.5.2
+
+## Tickets
+* vimc-4010: Deploy Task Queue as part of Montagu
+* vimc-4204: Update proxy to use latest version for private data vis tool
+* vimc-4207: Update environments to user latest version of public datavis tool
+* vimc-4217: Add real diagnostic reports configuration to Task Queue deployment config
+* vimc-4218: Add montagu task queue user and password during deployment
+* vimc-4219: Add fake smtp containers to non-production for task queue to use
+* vimc-4224: Configure real smtp details for task queue
+* vimc-4225: Move Montagu-API build to buildkite
+* vimc-4226: Move Montagu-Proxy build to buildkite
+* vimc-4228: Remove proxy containers from private registry
+* vimc-4229: Move db containers off private registry
+* vimc-4230: Move static containers off private registyr
+* vimc-4231: Move montagu-db build to buildkite
+* vimc-4240: Do not show MONTAGU_TASK_QUEUE user in admin portal
+* vimc-4254-migration: Add time to dettl import log
+
+## Other branches merged in this release
+* build
+* configure_static_server
+* tc_blackbox_docker
+* vimc-4321
+
