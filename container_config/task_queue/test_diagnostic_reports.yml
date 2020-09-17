@@ -5,4 +5,4 @@ testGroup:
         recipients:
           - minimal_modeller@example.com
           - science@example.com
-        subject: "New version of Orderly report: {report_name}"
+        subject: "VIMC diagnostic report: {touchstone} - {group} - {disease}"

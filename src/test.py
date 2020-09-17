@@ -72,12 +72,11 @@ def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
         app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
-        sig = "run_diagnostic_reports"
+        sig = "run-diagnostic-reports"
         args = ["testGroup", "testDisease", "testTouchstone"]
         signature = app.signature(sig, args)
         versions = signature.delay().get()
         assert len(versions) == 1
-        assert len(versions[0]) == 24
         # check expected notification email was sent to fake smtp server
         emails = requests.get("http://localhost:1080/api/emails").json()
         assert len(emails) == 1
@@ -160,7 +159,12 @@ def start_orderly_web():
         grant_permissions("test.user@example.com", ow_cli_image)
 
         #permission for task-queue tests
-        grant_permissions("test.user@example.com", ow_cli_image, "*/reports.run")
+        grant_permissions("test.user@example.com", ow_cli_image,
+                          "*/reports.run")
+        grant_permissions("test.user@example.com", ow_cli_image,
+                          "*/reports.review")
+        grant_permissions("test.user@example.com", ow_cli_image,
+                          "*/reports.read")
 
 
     run_in_teamcity_block("start_orderly_web", work)
