@@ -5,7 +5,7 @@ from docker_helpers import docker_cp, docker_cp_from
 from settings import get_secret
 
 
-def configure_task_queue(service, montagu_user, montagu_password,
+def configure_task_queue(service, montagu_email, montagu_password,
                          orderly_web_url, use_real_diagnostic_reports,  fake_smtp):
     container = service.task_queue
 
@@ -26,7 +26,7 @@ def configure_task_queue(service, montagu_user, montagu_password,
     print("- adding settings to config")
     montagu = config["servers"]["montagu"]
     montagu["url"] = "http://montagu_api_1:8080"
-    montagu["user"] = montagu_user
+    montagu["user"] = montagu_email
     montagu["password"] = montagu_password
 
     # Task queue needs orderly-web url without /api/v1 suffix

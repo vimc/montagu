@@ -2,7 +2,7 @@
 import sys
 from os import chdir, makedirs
 
-from subprocess import run
+from subprocess import run, PIPE
 from os.path import abspath, dirname, join
 
 import paths
@@ -32,7 +32,7 @@ def add_secure_config(password_group):
 def cli():
     settings = get_settings(quiet=True)
 
-    command = docker_run_command("montagu_default")
+    command = get_docker_run_cmd("montagu_default")
 
     password_group = settings['password_group']
     if password_group is not None:
@@ -73,6 +73,7 @@ def add_user(name, id, email, password):
     image = get_image_name(montagu_cli, versions.api)
 
     run_cmd(command, image, ["add", name, id, email, password, "--if-not-exists"])
+    run_cmd(command, image, ["addRole", name, "user"])
 
 
 def get_network():
@@ -82,13 +83,15 @@ def get_network():
 
 def get_docker_run_cmd(network):
     return [
-        "docker", "run",
-        "-it",
-        "--network", network
+        "docker", "run", "--rm", "--network", network
     ]
 
 def run_cmd(command, name, args):
-    run(command + [name] + args, check=True)
+    result = run(command + [name] + args, stderr=PIPE, stdout=PIPE)
+    print(result.stderr)
+    print(result.stdout)
+    if result.returncode > 0:
+        raise Exception("Command returned non-zero exit code")
 
 
 if __name__ == "__main__":

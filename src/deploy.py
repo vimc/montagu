@@ -131,21 +131,21 @@ def configure_montagu(service, data_exists):
                   service.settings["hostname"], is_prod,
                   service.settings["orderly_web_api_url"])
 
+    task_queue_user = "MONTAGU_TASK_QUEUE"
+    task_queue_email = "montagu-task@imperial.ac.uk"
     if service.settings["use_real_diagnostic_reports"]:
-        print("Configuring task queue user")
-        task_queue_user = "MONTAGU_TASK_QUEUE"
         task_queue_password = get_secret("task-queue-user/{}".format(service.settings["instance_name"]), "password")
-
-        add_user(task_queue_user, task_queue_user, task_queue_user, task_queue_password)
-        orderlyweb_cli.add_user(task_queue_user)
-        perms = ["*/reports.read", "*/reports.review", "*/reports.run"]
-        orderlyweb_cli.grant_permissions(task_queue_user, perms)
     else:
-        task_queue_user = "test.user@example.com"
         task_queue_password = "password"
 
+    print("Configuring task queue user")
+    add_user(task_queue_user, task_queue_user, task_queue_email,
+             task_queue_password)
+    orderlyweb_cli.add_user(task_queue_user)
+    perms = ["*/reports.read", "*/reports.review", "*/reports.run"]
+    orderlyweb_cli.grant_permissions(task_queue_user, perms)
 
-    configure_task_queue(service, task_queue_user, task_queue_password,
+    configure_task_queue(service, task_queue_email, task_queue_password,
                          service.settings["orderly_web_api_url"],
                          service.settings["use_real_diagnostic_reports"],
                          service.settings["fake_smtp"])

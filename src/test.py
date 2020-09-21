@@ -50,16 +50,19 @@ def api_blackbox_tests():
 
 def webapp_integration_tests():
     def run_suite(portal, version):
-        image = "vimc/montagu-portal-integration-tests:{version}".format(version=version)
+        image = "vimc/montagu-portal-integration-tests:{version}".format(
+            version=version)
         pull(image)
         run([
             "docker", "run",
             "--rm",
             "--network", "montagu_default",
-            "-v", "/opt/teamcity-agent/.docker/config.json:/root/.docker/config.json",
+            "-v",
+            "/opt/teamcity-agent/.docker/config.json:/root/.docker/config.json",
             "-v", "/var/run/docker.sock:/var/run/docker.sock",
             image,
-            portal.title()  # Tests expect capitalized first letter, e.g. "Admin"
+            portal.title()
+            # Tests expect capitalized first letter, e.g. "Admin"
         ], check=True)
 
     def work():
@@ -68,10 +71,12 @@ def webapp_integration_tests():
 
     run_in_teamcity_block("webapp_integration_tests", work)
 
+
 def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
-        app = celery.Celery(broker="pyamqp://guest@localhost//", backend="rpc://")
+        app = celery.Celery(broker="pyamqp://guest@localhost//",
+                            backend="rpc://")
         sig = "run-diagnostic-reports"
         args = ["testGroup", "testDisease", "testTouchstone"]
         signature = app.signature(sig, args)
@@ -82,24 +87,25 @@ def task_queue_integration_tests():
         assert len(emails) == 1
         s = "VIMC diagnostic report: testTouchstone - testGroup - testDisease"
         assert emails[0]["subject"] == s
-        assert emails[0]["to"]["value"][0]["address"] == "minimal_modeller@example.com"
+        assert emails[0]["to"]["value"][0][
+                   "address"] == "minimal_modeller@example.com"
 
     run_in_teamcity_block("task_queue_integration_tests", work)
+
 
 def start_orderly_web():
     def add_user(email, image):
         run([
-           "docker", "run", "-v", "orderly_volume:/orderly", image, "add-users", email
+            "docker", "run", "-v", "orderly_volume:/orderly", image,
+            "add-users", email
         ], check=True)
 
-    def grant_permissions(email, image, permissions="*/users.manage"):
-        run([
-            "docker", "run", "-v", "orderly_volume:/orderly", image, "grant", email, permissions
-        ], check=True)
+    def grant_permissions(email, image, permissions):
+        run(["docker", "run", "-v", "orderly_volume:/orderly",
+             image, "grant", email] + permissions, check=True)
 
     def work():
-
-        cwd =  os.getcwd()
+        cwd = os.getcwd()
 
         run(["docker", "volume", "create", "orderly_volume"], check=True)
 
@@ -119,9 +125,11 @@ def start_orderly_web():
         run(["docker", "exec", "montagu_orderly_orderly_1", "Rscript", "-e",
              "orderly:::create_orderly_demo('/orderly')"], check=True)
 
-        run(["docker", "exec", "montagu_orderly_orderly_1", "orderly", "rebuild", "--if-schema-changed"], check=True)
+        run(["docker", "exec", "montagu_orderly_orderly_1", "orderly",
+             "rebuild", "--if-schema-changed"], check=True)
 
-        run(["docker", "exec", "montagu_orderly_orderly_1", "touch", "/go_signal"],
+        run(["docker", "exec", "montagu_orderly_orderly_1", "touch",
+             "/go_signal"],
             check=True)
 
         ow_image = get_image_name("orderly-web", "master")
@@ -131,12 +139,13 @@ def start_orderly_web():
             "-p", "8888:8888",
             "--network", "montagu_default",
             "-v", "orderly_volume:/orderly",
-            "-v", cwd+"/container_config/orderlyweb:/etc/orderly/web",
+            "-v", cwd + "/container_config/orderlyweb:/etc/orderly/web",
             "--name", "montagu_orderly_web_1",
             ow_image
         ], check=True)
 
-        run(["docker", "exec", "montagu_orderly_web_1", "touch", "/etc/orderly/web/go_signal"],
+        run(["docker", "exec", "montagu_orderly_web_1", "touch",
+             "/etc/orderly/web/go_signal"],
             check=True)
 
         ow_migrate_image = get_image_name("orderlyweb-migrate", "master")
@@ -150,21 +159,18 @@ def start_orderly_web():
         ow_cli_image = get_image_name("orderly-web-user-cli", "master")
         pull(ow_cli_image)
 
-        #user for api blackbox tests
+        # user for api blackbox tests
         add_user("user@test.com", ow_cli_image)
-        grant_permissions("user@test.com", ow_cli_image)
+        grant_permissions("user@test.com", ow_cli_image, ["*/users.manage"])
 
-        #user for webapp tests
+        # add task q user
+        add_user("montagu-task@imperial.ac.uk", ow_cli_image)
+        grant_permissions("montagu-task@imperial.ac.uk", ow_cli_image,
+                          ["*/reports.run", "*/reports.review", "*/reports.read"])
+
+        # user for webapp tests
         add_user("test.user@example.com", ow_cli_image)
-        grant_permissions("test.user@example.com", ow_cli_image)
-
-        #permission for task-queue tests
-        grant_permissions("test.user@example.com", ow_cli_image,
-                          "*/reports.run")
-        grant_permissions("test.user@example.com", ow_cli_image,
-                          "*/reports.review")
-        grant_permissions("test.user@example.com", ow_cli_image,
-                          "*/reports.read")
+        grant_permissions("test.user@example.com", ow_cli_image, ["*/users.manage"])
 
 
     run_in_teamcity_block("start_orderly_web", work)
@@ -182,6 +188,7 @@ if __name__ == "__main__":
         webapp_integration_tests()
         task_queue_integration_tests()
     else:
-        print("Warning - these tests should not be run in a real environment. They will destroy or change data.")
+        print(
+            "Warning - these tests should not be run in a real environment. They will destroy or change data.")
         print("To run the tests, run ./tests.py --run-tests")
         exit(-1)

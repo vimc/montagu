@@ -16,7 +16,9 @@ montagu_registry = montagu_registry_hub if use_docker_hub else montagu_registry_
 
 def get_image_name(name, version, local_registry=False):
     url = montagu_registry_local if local_registry else montagu_registry_hub
-    return "{url}/{name}:{version}".format(url=url, name=name, version=version)
+    image = "{url}/{name}:{version}".format(url=url, name=name, version=version)
+    pull(image)
+    return image
 
 
 def docker_cp(src, container, target_path):
