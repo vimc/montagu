@@ -73,6 +73,8 @@ def generate():
     config = {}
     for group in group_diseases.keys():
         pi_email = group_PIs[group]
+        if not isinstance(pi_email, list):
+            pi_email = [pi_email]
         config[group] = {}
         for disease in group_diseases[group]:
             parameters = {"disease": disease, "modelling_group": group}
@@ -80,7 +82,7 @@ def generate():
                 "report_name": report,
                 "parameters": parameters,
                 "success_email": {
-                    "recipients": copy(vimc_recipients) + [pi_email],
+                    "recipients": copy(vimc_recipients) + pi_email,
                     "subject": subject
                 }
             }]

@@ -15,7 +15,7 @@ CDA-Razavi:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - homie.razavi@centerforda.com
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 Cambridge-Trotter:
   MenA:
   - parameters:
@@ -31,7 +31,7 @@ Cambridge-Trotter:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - clt56@cam.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 Emory-Lopman:
   Rota:
   - parameters:
@@ -47,7 +47,7 @@ Emory-Lopman:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - benjamin.alan.lopman@emory.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 Harvard-Sweet:
   HPV:
   - parameters:
@@ -63,7 +63,7 @@ Harvard-Sweet:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - ssweet@hsph.harvard.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 IC-Garske:
   YF:
   - parameters:
@@ -79,7 +79,7 @@ IC-Garske:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - k.gaythorpe@imperial.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 IC-Hallett:
   HepB:
   - parameters:
@@ -95,7 +95,7 @@ IC-Hallett:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - timothy.hallett@imperial.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 ICDDRB-Qadri:
   Typhoid:
   - parameters:
@@ -111,7 +111,7 @@ ICDDRB-Qadri:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - fqadri@icddrb.org
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 JHU-Lessler:
   Rubella:
   - parameters:
@@ -127,7 +127,7 @@ JHU-Lessler:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - justin@jhu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 JHU-Lessler-WHO:
   Rubella:
   - parameters:
@@ -143,7 +143,7 @@ JHU-Lessler-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - justin@jhu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 JHU-Tam:
   Hib:
   - parameters:
@@ -159,7 +159,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - yvonneyotam@jhu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   PCV:
   - parameters:
       disease: PCV
@@ -174,7 +174,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - yvonneyotam@jhu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   Rota:
   - parameters:
       disease: Rota
@@ -189,7 +189,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - yvonneyotam@jhu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 KPW-Jackson:
   MenA:
   - parameters:
@@ -205,7 +205,7 @@ KPW-Jackson:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - jackson.ml@ghc.org
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 LSHTM-Clark:
   Hib:
   - parameters:
@@ -221,7 +221,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - andrew.clark@lshtm.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   PCV:
   - parameters:
       disease: PCV
@@ -236,7 +236,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - andrew.clark@lshtm.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   Rota:
   - parameters:
       disease: Rota
@@ -251,7 +251,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - andrew.clark@lshtm.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 LSHTM-Jit:
   HPV:
   - parameters:
@@ -267,7 +267,7 @@ LSHTM-Jit:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - Mark.Jit@lshtm.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   Measles:
   - parameters:
       disease: Measles
@@ -282,7 +282,7 @@ LSHTM-Jit:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - Mark.Jit@lshtm.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 LSHTM-Jit-WHO:
   Measles:
   - parameters:
@@ -298,7 +298,7 @@ LSHTM-Jit-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - Mark.Jit@lshtm.ac.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 Li:
   HepB:
   - parameters:
@@ -314,7 +314,7 @@ Li:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - xi.cira.li@gmail.com
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 OUCRU-Clapham:
   JE:
   - parameters:
@@ -330,7 +330,7 @@ OUCRU-Clapham:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - hclapham@oucru.org
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 PHE-Vynnycky:
   Rubella:
   - parameters:
@@ -346,7 +346,7 @@ PHE-Vynnycky:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - emilia.vynnycky@phe.gov.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 PHE-Vynnycky-WHO:
   Rubella:
   - parameters:
@@ -362,7 +362,7 @@ PHE-Vynnycky-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - emilia.vynnycky@phe.gov.uk
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 PSU-Ferrari:
   Measles:
   - parameters:
@@ -378,7 +378,7 @@ PSU-Ferrari:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - mjf283@psu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 PSU-Ferrari-WHO:
   Measles:
   - parameters:
@@ -394,7 +394,7 @@ PSU-Ferrari-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - mjf283@psu.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 UND-Moore:
   JE:
   - parameters:
@@ -410,7 +410,7 @@ UND-Moore:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - smoore15@nd.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 UND-Perkins:
   YF:
   - parameters:
@@ -426,4 +426,4 @@ UND-Perkins:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - taperkins@nd.edu
-      subject: New VIMC diagnostic report available
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
