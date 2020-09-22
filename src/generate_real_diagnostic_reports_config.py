@@ -28,6 +28,8 @@ def generate():
         "IC-Garske": ["YF"],
         "IC-Hallett": ["HepB"],
         "ICDDRB-Qadri": ["Typhoid"],
+        "IVI-Kim": ["Cholera", "Typhoid"],
+        "JHU-Lee": ["Cholera", "Typhoid"],
         "JHU-Lessler": ["Rubella"],
         "JHU-Lessler-WHO": ["Rubella"],
         "JHU-Tam":	["Hib", "PCV", "Rota"],
@@ -42,32 +44,36 @@ def generate():
         "PSU-Ferrari":	["Measles"],
         "PSU-Ferrari-WHO": ["Measles"],
         "UND-Moore": ["JE"],
-        "UND-Perkins": ["YF"]
+        "UND-Perkins": ["YF"],
+        "Yale-Pitzer": ["Typhoid"]
     }
 
     group_PIs = {
-        "Cambridge-Trotter": "clt56@cam.ac.uk",
+        "Cambridge-Trotter": ["clt56@cam.ac.uk","ak889@cam.ac.uk"]
         "CDA-Razavi": "homie.razavi@centerforda.com",
-        "Emory-Lopman": "benjamin.alan.lopman@emory.edu",
-        "Harvard-Sweet": "ssweet@hsph.harvard.edu",
+        "Emory-Lopman": ["benjamin.alan.lopman@emory.edu","alicia.nicole.mullis.kraay@emory.edu"]
+        "Harvard-Sweet": ["ssweet@hsph.harvard.edu","aportnoy@mail.harvard.edu","jkim@hsph.harvard.edu"]
         "IC-Garske": "k.gaythorpe@imperial.ac.uk",
-        "IC-Hallett": "timothy.hallett@imperial.ac.uk",
+        "IC-Hallett": ["timothy.hallett@imperial.ac.uk","m.de-villiers@imperial.ac.uk"]
         "ICDDRB-Qadri": "fqadri@icddrb.org",
-        "JHU-Lessler": "justin@jhu.edu",
+        "IVI-Kim": "jonghoon.kim@ivi.int",
+        "JHU-Lee": "elizabeth.c.lee@jhu.edu",
+        "JHU-Lessler": ["justin@jhu.edu","akwinter@jhu.edu","shauntruelove@jhu.edu"]
         "JHU-Lessler-WHO": "justin@jhu.edu",
-        "JHU-Tam":	"yvonneyotam@jhu.edu",
-        "KPW-Jackson": "jackson.ml@ghc.org",
+        "JHU-Tam":	["yvonneyotam@jhu.edu","ecarter@jhu.edu"]
+        "KPW-Jackson": "Michael.L.Jackson@kp.org",
         "Li": "xi.cira.li@gmail.com",
-        "LSHTM-Clark": "andrew.clark@lshtm.ac.uk",
-        "LSHTM-Jit": "Mark.Jit@lshtm.ac.uk",
+        "LSHTM-Clark": ["andrew.clark@lshtm.ac.uk","Hira.Tanvir@lshtm.ac.uk"]
+        "LSHTM-Jit": ["Mark.Jit@lshtm.ac.uk","Kaja.Abbas@lshtm.ac.uk"]
         "LSHTM-Jit-WHO": "Mark.Jit@lshtm.ac.uk",
-        "OUCRU-Clapham": "hclapham@oucru.org",
-        "PHE-Vynnycky": "emilia.vynnycky@phe.gov.uk",
+        "OUCRU-Clapham": "hannah.clapham@nus.edu.sg",
+        "PHE-Vynnycky": ["emilia.vynnycky@phe.gov.uk","timos.papadopoulos@phe.gov.uk"]
         "PHE-Vynnycky-WHO": "emilia.vynnycky@phe.gov.uk",
         "PSU-Ferrari": "mjf283@psu.edu",
         "PSU-Ferrari-WHO": "mjf283@psu.edu",
         "UND-Moore": "smoore15@nd.edu",
-        "UND-Perkins": "taperkins@nd.edu"
+        "UND-Perkins": ["taperkins@nd.edu","John.H.Huber.24@nd.edu"],
+        "Yale-Pitzer": "virginia.pitzer@yale.edu"
     }
 
     config = {}
