@@ -2118,3 +2118,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.6.0
+
+## Tickets
+* vimc-4020_integrate: Montagu API to invoke run_report task when estimate set completes
+* vimc-4020_test: Montagu API to invoke run_report task when estimate set completes
+
+## Other branches merged in this release
+* kimwoodruff-patch-1
+* latest
+
