@@ -46,6 +46,7 @@ def generate():
         "UND-Moore": ["JE"],
         "UND-Perkins": ["YF"],
         "Yale-Pitzer": ["Typhoid"]
+        "Imperial-test user" [    ]
     }
 
     group_PIs = {
@@ -74,6 +75,7 @@ def generate():
         "UND-Moore": "smoore15@nd.edu",
         "UND-Perkins": ["taperkins@nd.edu","John.H.Huber.24@nd.edu"],
         "Yale-Pitzer": "virginia.pitzer@yale.edu"
+        "Imperial-test user": "t.vuong@imperial.ac.uk",
     }
 
     config = {}
