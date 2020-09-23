@@ -2128,3 +2128,10 @@ Minor css change
 * kimwoodruff-patch-1
 * latest
 
+# v2.6.1
+
+## Tickets
+
+## Other branches merged in this release
+* latest
+
