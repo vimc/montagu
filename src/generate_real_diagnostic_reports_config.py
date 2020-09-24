@@ -45,8 +45,8 @@ def generate():
         "PSU-Ferrari-WHO": ["Measles"],
         "UND-Moore": ["JE"],
         "UND-Perkins": ["YF"],
-        "Yale-Pitzer": ["Typhoid"]
-        "Imperial-test user" [    ]
+        "Yale-Pitzer": ["Typhoid"],
+        "VIMC" ["Tyhoid", "Cholera"]
     }
 
     group_PIs = {
@@ -74,8 +74,8 @@ def generate():
         "PSU-Ferrari-WHO": "mjf283@psu.edu",
         "UND-Moore": "smoore15@nd.edu",
         "UND-Perkins": ["taperkins@nd.edu","John.H.Huber.24@nd.edu"],
-        "Yale-Pitzer": "virginia.pitzer@yale.edu"
-        "Imperial-test user": "t.vuong@imperial.ac.uk",
+        "Yale-Pitzer": "virginia.pitzer@yale.edu",
+        "VIMC": "t.vuong@imperial.ac.uk"
     }
 
     config = {}
