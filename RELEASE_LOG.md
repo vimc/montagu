@@ -2150,3 +2150,9 @@ Minor css change
 * hotfix
 * latest
 
+# v2.6.4
+
+## Tickets
+
+## Other branches merged in this release
+
