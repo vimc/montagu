@@ -2135,3 +2135,10 @@ Minor css change
 ## Other branches merged in this release
 * latest
 
+# v2.6.2
+
+## Tickets
+
+## Other branches merged in this release
+* latest
+
