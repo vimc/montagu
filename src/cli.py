@@ -67,9 +67,13 @@ def add_test_users():
     run_cmd(command, name, ["addUserToGroup", "test.modeller", "Harvard-Sweet"])
 
 
-def add_user(name, id, email, password):
+def add_user(name, id, email, password, password_group):
     network = get_network()
     command = get_docker_run_cmd(network)
+
+    if password_group is not None:
+        command += add_secure_config(password_group)
+
     image = get_image_name(montagu_cli, versions.api)
 
     run_cmd(command, image, ["add", name, id, email, password, "--if-not-exists"])
