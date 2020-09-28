@@ -31,6 +31,7 @@ Cambridge-Trotter:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - clt56@cam.ac.uk
+      - ak889@cam.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 Emory-Lopman:
   Rota:
@@ -47,6 +48,7 @@ Emory-Lopman:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - benjamin.alan.lopman@emory.edu
+      - alicia.nicole.mullis.kraay@emory.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 Harvard-Sweet:
   HPV:
@@ -63,6 +65,8 @@ Harvard-Sweet:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - ssweet@hsph.harvard.edu
+      - aportnoy@mail.harvard.edu
+      - jkim@hsph.harvard.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 IC-Garske:
   YF:
@@ -95,6 +99,7 @@ IC-Hallett:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - timothy.hallett@imperial.ac.uk
+      - m.de-villiers@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 ICDDRB-Qadri:
   Typhoid:
@@ -112,6 +117,68 @@ ICDDRB-Qadri:
       - montagu-help@imperial.ac.uk
       - fqadri@icddrb.org
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+IVI-Kim:
+  Cholera:
+  - parameters:
+      disease: Cholera
+      modelling_group: IVI-Kim
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - jonghoon.kim@ivi.int
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+  Typhoid:
+  - parameters:
+      disease: Typhoid
+      modelling_group: IVI-Kim
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - jonghoon.kim@ivi.int
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+JHU-Lee:
+  Cholera:
+  - parameters:
+      disease: Cholera
+      modelling_group: JHU-Lee
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - elizabeth.c.lee@jhu.edu
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+  Typhoid:
+  - parameters:
+      disease: Typhoid
+      modelling_group: JHU-Lee
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - elizabeth.c.lee@jhu.edu
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 JHU-Lessler:
   Rubella:
   - parameters:
@@ -127,6 +194,8 @@ JHU-Lessler:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - justin@jhu.edu
+      - akwinter@jhu.edu
+      - shauntruelove@jhu.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 JHU-Lessler-WHO:
   Rubella:
@@ -159,6 +228,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - yvonneyotam@jhu.edu
+      - ecarter@jhu.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   PCV:
   - parameters:
@@ -174,6 +244,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - yvonneyotam@jhu.edu
+      - ecarter@jhu.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   Rota:
   - parameters:
@@ -189,6 +260,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - yvonneyotam@jhu.edu
+      - ecarter@jhu.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 KPW-Jackson:
   MenA:
@@ -204,7 +276,7 @@ KPW-Jackson:
       - j.toor@imperial.ac.uk
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
-      - jackson.ml@ghc.org
+      - Michael.L.Jackson@kp.org
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 LSHTM-Clark:
   Hib:
@@ -221,6 +293,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - andrew.clark@lshtm.ac.uk
+      - Hira.Tanvir@lshtm.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   PCV:
   - parameters:
@@ -236,6 +309,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - andrew.clark@lshtm.ac.uk
+      - Hira.Tanvir@lshtm.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   Rota:
   - parameters:
@@ -251,6 +325,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - andrew.clark@lshtm.ac.uk
+      - Hira.Tanvir@lshtm.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 LSHTM-Jit:
   HPV:
@@ -267,6 +342,7 @@ LSHTM-Jit:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - Mark.Jit@lshtm.ac.uk
+      - Kaja.Abbas@lshtm.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
   Measles:
   - parameters:
@@ -282,6 +358,7 @@ LSHTM-Jit:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - Mark.Jit@lshtm.ac.uk
+      - Kaja.Abbas@lshtm.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 LSHTM-Jit-WHO:
   Measles:
@@ -329,7 +406,7 @@ OUCRU-Clapham:
       - j.toor@imperial.ac.uk
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
-      - hclapham@oucru.org
+      - hannah.clapham@nus.edu.sg
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 PHE-Vynnycky:
   Rubella:
@@ -346,6 +423,7 @@ PHE-Vynnycky:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - emilia.vynnycky@phe.gov.uk
+      - timos.papadopoulos@phe.gov.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
 PHE-Vynnycky-WHO:
   Rubella:
@@ -426,4 +504,52 @@ UND-Perkins:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       - taperkins@nd.edu
+      - John.H.Huber.24@nd.edu
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+VIMC:
+  Cholera:
+  - parameters:
+      disease: Cholera
+      modelling_group: VIMC
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - t.vuong@imperial.ac.uk
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+  Tyhoid:
+  - parameters:
+      disease: Tyhoid
+      modelling_group: VIMC
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - t.vuong@imperial.ac.uk
+      subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
+Yale-Pitzer:
+  Typhoid:
+  - parameters:
+      disease: Typhoid
+      modelling_group: Yale-Pitzer
+    report_name: native-diagnostics-burden-report-drafts
+    success_email:
+      recipients:
+      - k.gaythorpe@imperial.ac.uk
+      - susy.echeverria-londono@imperial.ac.uk
+      - x.li@imperial.ac.uk
+      - j.toor@imperial.ac.uk
+      - e.russell@imperial.ac.uk
+      - montagu-help@imperial.ac.uk
+      - virginia.pitzer@yale.edu
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
