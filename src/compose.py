@@ -1,6 +1,8 @@
 from subprocess import Popen
 from docker_helpers import montagu_registry
 
+import shutil
+
 import versions
 
 
@@ -20,8 +22,13 @@ def pull(settings):
 def run(args, settings):
     docker_prefix = settings["docker_prefix"]
     staging_file =  "-f ../docker-compose.staging.yml" if settings["fake_smtp"] else ""
-    prefix = 'docker-compose -f ../docker-compose.yml {} --project-name {} '.format(staging_file, docker_prefix)
+    exe = shutil.which("docker-compose")
+    if not exe:
+        raise Exception("Did not find docker-compose on path")
+    prefix = '{} -f ../docker-compose.yml {} --project-name {} '.format(
+        exe, staging_file, docker_prefix)
     cmd = prefix + args
+    print(cmd)
     p = Popen(cmd, env=get_env(settings), shell=True)
     p.wait()
     if p.returncode != 0:
