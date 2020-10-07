@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-./scripts/clear-docker.sh --force
+./clear-docker.sh --force
 function cleanup() {
     ./clear-docker.sh --force
 }
