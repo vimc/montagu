@@ -81,10 +81,8 @@ A quick reminder of the data sets discussed above: empty, minimal, test data,
 legacy, restore from backup.
 
 * "Empty" just means doing nothing. 
-* "Minimal" and "Test data" can just be SQL files, either stored directly in the 
-  deployment repository, alongside the deployment script, or obtained from 
-  TeamCity build artefacts.
-* "Legacy" - I'm not sure what the state of the art on this is.
+* "Minimal" is just be SQL files, stored directly in the
+  deployment repository, alongside the deployment script
 * Back up. A backup might just be another SQL file, or it might be a more 
   efficient file format. We haven't figured out our backup mechanism yet, so 
   it's hard to be sure how we'd fetch this.

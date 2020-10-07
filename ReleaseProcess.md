@@ -20,7 +20,7 @@ If this is first time release then clone this repo on your local machine and run
     git push --follow-tags
     ./scripts/release/tag-images.py tag --publish latest
     ```
-1. Check build has passed in Teamcity
+1. Check build has passed in Buildkite
 1. Connect to the UAT machine and deploy there (see below)
 1. You may go through multiple rounds of steps 1-3 until you have a release
    you are happy to deploy to production.
