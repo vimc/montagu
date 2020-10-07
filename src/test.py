@@ -25,12 +25,9 @@ import versions
 from docker_helpers import get_image_name, pull
 
 
-def run_in_teamcity_block(name, work):
-    print("##teamcity[blockOpened name='{name}']".format(name=name))
-    try:
-        work()
-    finally:
-        print("##teamcity[blockClosed name='{name}']".format(name=name))
+def run_in_buildkite_block(name, work):
+    print("--- " + name)
+    work()
 
 
 def api_blackbox_tests():
@@ -45,7 +42,7 @@ def api_blackbox_tests():
             image
         ], check=True)
 
-    run_in_teamcity_block("api_blackbox_tests", work)
+    run_in_buildkite_block("api_blackbox_tests", work)
 
 
 def webapp_integration_tests():
@@ -58,7 +55,7 @@ def webapp_integration_tests():
             "--rm",
             "--network", "montagu_default",
             "-v",
-            "/opt/teamcity-agent/.docker/config.json:/root/.docker/config.json",
+            "/var/lib/buildkite-agent/.docker/config.json:/root/.docker/config.json",
             "-v", "/var/run/docker.sock:/var/run/docker.sock",
             image,
             portal.title()
@@ -69,7 +66,7 @@ def webapp_integration_tests():
         run_suite("admin", versions.admin_portal)
         run_suite("contrib", versions.contrib_portal)
 
-    run_in_teamcity_block("webapp_integration_tests", work)
+    run_in_buildkite_block("webapp_integration_tests", work)
 
 
 def task_queue_integration_tests():
@@ -90,7 +87,7 @@ def task_queue_integration_tests():
         assert emails[0]["to"]["value"][0][
                    "address"] == "minimal_modeller@example.com"
 
-    run_in_teamcity_block("task_queue_integration_tests", work)
+    run_in_buildkite_block("task_queue_integration_tests", work)
 
 
 def start_orderly_web():
@@ -173,7 +170,7 @@ def start_orderly_web():
         grant_permissions("test.user@example.com", ow_cli_image, ["*/users.manage"])
 
 
-    run_in_teamcity_block("start_orderly_web", work)
+    run_in_buildkite_block("start_orderly_web", work)
 
 
 if __name__ == "__main__":
