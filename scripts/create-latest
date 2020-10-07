@@ -100,10 +100,10 @@ def update_latest():
             run(["git", "add"] + local_status["changed"], check=True)
             run(["git", "commit", "-m", message], check=True, stdout=DEVNULL)
         print("Updating remote...")
-        # Url needs rewriting because TeamCity uses the https url and
+        # Url needs rewriting because Buildkite uses the https url and
         # is not authenticated (it's a public repo) but we need to
         # write to the repo and so we need use the ssh address.  We
-        # could update teamcity to use ssh urls but everything else is
+        # could update buildkite to use ssh urls but everything else is
         # working at the moment.
         url = "git@github.com:vimc/montagu"
         run(["git", "remote", "set-url", ORIGIN, url], check=True)
