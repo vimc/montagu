@@ -5,8 +5,13 @@ from docker_helpers import docker_cp, docker_cp_from
 from settings import get_secret
 
 
-def configure_task_queue(service, montagu_email, montagu_password,
-                         orderly_web_url, use_real_diagnostic_reports,  fake_smtp):
+def configure_task_queue(service,
+                         montagu_email,
+                         montagu_password,
+                         orderly_web_url,
+                         use_real_diagnostic_reports,
+                         email_uploader,
+                         fake_smtp):
     container = service.task_queue
 
     print("Configuring Task Queue")
@@ -34,6 +39,8 @@ def configure_task_queue(service, montagu_email, montagu_password,
     config["servers"]["orderlyweb"]["url"] = ow_url_trimmed
 
     config["tasks"]["diagnostic_reports"]["reports"] = diag_reports
+
+    config["tasks"]["diagnostic_reports"]["use_additional_recipients"] = email_uploader
 
     smtp = config["servers"]["smtp"]
     smtp["from"] = "montagu-help@imperial.ac.uk"

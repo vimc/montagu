@@ -134,7 +134,9 @@ def configure_montagu(service, data_exists):
     task_queue_user = "MONTAGU_TASK_QUEUE"
     task_queue_email = "montagu-task@imperial.ac.uk"
     if service.settings["use_real_diagnostic_reports"]:
-        task_queue_password = get_secret("task-queue-user/{}".format(service.settings["instance_name"]), "password")
+        task_queue_password = get_secret(
+            "task-queue-user/{}".format(service.settings["instance_name"]),
+            "password")
     else:
         task_queue_password = "password"
 
@@ -148,6 +150,7 @@ def configure_montagu(service, data_exists):
     configure_task_queue(service, task_queue_email, task_queue_password,
                          service.settings["orderly_web_api_url"],
                          service.settings["use_real_diagnostic_reports"],
+                         service.settings["email_burden_estimate_uploader"],
                          service.settings["fake_smtp"])
 
     configure_proxy(service, cert_paths)
