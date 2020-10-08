@@ -1,0 +1,6 @@
+steps:
+  - label: ":hammer: Test"
+    command: "./ci.sh --run-tests"
+
+  - label: ":hammer_and_pick: Check settings"
+    command: "./scripts/check-settings"

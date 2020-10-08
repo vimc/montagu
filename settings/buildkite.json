@@ -11,7 +11,7 @@
     "clone_reports": false,
     "require_clean_git": false,
     "add_test_user": false,
-    "instance_name": "teamcity",
+    "instance_name": "buildkite",
     "notify_channel": "",
     "enable_db_replication": false,
     "update_on_deploy": false,

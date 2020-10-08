@@ -4,15 +4,12 @@ from setting_definitions.boolean import BooleanSettingDefinition
 from setting_definitions.definition import SettingDefinition
 from setting_definitions.enum import EnumSettingDefinition
 
-teamcity_sources = ["test_data", "legacy"]
-
 def vault_required(settings):
     data_source = settings["initial_data_source"]
     uses_bb8 = settings["bb8_backup"] is True or data_source == "bb8_restore"
     uses_vault_passwords = settings["password_group"] is not None and \
                            settings['password_group'] != "fake"
-    return data_source in teamcity_sources \
-           or settings["copy_static_files"] is True \
+    return settings["copy_static_files"] is True \
            or uses_bb8 \
            or settings["certificate"] == "production" \
            or settings["certificate"] == "support" \

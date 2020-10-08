@@ -45,7 +45,7 @@ docker logs [CONTAINER NAME]
 From montagu-machine, run  `vagrant up <machine name>`
 
 You'll probably want to use the machine name `dev`, whose configuration provides a minimal data set-up (similar to that 
-used by TeamCity) in order to test code.
+used by BuildKite) in order to test code.
 
 The other machine names you can use are `uat`, `science` and `latest` which are the configurations for the main support
 VMs. Be careful with these, as these configurations may cause sizable data transfers - you can check the settings 
@@ -74,7 +74,7 @@ If you just want to stop the machine so that it reboots as it is next time, use 
 **I'm trying to deploy a VM locally, and it's complaining about the api server name when setting up orderly.**
 
 The  `instance_name` setting needs to match an api server defined in orderly's `orderly_config.yml`. 
-Try changing the instance_name setting in montagu-deploy.json on the VM to 'teamcity' to bypass this step.
+Try changing the instance_name setting in montagu-deploy.json on the VM to 'buildkite' to bypass this step.
 
 
 ## Other issues
