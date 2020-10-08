@@ -26,6 +26,8 @@ from docker_helpers import get_image_name, pull
 
 
 def run_in_buildkite_block(name, work):
+    # Always do a trailing newline, in case we have a partial line before.
+    print("")
     print("--- " + name)
     work()
 
