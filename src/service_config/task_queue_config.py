@@ -29,6 +29,9 @@ def configure_task_queue(service, montagu_email, montagu_password,
     montagu["user"] = montagu_email
     montagu["password"] = montagu_password
 
+    # We do not email estimate uploaders for now
+    #config["tasks"]["use_additional_recipients"] = False
+
     # Task queue needs orderly-web url without /api/v1 suffix
     ow_url_trimmed = orderly_web_url.replace("/api/v1", "")
     config["servers"]["orderlyweb"]["url"] = ow_url_trimmed

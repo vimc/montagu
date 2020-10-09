@@ -77,7 +77,8 @@ def task_queue_integration_tests():
         app = celery.Celery(broker="pyamqp://guest@localhost//",
                             backend="rpc://")
         sig = "run-diagnostic-reports"
-        args = ["testGroup", "testDisease", "testTouchstone"]
+        args = ["testGroup", "testDisease", "testTouchstone",
+                "notincluded@example.com"]
         signature = app.signature(sig, args)
         versions = signature.delay().get()
         assert len(versions) == 1
@@ -86,6 +87,9 @@ def task_queue_integration_tests():
         assert len(emails) == 1
         s = "VIMC diagnostic report: testTouchstone - testGroup - testDisease"
         assert emails[0]["subject"] == s
+        # should not include the additional recipient provided, as we are
+        # currently setting use_additional_recipients to false in config
+        assert len(emails[0]["to"]["value"]) == 0
         assert emails[0]["to"]["value"][0][
                    "address"] == "minimal_modeller@example.com"
 
