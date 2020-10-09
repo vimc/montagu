@@ -10,6 +10,7 @@ from os.path import abspath, dirname, join
 def generate():
     report = "native-diagnostics-burden-report-drafts"
     subject = "VIMC diagnostic report: {touchstone} - {group} - {disease}"
+    timeout = 1800
 
     vimc_recipients = [
         "k.gaythorpe@imperial.ac.uk",
@@ -92,7 +93,8 @@ def generate():
                 "success_email": {
                     "recipients": copy(vimc_recipients) + pi_email,
                     "subject": subject
-                }
+                },
+                "timeout": timeout
             }]
 
     file_path = join(paths.container_config, "task_queue", "real_diagnostic_reports.yml")
