@@ -2156,3 +2156,25 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.7.0
+
+## Tickets
+* mrc-1816: add python scripts path to buildkite agent path
+* vimc-4180: Give 404s for unknown urls
+* vimc-4180_page: Give 404s for unknown urls
+* vimc-4238: Add run of integration tests with worker running in docker container to the build
+* vimc-4242: Provide uploader email parameter to diagnostic report task
+* vimc-4292: Check all references to private registry have been removed
+* vimc-4294: Add timeout to config of diagnostic report task
+* vimc-4295: Add timeout to regenerated config
+* vimc-4296: Remove diagnostic task config from Montagu
+* vimc-4297: Move Montagu build to BuildKite
+* vimc-4309: Diagnostic report task config flag for emailing uploader
+* vimc-4318: First pass at ingesting coverage via API
+
+## Other branches merged in this release
+* dependabot/npm_and_yarn/app/elliptic-6.5.3
+* dependabot/npm_and_yarn/app/node-fetch-2.6.1
+* dependabot/npm_and_yarn/app/node-sass-4.13.1
+* try_remove_path
+
