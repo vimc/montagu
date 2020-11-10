@@ -74,7 +74,7 @@ def webapp_integration_tests():
 def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
-        app = celery.Celery(broker="pyamqp://guest@localhost//",
+        app = celery.Celery(broker="redis://guest@localhost//",
                             backend="rpc://")
         sig = "run-diagnostic-reports"
         args = ["testGroup", "testDisease", "testTouchstone"]
