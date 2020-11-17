@@ -80,6 +80,8 @@ services:
       - mq:/data
   flower:
     image: mher/flower:0.9.5
+    restart: always
+    logging: *log-journald
     ports:
       - "5555:5555"
     environment:
