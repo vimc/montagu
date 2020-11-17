@@ -75,9 +75,10 @@ def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
         app = celery.Celery(broker="redis://guest@localhost//",
-                            backend="rpc://")
+                            backend="redis://")
         sig = "run-diagnostic-reports"
-        args = ["testGroup", "testDisease", "testTouchstone"]
+        args = ["testGroup", "testDisease", "testTouchstone",
+                "2020-11-04T12:21:15","no_vaccination"]
         signature = app.signature(sig, args)
         versions = signature.delay().get()
         assert len(versions) == 1
