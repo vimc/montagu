@@ -129,7 +129,8 @@ def configure_montagu(service, data_exists):
     is_prod = service.settings["password_group"] == 'production'
     configure_api(service, passwords['api'], token_keypair_paths,
                   service.settings["hostname"], is_prod,
-                  service.settings["orderly_web_api_url"])
+                  service.settings["orderly_web_api_url"],
+                  service.container_name("flower"))
 
     task_queue_user = "MONTAGU_TASK_QUEUE"
     task_queue_email = "montagu-task@imperial.ac.uk"

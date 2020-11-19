@@ -16,6 +16,7 @@ components = {
         "metrics": "metrics",
         "static": "static",
         "mq": "mq",
+        "flower": "flower",
         "task-queue": "task-queue"
     },
     "volumes": {

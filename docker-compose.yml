@@ -71,13 +71,23 @@ services:
       - static_volume:/www
       - static_logs:/var/log/caddy
   mq:
-    image: rabbitmq
+    image: redis
     restart: always
     logging: *log-journald
     ports:
-      - "5672:5672"
+      - "6379:6379"
     volumes:
-      - mq:/var/lib/rabbitmq
+      - mq:/data
+  flower:
+    image: mher/flower:0.9.5
+    restart: always
+    logging: *log-journald
+    ports:
+      - "5555:5555"
+    environment:
+      - CELERY_BROKER_URL=redis://guest@montagu_mq_1//
+      - CELERY_RESULT_BACKEND=redis://guest@montagu_mq_1/0
+      - FLOWER_PORT=5555
   task-queue:
     image: ${VIMC_REGISTRY}/task-queue-worker:${MONTAGU_TASK_QUEUE_VERSION}
     restart: always
