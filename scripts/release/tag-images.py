@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Tags images used in a particular release and pushes the tags into
-https://hub.docker.com/u/vimc.
+https://hub.docker.com/u/vimc.  Use tag 'latest' to select the most recent
+conforming git tag (this will not set things to be the docker 'latest' tag
+though).
 
 Usage:
   tag-images.py <version>
