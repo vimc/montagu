@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 """Tags images used in a particular release and pushes the tags into
-our local docker registry at docker.montagu.dide.ic.ac.uk:5000.  Use
-tag 'latest' to select the most recent conforming git tag (this will
-not set things to be the docker 'latest' tag though).  If run with the
-"publish" option it will also publish images to
-https://hub.docker.com/u/vimc
+https://hub.docker.com/u/vimc.
 
 Usage:
-  tag-images.py tag [--publish] <version>
-  tag-images.py publish <version>
+  tag-images.py <version>
 
 """
 import docker
@@ -39,8 +34,7 @@ container_repo_map = {
     "montagu-static": "static"
 }
 
-registry_local = "docker.montagu.dide.ic.ac.uk:5000"
-registry_hub = "vimc"
+registry = "vimc"
 
 
 class DockerTag:
@@ -70,8 +64,8 @@ def set_image_tag(name, version):
     repo_name = container_repo_map[name]
     sha = git_helpers.get_past_submodule_version(repo_name, version)
     d = docker.client.from_env()
-    img = d.images.pull(str(DockerTag(registry_local, name, sha)))
-    tag_and_push(img, registry_local, name, version)
+    img = d.images.pull(str(DockerTag(registry, name, sha)))
+    tag_and_push(img, registry, name, version)
 
 
 def set_image_tags(version):
@@ -81,26 +75,10 @@ def set_image_tags(version):
         set_image_tag(name, version)
 
 
-def publish_images(version):
-    d = docker.client.from_env()
-    print("Pushing release to docker hub")
-    for name in container_repo_map.keys():
-        img = d.images.get(str(DockerTag(registry_local, name, version)))
-        publish_image(img, name)
-
-
-def publish_image(img, name):
-    tags = [DockerTag.parse(x) for x in img.tags]
-    published = [t.version for t in tags if t.registry == registry_hub]
-    existing = [t.version for t in tags if t.registry == registry_local]
-    for tag in set(existing) - set(published):
-        tag_and_push(img, registry_hub, name, tag)
-
-
 # NOTE: Using subprocess here and not the python docker module because
 # the latter does not support streaming as nicely as the CLI
-def tag_and_push(img, registry_local, name, tag):
-    t = DockerTag(registry_local, name, tag)
+def tag_and_push(img, registry, name, tag):
+    t = DockerTag(registry, name, tag)
     img.tag(t.repository, t.version)
     run(["docker", "push", str(t)], check=True)
 
@@ -117,9 +95,5 @@ if __name__ == "__main__":
         version = get_latest_release_tag()
     else:
         validate_release_tag(version)
-    if args["tag"]:
-        set_image_tags(version)
-        if args["--publish"]:
-            publish_images(version)
-    elif args["publish"]:
-        publish_images(version)
+
+    set_image_tags(version)
