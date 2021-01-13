@@ -2217,3 +2217,11 @@ Minor css change
 * dependabot/npm_and_yarn/app/ini-1.3.7
 * mrc-4465
 
+# v2.9.0
+
+## Tickets
+* vimc-4310: Update montagu configuration to use latest diagnostic report
+* vimc-4475: Release script should not use private docker registry
+
+## Other branches merged in this release
+
