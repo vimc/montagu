@@ -8,7 +8,7 @@ from os.path import abspath, dirname, join
 
 
 def generate():
-    report = "native-diagnostics-burden-report-drafts"
+    report = "diagnostics-burden-report"
     subject = "VIMC diagnostic report: {touchstone} - {group} - {disease}"
     timeout = 1800
 
@@ -47,7 +47,7 @@ def generate():
         "UND-Moore": ["JE"],
         "UND-Perkins": ["YF"],
         "Yale-Pitzer": ["Typhoid"],
-        "VIMC": ["Tyhoid", "Cholera"]
+        "VIMC": ["Typhoid", "Cholera"]
     }
 
     group_PIs = {
@@ -91,7 +91,7 @@ def generate():
                 "report_name": report,
                 "parameters": parameters,
                 "success_email": {
-                    "recipients": copy(vimc_recipients) + pi_email,
+                    "recipients": copy(vimc_recipients),  # TODO: add pi_email
                     "subject": subject
                 },
                 "timeout": timeout

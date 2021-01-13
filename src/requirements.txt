@@ -3,5 +3,5 @@ requests==2.20.1
 pystache==0.5.4
 psycopg2==2.7.3.2
 docopt
-pyyaml
+pyyaml==5.3.1
 celery[redis]
