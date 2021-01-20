@@ -2225,3 +2225,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.10.0
+
+## Tickets
+* vimc-4438: Update link and deploy public datavis tool to production
+* vimc-4523: Add alternative paper 1 urls
+
+## Other branches merged in this release
+
