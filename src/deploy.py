@@ -20,7 +20,7 @@ from service_config.api_config import get_token_keypair
 from settings import get_settings, get_secret
 from last_deploy import last_deploy_update
 from notify import Notifier
-
+from subprocess import run
 
 def _deploy():
     print_ascii_art()
@@ -99,6 +99,14 @@ def _deploy():
             pass
         raise
 
+    try:
+        print("Copying public data vis tool")
+        copy_vis_tool()
+        print("Copied public data vis tool")
+    except Exception as e:
+        print("An error occurred when copying public data vis tool:")
+        print(e)
+
     if settings["add_test_user"] is True:
         print("Adding tests users")
         add_test_users()
@@ -162,6 +170,8 @@ def configure_montagu(service, data_exists):
     if service.settings["copy_static_files"]:
         configure_static_server(service, token_keypair_paths)
 
+def copy_vis_tool():
+    run(["../scripts/copy-vis-tool.sh"], check = True)
 
 def deploy():
     try:
