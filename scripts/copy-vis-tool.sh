@@ -4,7 +4,7 @@ set -ex
 PROXY_CONTAINER=montagu_proxy_1
 ORDERLY_CONTAINER=orderly_web_orderly
 ORDERLY_REPORT=paper-first-public-app
-ORDERLY_ID=20210119-181839-c82a6c22
+ORDERLY_ID=20210125-182553-51ca39f1
 
 ORDERLY_PATH="/orderly/archive/$ORDERLY_REPORT/$ORDERLY_ID"
 WWW_ROOT=/usr/share/nginx/html
