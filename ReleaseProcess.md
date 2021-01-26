@@ -18,7 +18,7 @@ If this is first time release then clone this repo on your local machine and run
 1. The script will prompt you to review changes and push tags via
    ```
     git push --follow-tags
-    ./scripts/release/tag-images.py tag --publish latest
+    ./scripts/release/tag-images.py latest
     ```
 1. Check build has passed in Buildkite
 1. Connect to the UAT machine and deploy there (see below)

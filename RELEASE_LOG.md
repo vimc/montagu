@@ -2178,3 +2178,58 @@ Minor css change
 * dependabot/npm_and_yarn/app/node-sass-4.13.1
 * try_remove_path
 
+# v2.8.0
+
+## Tickets
+* vimc-4238: Add run of integration tests with worker running in docker container to the build
+* vimc-4318_endpoint: First pass at ingesting coverage via API
+* vimc-4322: Add basic page in Admin portal for importing coverage
+* vimc-4325: Bug: finished touchstone versions show up in the "active" touchsone table in the admin portal
+* vimc-4329: Create easy-to-use URL for the partners' data vis tool
+* vimc-4347: Translate Pentavalent (and MR?) when importing coverage
+* vimc-4349: Validate correct rows for routine coverage
+* vimc-4350: Kill running reports if new ones are triggered
+* vimc-4351: Add time triggered and scenario as params to the diagnostic report task
+* vimc-4361: Add subnational/national flag to coverage table
+* vimc-4362: Accept subnational/national flag in coverage and persist to db
+* vimc-4362_db: Accept subnational/national flag in coverage and persist to db
+* vimc-4363: Add coverage_set_metadata table
+* vimc-4364: Accept and persist coverage set metadata when coverage is uploaded
+* vimc-4364_db: Accept and persist coverage set metadata when coverage is uploaded
+* vimc-4365: Link to download coverage template from portal
+* vimc-4369: Add flyway migration to add new columns to import log
+* vimc-4378: Add coverage set metadata to portal page
+* vimc-4390: Endpoint to get existing coverage set metadata
+* vimc-4391: Show list of uploaded coverage sets on the coverage set upload page
+* vimc-4392: Update montagu for using redis as task message queue
+* vimc-4393: Update montagu api for using redis as task message queue
+* vimc-4397: Add GAVI73 countries to test data
+* vimc-4431: Bug - when uploading coverage, gavi_support should only accept boolean values
+* vimc-4433: Lock down admin portal upload coverage page to users with "coverage-provider" role
+* vimc-4434: Allow coverage to be provided for any year 2000-2100, mandatory years are 2021-2030
+* vimc-4435: Add link to coverage upload page
+* vimc-4437: Add 'datavis' route for public and funders data vis tool
+* vimc-4451: Update coverage guidance for latest years rules
+* vimc-4461: Components to use canDoSomething props in auth state
+* vimc-4465: Include activity type in coverage set metadata
+
+## Other branches merged in this release
+* dependabot/npm_and_yarn/app/ini-1.3.7
+* mrc-4465
+
+# v2.9.0
+
+## Tickets
+* vimc-4310: Update montagu configuration to use latest diagnostic report
+* vimc-4475: Release script should not use private docker registry
+
+## Other branches merged in this release
+
+# v2.10.0
+
+## Tickets
+* vimc-4438: Update link and deploy public datavis tool to production
+* vimc-4523: Add alternative paper 1 urls
+
+## Other branches merged in this release
+

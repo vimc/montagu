@@ -113,7 +113,7 @@ Completed successfully. No changes have been pushed, so please review and then
 push using: 
 
   git push --follow-tags
-  ./scripts/release/tag-images.py tag --publish latest
+  ./scripts/release/tag-images.py latest
 
 Tickets have been tagged in YouTrack, so post release do the following:
 * Go to 
