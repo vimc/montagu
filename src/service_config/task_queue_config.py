@@ -43,7 +43,7 @@ def configure_task_queue(service,
     config["tasks"]["diagnostic_reports"]["use_additional_recipients"] = email_uploader
 
     smtp = config["servers"]["smtp"]
-    smtp["from"] = "montagu-help@imperial.ac.uk"
+    smtp["from"] = "montagu-notifications@imperial.ac.uk"
     if fake_smtp:
         smtp["host"] = "montagu_fake_smtp_server_1"
     else:
