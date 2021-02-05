@@ -2233,3 +2233,16 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.11.0
+
+## Tickets
+* vimc-4459: Run copy-vis-tool.sh on deploy
+* vimc-4513: Add route for paper 2 datavis tool
+* vimc-4514: Copy paper 2 datavis tool into montagu proxy on deploy
+* vimc-4531: Reject burden estimates containing negative values
+* vimc-4536: Embargo notice on paper 1 datavis tool
+* vimc-4545: Make Users pages inaccessible to users without relevant permissions
+* vimc-4546: Add flower to webapps dev script
+
+## Other branches merged in this release
+
