@@ -3,14 +3,26 @@ set -ex
 
 PROXY_CONTAINER=montagu_proxy_1
 ORDERLY_CONTAINER=orderly_web_orderly
-ORDERLY_REPORT=paper-first-public-app
-ORDERLY_ID=20210125-182553-51ca39f1
 
-ORDERLY_PATH="/orderly/archive/$ORDERLY_REPORT/$ORDERLY_ID"
+ORDERLY_REPORT_2020=paper-first-public-app
+ORDERLY_REPORT_2021=paper-second-public-app
+
+ORDERLY_ID_2020=20210125-182553-51ca39f1
+ORDERLY_ID_2021=20210202-103437-f55c8d5d
+
+ORDERLY_PATH_2020="/orderly/archive/$ORDERLY_REPORT_2020/$ORDERLY_ID_2020"
+ORDERLY_PATH_2021="/orderly/archive/$ORDERLY_REPORT_2021/$ORDERLY_ID_2021"
 WWW_ROOT=/usr/share/nginx/html
 
 docker exec -it $PROXY_CONTAINER mkdir -p $WWW_ROOT/2020/visualisation
+docker exec -it $PROXY_CONTAINER mkdir -p $WWW_ROOT/2021/visualisation
 
 mkdir -p 2020/visualisation
-docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH/. 2020/visualisation
+mkdir -p 2021/visualisation
+
+docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH_2020/. 2020/visualisation
+docker cp $ORDERLY_CONTAINER:$ORDERLY_PATH_2021/. 2021/visualisation
+
+
 docker cp 2020/visualisation/. $PROXY_CONTAINER:$WWW_ROOT/2020/visualisation
+docker cp 2021/visualisation/. $PROXY_CONTAINER:$WWW_ROOT/2021/visualisation
