@@ -109,6 +109,11 @@ def start_orderly_web():
 
         run(["docker", "volume", "create", "orderly_volume"], check=True)
 
+        run(["docker", "run", "-d",
+            "--network", "montagu_default",
+             "--name", "redis",
+             "redis"], check=True)
+
         orderly_image = get_image_name("orderly.server", "master")
         pull(orderly_image)
         run([
@@ -117,9 +122,11 @@ def start_orderly_web():
             "--network", "montagu_default",
             "-v", "orderly_volume:/orderly",
             "-w", "/orderly",
+            "-e", "REDIS_URL=redis://redis",
             "--name", "montagu_orderly_orderly_1",
             orderly_image,
-            "--port", "8321", "--go-signal", "/go_signal", "/orderly"
+            "--port", "8321",
+            "--go-signal", "/go_signal", "--workers=1", "/orderly",
         ], check=True)
 
         run(["docker", "exec", "montagu_orderly_orderly_1", "Rscript", "-e",
