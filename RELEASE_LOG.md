@@ -2246,3 +2246,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.11.1
+
+## Tickets
+* vimc-4515: Links on VIMC website to both public datavis tools
+* vimc-4589: Fix montagu-task-queue tests for orderly server refactor
+
+## Other branches merged in this release
+
