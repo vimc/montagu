@@ -130,7 +130,8 @@ def start_orderly_web():
         ], check=True)
 
         run(["docker", "exec", "montagu_orderly_orderly_1", "Rscript", "-e",
-             "orderly:::create_orderly_demo('/orderly')"], check=True)
+             "orderly:::create_orderly_demo('/orderly', git = TRUE)"],
+            check=True)
 
         run(["docker", "exec", "montagu_orderly_orderly_1", "orderly",
              "rebuild", "--if-schema-changed"], check=True)
