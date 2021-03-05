@@ -2254,3 +2254,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.11.2
+
+## Tickets
+* vimc-4609: Create git directory when starting orderly for montagu in tests
+* vimc-4617: Applicable scenarios for expectations should heed is_open flag
+
+## Other branches merged in this release
+
