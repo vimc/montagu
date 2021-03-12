@@ -71,7 +71,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
 def configure_email(file, is_prod: bool):
     if is_prod:
         password = get_secret("email/password")
-        slack_url = get_secret("slack/montagu-webhook")
+        flow_url = get_secret("flow/montagu-webhook")
         print("email.mode=real", file=file)
         print("email.password=" + password, file=file)
-        print("slack.url={}".format(slack_url), file=file)
+        print("flow.url={}".format(flow_url), file=file)
