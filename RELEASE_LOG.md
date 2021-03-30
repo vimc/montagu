@@ -2262,3 +2262,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.12.0
+
+## Tickets
+* VIMC-4567: Migrate burden estimate upload feed to Teams
+* vimc-4640: Update paper 2 datavis tool routes for fixes to estimates report
+* vimc-4651: Update reports and routes for report links in public data vis tools
+* vimc-4675: Update intermediate certs
+
+## Other branches merged in this release
+
