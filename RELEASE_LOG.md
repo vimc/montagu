@@ -2272,3 +2272,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.13.0
+
+## Tickets
+* VIMC-4734: Add comments to responsibilities
+* vimc-4688: Add tables for subnational demography
+
+## Other branches merged in this release
+* update-psycopg2
+
