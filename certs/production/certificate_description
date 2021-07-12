@@ -1,16 +1,17 @@
 Certificate:
     Data:
         Version: 3 (0x2)
-        Serial Number: 13566969555985001844 (0xbc478eee27066d74)
-    Signature Algorithm: sha256WithRSAEncryption
+        Serial Number:
+            f6:36:35:6c:d5:68:7c:70
+        Signature Algorithm: sha256WithRSAEncryption
         Issuer: C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., OU=http://certs.godaddy.com/repository/, CN=Go Daddy Secure Certificate Authority - G2
         Validity
-            Not Before: Jun 30 09:16:30 2020 GMT
-            Not After : Jul 12 10:58:01 2021 GMT
+            Not Before: Apr 20 15:58:42 2021 GMT
+            Not After : May 22 15:58:42 2022 GMT
         Subject: OU=Domain Control Validated, CN=montagu.vaccineimpact.org
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
-                Public-Key: (2048 bit)
+                RSA Public-Key: (2048 bit)
                 Modulus:
                     00:b4:94:44:c0:7c:aa:99:ca:e7:e3:2d:b3:9c:f9:
                     24:c0:2a:0a:dc:26:f6:21:23:5b:3d:4a:d4:74:94:
@@ -41,7 +42,7 @@ Certificate:
             X509v3 CRL Distribution Points: 
 
                 Full Name:
-                  URI:http://crl.godaddy.com/gdig2s1-2072.crl
+                  URI:http://crl.godaddy.com/gdig2s1-2885.crl
 
             X509v3 Certificate Policies: 
                 Policy: 2.16.840.1.114413.1.7.23.1
@@ -59,30 +60,53 @@ Certificate:
                 DNS:montagu.vaccineimpact.org, DNS:www.montagu.vaccineimpact.org
             X509v3 Subject Key Identifier: 
                 8C:65:22:7E:7A:E3:84:D2:69:35:B8:C1:C1:50:79:45:3A:FC:B9:D2
-            1.3.6.1.4.1.11129.2.4.2: 
-                ......v..\./.w0".T..0.V..M..3.../ ..N.d....s..w?.....G0E.!..3....L....^W.... k.O"...4..9L.:. c....=.&.|S%.M%/.Hs.2.......t....v.\.C....ED.^..V..7...G..s..^........s..xn.....G0E. ~4.........]?r...A..._.,>...R...!...>G....i.Z.0.$.........K.9.....
+            CT Precertificate SCTs: 
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : 29:79:BE:F0:9E:39:39:21:F0:56:73:9F:63:A5:77:E5:
+                                BE:57:7D:9C:60:0A:F8:F9:4D:5D:26:5C:25:5D:C7:84
+                    Timestamp : Apr 20 15:58:44.613 2021 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:45:02:21:00:FC:AF:7A:52:D3:ED:0D:42:B3:12:23:
+                                0D:60:D5:B0:62:E4:A2:C7:72:14:E3:E4:F3:AD:9E:99:
+                                38:B4:32:8E:EA:02:20:2D:68:15:3E:FE:3F:F9:9D:0C:
+                                4D:B9:1A:84:48:BB:A7:BC:EC:DE:25:8D:F3:27:20:2F:
+                                4F:F1:2D:00:CA:04:6E
+                Signed Certificate Timestamp:
+                    Version   : v1 (0x0)
+                    Log ID    : 22:45:45:07:59:55:24:56:96:3F:A1:2F:F1:F7:6D:86:
+                                E0:23:26:63:AD:C0:4B:7F:5D:C6:83:5C:6E:E2:0F:02
+                    Timestamp : Apr 20 15:58:44.896 2021 GMT
+                    Extensions: none
+                    Signature : ecdsa-with-SHA256
+                                30:44:02:20:27:53:54:20:05:84:2A:97:EA:EB:0E:7D:
+                                D0:C9:17:98:1D:FD:38:A0:F5:9A:92:3E:50:8B:A1:A3:
+                                9D:B7:51:99:02:20:2B:8B:F4:0B:B4:F6:61:6B:B7:CB:
+                                27:35:18:F1:99:CD:39:B3:FB:8F:C7:A3:60:3F:9A:36:
+                                30:DE:17:B1:C9:4E
     Signature Algorithm: sha256WithRSAEncryption
-         7e:b8:47:2c:d8:11:f1:5b:f8:3e:40:42:81:7f:69:39:8a:e5:
-         50:3d:af:c7:ae:23:c0:54:0d:9d:9d:e1:0a:44:a2:4c:0d:c5:
-         0e:1d:61:33:2d:14:14:2a:c3:92:06:48:1b:df:66:7b:4c:cc:
-         d4:60:fc:48:0b:5e:ce:9b:ba:18:cf:78:3c:3b:80:59:0a:a5:
-         48:57:f4:f1:3d:6f:d6:53:05:6d:ba:1b:de:9a:7d:d4:e9:60:
-         c4:ba:dd:06:70:8f:d8:8d:20:49:4b:77:78:5d:2e:52:a2:1c:
-         2f:a5:ed:42:3b:37:57:00:fe:2f:d8:97:2d:4b:9b:e1:c1:9a:
-         fd:c1:38:1b:e7:fd:d3:af:2d:5f:42:be:8a:8f:e6:eb:3b:6a:
-         9d:88:d7:b4:3b:d8:0d:39:ea:40:be:ba:d2:9a:13:d5:14:31:
-         7e:0a:1b:7d:0b:87:6a:04:59:2f:c0:ee:63:b9:2f:0d:ba:53:
-         cd:35:0d:15:12:f9:82:9c:50:30:84:7e:1e:f3:3a:82:40:f7:
-         36:81:f0:ff:fc:55:df:73:1d:16:bd:47:cc:4b:5a:2c:d0:97:
-         5c:c2:42:d2:18:71:c0:e7:f3:2c:ca:58:72:4f:4f:dd:57:b4:
-         be:0a:46:55:f1:9b:d3:2b:e7:63:61:6f:7d:09:b0:29:6d:0b:
-         87:ee:5e:17
+         1e:06:75:87:03:6d:ec:54:16:9e:f8:dd:e1:53:b2:ac:f5:50:
+         43:b5:47:08:57:07:06:7e:3c:13:0e:15:59:0d:00:29:de:75:
+         c8:84:98:2c:75:0b:9a:aa:d8:52:e4:58:f4:63:71:bd:e8:f2:
+         ef:15:d9:4d:f9:c4:dc:d3:ba:11:99:39:45:c2:9d:32:13:be:
+         08:4c:89:5f:0c:cb:7c:63:3e:2a:e8:a2:cf:a2:ea:0c:df:e2:
+         2b:1e:91:04:50:09:db:2a:11:22:8a:79:92:66:a3:e5:5b:4d:
+         b5:c9:d8:82:d2:56:00:f8:e4:b0:2d:07:ee:6c:7d:d1:5b:de:
+         2d:98:f9:e0:a4:7a:ca:1b:1c:4f:40:59:27:28:b7:e9:04:78:
+         31:01:79:bf:15:82:6b:45:b6:f0:d7:3f:62:11:c2:59:7a:bf:
+         1e:d5:39:08:1e:9a:69:53:86:3e:cd:af:af:7f:3a:53:f2:9f:
+         1c:6e:87:47:dc:ff:61:00:37:d4:c6:b8:03:51:6c:7d:3a:c0:
+         8a:c3:d4:ac:b2:cb:a2:0e:8a:51:66:f9:0c:99:d2:c3:44:ca:
+         d7:23:6a:b3:65:9b:1d:a5:69:e4:7c:eb:38:b2:ef:78:ca:e0:
+         34:ed:aa:da:e3:f6:4e:59:b9:d5:09:10:61:c4:da:4c:67:56:
+         14:79:11:bd
 
 Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number: 7 (0x7)
-    Signature Algorithm: sha256WithRSAEncryption
+        Signature Algorithm: sha256WithRSAEncryption
         Issuer: C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., CN=Go Daddy Root Certificate Authority - G2
         Validity
             Not Before: May  3 07:00:00 2011 GMT
@@ -90,7 +114,7 @@ Certificate:
         Subject: C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., OU=http://certs.godaddy.com/repository/, CN=Go Daddy Secure Certificate Authority - G2
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
-                Public-Key: (2048 bit)
+                RSA Public-Key: (2048 bit)
                 Modulus:
                     00:b9:e0:cb:10:d4:af:76:bd:d4:93:62:eb:30:64:
                     b8:81:08:6c:c3:04:d9:62:17:8e:2f:ff:3e:65:cf:
@@ -154,7 +178,7 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number: 1828629 (0x1be715)
-    Signature Algorithm: sha256WithRSAEncryption
+        Signature Algorithm: sha256WithRSAEncryption
         Issuer: C=US, O=The Go Daddy Group, Inc., OU=Go Daddy Class 2 Certification Authority
         Validity
             Not Before: Jan  1 07:00:00 2014 GMT
@@ -162,7 +186,7 @@ Certificate:
         Subject: C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., CN=Go Daddy Root Certificate Authority - G2
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
-                Public-Key: (2048 bit)
+                RSA Public-Key: (2048 bit)
                 Modulus:
                     00:bf:71:62:08:f1:fa:59:34:f7:1b:c9:18:a3:f7:
                     80:49:58:e9:22:83:13:a6:c5:20:43:01:3b:84:f1:
@@ -226,7 +250,7 @@ Certificate:
     Data:
         Version: 3 (0x2)
         Serial Number: 0 (0x0)
-    Signature Algorithm: sha1WithRSAEncryption
+        Signature Algorithm: sha1WithRSAEncryption
         Issuer: C=US, O=The Go Daddy Group, Inc., OU=Go Daddy Class 2 Certification Authority
         Validity
             Not Before: Jun 29 17:06:20 2004 GMT
@@ -234,7 +258,7 @@ Certificate:
         Subject: C=US, O=The Go Daddy Group, Inc., OU=Go Daddy Class 2 Certification Authority
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
-                Public-Key: (2048 bit)
+                RSA Public-Key: (2048 bit)
                 Modulus:
                     00:de:9d:d7:ea:57:18:49:a1:5b:eb:d7:5f:48:86:
                     ea:be:dd:ff:e4:ef:67:1c:f4:65:68:b3:57:71:a0:
