@@ -2281,3 +2281,14 @@ Minor css change
 ## Other branches merged in this release
 * update-psycopg2
 
+# v2.31.1
+
+## Tickets
+* VIMC-4755: Fix local execution of integration tests
+* VIMC-4758: Update caddy build image
+* VIMC-4767: Add comments to responsibility sets
+* VIMC-4774: Update production SSL certificate
+* vimc-4771: Fix redis error in montagu-task-queue
+
+## Other branches merged in this release
+
