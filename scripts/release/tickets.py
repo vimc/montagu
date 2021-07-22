@@ -25,23 +25,28 @@ https://www.jetbrains.com/help/youtrack/standalone/Manage-Permanent-Token.html
 
 class Ticket:
     def __init__(self, data):
-        self.id = data["id"]
-        self.fields = {}
-        for field in data["field"]:
-            self.fields[field["name"]] = field["value"]
+        self.id = data["idReadable"]
+        self.fields = dict(
+            (
+                customField["projectCustomField"]["field"]["name"],
+                customField["value"]["name"] if isinstance(customField["value"], dict) else customField["value"],
+            )
+            for customField in data["customFields"]
+        )
+        self.fields["summary"] = data["summary"]
 
     def get(self, field):
         return self.fields[field]
 
     def state(self):
-        return ", ".join(self.get("State"))
+        return self.get("State")
 
     def okay_to_release(self):
         return "Ready to deploy" in self.get("State")
 
 
 class YouTrackHelper:
-    base_url = "https://mrc-ide.myjetbrains.com/youtrack/rest/"
+    base_url = "https://mrc-ide.myjetbrains.com/youtrack/api/"
 
     def __init__(self):
         self.token = get_token()
@@ -60,31 +65,38 @@ class YouTrackHelper:
                 yield branch, NOT_FOUND
 
     def get_ticket(self, branch, full_id):
-        r = self.request("issue/" + full_id)
+        template = "issues/{full_id}?fields=idReadable,summary,customFields(projectCustomField(field(name)),value(name))"
+        r = self.request(template.format(full_id=full_id))
         if r.status_code == 200:
             return branch, Ticket(r.json())
         else:
             return branch, NOT_FOUND
 
     def add_build_tag(self, tag):
-        template = "admin/customfield/buildBundle/vimc: Fixed in builds1/{tag}"
-        r = self.request(template.format(tag=tag), method="put")
-        # 409 means already exists
-        return r.status_code in [201, 409], r
+        data = {"name": tag}
+        # 83-1 is "Fixed in build" field for VIMC project
+        # See https://www.jetbrains.com/help/youtrack/devportal/api-usecase-add-value-to-bundle.html
+        r = self.request("admin/customFieldSettings/bundles/build/83-1/values", data)
+        # 400 implies already exists
+        return r.status_code in [200, 400], r
 
     def modify_ticket(self, full_id, command):
-        template = "issue/{issue}/execute?command={command}"
-        fragment = template.format(issue=full_id, command=command)
-        r = self.request(fragment, method="post")
+        data = {"issues": [{"idReadable": full_id}], "query": command}
+        r = self.request("commands", data)
         return r.status_code == 200, r
 
-    def request(self, url_fragment, method="get"):
+    def request(self, url_fragment, json=None):
         headers = {
             "Authorization": "Bearer " + self.token,
             "Accept": "application/json"
         }
+        if json is None:
+            method = "get"
+        else:
+            method = "post"
+            headers["Content-Type"] = "application/json"
         url = self.base_url + url_fragment
-        response = requests.request(method, url, headers=headers)
+        response = requests.request(method, url, headers=headers, json=json)
         if response.status_code == 401:
             raise Exception("Failed to authorize against YouTrack")
         return response
