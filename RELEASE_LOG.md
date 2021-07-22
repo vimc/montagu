@@ -2292,3 +2292,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.32.0
+
+## Tickets
+* VIMC-4767: Add comments to responsibility sets
+* VIMC-4775: Remove admin role assumption from responsibilities view
+* VIMC-4779: Fix IntelliJ error when importing montagu-api
+* vimc-4773: Add Paper 2 link to Data Vis Tool
+
+## Other branches merged in this release
+
