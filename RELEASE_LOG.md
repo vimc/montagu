@@ -2302,3 +2302,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.33.0
+
+## Tickets
+* VIMC-4798: Update release script to latest YouTrack API
+* vimc-4800: add extra outcomes for Meningitis for the practise runs
+
+## Other branches merged in this release
+
