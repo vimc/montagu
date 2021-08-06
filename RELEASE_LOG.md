@@ -2310,3 +2310,11 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.34.0
+
+## Tickets
+* VIMC-4809: Add guidance pages for touchstone 202108test
+* VIMC-4814: Hide wide format coverage from downloads for typhoid and cholera groups in contribution portal
+
+## Other branches merged in this release
+
