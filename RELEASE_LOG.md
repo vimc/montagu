@@ -2318,3 +2318,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.34.1
+
+## Tickets
+* VIMC-4818: Fix guidance displayed for 202108 touchstone
+
+## Other branches merged in this release
+
