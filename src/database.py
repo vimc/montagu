@@ -214,7 +214,7 @@ def for_each_user(root_password, users, operation):
 
 def setup(service):
     print("Waiting for the database to accept connections")
-    exec_safely(service.db, ["montagu-wait.sh", "3600"], check=True)
+    exec_safely(service.db, ["montagu-wait.sh", "7200"], check=True)
     password_group = service.settings["password_group"]
     print("Setting up database users")
     print("- Scrambling root password")
