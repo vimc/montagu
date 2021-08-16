@@ -77,7 +77,7 @@ def task_queue_integration_tests():
         app = celery.Celery(broker="redis://guest@localhost//",
                             backend="redis://")
         sig = "run-diagnostic-reports"
-        args = ["testGroup", "testDisease", "testTouchstone",
+        args = ["testGroup", "testDisease", "testTouchstone-1",
                 "2020-11-04T12:21:15","no_vaccination"]
         signature = app.signature(sig, args)
         versions = signature.delay().get()
@@ -85,7 +85,7 @@ def task_queue_integration_tests():
         # check expected notification email was sent to fake smtp server
         emails = requests.get("http://localhost:1080/api/emails").json()
         assert len(emails) == 1
-        s = "VIMC diagnostic report: testTouchstone - testGroup - testDisease"
+        s = "VIMC diagnostic report: testTouchstone-1 - testGroup - testDisease"
         assert emails[0]["subject"] == s
         assert emails[0]["to"]["value"][0][
                    "address"] == "minimal_modeller@example.com"
@@ -129,8 +129,8 @@ def start_orderly_web():
             "--go-signal", "/go_signal", "--workers=1", "/orderly",
         ], check=True)
 
-        run(["docker", "exec", "montagu_orderly_orderly_1", "Rscript", "-e",
-             "orderly:::create_orderly_demo('/orderly', git = TRUE)"],
+        run(["docker", "exec", "montagu_orderly_orderly_1", "git", "clone",
+             "https://github.com/vimc/montagu-task-queue-orderly", "/orderly"],
             check=True)
 
         run(["docker", "exec", "montagu_orderly_orderly_1", "orderly",
