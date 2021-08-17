@@ -2325,3 +2325,14 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.35.0
+
+## Tickets
+* VIMC-4737: Export responsibilities summary for a touchstone
+* VIMC-4820: Pass touchstone and touchstone_name parameters to diagnostic report
+* VIMC-4821: Increase database connection timeout
+* VIMC-4823: Update touchstone name in diagnostic report integration test
+* VIMC-4825: Fix diagnostic report test
+
+## Other branches merged in this release
+
