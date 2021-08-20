@@ -2336,3 +2336,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.35.1
+
+## Tickets
+* VIMC-4834: Disable CSV export pending performance review
+
+## Other branches merged in this release
+
