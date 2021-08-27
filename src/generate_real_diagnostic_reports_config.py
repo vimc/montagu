@@ -41,6 +41,7 @@ def generate():
         "LSHTM-Clark": ["Hib", "PCV", "Rota"],
         "LSHTM-Jit": ["HPV", "Measles"],
         "LSHTM-Jit-WHO": ["Measles"],
+        "NUS-Chen": ["PCV"],
         "OUCRU-Clapham": ["JE"],
         "PHE-Vynnycky": ["Rubella"],
         "PHE-Vynnycky-WHO": ["Rubella"],
