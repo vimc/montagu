@@ -2343,3 +2343,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.35.2
+
+## Tickets
+* vimc-4841: updating recipients list for diagnostic reports
+
+## Other branches merged in this release
+
