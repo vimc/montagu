@@ -2350,3 +2350,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.36.0
+
+## Tickets
+* VIMC-4835: Resolve CSV export performance issues
+* vimc-4841_regen: updating recipients list for diagnostic reports
+
+## Other branches merged in this release
+* docker_version
+
