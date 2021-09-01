@@ -1,4 +1,4 @@
-docker==4.3.0
+docker==5.0.0
 requests==2.20.1
 pystache==0.5.4
 psycopg2==2.8.6
