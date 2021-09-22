@@ -2359,3 +2359,10 @@ Minor css change
 ## Other branches merged in this release
 * docker_version
 
+# v2.37.0
+
+## Tickets
+* vimc-4868: Add guidance pages for 202110 touchstone
+
+## Other branches merged in this release
+
