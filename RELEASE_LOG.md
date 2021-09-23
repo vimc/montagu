@@ -2366,3 +2366,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.38.0
+
+## Tickets
+* vimc-4870: Update text on the responsibilities page (202110 touchstone)
+
+## Other branches merged in this release
+
