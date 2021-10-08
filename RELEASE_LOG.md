@@ -2350,3 +2350,26 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.36.0
+
+## Tickets
+* VIMC-4835: Resolve CSV export performance issues
+* vimc-4841_regen: updating recipients list for diagnostic reports
+
+## Other branches merged in this release
+* docker_version
+
+# v2.37.0
+
+## Tickets
+* vimc-4868: Add guidance pages for 202110 touchstone
+
+## Other branches merged in this release
+
+# v2.38.0
+
+## Tickets
+* vimc-4870: Update text on the responsibilities page (202110 touchstone)
+
+## Other branches merged in this release
+
