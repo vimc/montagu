@@ -66,7 +66,7 @@ def generate():
         "JHU-Lessler": ["justin@jhu.edu","akwinter@jhu.edu","shauntruelove@jhu.edu"],
         "JHU-Lessler-WHO": "justin@jhu.edu",
         "JHU-Tam":  ["yvonneyotam@jhu.edu","ecarter@jhu.edu"],
-        "KPW-Jackson": ["Michael.L.Jackson@kp.org","Eric.Johnson@kp.org"],
+        "KPW-Jackson": "Eric.Johnson@kp.org",
         "Li": "xi.cira.li@gmail.com",
         "LSHTM-Clark": ["Kaja.Abbas@lshtm.ac.uk","Mark.Jit@lshtm.ac.uk","Petra.Klepac@lshtm.ac.uk","Hira.Tanvir@lshtm.ac.uk","Kiesha.Prem@lshtm.ac.uk"],
         "LSHTM-Jit": ["Mark.Jit@lshtm.ac.uk","Kaja.Abbas@lshtm.ac.uk","Han.Fu@lshtm.ac.uk","Megan.Auzenbergs@lshtm.ac.uk"],
