@@ -2373,3 +2373,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.38.1
+
+## Tickets
+* vimc-4904: create proportion_risk column in coverage
+
+## Other branches merged in this release
+
