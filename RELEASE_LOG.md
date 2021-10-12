@@ -2380,3 +2380,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.39.0
+
+## Tickets
+* VIMC-4907: Add coverage proportion_risk column
+
+## Other branches merged in this release
+
