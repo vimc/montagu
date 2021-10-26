@@ -10,7 +10,7 @@ from os.path import abspath, dirname, join
 def generate():
     report = "diagnostics-burden-report"
     subject = "VIMC diagnostic report: {touchstone} - {group} - {disease}"
-    timeout = 1800
+    timeout = 7200
 
     vimc_recipients = [
         "k.gaythorpe@imperial.ac.uk",
