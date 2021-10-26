@@ -17,7 +17,7 @@ CDA-Razavi:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 Cambridge-Trotter:
   MenA:
   - parameters:
@@ -35,7 +35,7 @@ Cambridge-Trotter:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 Emory-Lopman:
   Rota:
   - parameters:
@@ -53,7 +53,7 @@ Emory-Lopman:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 Harvard-Sweet:
   HPV:
   - parameters:
@@ -71,7 +71,7 @@ Harvard-Sweet:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 IC-Garske:
   YF:
   - parameters:
@@ -89,7 +89,7 @@ IC-Garske:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 IC-Hallett:
   HepB:
   - parameters:
@@ -107,7 +107,7 @@ IC-Hallett:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 ICDDRB-Qadri:
   Typhoid:
   - parameters:
@@ -125,7 +125,7 @@ ICDDRB-Qadri:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 IVI-Kim:
   Cholera:
   - parameters:
@@ -143,7 +143,7 @@ IVI-Kim:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   Typhoid:
   - parameters:
       disease: Typhoid
@@ -160,7 +160,7 @@ IVI-Kim:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 JHU-Lee:
   Cholera:
   - parameters:
@@ -178,7 +178,7 @@ JHU-Lee:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   Typhoid:
   - parameters:
       disease: Typhoid
@@ -195,7 +195,7 @@ JHU-Lee:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 JHU-Lessler:
   Rubella:
   - parameters:
@@ -213,7 +213,7 @@ JHU-Lessler:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 JHU-Lessler-WHO:
   Rubella:
   - parameters:
@@ -231,7 +231,7 @@ JHU-Lessler-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 JHU-Tam:
   Hib:
   - parameters:
@@ -249,7 +249,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   PCV:
   - parameters:
       disease: PCV
@@ -266,7 +266,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   Rota:
   - parameters:
       disease: Rota
@@ -283,7 +283,7 @@ JHU-Tam:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 KPW-Jackson:
   MenA:
   - parameters:
@@ -301,7 +301,7 @@ KPW-Jackson:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 LSHTM-Clark:
   Hib:
   - parameters:
@@ -319,7 +319,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   PCV:
   - parameters:
       disease: PCV
@@ -336,7 +336,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   Rota:
   - parameters:
       disease: Rota
@@ -353,7 +353,7 @@ LSHTM-Clark:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 LSHTM-Jit:
   HPV:
   - parameters:
@@ -371,7 +371,7 @@ LSHTM-Jit:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   Measles:
   - parameters:
       disease: Measles
@@ -388,7 +388,7 @@ LSHTM-Jit:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 LSHTM-Jit-WHO:
   Measles:
   - parameters:
@@ -406,7 +406,7 @@ LSHTM-Jit-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 Li:
   HepB:
   - parameters:
@@ -424,7 +424,7 @@ Li:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 NUS-Chen:
   PCV:
   - parameters:
@@ -442,7 +442,7 @@ NUS-Chen:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 OUCRU-Clapham:
   JE:
   - parameters:
@@ -460,7 +460,7 @@ OUCRU-Clapham:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 PHE-Vynnycky:
   Rubella:
   - parameters:
@@ -478,7 +478,7 @@ PHE-Vynnycky:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 PHE-Vynnycky-WHO:
   Rubella:
   - parameters:
@@ -496,7 +496,7 @@ PHE-Vynnycky-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 PSU-Ferrari:
   Measles:
   - parameters:
@@ -514,7 +514,7 @@ PSU-Ferrari:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 PSU-Ferrari-WHO:
   Measles:
   - parameters:
@@ -532,7 +532,7 @@ PSU-Ferrari-WHO:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 UND-Moore:
   JE:
   - parameters:
@@ -550,7 +550,7 @@ UND-Moore:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 UND-Perkins:
   YF:
   - parameters:
@@ -568,7 +568,7 @@ UND-Perkins:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 VIMC:
   Cholera:
   - parameters:
@@ -586,7 +586,7 @@ VIMC:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
   Typhoid:
   - parameters:
       disease: Typhoid
@@ -603,7 +603,7 @@ VIMC:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
 Yale-Pitzer:
   Typhoid:
   - parameters:
@@ -621,4 +621,4 @@ Yale-Pitzer:
       - e.russell@imperial.ac.uk
       - montagu-help@imperial.ac.uk
       subject: 'VIMC diagnostic report: {touchstone} - {group} - {disease}'
-    timeout: 1800
+    timeout: 7200
