@@ -75,10 +75,10 @@ def generate():
         "OUCRU-Clapham": ["hannah.clapham@nus.edu.sg","shreya@nus.edu.sg"],
         "PHE-Vynnycky": ["emilia.vynnycky@phe.gov.uk","timos.papadopoulos@phe.gov.uk"],
         "PHE-Vynnycky-WHO": "emilia.vynnycky@phe.gov.uk",
-        "PSU-Ferrari": "mjf283@psu.edu",
+        "PSU-Ferrari": ["mjf283@psu.edu","sah5761@psu.edu"],
         "PSU-Ferrari-WHO": "mjf283@psu.edu",
         "UND-Moore": ["smoore15@nd.edu","qtran4@nd.edu"],
-        "UND-Perkins": ["taperkins@nd.edu","John.H.Huber.24@nd.edu"],
+        "UND-Perkins": ["taperkins@nd.edu","John.H.Huber.24@nd.edu","qtran4@nd.edu"],
         "Yale-Pitzer": ["virginia.pitzer@yale.edu","holly.burrows@yale.edu"],
         "VIMC": "montagu-help@imperial.ac.uk"
     }
