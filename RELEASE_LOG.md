@@ -2387,3 +2387,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.39.1
+
+## Tickets
+* vimc-4924: Increase diagnostic report timeout
+
+## Other branches merged in this release
+* kimwoodruff-patch-2
+* kimwoodruff-patch-3
+
