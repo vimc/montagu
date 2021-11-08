@@ -56,7 +56,7 @@ def generate():
     group_PIs = {
         "Cambridge-Trotter": ["clt56@cam.ac.uk","ak889@cam.ac.uk"],
         "CDA-Razavi": "homie.razavi@centerforda.com",
-        "Emory-Lopman": ["benjamin.alan.lopman@emory.edu","alicia.nicole.mullis.kraay@emory.edu"],
+        "Emory-Lopman": ["benjamin.alan.lopman@emory.edu","alicia.nicole.mullis.kraay@emory.edu","aniruddha.deshpande@emory.edu"],
         "Harvard-Sweet": ["ssweet@hsph.harvard.edu","aportnoy@mail.harvard.edu","jkim@hsph.harvard.edu"],
         "IC-Garske": ["k.gaythorpe@imperial.ac.uk","keith.fraser@imperial.ac.uk"],
         "IC-Hallett": ["timothy.hallett@imperial.ac.uk","m.de-villiers@imperial.ac.uk"],
