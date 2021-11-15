@@ -68,7 +68,7 @@ def generate():
         "JHU-Tam":  ["yvonneyotam@jhu.edu","ecarter@jhu.edu"],
         "KPW-Jackson": "Eric.Johnson@kp.org",
         "Li": "xi.cira.li@gmail.com",
-        "LSHTM-Clark": ["Kaja.Abbas@lshtm.ac.uk","Mark.Jit@lshtm.ac.uk","Petra.Klepac@lshtm.ac.uk","Kiesha.Prem@lshtm.ac.uk"],
+        "LSHTM-Clark": ["Kaja.Abbas@lshtm.ac.uk","Mark.Jit@lshtm.ac.uk","Megan.Auzenbergs@lshtm.ac.uk"],
         "LSHTM-Jit": ["Mark.Jit@lshtm.ac.uk","Kaja.Abbas@lshtm.ac.uk","Han.Fu@lshtm.ac.uk","Megan.Auzenbergs@lshtm.ac.uk"],
         "LSHTM-Jit-WHO": "Mark.Jit@lshtm.ac.uk",
         "NUS-Chen": ["ephchc@nus.edu.sg","ephjkje@nus.edu.sg","Mark.Jit@lshtm.ac.uk"],
