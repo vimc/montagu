@@ -2396,3 +2396,13 @@ Minor css change
 * kimwoodruff-patch-2
 * kimwoodruff-patch-3
 
+# v2.40.0
+
+## Tickets
+* vimc-5000: creat source_from for coverage table
+
+## Other branches merged in this release
+* kimwoodruff-patch-4
+* kimwoodruff-patch-5
+* kimwoodruff-patch-6
+
