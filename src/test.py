@@ -25,7 +25,6 @@ import requests
 
 import versions
 from docker_helpers import get_image_name, pull
-from settings import get_secret
 
 
 def run_in_buildkite_block(name, work):
@@ -78,7 +77,7 @@ def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
         yt = YTClient('https://mrc-ide.myjetbrains.com/youtrack/',
-                      token=get_secret("vimc-robot/youtrack-task-queue-token"))
+                      token=os.environ["YOUTRACK_TOKEN"])
         app = celery.Celery(broker="redis://guest@localhost//",
                             backend="redis://")
         sig = "run-diagnostic-reports"
