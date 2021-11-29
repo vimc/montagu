@@ -14,15 +14,18 @@ Options:
 """
 
 from subprocess import run
+
+from YTClient.YTClient import YTClient
+from YTClient.YTDataClasses import Command
 from docopt import docopt
 
-import sys
 import os
 import celery
 import requests
 
 import versions
 from docker_helpers import get_image_name, pull
+from settings import get_secret
 
 
 def run_in_buildkite_block(name, work):
@@ -74,11 +77,13 @@ def webapp_integration_tests():
 def task_queue_integration_tests():
     def work():
         print("Running task queue integration tests")
+        yt = YTClient('https://mrc-ide.myjetbrains.com/youtrack/',
+                      token=get_secret("vimc-robot/youtrack-task-queue-token"))
         app = celery.Celery(broker="redis://guest@localhost//",
                             backend="redis://")
         sig = "run-diagnostic-reports"
         args = ["testGroup", "testDisease", "testTouchstone-1",
-                "2020-11-04T12:21:15","no_vaccination"]
+                "2020-11-04T12:21:15", "no_vaccination"]
         signature = app.signature(sig, args)
         versions = signature.delay().get()
         assert len(versions) == 1
@@ -88,7 +93,10 @@ def task_queue_integration_tests():
         s = "VIMC diagnostic report: testTouchstone-1 - testGroup - testDisease"
         assert emails[0]["subject"] == s
         assert emails[0]["to"]["value"][0][
-                   "address"] == "minimal_modeller@example.com"
+                   "address"] == "minimal_modeller@example.com"  #
+        issues = yt.get_issues("tag: {}".format("testTouchstone-1"))
+        assert len(issues) == 1
+        yt.run_command(Command(issues, "delete"))
 
     run_in_buildkite_block("task_queue_integration_tests", work)
 
@@ -110,7 +118,7 @@ def start_orderly_web():
         run(["docker", "volume", "create", "orderly_volume"], check=True)
 
         run(["docker", "run", "-d",
-            "--network", "montagu_default",
+             "--network", "montagu_default",
              "--name", "redis",
              "redis"], check=True)
 
@@ -174,12 +182,13 @@ def start_orderly_web():
         # add task q user
         add_user("montagu-task@imperial.ac.uk", ow_cli_image)
         grant_permissions("montagu-task@imperial.ac.uk", ow_cli_image,
-                          ["*/reports.run", "*/reports.review", "*/reports.read"])
+                          ["*/reports.run", "*/reports.review",
+                           "*/reports.read"])
 
         # user for webapp tests
         add_user("test.user@example.com", ow_cli_image)
-        grant_permissions("test.user@example.com", ow_cli_image, ["*/users.manage"])
-
+        grant_permissions("test.user@example.com", ow_cli_image,
+                          ["*/users.manage"])
 
     run_in_buildkite_block("start_orderly_web", work)
 

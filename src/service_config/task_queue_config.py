@@ -52,6 +52,9 @@ def configure_task_queue(service,
         smtp["user"] = "montagu"
         smtp["password"] = get_secret("email/password")
 
+    config["servers"]["youtrack"]["token"] = \
+        get_secret("vimc-robot/youtrack-task-queue-token")
+
     print("- writing config to container")
     with open(local_config_file, "w") as file:
         yaml.dump(config, file)

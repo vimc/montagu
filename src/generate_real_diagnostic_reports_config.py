@@ -23,6 +23,21 @@ def generate():
         "montagu-help@imperial.ac.uk"
     ]
 
+    vimc_assignees = {
+        "Cholera": "k.gaythorpe",
+        "HepB": "j.roth",
+        "Hib": "a.hartner",
+        "HPV": "k.gaythorpe",
+        "JE": "j.roth",
+        "Measles": "j.roth",
+        "MenA": "j.roth",
+        "PCV": "a.hartner",
+        "Rota": "a.hartner",
+        "Rubella": "k.gaythorpe",
+        "Typhoid": "k.gaythorpe",
+        "YF": "j.roth"
+    }
+
     group_diseases = {
         "Cambridge-Trotter": ["MenA"],
         "CDA-Razavi": ["HepB"],
@@ -35,7 +50,7 @@ def generate():
         "JHU-Lee": ["Cholera", "Typhoid"],
         "JHU-Lessler": ["Rubella"],
         "JHU-Lessler-WHO": ["Rubella"],
-        "JHU-Tam":	["Hib", "PCV", "Rota"],
+        "JHU-Tam": ["Hib", "PCV", "Rota"],
         "KPW-Jackson": ["MenA"],
         "Li": ["HepB"],
         "LSHTM-Clark": ["Hib", "PCV", "Rota"],
@@ -45,7 +60,7 @@ def generate():
         "OUCRU-Clapham": ["JE"],
         "PHE-Vynnycky": ["Rubella"],
         "PHE-Vynnycky-WHO": ["Rubella"],
-        "PSU-Ferrari":	["Measles"],
+        "PSU-Ferrari": ["Measles"],
         "PSU-Ferrari-WHO": ["Measles"],
         "UND-Moore": ["JE"],
         "UND-Perkins": ["YF"],
@@ -54,32 +69,44 @@ def generate():
     }
 
     group_PIs = {
-        "Cambridge-Trotter": ["clt56@cam.ac.uk","ak889@cam.ac.uk"],
+        "Cambridge-Trotter": ["clt56@cam.ac.uk", "ak889@cam.ac.uk"],
         "CDA-Razavi": "homie.razavi@centerforda.com",
-        "Emory-Lopman": ["benjamin.alan.lopman@emory.edu","alicia.nicole.mullis.kraay@emory.edu","aniruddha.deshpande@emory.edu"],
-        "Harvard-Sweet": ["ssweet@hsph.harvard.edu","aportnoy@mail.harvard.edu","jkim@hsph.harvard.edu"],
-        "IC-Garske": ["k.gaythorpe@imperial.ac.uk","keith.fraser@imperial.ac.uk"],
-        "IC-Hallett": ["timothy.hallett@imperial.ac.uk","m.de-villiers@imperial.ac.uk"],
+        "Emory-Lopman": ["benjamin.alan.lopman@emory.edu",
+                         "alicia.nicole.mullis.kraay@emory.edu",
+                         "aniruddha.deshpande@emory.edu"],
+        "Harvard-Sweet": ["ssweet@hsph.harvard.edu",
+                          "aportnoy@mail.harvard.edu",
+                          "jkim@hsph.harvard.edu"],
+        "IC-Garske": ["k.gaythorpe@imperial.ac.uk",
+                      "keith.fraser@imperial.ac.uk"],
+        "IC-Hallett": ["timothy.hallett@imperial.ac.uk",
+                       "m.de-villiers@imperial.ac.uk"],
         "ICDDRB-Qadri": "fqadri@icddrb.org",
         "IVI-Kim": "jonghoon.kim@ivi.int",
-        "JHU-Lee": ["elizabeth.c.lee@jhu.edu","kzou7@jhu.edu","azman@jhu.edu"],
-        "JHU-Lessler": ["justin@jhu.edu","awinter@uga.edu","shauntruelove@jhu.edu"],
+        "JHU-Lee": ["elizabeth.c.lee@jhu.edu", "kzou7@jhu.edu",
+                    "azman@jhu.edu"],
+        "JHU-Lessler": ["justin@jhu.edu", "awinter@uga.edu",
+                        "shauntruelove@jhu.edu"],
         "JHU-Lessler-WHO": "justin@jhu.edu",
-        "JHU-Tam":  ["yvonneyotam@jhu.edu","ecarter@jhu.edu"],
+        "JHU-Tam": ["yvonneyotam@jhu.edu", "ecarter@jhu.edu"],
         "KPW-Jackson": "Eric.Johnson@kp.org",
         "Li": "xi.cira.li@gmail.com",
-        "LSHTM-Clark": ["Kaja.Abbas@lshtm.ac.uk","Mark.Jit@lshtm.ac.uk","Megan.Auzenbergs@lshtm.ac.uk"],
-        "LSHTM-Jit": ["Mark.Jit@lshtm.ac.uk","Kaja.Abbas@lshtm.ac.uk","Han.Fu@lshtm.ac.uk","Megan.Auzenbergs@lshtm.ac.uk"],
+        "LSHTM-Clark": ["Kaja.Abbas@lshtm.ac.uk", "Mark.Jit@lshtm.ac.uk",
+                        "Megan.Auzenbergs@lshtm.ac.uk"],
+        "LSHTM-Jit": ["Mark.Jit@lshtm.ac.uk", "Kaja.Abbas@lshtm.ac.uk",
+                      "Han.Fu@lshtm.ac.uk", "Megan.Auzenbergs@lshtm.ac.uk"],
         "LSHTM-Jit-WHO": "Mark.Jit@lshtm.ac.uk",
-        "NUS-Chen": ["ephchc@nus.edu.sg","ephjkje@nus.edu.sg","Mark.Jit@lshtm.ac.uk"],
-        "OUCRU-Clapham": ["hannah.clapham@nus.edu.sg","shreya@nus.edu.sg"],
-        "PHE-Vynnycky": ["emilia.vynnycky@phe.gov.uk","timos.papadopoulos@phe.gov.uk"],
+        "NUS-Chen": ["ephchc@nus.edu.sg", "ephjkje@nus.edu.sg",
+                     "Mark.Jit@lshtm.ac.uk"],
+        "OUCRU-Clapham": ["hannah.clapham@nus.edu.sg", "shreya@nus.edu.sg"],
+        "PHE-Vynnycky": ["emilia.vynnycky@phe.gov.uk",
+                         "timos.papadopoulos@phe.gov.uk"],
         "PHE-Vynnycky-WHO": "emilia.vynnycky@phe.gov.uk",
-        "PSU-Ferrari": ["mjf283@psu.edu","sah5761@psu.edu"],
+        "PSU-Ferrari": ["mjf283@psu.edu", "sah5761@psu.edu"],
         "PSU-Ferrari-WHO": "mjf283@psu.edu",
-        "UND-Moore": ["smoore15@nd.edu","qtran4@nd.edu"],
-        "UND-Perkins": ["taperkins@nd.edu","qtran4@nd.edu"],
-        "Yale-Pitzer": ["virginia.pitzer@yale.edu","holly.burrows@yale.edu"],
+        "UND-Moore": ["smoore15@nd.edu", "qtran4@nd.edu"],
+        "UND-Perkins": ["taperkins@nd.edu", "qtran4@nd.edu"],
+        "Yale-Pitzer": ["virginia.pitzer@yale.edu", "holly.burrows@yale.edu"],
         "VIMC": "montagu-help@imperial.ac.uk"
     }
 
@@ -94,6 +121,7 @@ def generate():
             config[group][disease] = [{
                 "report_name": report,
                 "parameters": parameters,
+                "assignee": vimc_assignees[disease],
                 "success_email": {
                     "recipients": copy(vimc_recipients),  # TODO: add pi_email
                     "subject": subject
@@ -101,9 +129,11 @@ def generate():
                 "timeout": timeout
             }]
 
-    file_path = join(paths.container_config, "task_queue", "real_diagnostic_reports.yml")
+    file_path = join(paths.container_config, "task_queue",
+                     "real_diagnostic_reports.yml")
     with open(file_path, "w") as file:
-        file.write('# This file was generated using ./src/generate_real_diagnostic_reports_config.py\n')
+        file.write(
+            '# This file was generated using ./src/generate_real_diagnostic_reports_config.py\n')
         file.write('# Do not edit this file manually.\n')
         yaml.dump(config, file)
     print("Wrote config to: " + file_path)
