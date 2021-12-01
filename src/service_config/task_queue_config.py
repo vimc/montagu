@@ -11,7 +11,8 @@ def configure_task_queue(service,
                          orderly_web_url,
                          use_real_diagnostic_reports,
                          email_uploader,
-                         fake_smtp):
+                         fake_smtp,
+                         is_prod):
     container = service.task_queue
 
     print("Configuring Task Queue")
@@ -52,9 +53,9 @@ def configure_task_queue(service,
         smtp["user"] = "montagu"
         smtp["password"] = get_secret("email/password")
 
-    config["servers"]["youtrack"]["token"] = \
-        get_secret("vimc-robot/youtrack-task-queue-token")
-
+    if is_prod:
+        config["servers"]["youtrack"]["token"] = \
+            get_secret("vimc-robot/youtrack-task-queue-token")
     print("- writing config to container")
     with open(local_config_file, "w") as file:
         yaml.dump(config, file)
