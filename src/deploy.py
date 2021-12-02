@@ -160,7 +160,8 @@ def configure_montagu(service, data_exists):
                          service.settings["orderly_web_api_url"],
                          service.settings["use_real_diagnostic_reports"],
                          service.settings["email_burden_estimate_uploader"],
-                         service.settings["fake_smtp"])
+                         service.settings["fake_smtp"],
+                         is_prod)
 
     configure_proxy(service, cert_paths)
 

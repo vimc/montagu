@@ -1,6 +1,7 @@
 testGroup:
   testDisease:
     - report_name: diagnostic
+      assignee: a.hill
       success_email:
         recipients:
           - minimal_modeller@example.com

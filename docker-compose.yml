@@ -94,6 +94,8 @@ services:
     logging: *log-journald
     depends_on:
       - mq
+    environment:
+      - YOUTRACK_TOKEN=$YOUTRACK_TOKEN
 volumes:
   static_logs:
   static_volume:
