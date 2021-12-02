@@ -2406,3 +2406,13 @@ Minor css change
 * kimwoodruff-patch-5
 * kimwoodruff-patch-6
 
+# v2.41.0
+
+## Tickets
+* vimc-4975: Admin portal: Add column to Users page indicating if user has permissions
+* vimc-5014: Create YouTrack ticket for each completed diagnostic report
+* vimc-5265: Create tickets on report run failure
+* vimc-5266: Update Montagu deploy to support creating YT tickets
+
+## Other branches merged in this release
+
