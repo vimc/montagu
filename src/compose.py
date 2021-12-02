@@ -43,6 +43,10 @@ def get_env(settings):
     else:
         db_config_file = "postgresql.conf"
 
+    youtrack_token = "None"
+    if "YOUTRACK_TOKEN" in os.environ:
+        youtrack_token = os.environ["YOUTRACK_TOKEN"]
+
     return {
         'MONTAGU_REGISTRY': montagu_registry,
         'VIMC_REGISTRY': "vimc",
@@ -63,5 +67,5 @@ def get_env(settings):
         'MONTAGU_STATIC_VERSION': versions.static,
 
         'MONTAGU_TASK_QUEUE_VERSION': versions.task_queue,
-        'YOUTRACK_TOKEN': os.environ["YOUTRACK_TOKEN"]
+        'YOUTRACK_TOKEN': youtrack_token
     }
