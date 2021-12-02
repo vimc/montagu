@@ -2,7 +2,7 @@ from subprocess import Popen
 from docker_helpers import montagu_registry
 
 import shutil
-
+import os
 import versions
 
 
@@ -62,5 +62,6 @@ def get_env(settings):
 
         'MONTAGU_STATIC_VERSION': versions.static,
 
-        'MONTAGU_TASK_QUEUE_VERSION': versions.task_queue
+        'MONTAGU_TASK_QUEUE_VERSION': versions.task_queue,
+        'YOUTRACK_TOKEN': os.environ["YOUTRACK_TOKEN"]
     }
