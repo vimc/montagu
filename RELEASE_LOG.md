@@ -2416,3 +2416,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.41.1
+
+## Tickets
+* vimc-5265: Create tickets on report run failure
+
+## Other branches merged in this release
+
