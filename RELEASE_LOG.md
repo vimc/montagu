@@ -2423,3 +2423,13 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.41.2
+
+## Tickets
+* vimc-4932: Include rows for each uploaded estimate set in responsibilities summary
+* vimc-4975: Admin portal: Add column to Users page indicating if user has permissions
+* vimc-6040: Add db view equivalent of burden view for closed responsibilities
+
+## Other branches merged in this release
+* mrc-5016
+
