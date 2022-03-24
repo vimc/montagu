@@ -2433,3 +2433,10 @@ Minor css change
 ## Other branches merged in this release
 * mrc-5016
 
+# v2.41.3
+
+## Tickets
+* vimc-6273: add column gavi74 to country_metadata
+
+## Other branches merged in this release
+
