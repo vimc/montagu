@@ -2453,3 +2453,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.41.6
+
+## Tickets
+* vimc-6279: Coverage should be accepted for any valid country
+
+## Other branches merged in this release
+
