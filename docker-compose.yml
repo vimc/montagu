@@ -26,6 +26,7 @@ services:
       # If password_group is 'production' then emails will be really sent, and this
       # volume will remain empty. Otherwise emails are written to disk here.
       - emails:/tmp/montagu_emails
+      - burden_estimate_files:/tmp/burden_estimate_files
   db:
     image: ${VIMC_REGISTRY}/montagu-db:${MONTAGU_DB_VERSION}
     restart: always
@@ -78,6 +79,7 @@ services:
       - "6379:6379"
     volumes:
       - mq:/data
+      - burden_estimate_files:/burden_estimate_files
   flower:
     image: mher/flower:0.9.5
     restart: always
@@ -104,3 +106,4 @@ volumes:
   guidance_volume:
   emails:
   mq:
+  burden_estimate_files:
