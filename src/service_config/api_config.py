@@ -25,9 +25,6 @@ def configure_api(service, db_password: str, keypair_paths, hostname, is_prod: b
     generate_api_config_file(service, config_path, db_password, hostname,
                              is_prod, orderly_web_api_url, celery_flower_host)
 
-    print("- Making burden estimate files accessible to task queue")
-    service.api.exec_run("chmod a+w tmp/burden_estimate_files")
-
     print("- Sending go signal to API")
     service.api.exec_run("touch {}/go_signal".format(config_path))
 
