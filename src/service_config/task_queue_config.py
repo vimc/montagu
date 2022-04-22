@@ -56,6 +56,9 @@ def configure_task_queue(service,
     if is_prod:
         config["servers"]["youtrack"]["token"] = \
             get_secret("vimc-robot/youtrack-task-queue-token")
+
+    config["tasks"]["archive_folder_contents"]["min_file_age_seconds"] = 3600
+
     print("- writing config to container")
     with open(local_config_file, "w") as file:
         yaml.dump(config, file)
