@@ -63,6 +63,7 @@ def generate_api_config_file(service, config_path, db_password: str, hostname: s
         print("app.url={}".format(public_url), file=file)
         print("celery.flower.host={}".format(celery_flower_host), file=file)
         print("orderlyweb.api.url={}".format(orderly_web_api_url), file=file)
+        print("upload.dir=/upload_dir", file=file)
         configure_email(file, is_prod)
 
     docker_cp(config_file_path, api_name, join(config_path, "config.properties"))
