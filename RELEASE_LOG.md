@@ -2460,3 +2460,18 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.41.7
+
+## Tickets
+* vimc-6015: Write task to clean up uploaded burden estimate files
+* vimc-6327: Montagu deploy: add shared volume and task queue configuration
+* vimc-6328: Add scheduled job to run archive folder contents task nightly
+* vimc-6329: API to use shared volume for burden estimate files, and should not delete them
+* vimc-6335: Migrate montagu-db to centre vault
+* vimc-6441: Upgrade gradle
+* vimc-6443: Upgrade kotlin
+* vimc-6582: Update support.montagu.dide.ic.ac.uk SSL cert
+* vimc-6687: db migration Gavi eligibility
+
+## Other branches merged in this release
+
