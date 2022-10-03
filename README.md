@@ -82,7 +82,7 @@ When deploying to the production server, make sure to first become the
 Database passwords are managed by the vault and laid out as:
 
 ```
-/secret/database/:password_group/users/:username
+/secret/vimc/database/:password_group/users/:username
 ```
 
 Currently our two password groups are `science` and `production`
@@ -92,20 +92,20 @@ Currently our two password groups are `science` and `production`
 To get a database password for use with postgres
 
 ```
-export PGPASSWORD=$(vault read -field=password secret/database/science/users/readonly)
+export PGPASSWORD=$(vault read -field=password secret/vimc/database/science/users/readonly)
 psql -h support.montagu.dide.ic.ac.uk -U readonly -d montagu
 ```
 
 This gets the password for the `readonly` user for the `science` password group (which is suitable for the database running on support.montagu.dide.ic.ac.uk). To see all users, use:
 
 ```
-vault list secret/database/science/users
+vault list secret/vimc/science/users
 ```
 
 or
 
 ```
-vault list secret/database/production/users
+vault list secret/vimc/database/production/users
 ```
 
 ### Add a new user

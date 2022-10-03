@@ -6,7 +6,7 @@
   "hostname": "support.montagu.dide.ic.ac.uk",
   "enable_db_replication": false,
   "include_guidance_reports": true,
-  "vault_address": "https://support.montagu.dide.ic.ac.uk:8200",
+  "vault_address": "https://vault.dide.ic.ac.uk:8200",
   "port": 11443,
   "require_clean_git": false,
   "instance_name": "science",
