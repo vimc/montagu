@@ -2475,3 +2475,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.42.0
+
+## Tickets
+* vimc-6759: deprecate vault
+* vimc-6763: new activity_type
+
+## Other branches merged in this release
+* update_vault
+
