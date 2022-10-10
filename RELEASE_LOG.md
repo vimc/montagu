@@ -2484,3 +2484,10 @@ Minor css change
 ## Other branches merged in this release
 * update_vault
 
+# v2.43.0
+
+## Tickets
+* vimc-6772: remove model guidance for new touchstones
+
+## Other branches merged in this release
+
