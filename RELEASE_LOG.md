@@ -2491,3 +2491,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.43.1
+
+## Tickets
+* vimc-6781: montagu-db migration - new burden outcome yll
+
+## Other branches merged in this release
+
