@@ -2498,3 +2498,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.43.2
+
+## Tickets
+* vimc-6842: Hide wide format coverage downloads 202212rfp touchstone
+* vimc-6848: Update blurb on responsibilities page for 202212rfp
+
+## Other branches merged in this release
+* kimwoodruff-patch-7
+
