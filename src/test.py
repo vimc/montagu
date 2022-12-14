@@ -78,17 +78,13 @@ def task_queue_integration_tests():
         print("Running task queue integration tests")
         yt = YTClient('https://mrc-ide.myjetbrains.com/youtrack/',
                       token=os.environ["YOUTRACK_TOKEN"])
-        print("got YT client")
         app = celery.Celery(broker="redis://localhost//",
                             backend="redis://")
-        print("created broker")
         sig = "run-diagnostic-reports"
         args = ["testGroup", "testDisease", "testTouchstone-1",
                 "2020-11-04T12:21:15", "no_vaccination"]
         signature = app.signature(sig, args)
-        print("got signature")
         versions = signature.delay().get()
-        print("got versions")
         assert len(versions) == 1
         # check expected notification email was sent to fake smtp server
         emails = requests.get("http://localhost:1080/api/emails").json()
