@@ -78,7 +78,7 @@ def task_queue_integration_tests():
         print("Running task queue integration tests")
         yt = YTClient('https://mrc-ide.myjetbrains.com/youtrack/',
                       token=os.environ["YOUTRACK_TOKEN"])
-        app = celery.Celery(broker="redis://guest@localhost//",
+        app = celery.Celery(broker="redis://localhost//",
                             backend="redis://")
         sig = "run-diagnostic-reports"
         args = ["testGroup", "testDisease", "testTouchstone-1",
