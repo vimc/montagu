@@ -29,12 +29,12 @@ When updating the certificate, look at the diff in Git on this file.
   `certificate` in the box at the top, and hopefully a result for 
   *Security Certificate Request* is available. 
 
-* It is self-explanatory; the certificate is a renewal, `montagu.vaccineimpact.org` is
+* It is fairly self-explanatory; the certificate is a renewal, `montagu.vaccineimpact.org` is
   the FQDN, it is a *production* environment, and the CSR text needs pasting at the end.
 
 * An additional step is needed since the FQDN is not obviously Imperial. ICT will get in 
   touch and ask for a CNAME tag to be added to the website, to verify to the certificate
-  company that we own it. This will be of the form `<text1> CNAME <text2>".
+  company that we own it. This will be of the form `<text1> CNAME <text2>`.
 
 * Login to cloudflare.com (various team members have access), and on the dashboard,
   vaccineimpact.org is registered under Alex's account. Click on that, then "DNS Settings".
