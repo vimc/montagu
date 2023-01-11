@@ -53,6 +53,8 @@ docker exec -it montagu_proxy_1 /bin/bash
 cd /etc/montagu/proxy
 ```
 
-* Now replace `certificate.pem` with the new certificate, and `nginx -s reload`. 
+* Perhaps copy the existing `certificate.pem` to a backup. Then edit `certificate.pem` 
+  to contain the new certificate. (I usually use `nano` and paste the text in with putty).
 
-* Verify all is well by browsing to https://mnontagu.vaccineimpact.org
+* `nginx -s reload` in the container, and verify all is well by browsing to 
+   https://mnontagu.vaccineimpact.org
