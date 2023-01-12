@@ -21,8 +21,7 @@ When updating the certificate, look at the diff in Git on this file.
   complain when there is a month to go.
 
 * The private key is `/secret/vimc/ssl/v2/production/key`; use the instructions 
-  on https://github.com/reside-ic/proxy-nginx/ to create the CSR, but do not write
-  it to the vault. Instead, the cert goes in this github folder.
+  on https://github.com/reside-ic/proxy-nginx/ to create the CSR (do not follow the instructions about writing the resulting certificate to the vault; the cert actually lives in this repo.)
 
 * The CSR needs posting to ICT. Start at
   https://servicemgt.imperial.ac.uk/ask and choose Contact Us, search for
