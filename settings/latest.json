@@ -19,7 +19,7 @@
   "use_production_db_config": false,
   "copy_static_files": true,
   "vault_address": "https://vault.dide.ic.ac.uk:8200",
-  "orderly_web_api_url": "https://support.montagu.dide.ic.ac.uk:12443/reports/api/v1",
+  "orderly_web_api_url": "https://support.montagu.dide.ic.ac.uk:12443/reports/api/v2",
   "use_real_diagnostic_reports": false,
   "email_burden_estimate_uploader": false,
   "fake_smtp": true

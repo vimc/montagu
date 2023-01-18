@@ -147,7 +147,7 @@ def start_orderly_web():
              "/go_signal"],
             check=True)
 
-        ow_image = get_image_name("orderly-web", "master")
+        ow_image = get_image_name("orderly-web", "mrc-3916")
         pull(ow_image)
         run([
             "docker", "run", "-d",
