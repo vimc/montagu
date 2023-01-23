@@ -36,7 +36,7 @@ def configure_task_queue(service,
     montagu["password"] = montagu_password
 
     # Task queue needs orderly-web url without /api/v1 suffix
-    ow_url_trimmed = orderly_web_url.replace("/api/v1", "")
+    ow_url_trimmed = orderly_web_url.replace("/api/v2", "")
     config["servers"]["orderlyweb"]["url"] = ow_url_trimmed
 
     config["tasks"]["diagnostic_reports"]["reports"] = diag_reports
