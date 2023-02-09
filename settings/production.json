@@ -18,7 +18,7 @@
   "copy_static_files": true,
   "use_production_db_config": true,
   "enable_db_replication": true,
-  "orderly_web_api_url": "https://montagu.vaccineimpact.org/reports/api/v1",
+  "orderly_web_api_url": "https://montagu.vaccineimpact.org/reports/api/v2",
   "use_real_diagnostic_reports": true,
   "email_burden_estimate_uploader": false,
   "fake_smtp": false
