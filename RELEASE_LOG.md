@@ -2507,3 +2507,17 @@ Minor css change
 ## Other branches merged in this release
 * kimwoodruff-patch-7
 
+# v2.43.3
+
+## Tickets
+* vimc-6444_minimal: Upgrade to java 11
+* vimc-6724: Upgrade pac4j
+* vimc-6894: Remove 'guest@' from redis links in montagu api
+* vimc-6897: Temporarily install constellation in every build step to allow CI to pass
+* vimc-6912: Update montagu.vaccineimpact.org cert
+* vimc-6927: update orderly web api url in orderly-web python client
+* vimc-6928: Update orderly web api url setting when deploying montagu
+
+## Other branches merged in this release
+* redis-version
+
