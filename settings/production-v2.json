@@ -5,7 +5,7 @@
   "require_clean_git": false,
   "notify_channel": "montagu-deploy",
   "port": 443,
-  "initial_data_source": "restore",
+  "initial_data_source": "bb8-restore",
   "update_on_deploy": false,
   "bb8_backup": false,
   "certificate": "production2",
