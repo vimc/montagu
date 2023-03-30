@@ -2521,3 +2521,13 @@ Minor css change
 ## Other branches merged in this release
 * redis-version
 
+# v2.43.4
+
+## Tickets
+
+## Other branches merged in this release
+* proxy-bots
+* update_chromedriver
+* vimc-6929
+* vimc-6974-2
+
