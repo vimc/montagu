@@ -2531,3 +2531,10 @@ Minor css change
 * vimc-6926 update OW API url in montagu-api
 * vimc-6974 update reverse proxy config
 
+# v2.43.5
+
+## Tickets
+* vimc-7064: Add new montagu v2 settings
+
+## Other branches merged in this release
+
