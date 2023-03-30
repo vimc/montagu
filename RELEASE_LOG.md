@@ -2528,6 +2528,6 @@ Minor css change
 ## Other branches merged in this release
 * proxy-bots
 * update_chromedriver
-* vimc-6929
-* vimc-6974-2
+* vimc-6926 update OW API url in montagu-api
+* vimc-6974 update reverse proxy config
 
