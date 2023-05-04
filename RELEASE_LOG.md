@@ -2538,3 +2538,12 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.43.6
+
+## Tickets
+* VIMC-7074: Montagu proxy HSTS not working, even though correct add_header is present
+
+## Other branches merged in this release
+* dependabot/pip/src/pyyaml-5.4
+* hillalex-patch-1
+
