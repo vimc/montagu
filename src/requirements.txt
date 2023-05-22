@@ -1,5 +1,5 @@
 docker==5.0.0
-requests==2.20.1
+requests==2.31.0
 pystache
 psycopg2==2.8.6
 docopt
