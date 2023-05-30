@@ -2547,3 +2547,10 @@ Minor css change
 * dependabot/pip/src/pyyaml-5.4
 * hillalex-patch-1
 
+# v2.43.7
+
+## Tickets
+* vimc-7116: Make UNWPP 2022 demography available to non-VIMC members
+
+## Other branches merged in this release
+
