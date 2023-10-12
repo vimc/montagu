@@ -2554,3 +2554,10 @@ Minor css change
 
 ## Other branches merged in this release
 
+# v2.43.8
+
+## Tickets
+* vimc-7229: Show guidance for latest touchstone
+
+## Other branches merged in this release
+
