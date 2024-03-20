@@ -16,6 +16,7 @@ def generate():
         "k.gaythorpe@imperial.ac.uk",
         "x.li@imperial.ac.uk",
         "a.hartner@imperial.ac.uk",
+        "m.shankar@imperial.ac.uk",
         "e.russell@imperial.ac.uk",
         "montagu-help@imperial.ac.uk"
     ]
