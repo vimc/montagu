@@ -10,6 +10,6 @@ function cleanup() {
 trap cleanup EXIT
 
 cp settings/buildkite.json src/montagu-deploy.json
-pip3 install --quiet -r src/requirements.txt
+pip3 install -r src/requirements.txt
 ./src/deploy.py
 ./src/test.py $@ --simulate-restart
