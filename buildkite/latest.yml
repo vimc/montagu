@@ -1,0 +1,3 @@
+steps:
+  - label: "Create latest build"
+    command: ./scripts/create-latest

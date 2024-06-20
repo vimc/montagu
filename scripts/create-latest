@@ -7,7 +7,7 @@ from subprocess import run, DEVNULL, PIPE
 # could if we wanted to.
 LATEST = "latest"
 ORIGIN = "origin"
-MASTER = "master"
+MASTER = "vimc-4311"
 UPDATE = "./src/update_versions_to_latest_master.py"
 
 
