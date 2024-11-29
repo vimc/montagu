@@ -1,3 +1,9 @@
+> [!NOTE]  
+> The repository has been supplanted by [montagu-deploy][montagu-deploy] and [montagu-config][montagu-config].
+
+[montagu-deploy]: https://github.com/vimc/montagu-deploy
+[montagu-config]: https://github.com/vimc/montagu-config
+
 # Montagu
 ## Prerequisites
 * [Docker Community Edition](https://docs.docker.com/engine/installation/) 
